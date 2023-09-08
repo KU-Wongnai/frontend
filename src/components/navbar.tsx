@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { ShoppingCart } from "lucide-react";
+import { Bike, LogOut, Settings, ShoppingCart, UtensilsCrossed } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,12 +46,28 @@ export default async function Navbar() {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>email</DropdownMenuLabel>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>My Store</DropdownMenuItem>
-              <DropdownMenuItem>Account Settings</DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <UtensilsCrossed className="mr-2 h-4 w-4" />
+                <span>Your restaurant</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <Bike className="mr-2 h-4 w-4" />
+                <span>Rider</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem></DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Logout</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
