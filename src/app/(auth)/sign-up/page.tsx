@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { UserAuthForm } from "@/components/user-auth-login-form";
+import { UserAuthForm } from "@/components/user-auth-signup-form";
 import logoRadius from "/src/assets/logo/logo_white_radius.png";
 
 export const metadata: Metadata = {
@@ -28,13 +28,24 @@ export default function LoginPage() {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Register
+              </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to login
+                Enter your email below to create your account
               </p>
             </div>
             <UserAuthForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
+              If you already have an account, you can{" "}
+              <Link
+                href="/login"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                login
+              </Link>
+            </p>
+            {/* <p className="px-8 text-center text-sm text-muted-foreground">
               If you don&apos;t have an account, you can{" "}
               <Link
                 href="/sign-up"
@@ -42,7 +53,7 @@ export default function LoginPage() {
               >
                 create one
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
