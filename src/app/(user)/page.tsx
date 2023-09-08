@@ -53,6 +53,27 @@ export default function MainHome() {
           />
         </section>
 
+        {/* all menu */}
+        <section className="w-full bg-white pt-3 border-b rounded-2xl p-5 mt-6">
+          <div className="flex border-b mb-3 gap-2">
+            <ChefHat className="text-green-600 w-8 h-8" />
+            <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+              All menu
+            </h1>
+          </div>
+          <div className="grid grid-cols-5 gap-2">
+            {mockFoodData.map((food, index) => (
+              <FoodCard
+                key={index}
+                imageUrl={food.imageUrl}
+                foodName={food.foodName}
+                foodType={food.foodType}
+                reviewScore={food.reviewScore}
+                reviewCount={food.reviewCount}
+              />
+            ))}
+          </div>
+        </section>
 
       </main>
     </>
