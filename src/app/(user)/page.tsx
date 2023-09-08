@@ -50,11 +50,13 @@ export default function MainHome() {
             popular menu
           </h1>
           <FoodCard
+            id="1"
             imageUrl="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
             foodName="Pad Thai"
             foodType="Thai Food"
             reviewScore="4.5"
             reviewCount={100}
+            href="/menus/1"
           />
         </section>
 
@@ -69,12 +71,14 @@ export default function MainHome() {
           <div className="grid grid-cols-5 gap-2">
             {mockFoodData.map((food, index) => (
               <FoodCard
-                key={index}
+                key={food.id}
+                id={food.id}
                 imageUrl={food.imageUrl}
                 foodName={food.foodName}
                 foodType={food.foodType}
                 reviewScore={food.reviewScore}
                 reviewCount={food.reviewCount}
+                href={`/menus/${food.id}`}
               />
             ))}
           </div>
