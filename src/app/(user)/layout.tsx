@@ -9,7 +9,7 @@ export default function ShopLayout({
   return (
     <>
       <Navbar />
-      {children}
+      <main className="bg-gray-100 min-h-screen">{children}</main>
     </>
   );
 }
