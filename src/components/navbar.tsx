@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import { Bike, LogOut, Settings, ShoppingCart, UtensilsCrossed } from "lucide-react";
 import {
   DropdownMenu,
