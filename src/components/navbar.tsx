@@ -15,7 +15,7 @@ import { ComboboxDemo } from "./combobox-location";
 
 export default async function Navbar() {
   return (
-    <header className="px-3 py-4 border-b">
+    <header className="px-3 py-4 border-b sticky top-0 z-50 backdrop-blur-md bg-opacity-60 bg-white">
       <div className="container mx-auto flex justify-between items-center">
         <Link
           href="/"
