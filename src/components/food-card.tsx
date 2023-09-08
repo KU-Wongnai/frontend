@@ -1,14 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-interface FoodCardProps {
-  imageUrl: string;
-  foodName: string;
-  foodType: string;
-  reviewScore: string;
-  reviewCount: number;
-}
-
 const FoodCard: React.FC<FoodCardProps> = ({
   imageUrl,
   foodName,
@@ -17,7 +9,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
   reviewCount,
 }) => {
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg w-56">
+    <div className="rounded-lg overflow-hidden shadow-md w-56">
       <div className="h-40 relative">
         <Image
           src={imageUrl}
