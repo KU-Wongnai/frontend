@@ -1,14 +1,32 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# KU Wongnai - frontend
+
+This is a frontend repository for our web application built using Next.js, showcasing dynamic app routing.
+
+## Frameworks and Libraries
+
+This project uses the following frameworks and libraries:
+
+- [Shadcn](https://ui.shadcn.com/) for Re-usable components built using Radix UI and Tailwind CSS.
+
+## Prerequisites
+
+This project used `pnpm` so please install it first
+
+```sh
+npm i -g pnpm
+```
+
+Install the dependencies:
+
+```sh
+pnpm install
+```
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
 ```
 
