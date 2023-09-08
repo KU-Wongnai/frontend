@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function MainHome() {
   return (
     <>
-      <div className="relative w-screen h-[300px]">
+      <div className="relative h-[300px]">
         <Image
           src="https://images.unsplash.com/photo-1628294895950-9805252327bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
           alt="KU Wongnai"
