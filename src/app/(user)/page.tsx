@@ -1,6 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import FeatureIcon from "@/components/feature-icon";
+import FoodCard from "@/components/food-card";
+
+import { mockFoodData } from "../__mock__/food-card";
+import { ChefHat } from "lucide-react";
 
 export default function MainHome() {
   return (
@@ -17,7 +21,7 @@ export default function MainHome() {
       <main className="container mx-auto py-6">
         {/* food category */}
         <section className="w-full bg-white pt-3 border-b rounded-2xl p-5">
-          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
             food category
           </h1>
           <div className="flex gap-10 relative">
@@ -34,6 +38,21 @@ export default function MainHome() {
             </span>
           </div>
         </section>
+
+        {/* popular menu */}
+        <section className="w-full bg-white pt-3 border-b rounded-2xl p-5 mt-6">
+          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
+            popular menu
+          </h1>
+          <FoodCard
+            imageUrl="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+            foodName="Pad Thai"
+            foodType="Thai Food"
+            reviewScore="4.5"
+            reviewCount={100}
+          />
+        </section>
+
 
       </main>
     </>
