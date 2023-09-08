@@ -11,10 +11,8 @@ export default function UserLayout({
     <div className="flex flex-col min-h-screen">
       {/* Sticky Navbar */}
       <Navbar/>
-
       {/* Content */}
       <main className="flex-1 bg-gray-100">{children}</main>
-
       {/* Footer always at the bottom */}
       <Footer />
     </div>
