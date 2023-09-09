@@ -11,33 +11,22 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 - **React Hook Form**: For efficient and flexible [form validation](https://react-hook-form.com/).
 - **Lucide Icons**: Elevate aesthetics with [lucide icons](https://lucide.dev/), a set of gorgeous open-source icons.
 
-## 🚀 Setup & Development
+## 🐳 Docker Integration
 
-### Prerequisites
+For those who prefer Docker for development or deployment, we've got you covered. 
 
-1. **pnpm**: Our chosen package manager. Install it globally if you haven't:
+### Building and Running with Docker
 
-    ```sh
-    npm i -g pnpm
-    ```
+1. Ensure Docker and `docker-compose` are installed on your system.
 
-### Installation
-
-2. **Dependencies**: Ensure all the required packages are in place:
-
-    ```sh
-    pnpm install
-    ```
-
-### Running the App
-
-3. **Development Server**: Launch it with:
+2. Build and start the services defined in the `docker-compose.yml`:
 
     ```bash
-    pnpm dev
+    docker-compose up --build
     ```
+3. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
 
-4. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
+Upon successful execution, your app should be running inside a Docker container. Refer to the `docker-compose.yml` file for service configurations and port mappings.
 
 📝 **Pro Tip**: Dive right into customization with `app/page.tsx`. Real-time updates keep development agile.
 
