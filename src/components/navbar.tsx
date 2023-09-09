@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import { Bike, LogOut, Settings, ShoppingCart, UtensilsCrossed } from "lucide-react";
+import {
+  Bike,
+  LogOut,
+  Settings,
+  ShoppingCart,
+  UtensilsCrossed,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,7 +40,7 @@ export default async function Navbar() {
           </form>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/cart">
+          <Link href="/">
             <ShoppingCart className="w-7 h-7 mr-4" />
           </Link>
           <DropdownMenu>
@@ -64,8 +70,10 @@ export default async function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
+                <Link href="/login" className="flex items-center">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

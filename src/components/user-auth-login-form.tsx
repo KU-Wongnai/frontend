@@ -10,9 +10,9 @@ import { Label } from "@/components/ui/label";
 
 import salmon from "/src/assets/images/salmon.jpg";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface LoginAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export function LoginAuthForm({ className, ...props }: LoginAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
