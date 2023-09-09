@@ -69,7 +69,7 @@ export default function MainHome() {
             </h1>
           </div>
           <div className="grid grid-cols-5 gap-2">
-            {mockFoodData.map((food, index) => (
+            {mockFoodData.map((food) => (
               <FoodCard
                 key={food.id}
                 id={food.id}
