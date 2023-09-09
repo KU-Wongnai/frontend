@@ -1,8 +1,6 @@
 # KU Wongnai - Frontend
 
-Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app elegantly showcases dynamic app routing.
-
-[kuwongnai.vercel.app/](https://kuwongnai.vercel.app/) is the live demo of this repository.
+Welcome to the frontend repository of KU Wongnai, a dynamic web application built using Next.js. Explore our live demo [here](https://kuwongnai.vercel.app/).
 
 ## 🧰 Technologies and Libraries
 
