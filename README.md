@@ -1,50 +1,64 @@
-# KU Wongnai - frontend
+# KU Wongnai - Frontend
 
-This is a frontend repository for our web application built using Next.js, showcasing dynamic app routing.
+Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app elegantly showcases dynamic app routing.
 
-## Frameworks and Libraries
+## 🧰 Technologies and Libraries
 
-This project uses the following frameworks and libraries:
+- **Next.js**: Our foundational framework.
+- **Shadcn**: Enhancing UI through [Shadcn](https://ui.shadcn.com/), blending Radix UI with Tailwind CSS.
+- **React Hook Form**: For efficient and flexible [form validation](https://react-hook-form.com/).
+- **Lucide Icons**: Elevate aesthetics with [lucide icons](https://lucide.dev/), a set of gorgeous open-source icons.
 
-- [Shadcn](https://ui.shadcn.com/) for Re-usable components built using Radix UI and Tailwind CSS.
+## 🚀 Setup & Development
 
-## Prerequisites
+### Prerequisites
 
-This project used `pnpm` so please install it first
+1. **pnpm**: Our chosen package manager. Install it globally if you haven't:
 
-```sh
-npm i -g pnpm
-```
+    ```sh
+    npm i -g pnpm
+    ```
 
-Install the dependencies:
+### Installation
 
-```sh
-pnpm install
-```
+2. **Dependencies**: Ensure all the required packages are in place:
 
-run the development server:
+    ```sh
+    pnpm install
+    ```
 
-```bash
-pnpm dev
-```
+### Running the App
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Development Server**: Launch it with:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```bash
+    pnpm dev
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
 
-## Learn More
+📝 **Pro Tip**: Dive right into customization with `app/page.tsx`. Real-time updates keep development agile.
 
-To learn more about Next.js, take a look at the following resources:
+### Font Optimization
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Leverage the power of [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to seamlessly serve and optimize the Google Font, Inter.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 📚 Further Reading
 
-## Deploy on Vercel
+Enhance your understanding and skills with these resources:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js**:
+  - [Official Documentation](https://nextjs.org/docs) - Comprehensive guide on Next.js features.
+  - [Interactive Tutorial](https://nextjs.org/learn) - Hands-on learning with Next.js.
+  - [GitHub Repository](https://github.com/vercel/next.js/) - For those looking to contribute or get under the hood.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Other Libraries**:
+  - [React Hook Form](https://react-hook-form.com/)
+  - [Shadcn](https://ui.shadcn.com/)
+  - [Lucide Icons](https://lucide.dev/)
+
+## 🚀 Deployment
+
+Streamline your deployment on the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), the brainchild of Next.js creators.
+
+For detailed deployment insights, delve into the [Next.js deployment documentation](https://nextjs.org/docs/deployment).
