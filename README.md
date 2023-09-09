@@ -47,14 +47,14 @@ For those who prefer Docker for development or deployment, we've got you covered
 
 1. Ensure Docker and `docker-compose` are installed on your system.
 
-2. Build and start the services defined in the `docker-compose.yml`:
+2. Build and start the services defined in the `docker-compose.yaml`:
 
     ```bash
     docker-compose up --build
     ```
 3. Visit [http://localhost:3000](http://localhost:3000) to see the app in action.
 
-⚙️ **Note**: For service configurations and port settings, see `docker-compose.yml`.
+⚙️ **Note**: For service configurations and port settings, see `docker-compose.yaml`.
 
 📝 **Pro Tip**: Dive right into customization with `app/page.tsx`. Real-time updates keep development agile.
 
