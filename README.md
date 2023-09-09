@@ -11,6 +11,34 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 - **React Hook Form**: For efficient and flexible [form validation](https://react-hook-form.com/).
 - **Lucide Icons**: Elevate aesthetics with [lucide icons](https://lucide.dev/), a set of gorgeous open-source icons.
 
+## 🚀 Setup & Development
+
+### Prerequisites
+
+1. **pnpm**: Our chosen package manager. Install it globally if you haven't:
+
+    ```sh
+    npm i -g pnpm
+    ```
+
+### Installation
+
+2. **Dependencies**: Ensure all the required packages are in place:
+
+    ```sh
+    pnpm install
+    ```
+
+### Running the App
+
+3. **Development Server**: Launch it with:
+
+    ```bash
+    pnpm dev
+    ```
+
+4. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
+
 ## 🐳 Docker Integration
 
 For those who prefer Docker for development or deployment, we've got you covered. 
@@ -24,15 +52,11 @@ For those who prefer Docker for development or deployment, we've got you covered
     ```bash
     docker-compose up --build
     ```
-3. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
+3. Visit [http://localhost:3000](http://localhost:3000) to see the app in action.
 
-Upon successful execution, your app should be running inside a Docker container. Refer to the `docker-compose.yml` file for service configurations and port mappings.
+⚙️ **Note**: For service configurations and port settings, see `docker-compose.yml`.
 
 📝 **Pro Tip**: Dive right into customization with `app/page.tsx`. Real-time updates keep development agile.
-
-### Font Optimization
-
-Leverage the power of [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to seamlessly serve and optimize the Google Font, Inter.
 
 ## 📚 Further Reading
 
