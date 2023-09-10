@@ -1,5 +1,5 @@
 "use client";
-
+import './google-maps.d.ts';
 import DropdownDayInWeek from "@/components/dropdown-dayInWeek";
 import DropdownFoodCategories from "@/components/dropdown-foodCategories";
 import TagTitle from "@/components/tag-title";
@@ -134,7 +134,12 @@ export default function CreateRestaurant({}: Props) {
   });
 
   const handleMoveMarker = () => {
-    if (marker) {
+    // if (marker) {
+    //   const newPosition = new window.google.maps.LatLng(
+    //     markerPosition.lat,
+    //     markerPosition.lng
+    //   );
+    if (marker && window.google) { // Add optional chaining here
       const newPosition = new window.google.maps.LatLng(
         markerPosition.lat,
         markerPosition.lng
