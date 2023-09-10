@@ -21,7 +21,7 @@ export default function MainHome() {
 
       <FeatureIcon />
 
-      <main className="container mx-auto py-6">
+      <main className="container mx-auto py-6 px-4 sm:px-0">
         {/* food category */}
         <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5">
           <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
@@ -60,15 +60,15 @@ export default function MainHome() {
           />
         </section>
 
-        {/* all menu */}
+       {/* all menu */}
         <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
             <ChefHat className="text-green-600 w-8 h-8" />
-            <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
               All menu
             </h1>
           </div>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {mockFoodData.map((food) => (
               <FoodCard
                 key={food.id}
