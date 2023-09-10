@@ -1,12 +1,20 @@
+"use client"
+
 import FeatureIcon from "@/components/feature-icon";
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Avatar } from "@/components/ui/avatar";
 import { mockReview } from "@/app/__mock__/review";
 import Review from "@/components/review";
+import { useRouter } from "next/navigation";
 
 function ShowMenu({ params }: { params: { slug: string } }) {
+  const router = useRouter();
+
+  const mockRoute = () => {
+    router.push("/menus/1/review");
+  };
+
   return (
     <>
       <FeatureIcon />
@@ -26,10 +34,10 @@ function ShowMenu({ params }: { params: { slug: string } }) {
             <div className="flex flex-col bg-white rounded-2xl p-5 h-[347px]">
               <div className="flex justify-between">
                 <div className="flex flex-col">
-                  <div className="text-2xl font-bold">
+                  <h2 className="text-2xl font-bold">
                     Food Name {params.slug}
-                  </div>
-                  <div className="text-sm text-gray-500">Japanese</div>
+                  </h2>
+                  <p className="text-sm text-gray-500">Japanese</p>
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center">
@@ -92,7 +100,7 @@ function ShowMenu({ params }: { params: { slug: string } }) {
               Japanese
             </h3>
           </div>
-          <Button className="mt-3 bg-cyan-500">Review</Button>
+          <Button type="button" onClick={mockRoute} className="mt-3 bg-cyan-500">Review</Button>
         </section>
 
         {/* reviews */}
