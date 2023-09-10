@@ -1,5 +1,4 @@
 "use client";
-import './google-maps.d.ts';
 import DropdownDayInWeek from "@/components/dropdown-dayInWeek";
 import DropdownFoodCategories from "@/components/dropdown-foodCategories";
 import TagTitle from "@/components/tag-title";
