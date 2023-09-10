@@ -52,12 +52,10 @@ export function ComboboxDemo() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between bg-green-600 rounded-full text-white hover:bg-green-700 hover:text-white"
+          className="w-[200px] justify-between bg-green-600 rounded-full text-white hover:bg-green-700 hover:text-white h-[45px]"
         >
           <MapPin />
-          {value
-            ? bars.find((bar) => bar.value === value)?.label
-            : "Bar ..."}
+          {value ? bars.find((bar) => bar.value === value)?.label : "Bar ..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

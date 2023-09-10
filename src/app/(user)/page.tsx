@@ -23,7 +23,7 @@ export default function MainHome() {
 
       <main className="container mx-auto py-6">
         {/* food category */}
-        <section className="w-full bg-white pt-3 border-b rounded-2xl p-5">
+        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5">
           <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
             food category
           </h1>
@@ -45,7 +45,7 @@ export default function MainHome() {
         </section>
 
         {/* popular menu */}
-        <section className="w-full bg-white pt-3 border-b rounded-2xl p-5 mt-6">
+        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5 mt-6">
           <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
             popular menu
           </h1>
@@ -61,7 +61,7 @@ export default function MainHome() {
         </section>
 
         {/* all menu */}
-        <section className="w-full bg-white pt-3 border-b rounded-2xl p-5 mt-6">
+        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
             <ChefHat className="text-green-600 w-8 h-8" />
             <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
