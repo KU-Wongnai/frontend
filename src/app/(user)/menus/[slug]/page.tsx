@@ -27,11 +27,11 @@ function ShowMenu({ params }: { params: { slug: string } }) {
               alt="KU Wongnai"
               width={700}
               height={700}
-              className="shadow-md rounded-xl w-full h-full"
+              className="border shadow-sm rounded-xl w-full h-full"
             />
           </div>
           <aside className="basis-1/3">
-            <div className="flex flex-col bg-white rounded-2xl p-5 h-[347px]">
+            <div className="flex flex-col bg-white rounded-2xl p-5 h-[347px] border shadow-sm">
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <h2 className="text-2xl font-bold">
@@ -50,30 +50,30 @@ function ShowMenu({ params }: { params: { slug: string } }) {
 
               <div className="flex mt-3">
                 <div className="flex flex-col w-full">
-                  <div className="text-2xl font-bold">Price</div>
-                  <div className="text-sm text-gray-500">20 $</div>
+                  <h3 className="text-2xl font-bold">Price</h3>
+                  <p className="text-sm text-gray-500">20 $</p>
                 </div>
               </div>
 
               <div className="flex justify-between mt-3">
                 <div className="flex flex-col">
-                  <div className="text-2xl font-bold">Location</div>
-                  <div className="text-sm text-gray-500">bar mai</div>
+                  <h3 className="text-2xl font-bold">Location</h3>
+                  <p className="text-sm text-gray-500">bar mai</p>
                 </div>
               </div>
               <div className="flex mt-3">
                 <div className="flex flex-col w-full">
                   <div className="text-2xl font-bold">opening hours</div>
                   <div className="flex justify-between">
-                    <div className="text-sm text-gray-500">mon - fri</div>
-                    <div className="text-sm text-gray-500">17:00 - 23:00</div>
+                    <h3 className="text-sm text-gray-500">mon - fri</h3>
+                    <p className="text-sm text-gray-500">17:00 - 23:00</p>
                   </div>
                 </div>
               </div>
               <div className="flex mt-3">
                 <div className="flex flex-col w-full">
-                  <div className="text-2xl font-bold">phone</div>
-                  <div className="text-sm text-gray-500">xxxxxxxxxx</div>
+                  <h3 className="text-2xl font-bold">phone</h3>
+                  <p className="text-sm text-gray-500">xxxxxxxxxx</p>
                 </div>
               </div>
             </div>
@@ -82,7 +82,7 @@ function ShowMenu({ params }: { params: { slug: string } }) {
         </section>
 
         {/* menu detail */}
-        <section className="mt-3 bg-white rounded-2xl p-5">
+        <section className="mt-3 bg-white rounded-2xl p-5 border shadow-sm">
           <div className="flex items-end gap-4">
             <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
               Food Name {params.slug}
@@ -100,11 +100,17 @@ function ShowMenu({ params }: { params: { slug: string } }) {
               Japanese
             </h3>
           </div>
-          <Button type="button" onClick={mockRoute} className="mt-3 bg-cyan-500">Review</Button>
+          <Button
+            type="button"
+            onClick={mockRoute}
+            className="mt-3 bg-cyan-500"
+          >
+            Review
+          </Button>
         </section>
 
         {/* reviews */}
-        <section className="mt-3 bg-white rounded-2xl p-5">
+        <section className="mt-3 bg-white rounded-2xl p-5 border shadow-sm">
           <div className="flex items-end gap-4 border-b">
             <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
               Reviews

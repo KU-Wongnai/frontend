@@ -29,14 +29,24 @@ export default async function Navbar() {
         >
           <span className="text-green-600">KU</span>wongnai
         </Link>
-        <div className="flex gap-3">
-          <ComboboxDemo />
+        <div className="flex gap-3 items-center">
+          <div >
+            <ComboboxDemo />
+          </div>
           <form>
-            <Input
-              type="search"
-              placeholder="search a restaurant ...."
-              className="rounded-full w-full max-6xl border-green-600 border-2"
-            />
+            <div className="relative rounded-full border-green-600 border-2 w-full">
+              <Input
+                type="search"
+                placeholder="search a restaurant ...."
+                className="pl-4 pr-10 rounded-full w-full"
+              />
+              <div
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 rounded-full pl-1 flex items-center"
+                style={{ width: "30px", height: "30px" }}
+              >
+                🍳
+              </div>
+            </div>
           </form>
         </div>
         <div className="flex items-center gap-3">
