@@ -146,9 +146,10 @@ export default function CreateRestaurant({}: Props) {
                       Type of Restaurant
                     </label>
                     {Array.from({ length: optionCount }).map((_, index) => (
-                      <div className="flex justify-center items-center gap-3">
+                      <div className="flex justify-center items-center gap-3"
+                      key={index}
+                      >
                         <DropdownFoodCategories
-                          key={index}
                           value={selectedCategories[index] || ""}
                           onChange={(selectedCategory) =>
                             handleCategoryChange(index, selectedCategory)
