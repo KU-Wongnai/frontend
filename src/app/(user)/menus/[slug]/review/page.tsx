@@ -19,13 +19,7 @@ function Review({ params }: { params: { slug: string } }) {
   };
 
   const handleSubmit = () => {
-    // ที่นี่คุณสามารถส่งข้อมูลไปยังเซิร์ฟเวอร์ หรือทำอะไรก็ได้ตามต้องการ
     console.log("Submitting:", editorContent);
-  };
-
-  const handleCancel = () => {
-    // Clear the editor's content
-    setEditorContent("");
   };
 
   return (
@@ -97,12 +91,11 @@ function Review({ params }: { params: { slug: string } }) {
           {/* ปุ่ม Post และ Cancel */}
           <div className="mt-4 flex justify-end gap-4">
             <Button
-              onClick={handleCancel}
               className="bg-gray-200 text-black hover:bg-gray-300 px-4"
             >
               Cancel
             </Button>
-            <Button onClick={handleSubmit} className="px-4">
+            <Button onClick={handleSubmit} className="px-4 text-white">
               Post
             </Button>
           </div>

@@ -79,43 +79,15 @@ function ShowMenu({ params }: { params: { slug: string } }) {
             </div>
             <div className="w-full flex gap-3">
               <Button
-                className="mt-3 w-full bg-cyan-500 hover:bg-cyan-700"
+                className="mt-3 w-full bg-cyan-500 hover:bg-cyan-700 text-white"
                 onClick={mockRoute}
               >
                 Review
               </Button>
-              <Button className="mt-3 w-full">Add to cart</Button>
+              <Button className="mt-3 w-full text-white">Add to cart</Button>
             </div>
           </aside>
         </section>
-
-        {/* menu detail
-        <section className="mt-3 bg-card rounded-2xl p-5 border shadow-sm">
-          <div className="flex items-end gap-4">
-            <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-              Food Name {params.slug}
-            </h1>
-            <span className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-500 pb-2">
-              Ran Che Daeng
-            </span>
-          </div>
-
-          <div className="flex items-end gap-3 border-b">
-            <h2 className="text-2xl font-semibold tracking-tight mb-3">
-              Category:
-            </h2>
-            <h3 className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-              Japanese
-            </h3>
-          </div>
-          <Button
-            type="button"
-            onClick={mockRoute}
-            className="mt-3 bg-cyan-500"
-          >
-            Review
-          </Button>
-        </section> */}
 
         {/* reviews */}
         <section className="mt-3 bg-card rounded-lg p-5 border shadow-sm">

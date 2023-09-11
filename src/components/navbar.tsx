@@ -23,7 +23,7 @@ import { Button } from "./ui/button";
 
 export default async function Navbar() {
   return (
-    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-1 border-b sticky top-0 z-50 bg-background">
+    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Logo */}
         <Link
@@ -38,43 +38,46 @@ export default async function Navbar() {
           <Link href="/" className="text-3xl font-semibold tracking-tight">
             <span className="text-green-600">KU</span>wongnai
           </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                <span>Cart</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/restaurant" className="flex items-center">
-                  <UtensilsCrossed className="mr-2 h-4 w-4" />
-                  <span>Your restaurant</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bike className="mr-2 h-4 w-4" />
-                <span>Rider</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href="/login" className="flex items-center">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex gap-1">
+            <ModeToggle />
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  <span>Cart</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/restaurant" className="flex items-center">
+                    <UtensilsCrossed className="mr-2 h-4 w-4" />
+                    <span>Your restaurant</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Bike className="mr-2 h-4 w-4" />
+                  <span>Rider</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href="/login" className="flex items-center">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
 
         {/* Search for Mobile */}
@@ -118,7 +121,7 @@ export default async function Navbar() {
 
         {/* Icons and Avatar for Desktop */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/">
+          <Link href="/cart">
             <Button variant="outline" className="rounded-full">
               <ShoppingCart className="w-5 h-5" />
             </Button>

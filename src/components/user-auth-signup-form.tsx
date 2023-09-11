@@ -70,7 +70,7 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
           <Button
             disabled={isLoading}
             onClick={mockRoute}
-            className="bg-green-600 hover:bg-green-800"
+            className="bg-green-600 hover:bg-green-800 text-white"
           >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
