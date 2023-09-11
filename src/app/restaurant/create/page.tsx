@@ -500,7 +500,7 @@ export default function CreateRestaurant({}: Props) {
                     <div style={{ height: "400px", width: "100%" }}>
                       <GoogleMapReact
                         bootstrapURLKeys={{
-                          key: "AIzaSyB1o_yDXPKXeDFToHCuQVhfqVwpOKnde0I",
+                          key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
                         }}
                         defaultCenter={{
                           lat: 13.850563550109797,
