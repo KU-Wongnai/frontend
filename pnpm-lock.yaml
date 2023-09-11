@@ -29,6 +29,9 @@ dependencies:
   '@types/google-map-react':
     specifier: ^2.1.7
     version: 2.1.7
+  '@types/googlemaps':
+    specifier: ^3.43.3
+    version: 3.43.3
   '@types/node':
     specifier: 20.5.9
     version: 20.5.9
@@ -1155,6 +1158,11 @@ packages:
     resolution: {integrity: sha512-7pquMUU20kVwbfEV91iAWXjApSkqoODkfUwTSmJpU9Tgd+ecX+MrQnplCqrSqKrPF1VjfvyWnDEicdoSd0G5qA==}
     dependencies:
       '@types/react': 18.2.21
+    dev: false
+
+  /@types/googlemaps@3.43.3:
+    resolution: {integrity: sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==}
+    deprecated: 'Types for the Google Maps browser API have moved to @types/google.maps. Note: these types are not for the googlemaps npm package, which is a Node API.'
     dev: false
 
   /@types/json5@0.0.29:
