@@ -2,8 +2,6 @@
 
 Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app elegantly showcases dynamic app routing.
 
-[kuwongnai.vercel.app/](https://kuwongnai.vercel.app/) is the live demo of this repository.
-
 ## 🧰 Technologies and Libraries
 
 - **Next.js**: Our foundational framework.
@@ -17,31 +15,42 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 
 1. **pnpm**: Our chosen package manager. Install it globally if you haven't:
 
-    ```sh
-    npm i -g pnpm
-    ```
+   ```sh
+   npm i -g pnpm
+   ```
+
+### Local Development
+
+2. **Environment Variables**: Create a `.env.local` file in the root directory with the following variables:
+
+   ```sh
+   # Google Maps API Key
+   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=<YOUR_API_KEY>
+   ```
+
+   ⚙️ **Note**: For more information on the Google Maps API Key, see [this guide](https://developers.google.com/maps/documentation/javascript/get-api-key).
 
 ### Installation
 
-2. **Dependencies**: Ensure all the required packages are in place:
+3. **Dependencies**: Ensure all the required packages are in place:
 
-    ```sh
-    pnpm install
-    ```
+   ```sh
+   pnpm install
+   ```
 
 ### Running the App
 
-3. **Development Server**: Launch it with:
+4. **Development Server**: Launch it with:
 
-    ```bash
-    pnpm dev
-    ```
+   ```bash
+   pnpm dev
+   ```
 
-4. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
+5. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
 
 ## 🐳 Docker Integration
 
-For those who prefer Docker for development or deployment, we've got you covered. 
+For those who prefer Docker for development or deployment, we've got you covered.
 
 ### Building and Running with Docker
 
@@ -49,10 +58,13 @@ For those who prefer Docker for development or deployment, we've got you covered
 
 2. Build and start the services defined in the `docker-compose.yaml`:
 
-    ```bash
-    docker-compose up --build
-    ```
+   ```bash
+   docker-compose up --build
+   ```
+
 3. Visit [http://localhost:3000](http://localhost:3000) to see the app in action.
+   
+4. Docker Image Repository: [KU Wongnai Frontend on Docker Hub](https://hub.docker.com/r/ong22280/kuwongnai-frontend)
 
 ⚙️ **Note**: For service configurations and port settings, see `docker-compose.yaml`.
 
@@ -63,6 +75,7 @@ For those who prefer Docker for development or deployment, we've got you covered
 Enhance your understanding and skills with these resources:
 
 - **Next.js**:
+
   - [Official Documentation](https://nextjs.org/docs) - Comprehensive guide on Next.js features.
   - [Interactive Tutorial](https://nextjs.org/learn) - Hands-on learning with Next.js.
   - [GitHub Repository](https://github.com/vercel/next.js/) - For those looking to contribute or get under the hood.

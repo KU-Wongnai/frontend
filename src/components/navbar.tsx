@@ -51,13 +51,13 @@ export default async function Navbar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/cart" className="flex items-center">
+                  <Link href="/cart" className="flex items-center w-full">
                     <ShoppingCart className="mr-2 h-4 w-4" />
                     <span>Cart</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/restaurant" className="flex items-center">
+                  <Link href="/restaurant" className="flex items-center w-full">
                     <UtensilsCrossed className="mr-2 h-4 w-4" />
                     <span>Your restaurant</span>
                   </Link>
@@ -72,7 +72,7 @@ export default async function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/login" className="flex items-center">
+                  <Link href="/login" className="flex items-center w-full">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
                   </Link>
@@ -140,7 +140,7 @@ export default async function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/restaurant" className="flex items-center">
+                <Link href="/restaurant" className="flex items-center w-full">
                   <UtensilsCrossed className="mr-2 h-4 w-4" />
                   <span>Your restaurant</span>
                 </Link>
@@ -155,7 +155,7 @@ export default async function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/login" className="flex items-center">
+                <Link href="/login" className="flex items-center w-full">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
                 </Link>

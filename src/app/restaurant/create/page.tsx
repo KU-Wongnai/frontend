@@ -498,20 +498,22 @@ export default function CreateRestaurant({}: Props) {
                   </div>
                   <div className="col-span-6">
                     <div style={{ height: "400px", width: "100%" }}>
-                      <GoogleMapReact
-                        bootstrapURLKeys={{
-                          key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
-                        }}
-                        defaultCenter={{
-                          lat: 13.850563550109797,
-                          lng: 100.57007576117385,
-                        }}
-                        defaultZoom={15}
-                        yesIWantToUseGoogleMapApiInternals
-                        onGoogleApiLoaded={({ map, maps }) =>
-                          renderMarkers(map, maps)
-                        }
-                      ></GoogleMapReact>
+                      {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
+                        <GoogleMapReact
+                          bootstrapURLKeys={{
+                            key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+                          }}
+                          defaultCenter={{
+                            lat: 13.850563550109797,
+                            lng: 100.57007576117385,
+                          }}
+                          defaultZoom={15}
+                          yesIWantToUseGoogleMapApiInternals
+                          onGoogleApiLoaded={({ map, maps }) =>
+                            renderMarkers(map, maps)
+                          }
+                        ></GoogleMapReact>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -750,9 +752,9 @@ export default function CreateRestaurant({}: Props) {
                       Opening Time
                     </label>
                     <DropdownTimeScale
-                          value={Time.openTime}
-                          onChange={onHandleChangeOpenTimeStatus}
-                        />
+                      value={Time.openTime}
+                      onChange={onHandleChangeOpenTimeStatus}
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col ml-3 space-y-4 mt-4">
@@ -764,15 +766,18 @@ export default function CreateRestaurant({}: Props) {
                       Close Time
                     </label>
                     <DropdownTimeScale
-                          value={Time.closeTime}
-                          onChange={onHandleChangeCloseTimeStatus}
-                        />
+                      value={Time.closeTime}
+                      onChange={onHandleChangeCloseTimeStatus}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-              <div className="flex justify-end mr-9"><button className="bg-green-600 px-4 py-2 rounded-md">submit</button></div>
-
+            <div className="flex justify-end mr-9">
+              <button className="bg-green-600 px-4 py-2 rounded-md">
+                submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
