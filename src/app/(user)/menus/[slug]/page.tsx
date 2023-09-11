@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import FeatureIcon from "@/components/feature-icon";
 import React from "react";
@@ -11,8 +11,12 @@ import { useRouter } from "next/navigation";
 function ShowMenu({ params }: { params: { slug: string } }) {
   const router = useRouter();
 
-  const mockRoute = () => {
+  const mockRouteReview = () => {
     router.push("/menus/1/review");
+  };
+
+  const mockRouteCart = () => {
+    router.push("/cart");
   };
 
   return (
@@ -80,11 +84,16 @@ function ShowMenu({ params }: { params: { slug: string } }) {
             <div className="w-full flex gap-3">
               <Button
                 className="mt-3 w-full bg-cyan-500 hover:bg-cyan-700 text-white"
-                onClick={mockRoute}
+                onClick={mockRouteReview}
               >
                 Review
               </Button>
-              <Button className="mt-3 w-full text-white">Add to cart</Button>
+              <Button
+                className="mt-3 w-full text-white"
+                onClick={mockRouteCart}
+              >
+                Add to cart
+              </Button>
             </div>
           </aside>
         </section>

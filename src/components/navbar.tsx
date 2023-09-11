@@ -51,8 +51,10 @@ export default async function Navbar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  <span>Cart</span>
+                  <Link href="/cart" className="flex items-center">
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    <span>Cart</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/restaurant" className="flex items-center">
