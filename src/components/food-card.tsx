@@ -13,7 +13,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <div className="rounded-lg overflow-hidden shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-56">
+      <div className="rounded-lg overflow-hidden shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-56 border">
         <div className="h-40 relative">
           <Image
             src={imageUrl}

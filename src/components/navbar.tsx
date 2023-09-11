@@ -18,10 +18,12 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ComboboxDemo } from "./combobox-location";
+import { ModeToggle } from "./ui/button-mode-toggle";
+import { Button } from "./ui/button";
 
 export default async function Navbar() {
   return (
-    <header className="md:px-3 md:py-4 py-1 border-b sticky top-0 z-50 backdrop-blur-md bg-opacity-60 bg-white">
+    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-1 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Logo */}
         <Link
@@ -51,8 +53,10 @@ export default async function Navbar() {
                 <span>Cart</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <UtensilsCrossed className="mr-2 h-4 w-4" />
-                <span>Your restaurant</span>
+                <Link href="/restaurant" className="flex items-center">
+                  <UtensilsCrossed className="mr-2 h-4 w-4" />
+                  <span>Your restaurant</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bike className="mr-2 h-4 w-4" />
@@ -115,8 +119,11 @@ export default async function Navbar() {
         {/* Icons and Avatar for Desktop */}
         <div className="hidden md:flex items-center gap-3">
           <Link href="/">
-            <ShoppingCart className="w-7 h-7 mr-4" />
+            <Button variant="outline" className="rounded-full">
+              <ShoppingCart className="w-5 h-5" />
+            </Button>
           </Link>
+          <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -128,8 +135,10 @@ export default async function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <UtensilsCrossed className="mr-2 h-4 w-4" />
-                <span>Your restaurant</span>
+                <Link href="/restaurant" className="flex items-center">
+                  <UtensilsCrossed className="mr-2 h-4 w-4" />
+                  <span>Your restaurant</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bike className="mr-2 h-4 w-4" />

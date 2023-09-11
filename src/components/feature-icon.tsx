@@ -4,7 +4,7 @@ import React from "react";
 
 export default async function FeatureIcon() {
   return (
-    <section className="w-full h-[100px] bg-white pt-3 border-b">
+    <section className="w-full h-[100px] bg-card pt-3 border-b">
       <div className="container mx-auto">
         <div className="flex gap-10">
           {/* icon menu */}

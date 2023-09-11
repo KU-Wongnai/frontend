@@ -8,11 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import salmon from "/src/assets/images/salmon.jpg";
+import { useRouter } from "next/navigation";
 
 interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
+  const router = useRouter();
+
+  const mockRoute = () => {
+    router.push("/");
+  };
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -64,6 +69,7 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
           </div>
           <Button
             disabled={isLoading}
+            onClick={mockRoute}
             className="bg-green-600 hover:bg-green-800"
           >
             {isLoading && (
@@ -83,7 +89,12 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button
+        variant="outline"
+        type="button"
+        onClick={mockRoute}
+        disabled={isLoading}
+      >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (

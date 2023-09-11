@@ -7,12 +7,17 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-import salmon from "/src/assets/images/salmon.jpg";
+import { useRouter } from "next/navigation";
 
 interface LoginAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function LoginAuthForm({ className, ...props }: LoginAuthFormProps) {
+  const router = useRouter();
+
+  const mockRoute = () => {
+    router.push("/");
+  };
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -42,6 +47,7 @@ export function LoginAuthForm({ className, ...props }: LoginAuthFormProps) {
           </div>
           <Button
             disabled={isLoading}
+            onClick={mockRoute}
             className="bg-green-600 hover:bg-green-800"
           >
             {isLoading && (
@@ -64,6 +70,7 @@ export function LoginAuthForm({ className, ...props }: LoginAuthFormProps) {
       <Button
         variant="outline"
         type="button"
+        onClick={mockRoute}
         disabled={isLoading}
       >
         {isLoading ? (

@@ -27,11 +27,11 @@ function ShowMenu({ params }: { params: { slug: string } }) {
               alt="KU Wongnai"
               width={700}
               height={700}
-              className="border shadow-sm rounded-xl w-full h-full"
+              className="border shadow-sm rounded-lg w-full h-full"
             />
           </div>
           <aside className="basis-1/3">
-            <div className="flex flex-col bg-white rounded-2xl p-5 h-[347px] border shadow-sm">
+            <div className="flex flex-col bg-card rounded-lg p-5 h-[347px] border shadow-sm">
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <h2 className="text-2xl font-bold">
@@ -77,12 +77,20 @@ function ShowMenu({ params }: { params: { slug: string } }) {
                 </div>
               </div>
             </div>
-            <Button className="mt-3 w-full">Add to cart</Button>
+            <div className="w-full flex gap-3">
+              <Button
+                className="mt-3 w-full bg-cyan-500 hover:bg-cyan-700"
+                onClick={mockRoute}
+              >
+                Review
+              </Button>
+              <Button className="mt-3 w-full">Add to cart</Button>
+            </div>
           </aside>
         </section>
 
-        {/* menu detail */}
-        <section className="mt-3 bg-white rounded-2xl p-5 border shadow-sm">
+        {/* menu detail
+        <section className="mt-3 bg-card rounded-2xl p-5 border shadow-sm">
           <div className="flex items-end gap-4">
             <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
               Food Name {params.slug}
@@ -107,12 +115,12 @@ function ShowMenu({ params }: { params: { slug: string } }) {
           >
             Review
           </Button>
-        </section>
+        </section> */}
 
         {/* reviews */}
-        <section className="mt-3 bg-white rounded-2xl p-5 border shadow-sm">
+        <section className="mt-3 bg-card rounded-lg p-5 border shadow-sm">
           <div className="flex items-end gap-4 border-b">
-            <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
+            <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors text-primary">
               Reviews
             </h1>
             <span className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-500 pb-2">

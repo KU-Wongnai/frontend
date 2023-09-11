@@ -23,8 +23,8 @@ export default function MainHome() {
 
       <main className="container mx-auto py-6 px-4 sm:px-0">
         {/* food category */}
-        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5">
-          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
+        <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5">
+          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3 text-primary">
             food category
           </h1>
           <div className="flex gap-10 relative">
@@ -34,7 +34,7 @@ export default function MainHome() {
                 alt="KU Wongnai"
                 width={100}
                 height={100}
-                className="filter brightness-75 w-48 h-32 shadow-md rounded-xl"
+                className="filter brightness-75 w-48 h-32 shadow-md rounded-lg"
               />
               {/* <div className="absolute inset-0 bg-black opacity-40"></div> */}
               <span className="absolute bottom-0 left-0 p-2 scroll-m-20 text-xl font-bold tracking-tight text-white">
@@ -45,8 +45,8 @@ export default function MainHome() {
         </section>
 
         {/* popular menu */}
-        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5 mt-6">
-          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3">
+        <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
+          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3 text-primary">
             popular menu
           </h1>
           <FoodCard
@@ -60,15 +60,15 @@ export default function MainHome() {
           />
         </section>
 
-       {/* all menu */}
-        <section className="w-full bg-white pt-3 border shadow-sm rounded-2xl p-5 mt-6">
+        {/* all menu */}
+        <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
             <ChefHat className="text-green-600 w-8 h-8" />
-            <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
               All menu
             </h1>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4">
             {mockFoodData.map((food) => (
               <FoodCard
                 key={food.id}

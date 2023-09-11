@@ -84,7 +84,7 @@ const Review: React.FC<ReviewProps> = ({
               alt={`Review image ${index}`}
               width={100}
               height={100}
-              className="rounded-md w-36 h-36 object-cover"
+              className="rounded-lg w-36 h-36 object-cover"
             />
           </div>
         ))}
@@ -97,11 +97,11 @@ const Review: React.FC<ReviewProps> = ({
           >
             <ThumbsUp
               className={`cursor-pointer ${
-                isLiked ? "text-blue-500" : "text-gray-900"
+                isLiked ? "text-blue-500" : ""
               }`}
             />
           </Toggle>
-          <span className="font-semibold text-gray-800">{likes}</span>
+          <span className="font-semibold ">{likes}</span>
         </div>
         <div className="transition-colors duration-300 hover:text-blue-500">
           <MessageSquare
@@ -117,14 +117,14 @@ const Review: React.FC<ReviewProps> = ({
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Add a comment..."
-            className="border rounded w-full"
+            className="border rounded-lg w-full"
             onKeyDown={(e) => {
               if (e.key === "Enter") handleAddComment();
             }}
           />
           <Button
             onClick={handleAddComment}
-            className=" text-white p-2 rounded px-8"
+            className=" text-white p-2 rounded-lg px-8"
           >
             Post
           </Button>
@@ -134,7 +134,7 @@ const Review: React.FC<ReviewProps> = ({
         {comments.map((comment, index) => (
           <li
             key={index}
-            className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-gray-100 rounded"
+            className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-secondary rounded-lg"
           >
             <Avatar className="w-8 h-8">
               <AvatarImage src={comment.avatarUrl} />
