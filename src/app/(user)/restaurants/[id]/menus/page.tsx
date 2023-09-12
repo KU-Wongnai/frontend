@@ -66,10 +66,10 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
                 </h3>
               </div>
               <div className="flex items-end gap-3 mb-3">
-                <h2 className="text-2xl font-semibold tracking-tight">Price</h2>
-                <h3 className="text-xl font-semibold tracking-tight text-gray-400">
-                  20 $
-                </h3>
+                <p className="text-xl font-semibold tracking-tight text-gray-400">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                  voluptatum, quibusdam, voluptate, quia voluptas quod
+                </p>
               </div>
             </div>
           </div>

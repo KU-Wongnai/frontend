@@ -1,9 +1,8 @@
 interface FoodCardProps {
   id: string;
-  imageUrl: string;
-  foodName: string;
-  foodType: string;
-  reviewScore: string;
-  reviewCount: number;
+  imageUrl: string | null;
+  name: string;
+  category: string;
+  price: number;
   href: string;
 }
