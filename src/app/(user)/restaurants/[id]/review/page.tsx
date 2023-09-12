@@ -10,7 +10,7 @@ const RichTextEditor = dynamic(() => import("@/components/rich-text-editor"), {
   ssr: false,
 });
 
-function Review({ params }: { params: { slug: string } }) {
+function Review({ params }: { params: { id: string } }) {
   const [editorContent, setEditorContent] = useState("");
 
   const handleEditorChange = (content: string) => {
@@ -31,7 +31,7 @@ function Review({ params }: { params: { slug: string } }) {
             {/* image */}
             <div className="relative filter brightness-90 shadow-md rounded-lg w-96 h-52">
               <Image
-                src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                src="https://images.unsplash.com/photo-1628294895950-9805252327bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 alt="KU Wongnai"
                 layout="fill"
                 objectFit="cover"
@@ -42,7 +42,7 @@ function Review({ params }: { params: { slug: string } }) {
             <div className="flex flex-col ml-5">
               <div className="flex items-end gap-4">
                 <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-                  Food Name {params.slug}
+                  Food Name {params.id}
                 </h1>
                 <span className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-500 pb-2">
                   Ran Che Daeng
@@ -90,9 +90,7 @@ function Review({ params }: { params: { slug: string } }) {
 
           {/* ปุ่ม Post และ Cancel */}
           <div className="mt-4 flex justify-end gap-4">
-            <Button
-              className="bg-gray-200 text-black hover:bg-gray-300 px-4"
-            >
+            <Button className="bg-gray-200 text-black hover:bg-gray-300 px-4">
               Cancel
             </Button>
             <Button onClick={handleSubmit} className="px-4 text-white">

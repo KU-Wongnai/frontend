@@ -40,7 +40,6 @@ const Review: React.FC<ReviewProps> = ({
 
   const handleAddComment = () => {
     if (commentText.trim()) {
-      // อัปเดต comments
       setComment((prevComments) => [
         ...prevComments,
         { avatarUrl: avatarUrl, name: name, text: commentText },
@@ -51,7 +50,7 @@ const Review: React.FC<ReviewProps> = ({
   };
 
   return (
-    <div className="border-b p-6">
+    <div className="border-b p-4 sm:p-6">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
           <Avatar>
@@ -74,9 +73,10 @@ const Review: React.FC<ReviewProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <h3 className="text-xl font-bold mb-2">{topic}</h3>
+      <h3 className="text-lg sm:text-xl font-bold mb-2">{topic}</h3>
       <p className="text-gray-600 mb-4">{detail}</p>
-      <div className="grid grid-cols-8 gap-2 mb-4">
+
+      <div className="grid grid-cols-2 sm:grid-cols-8 gap-2 mb-4">
         {images.map((img, index) => (
           <div key={index}>
             <Image
@@ -84,7 +84,7 @@ const Review: React.FC<ReviewProps> = ({
               alt={`Review image ${index}`}
               width={100}
               height={100}
-              className="rounded-lg w-36 h-36 object-cover"
+              className="rounded-lg w-full sm:w-36 h-full sm:h-36 object-cover"
             />
           </div>
         ))}
@@ -96,9 +96,7 @@ const Review: React.FC<ReviewProps> = ({
             className="transition-colors duration-300 hover:bg-gray-100 p-2 rounded-full"
           >
             <ThumbsUp
-              className={`cursor-pointer ${
-                isLiked ? "text-blue-500" : ""
-              }`}
+              className={`cursor-pointer ${isLiked ? "text-blue-500" : ""}`}
             />
           </Toggle>
           <span className="font-semibold ">{likes}</span>
@@ -111,7 +109,7 @@ const Review: React.FC<ReviewProps> = ({
         </div>
       </div>
       {showCommentInput && (
-        <div className="mb-4 flex w-full items-center space-x-2">
+        <div className="mb-4 flex flex-col sm:flex-row w-full items-center space-y-2 sm:space-y-0 sm:space-x-2">
           <Input
             type="text"
             value={commentText}
@@ -124,7 +122,7 @@ const Review: React.FC<ReviewProps> = ({
           />
           <Button
             onClick={handleAddComment}
-            className=" text-white p-2 rounded-lg px-8"
+            className=" text-white p-2 rounded-lg w-full sm:w-auto px-8"
           >
             Post
           </Button>

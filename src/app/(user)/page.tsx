@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import FeatureIcon from "@/components/feature-icon";
-import FoodCard from "@/components/food-card";
+import RestaurantCard from "@/components/restaurant-card";
 
-import { mockFoodData } from "../__mock__/food-card";
+import { mockRestaurants } from "../__mock__/restaurant-card";
 import { ChefHat } from "lucide-react";
 import Link from "next/link";
 
@@ -22,10 +22,10 @@ export default function MainHome() {
       <FeatureIcon />
 
       <main className="container mx-auto py-6 px-4 sm:px-0">
-        {/* food category */}
+        {/* restaurant category */}
         <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5">
           <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3 text-primary">
-            food category
+            restaurant category
           </h1>
           <div className="flex gap-10 relative">
             <Link href="/">
@@ -49,36 +49,42 @@ export default function MainHome() {
           <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-3 text-primary">
             popular menu
           </h1>
-          <FoodCard
-            id="1"
-            imageUrl="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-            foodName="Pad Thai"
+          <RestaurantCard
+            id={1}
+            description="good food"
+            location="new bar"
+            operatingHours={0}
+            contactInfo="xxxxxxxxxx"
+            image="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+            name="Pad Thai"
             foodType="Thai Food"
-            reviewScore="4.5"
-            reviewCount={100}
-            href="/menus/1"
+            rating={4.5}
+            href={`/restaurants/1`}
           />
         </section>
 
-        {/* all menu */}
+        {/* all restaurant */}
         <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
             <ChefHat className="text-green-600 w-8 h-8" />
             <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
-              All menu
+              All restaurant
             </h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4">
-            {mockFoodData.map((food) => (
-              <FoodCard
-                key={food.id}
-                id={food.id}
-                imageUrl={food.imageUrl}
-                foodName={food.foodName}
-                foodType={food.foodType}
-                reviewScore={food.reviewScore}
-                reviewCount={food.reviewCount}
-                href={`/menus/${food.id}`}
+            {mockRestaurants.map((restaurant) => (
+              <RestaurantCard
+                key={restaurant.id}
+                id={restaurant.id}
+                description={restaurant.description}
+                location={restaurant.location}
+                operatingHours={restaurant.operatingHours}
+                contactInfo={restaurant.contactInfo}
+                image={restaurant.image}
+                name={restaurant.name}
+                foodType={restaurant.foodType}
+                rating={restaurant.rating}
+                href={`/restaurants/${restaurant.id}`}
               />
             ))}
           </div>
