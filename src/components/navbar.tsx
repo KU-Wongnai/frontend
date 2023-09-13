@@ -76,7 +76,7 @@ export default async function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link
-                    href="/setting/user-setting"
+                    href="/setting"
                     className="flex items-center w-full"
                   >
                     <Settings className="mr-2 h-4 w-4" />
@@ -171,7 +171,7 @@ export default async function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link
-                  href="/setting/user-setting"
+                  href="/setting"
                   className="flex items-center w-full"
                 >
                   <Settings className="mr-2 h-4 w-4" />
