@@ -498,22 +498,20 @@ export default function CreateRestaurant({}: Props) {
                   </div>
                   <div className="col-span-6">
                     <div style={{ height: "400px", width: "100%" }}>
-                      {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
-                        <GoogleMapReact
-                          bootstrapURLKeys={{
-                            key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-                          }}
-                          defaultCenter={{
-                            lat: 13.850563550109797,
-                            lng: 100.57007576117385,
-                          }}
-                          defaultZoom={15}
-                          yesIWantToUseGoogleMapApiInternals
-                          onGoogleApiLoaded={({ map, maps }) =>
-                            renderMarkers(map, maps)
-                          }
-                        ></GoogleMapReact>
-                      )}
+                      <GoogleMapReact
+                        bootstrapURLKeys={{
+                          key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
+                        }}
+                        defaultCenter={{
+                          lat: 13.850563550109797,
+                          lng: 100.57007576117385,
+                        }}
+                        defaultZoom={15}
+                        yesIWantToUseGoogleMapApiInternals
+                        onGoogleApiLoaded={({ map, maps }) =>
+                          renderMarkers(map, maps)
+                        }
+                      ></GoogleMapReact>
                     </div>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import logoRadius from "/src/assets/logo/logo_white_radius.png";
 
-export default function UserLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;

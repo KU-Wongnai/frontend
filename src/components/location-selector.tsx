@@ -83,21 +83,18 @@ function LocationSelector() {
         onKeyDown={handleKeyDown}
       />
       <div className="w-full px-2 h-96 rounded-sm mt-1">
-        {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
-          <GoogleMapReact
-            bootstrapURLKeys={{
-              key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-              libraries: ["places"],
-            }}
-            center={markerPosition}
-            defaultZoom={15}
-            yesIWantToUseGoogleMapApiInternals
-            onGoogleApiLoaded={({ map, maps }) => {
-              renderMarkers(map, maps);
-              setGoogleApiLoaded(true);
-            }}
-          />
-        )}
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
+          }}
+          defaultCenter={{
+            lat: 13.850563550109797,
+            lng: 100.57007576117385,
+          }}
+          defaultZoom={15}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
+        ></GoogleMapReact>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Authentication forms built using the components.",
 };
 
-export default function LoginPage() {
+export default function Login() {
   return (
     <>
       <div className="flex flex-col space-y-2 text-center">
