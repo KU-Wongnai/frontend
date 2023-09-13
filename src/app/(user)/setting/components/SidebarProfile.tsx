@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface SidebarProfileProps {
   setActive: (active: number) => void;
@@ -9,10 +9,19 @@ export default function SidebarProfile({
   setActive,
   active,
 }: SidebarProfileProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="p-6 font-bold">
-      <h2 className="mb-4 text-4xl ">Setting</h2>
-      <nav>
+    <div className="md:p-6 mr-4 font-bold">
+      <h2 className="mb-4 text-4xl hidden md:block">Setting</h2>
+      <div className="md:hidden grid place-content-center">
+        <button
+          className="flex justify-center"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+      </div>
+      <nav className={`md:block mt-2 md:mt-0 ${menuOpen ? "block" : "hidden"}`}>
         <ul className="space-y-2 text-lg">
           <li>
             <div

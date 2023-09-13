@@ -8,7 +8,7 @@ export default function Profile() {
   const [active, setActive] = useState(1);
   return (
     <>
-      <div className="container px-4 mx-auto my-4">
+      <div className="container px-4 py-6 mx-auto my-4">
         <div className="flex flex-col h-screen m-auto sm:flex-row">
           {/* Sidebar */}
           <aside className="w-full overflow-hidden rounded-lg sm:w-80">

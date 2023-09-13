@@ -42,8 +42,11 @@ export default async function Navbar() {
           <div className="flex gap-1">
             <ModeToggle />
             <Link href="/notifications">
-              <Button variant="outline" className="rounded-full">
+              <Button variant="outline" className="relative rounded-full">
                 <Bell className="w-5 h-5" />
+                <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+                  3
+                </span>
               </Button>
             </Link>
             <DropdownMenu>
@@ -75,10 +78,7 @@ export default async function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link
-                    href="/setting"
-                    className="flex items-center w-full"
-                  >
+                  <Link href="/setting" className="flex items-center w-full">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
                   </Link>
@@ -142,8 +142,11 @@ export default async function Navbar() {
             </Button>
           </Link>
           <Link href="/notifications">
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="relative rounded-full">
               <Bell className="w-5 h-5" />
+              <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+                3
+              </span>
             </Button>
           </Link>
           <ModeToggle />
@@ -170,10 +173,7 @@ export default async function Navbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link
-                  href="/setting"
-                  className="flex items-center w-full"
-                >
+                <Link href="/setting" className="flex items-center w-full">
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </Link>
