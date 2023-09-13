@@ -40,7 +40,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
             <div className="flex flex-col ml-5">
               <div className="flex items-end gap-4">
                 <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-                  Food Name {params.id}
+                  Restaurant Name {params.id}
                 </h1>
                 <span className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-500 pb-2">
                   Ran Che Daeng

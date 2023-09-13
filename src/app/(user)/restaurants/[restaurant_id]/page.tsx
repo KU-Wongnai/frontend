@@ -8,7 +8,7 @@ import { mockReview } from "@/app/__mock__/review";
 import Review from "@/components/review";
 import { useRouter } from "next/navigation";
 
-function ShowMenu({ params }: { params: { id: string } }) {
+function ShowRestaurant({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   const mockRouteReview = () => {
@@ -38,7 +38,7 @@ function ShowMenu({ params }: { params: { id: string } }) {
             <div className="flex flex-col bg-card rounded-lg p-4 md:p-5 h-auto md:h-[390px] border shadow-sm">
               <div className="flex justify-between">
                 <div className="flex flex-col">
-                  <h2 className="text-2xl font-bold">Food Name {params.id}</h2>
+                  <h2 className="text-2xl font-bold">Restaurant Name {params.id}</h2>
                   <p className="text-sm text-gray-500">Japanese</p>
                 </div>
                 <div className="flex flex-col">
@@ -126,4 +126,4 @@ function ShowMenu({ params }: { params: { id: string } }) {
   );
 }
 
-export default ShowMenu;
+export default ShowRestaurant;

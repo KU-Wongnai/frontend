@@ -7,7 +7,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 1",
     
     price: 120,
-    href: "/menus/1",
+    href: "/restaurants/1/menus/1",
   },
   {
     id: "2",
@@ -17,7 +17,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 2",
     
     price: 80,
-    href: "/menus/2",
+    href: "/restaurants/1/menus/2",
   },
   {
     id: "3",
@@ -27,7 +27,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 8",
     
     price: 50,
-    href: "/menus/3",
+    href: "/restaurants/1/menus/3",
   },
   {
     id: "4",
@@ -37,7 +37,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 3",
     
     price: 40,
-    href: "/menus/4",
+    href: "/restaurants/1/menus/4",
   },
   {
     id: "5",
@@ -47,7 +47,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 4",
     
     price: 30,
-    href: "/menus/5",
+    href: "/restaurants/1/menus/5",
   },
   {
     id: "6",
@@ -57,7 +57,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 1",
     
     price: 120,
-    href: "/menus/6",
+    href: "/restaurants/1/menus/6",
   },
   {
     id: "7",
@@ -67,7 +67,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 2",
     
     price: 80,
-    href: "/menus/7",
+    href: "/restaurants/1/menus/7",
   },
   {
     id: "8",
@@ -77,7 +77,7 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 8",
     
     price: 50,
-    href: "/menus/8",
+    href: "/restaurants/1/menus/8",
   },
   {
     id: "9",
@@ -87,6 +87,6 @@ export const mockFoodData: FoodCardProps[] = [
     category: "Type 3",
     
     price: 40,
-    href: "/menus/9",
+    href: "/restaurants/1/menus/9",
   },
 ];

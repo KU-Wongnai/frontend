@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import {
+  Bell,
   Bike,
   LogOut,
   Settings,
@@ -40,6 +41,11 @@ export default async function Navbar() {
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
+            <Link href="/notifications">
+              <Button variant="outline" className="rounded-full">
+                <Bell className="w-5 h-5" />
+              </Button>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
@@ -63,12 +69,19 @@ export default async function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Bike className="mr-2 h-4 w-4" />
-                  <span>Rider</span>
+                  <Link href="/rider" className="flex items-center w-full">
+                    <Bike className="mr-2 h-4 w-4" />
+                    <span>Rider</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                  <Link
+                    href="/setting/user-setting"
+                    className="flex items-center w-full"
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
@@ -128,6 +141,11 @@ export default async function Navbar() {
               <ShoppingCart className="w-5 h-5" />
             </Button>
           </Link>
+          <Link href="/notifications">
+            <Button variant="outline" className="rounded-full">
+              <Bell className="w-5 h-5" />
+            </Button>
+          </Link>
           <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -146,12 +164,19 @@ export default async function Navbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Bike className="mr-2 h-4 w-4" />
-                <span>Rider</span>
+                <Link href="/rider" className="flex items-center w-full">
+                  <Bike className="mr-2 h-4 w-4" />
+                  <span>Rider</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
+                <Link
+                  href="/setting/user-setting"
+                  className="flex items-center w-full"
+                >
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
