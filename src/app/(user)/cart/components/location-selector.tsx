@@ -86,15 +86,16 @@ function LocationSelector() {
         <GoogleMapReact
           bootstrapURLKeys={{
             key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
+            libraries: ["places"],
           }}
-          defaultCenter={{
-            lat: 13.850563550109797,
-            lng: 100.57007576117385,
-          }}
+          center={markerPosition}
           defaultZoom={15}
           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-        ></GoogleMapReact>
+          onGoogleApiLoaded={({ map, maps }: { map: any; maps: any }) => {
+            renderMarkers(map, maps);
+            setGoogleApiLoaded(true);
+          }}
+        />
       </div>
     </div>
   );

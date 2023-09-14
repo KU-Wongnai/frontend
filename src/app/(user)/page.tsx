@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import FeatureIcon from "@/components/feature-icon";
 import RestaurantCard from "@/components/restaurant-card";
 
 import { mockRestaurants } from "../__mock__/restaurant-card";
@@ -18,8 +17,6 @@ export default function MainHome() {
           objectFit="cover"
         />
       </div>
-
-      <FeatureIcon />
 
       <main className="container mx-auto py-6 px-4 sm:px-0">
         {/* restaurant category */}

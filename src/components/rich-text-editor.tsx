@@ -61,14 +61,10 @@ const imageHandler = async () => {
   const modules = {
     toolbar: {
       container: [
-        [{ header: "1" }, { font: [] }],
+        [{ header: "1" }],
         [{ list: "ordered" }, { list: "bullet" }],
         ["bold", "italic", "underline"],
-        ["link", "image"],
       ],
-      // handlers: {
-      //   image: imageHandler,
-      // },
     },
   };
 

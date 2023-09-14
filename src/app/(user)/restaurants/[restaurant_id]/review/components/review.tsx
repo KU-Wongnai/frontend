@@ -13,8 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Toggle } from "@/components/ui/toggle";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../../../../../../components/ui/input";
+import { Button } from "../../../../../../components/ui/button";
 
 const Review: React.FC<ReviewProps> = ({
   avatarUrl,

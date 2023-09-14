@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { ChefHat, Star } from "lucide-react";
+import { ChefHat } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
+import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
+import Image from "next/image";
+import { Input } from "@/components/ui/input";
 
 const RichTextEditor = dynamic(() => import("@/components/rich-text-editor"), {
   ssr: false,
@@ -12,10 +14,17 @@ const RichTextEditor = dynamic(() => import("@/components/rich-text-editor"), {
 
 function Review({ params }: { params: { id: string } }) {
   const [editorContent, setEditorContent] = useState("");
+  const [images, setImages] = useState<FileList | null>(null);
 
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
     console.log(content);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages(e.target.files);
+    }
   };
 
   const handleSubmit = () => {
@@ -26,57 +35,18 @@ function Review({ params }: { params: { id: string } }) {
     <>
       <main className="container mx-auto py-6">
         {/* food card Horizontal */}
-        <section className="w-full bg-card p-5 border shadow-sm rounded-lg">
-          <div className="flex">
-            {/* image */}
-            <div className="relative filter brightness-90 shadow-md rounded-lg w-96 h-52">
-              <Image
-                src="https://images.unsplash.com/photo-1628294895950-9805252327bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                alt="KU Wongnai"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-              />
-            </div>
-            {/* detail */}
-            <div className="flex flex-col ml-5">
-              <div className="flex items-end gap-4">
-                <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-                  Restaurant Name {params.id}
-                </h1>
-                <span className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-500 pb-2">
-                  Ran Che Daeng
-                </span>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
-                  <h2 className="text-lg font-semibold tracking-tight ">4.5</h2>
-                  <Star className="w-5 h-5" />
-                </div>
-                <span>
-                  <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                    100 reviews
-                  </span>
-                </span>
-              </div>
-              <div className="flex items-end gap-3 mb-3">
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  Category:
-                </h2>
-                <h3 className="text-xl font-semibold tracking-tight  text-gray-400">
-                  Japanese
-                </h3>
-              </div>
-              <div className="flex items-end gap-3 mb-3">
-                <p className="text-xl font-semibold tracking-tight text-gray-400">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                  voluptatum, quibusdam, voluptate, quia voluptas quod
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        <RestaurantCardDetail
+          id={0}
+          name={""}
+          foodType={""}
+          rating={0}
+          image={null}
+          href={""}
+          description={""}
+          location={""}
+          operatingHours={0}
+          contactInfo={""}
+        />
         {/* review */}
         <section className="w-full bg-card pt-3 rounded-lg p-5 mt-6 border shadow-sm">
           <div className="flex border-b mb-3 gap-2">
@@ -87,6 +57,37 @@ function Review({ params }: { params: { id: string } }) {
           </div>
           {/* rich text editor */}
           <RichTextEditor onChange={handleEditorChange} />
+
+          {/* Image upload section */}
+          <div className="mt-4 flex flex-col items-start justify-start gap-3">
+            <label className="cursor-pointer px-4 py-2">
+              Upload Images
+              <Input
+                type="file"
+                multiple
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
+            {images && (
+              <div className="grid grid-cols-3 gap-2">
+                {Array.from(images).map((img, index) => (
+                  <div
+                    key={index}
+                    className="border rounded overflow-hidden shadow w-40 h-40"
+                  >
+                    <Image
+                      src={URL.createObjectURL(img)}
+                      alt={`uploaded-${index}`}
+                      className="w-full"
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* ปุ่ม Post และ Cancel */}
           <div className="mt-4 flex justify-end gap-4">
