@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useRouter } from "next/navigation";
 
 const bars = [
   {
@@ -44,6 +45,7 @@ const bars = [
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const router = useRouter();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -70,6 +72,9 @@ export function ComboboxDemo() {
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
+                  if (currentValue !== value) {
+                    router.push(`/search?location=${currentValue}`); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
+                  }
                 }}
               >
                 <Check

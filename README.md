@@ -19,20 +19,9 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
    npm i -g pnpm
    ```
 
-### Local Development
-
-2. **Environment Variables**: Create a `.env.local` file in the root directory with the following variables:
-
-   ```sh
-   # Google Maps API Key
-   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=<YOUR_API_KEY>
-   ```
-
-   ⚙️ **Note**: For more information on the Google Maps API Key, see [this guide](https://developers.google.com/maps/documentation/javascript/get-api-key).
-
 ### Installation
 
-3. **Dependencies**: Ensure all the required packages are in place:
+2. **Dependencies**: Ensure all the required packages are in place:
 
    ```sh
    pnpm install
@@ -40,13 +29,13 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 
 ### Running the App
 
-4. **Development Server**: Launch it with:
+3. **Development Server**: Launch it with:
 
    ```bash
    pnpm dev
    ```
 
-5. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
+4. Head to [http://localhost:3000](http://localhost:3000) in your browser to view the application live.
 
 ## 🐳 Docker Integration
 

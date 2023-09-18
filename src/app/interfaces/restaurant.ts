@@ -9,4 +9,5 @@ interface RestaurantProps {
   location: string;
   operatingHours: number;
   contactInfo: string;
+  menus: string[] | null;
 }

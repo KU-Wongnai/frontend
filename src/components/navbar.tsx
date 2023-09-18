@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ComboboxDemo } from "./combobox-location";
 import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
+import SearchInput from "./search-input";
 
 export default async function Navbar() {
   return (
@@ -97,41 +98,17 @@ export default async function Navbar() {
 
         {/* Search for Mobile */}
         <div className="md:hidden w-full px-2">
-          <form>
-            <div className="relative rounded-full border-green-600 border-2 w-full mb-2">
-              <Input
-                type="search"
-                placeholder="search a restaurant ...."
-                className="pl-4 pr-10 rounded-full w-full"
-              />
-              <div
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 rounded-full pl-1 flex items-center"
-                style={{ width: "30px", height: "30px" }}
-              >
-                🍳
-              </div>
-            </div>
-          </form>
+          <div className="relative rounded-full border-green-600 border-2 w-full mb-2">
+            <SearchInput />
+          </div>
         </div>
 
         {/* Search and Combobox for Desktop */}
         <div className="hidden md:flex gap-3 items-center mb-2 md:mb-0">
           <ComboboxDemo />
-          <form>
-            <div className="relative rounded-full border-green-600 border-2 w-full">
-              <Input
-                type="search"
-                placeholder="search a restaurant ...."
-                className="pl-4 pr-10 rounded-full w-full"
-              />
-              <div
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 rounded-full pl-1 flex items-center"
-                style={{ width: "30px", height: "30px" }}
-              >
-                🍳
-              </div>
-            </div>
-          </form>
+          <div className="relative rounded-full border-green-600 border-2 w-full">
+            <SearchInput />
+          </div>
         </div>
 
         {/* Icons and Avatar for Desktop */}
