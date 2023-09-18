@@ -56,8 +56,7 @@ export default function MainHome() {
             name="Pad Thai"
             foodType="Thai Food"
             rating={4.5}
-            href={`/restaurants/1`}
-          />
+            href={`/restaurants/1`} menus={null}          />
         </section>
 
         {/* all restaurant */}
@@ -81,8 +80,7 @@ export default function MainHome() {
                 name={restaurant.name}
                 foodType={restaurant.foodType}
                 rating={restaurant.rating}
-                href={`/restaurants/${restaurant.id}`}
-              />
+                href={`/restaurants/${restaurant.id}`} menus={null}              />
             ))}
           </div>
         </section>

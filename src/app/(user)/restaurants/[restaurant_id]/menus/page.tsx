@@ -28,9 +28,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
         description={""}
         location={""}
         operatingHours={0}
-        contactInfo={""}
-        menus={[]}
-      />
+        contactInfo={""} menus={null}      />
 
       {/* all menu */}
       <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">

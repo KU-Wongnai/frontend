@@ -45,8 +45,7 @@ function Review({ params }: { params: { id: string } }) {
           description={""}
           location={""}
           operatingHours={0}
-          contactInfo={""}
-        />
+          contactInfo={""} menus={null}        />
         {/* review */}
         <section className="w-full bg-card pt-3 rounded-lg p-5 mt-6 border shadow-sm">
           <div className="flex border-b mb-3 gap-2">

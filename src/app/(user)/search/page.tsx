@@ -1,18 +1,6 @@
+import { SearchParams } from "@/app/interfaces/search-params";
 import SearchSideBar from "./components/filter-sidebar";
 import RestaurantCardSearch from "./components/restaurant-card-search";
-
-export enum PRICE {
-  CHEAP = "CHEAP",
-  REGULAR = "REGULAR",
-  EXPENSIVE = "EXPENSIVE",
-}
-
-interface SearchParams {
-  name?: string;
-  type?: string;
-  price?: PRICE;
-  location?: string;
-}
 
 const fetchSportsByName = (
   searchParams: SearchParams
