@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { Star } from "lucide-react";
 
 const RestaurantCardDetail: React.FC<RestaurantProps> = ({
   id,

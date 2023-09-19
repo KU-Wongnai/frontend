@@ -4,8 +4,8 @@ type Props = {
   params: any;
 }
 
-export default function page({params}: Props) {
+export default function Order({params}: Props) {
   return (
-    <div>page</div>
+    <div>restaurant/id</div>
   )
 }

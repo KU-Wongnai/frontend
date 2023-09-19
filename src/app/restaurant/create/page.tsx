@@ -93,7 +93,7 @@ export default function CreateRestaurant({}: Props) {
   useEffect(() => {
     console.log(selectedDay);
   }, [selectedDay]);
-  
+
   useEffect(() => {
     console.log(Time);
   }, [Time]);
@@ -138,7 +138,8 @@ export default function CreateRestaurant({}: Props) {
     //     markerPosition.lat,
     //     markerPosition.lng
     //   );
-    if (marker && window.google) { // Add optional chaining here
+    if (marker && window.google) {
+      // Add optional chaining here
       const newPosition = new window.google.maps.LatLng(
         markerPosition.lat,
         markerPosition.lng
@@ -772,7 +773,7 @@ export default function CreateRestaurant({}: Props) {
               </div>
             </div>
             <div className="flex justify-end mr-9">
-              <button className="bg-green-600 px-4 py-2 rounded-md">
+              <button className="bg-green-600 px-4 py-2 rounded-md text-white">
                 submit
               </button>
             </div>

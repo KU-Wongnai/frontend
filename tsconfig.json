@@ -13,7 +13,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["@types/node", "@types/google.maps"],
+    "types": ["@types/node", "@types/googlemaps"],
+    // star rating
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
     "plugins": [
       {
         "name": "next"
