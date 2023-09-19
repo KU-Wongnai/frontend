@@ -12,7 +12,7 @@ interface RestaurantMenuPageProps {
 const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
   const id = Number(params.id);
 
-  const restaurantCard: RestaurantProps = mockRestaurants[id];
+  // const restaurantCard: RestaurantProps = mockRestaurants[id];
   const foodCards: FoodCardProps[] = mockFoodData;
 
   return (
@@ -28,8 +28,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
         description={""}
         location={""}
         operatingHours={0}
-        contactInfo={""}
-      />
+        contactInfo={""} menus={null}      />
 
       {/* all menu */}
       <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">

@@ -1,0 +1,5 @@
+export enum PRICE {
+  CHEAP = "CHEAP",
+  REGULAR = "REGULAR",
+  EXPENSIVE = "EXPENSIVE",
+}
