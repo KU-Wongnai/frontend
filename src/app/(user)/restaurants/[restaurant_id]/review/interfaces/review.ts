@@ -1,8 +1,9 @@
 interface ReviewProps {
   avatarUrl: string;
   name: string;
-  topic: string;
-  detail: string;
+  title: string;
+  content: string;
+  rating: number;
   images: string[];
   comments: ReviewComment[];
   likes: number;

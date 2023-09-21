@@ -19,8 +19,8 @@ import { Button } from "../../../../../../components/ui/button";
 const Review: React.FC<ReviewProps> = ({
   avatarUrl,
   name,
-  topic,
-  detail,
+  title,
+  content,
   images,
   comments,
   likes,
@@ -42,7 +42,7 @@ const Review: React.FC<ReviewProps> = ({
     if (commentText.trim()) {
       setComment((prevComments) => [
         ...prevComments,
-        { avatarUrl: avatarUrl, name: name, text: commentText },
+        { avatarUrl: avatarUrl, name: name, content: commentText },
       ]);
       setCommentText("");
       setShowCommentInput(false);
@@ -73,8 +73,8 @@ const Review: React.FC<ReviewProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <h3 className="text-lg sm:text-xl font-bold mb-2">{topic}</h3>
-      <p className="text-gray-600 mb-4">{detail}</p>
+      <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
+      <p className="text-gray-600 mb-4">{content}</p>
 
       <div className="grid grid-cols-2 sm:grid-cols-8 gap-2 mb-4">
         {images.map((img, index) => (
@@ -141,7 +141,7 @@ const Review: React.FC<ReviewProps> = ({
               </AvatarFallback>
             </Avatar>
             <div>
-              <span className="font-bold">{comment.name}</span>: {comment.text}
+              <span className="font-bold">{comment.name}</span>:{comment.content}
             </div>
           </li>
         ))}

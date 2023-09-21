@@ -1,5 +1,5 @@
 import FoodCard from "@/components/food-card";
-import { mockFoodData } from "@/app/__mock__/food-card";
+import { mockMenuData } from "@/app/__mock__/menu-card";
 import React from "react";
 import { mockRestaurants } from "@/app/__mock__/restaurant-card";
 import { ChefHat, Star } from "lucide-react";
@@ -13,7 +13,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
   const id = Number(params.id);
 
   // const restaurantCard: RestaurantProps = mockRestaurants[id];
-  const foodCards: FoodCardProps[] = mockFoodData;
+  const menuCards: MenuCardProps[] = mockMenuData;
 
   return (
     <main className="container mx-auto py-6 px-2 sm:px-4 md:px-6 lg:px-8">
@@ -39,7 +39,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
           </h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4">
-          {foodCards.map((foodCard, index) => (
+          {menuCards.map((foodCard, index) => (
             <FoodCard key={index} {...foodCard} />
           ))}
         </div>

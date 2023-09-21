@@ -1,7 +1,7 @@
 "use client";
 import TagTitle from "@/components/tag-title";
 import React, { useState } from "react";
-import { mockFoodData } from "../../../__mock__/food-card";
+import { mockMenuData } from "../../../__mock__/menu-card";
 import Link from "next/link";
 import RestaurantMenuCard from "@/app/restaurant/components/menu-card-restaurant";
 type Props = {}
@@ -45,7 +45,7 @@ const page = (props: Props) => {
             </div>
             <div className="overflow-y-auto max-h-[30rem]">
               <div className="flex flex-wrap ml-2 mr-1 px-2 ">
-                {mockFoodData.map((food) => {
+                {mockMenuData.map((food) => {
                   console.log(food); // Add this line for debugging
                   return (
                     <RestaurantMenuCard

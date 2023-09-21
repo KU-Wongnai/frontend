@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-const FoodCard: React.FC<FoodCardProps> = ({
+const FoodCard: React.FC<MenuCardProps> = ({
   id,
   imageUrl,
   name,
@@ -101,7 +101,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
                     onClick={() => {
                       /* Logic to add to cart */
                     }}
-                    className="text-white bg-blue-600 hover:bg-blue-700 mt-4"
+                    className="text-white mt-4"
                   >
                     Add to Cart
                   </Button>

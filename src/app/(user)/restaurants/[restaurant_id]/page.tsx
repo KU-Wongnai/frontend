@@ -111,11 +111,12 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
               key={index}
               avatarUrl={review.avatarUrl}
               name={review.name}
-              topic={review.topic}
-              detail={review.detail}
+              title={review.title}
+              content={review.content}
               images={review.images}
               comments={review.comments}
               likes={review.likes}
+              rating={review.rating}
             />
           ))}
         </div>

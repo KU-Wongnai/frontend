@@ -86,7 +86,7 @@ export default async function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/login" className="flex items-center w-full">
+                  <Link href="/auth" className="flex items-center w-full">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
                   </Link>
@@ -157,7 +157,7 @@ export default async function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/login" className="flex items-center w-full">
+                <Link href="/auth" className="flex items-center w-full">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
                 </Link>

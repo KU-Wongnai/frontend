@@ -1,75 +1,82 @@
 "use client";
 
-import * as React from "react";
-
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { useRouter } from "next/navigation";
-
 interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+interface FormInputs {
+  email: string;
+  password: string;
+}
+
 export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
+  const { handleSubmit, control, setValue, formState } = useForm<FormInputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const { isLoading } = formState;
   const router = useRouter();
 
   const mockRoute = () => {
     router.push("/");
   };
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }
+  const onSubmit = (data: FormInputs) => {
+    console.log(data);
+    // Handle your form submission logic here
+    mockRoute();
+  };
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid">
+          <div className="grid gap-1 mb-5">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="email"
+                  placeholder="name@example.com"
+                  type="email"
+                  disabled={isLoading}
+                />
+              )}
             />
           </div>
-          <div className="grid gap-1">
-            <Label htmlFor="email">Password</Label>
-            <Input
-              id="password"
-              placeholder="type your password here"
-              type="password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="grid gap-1">
-            <Label htmlFor="email">Confirm Password</Label>
-            <Input
-              id="password"
-              placeholder="type your password here"
-              type="password"
-              autoCapitalize="none"
-              autoCorrect="off"
-              disabled={isLoading}
+          <div className="grid gap-1 mb-10">
+            <Label htmlFor="password">Password</Label>
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="password"
+                  placeholder="Password"
+                  type="password"
+                  disabled={isLoading}
+                />
+              )}
             />
           </div>
           <Button
             disabled={isLoading}
-            onClick={mockRoute}
+            type="submit"
             className="bg-green-600 hover:bg-green-800 text-white"
           >
             {isLoading && (
