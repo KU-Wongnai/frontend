@@ -8,6 +8,11 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+
+import { loginSchema } from "@/validations/auth-schema";
+import { useAuthStore } from "@/contexts/auth-store";
+import { loginUser, googleAuth } from "@/lib/auth-helper";
 
 interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -22,18 +27,42 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
       email: "",
       password: "",
     },
+    // this is a custom resolver to handle yup validation errors
+    resolver: async (data) => {
+      try {
+        loginSchema.parse(data);
+        return { values: data, errors: {} };
+      } catch (error: any) {
+        return { values: {}, errors: error.formErrors.fieldErrors };
+      }
+    },
   });
   const { isLoading } = formState;
+  const { toast } = useToast();
   const router = useRouter();
+  const setToken = useAuthStore((state) => state.setToken); // Zustand store
 
-  const mockRoute = () => {
-    router.push("/");
+  const onSubmit = async (data: FormInputs) => {
+    try {
+      const token = await loginUser(data);
+      setToken(token); // Save token to Zustand store
+      console.log("User logged in", token);
+      router.push("/");
+      toast({ title: "Login Success", description: "Welcome back!" });
+    } catch (error) {
+      console.error("Login failed", error);
+    }
   };
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
-    // Handle your form submission logic here
-    mockRoute();
+  const handleGoogleAuth = async () => {
+    try {
+      const token = await googleAuth();
+      setToken(token); // Save token to Zustand store
+      router.push("/"); // Navigate to dashboard
+      toast({ title: "Google Authentication Success", description: "" });
+    } catch (error) {
+      console.error("Google Authentication failed", error);
+    }
   };
 
   return (
@@ -99,14 +128,14 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
       <Button
         variant="outline"
         type="button"
-        onClick={mockRoute}
+        onClick={handleGoogleAuth}
         disabled={isLoading}
       >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <Icons.google className="mr-2 h-4 w-4" />
-        )}{" "}
+        )}
         Google
       </Button>
     </div>

@@ -3,7 +3,6 @@ import Image from "next/image";
 import logoRadius from "/src/assets/logo/logo_white_radius.png";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SignInAuthForm } from "./components/user-auth-signin-form";
-import Link from "next/link";
 import { SignUpAuthForm } from "./components/user-auth-signup-form";
 
 const Auth = () => {
@@ -46,13 +45,7 @@ const Auth = () => {
               </div>
               <SignInAuthForm />
               <p className="px-8 text-center text-sm text-muted-foreground">
-                If you don&apos;t have an account, you can{" "}
-                <Link
-                  href="/sign-up"
-                  className="underline underline-offset-4 hover:text-primary"
-                >
-                  create one
-                </Link>
+                If you don&apos;t have an account, you can sign up
               </p>
             </TabsContent>
             <TabsContent value="sign-up">
@@ -66,13 +59,7 @@ const Auth = () => {
               </div>
               <SignUpAuthForm />
               <p className="px-8 text-center text-sm text-muted-foreground">
-                If you already have an account, you can{" "}
-                <Link
-                  href="/login"
-                  className="underline underline-offset-4 hover:text-primary"
-                >
-                  login
-                </Link>
+                If you already have an account, you can sign in
               </p>
             </TabsContent>
           </Tabs>

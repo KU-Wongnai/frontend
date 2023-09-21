@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { registerUser, googleAuth } from "@/lib/auth-helper";
+import { registerSchema } from "@/validations/auth-schema"; // Import registerSchema
+import { useAuthStore } from "@/contexts/auth-store";
+
 interface SignUpAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 interface FormInputs {
@@ -26,18 +30,46 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
       password: "",
       confirmPassword: "",
     },
+    resolver: async (data) => {
+      try {
+        registerSchema.parse(data);
+        return { values: data, errors: {} };
+      } catch (error: any) {
+        return { values: {}, errors: error.formErrors.fieldErrors };
+      }
+    },
   });
+
   const { isLoading } = formState;
   const router = useRouter();
+  const setToken = useAuthStore((state) => state.setToken); // Zustand store
 
   const mockRoute = () => {
     router.push("/");
   };
 
-  const onSubmit = (data: FormInputs) => {
-    console.log(data);
-    // Perform your sign-up logic here
-    mockRoute();
+  const onSubmit = async (data: FormInputs) => {
+    try {
+      if (data.password === data.confirmPassword) {
+        const result = await registerUser(data);
+        console.log("User registered", result);
+        router.push("/dashboard");
+      } else {
+        throw new Error("Password and Confirm Password do not match");
+      }
+    } catch (error) {
+      console.error("Registration failed", error);
+    }
+  };
+
+  const handleGoogleAuth = async () => {
+    try {
+      const token = await googleAuth();
+      setToken(token); // Save token to Zustand store
+      router.push("/"); // Navigate to dashboard
+    } catch (error) {
+      console.error("Google Authentication failed", error);
+    }
   };
 
   return (
@@ -137,7 +169,7 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
       <Button
         variant="outline"
         type="button"
-        onClick={mockRoute}
+        onClick={handleGoogleAuth}
         disabled={isLoading}
       >
         {isLoading ? (
