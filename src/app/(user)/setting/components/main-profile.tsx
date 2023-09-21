@@ -1,7 +1,7 @@
-import General from "./general";
+import General from "./general-profile";
 import MyOrders from "./my-orders";
 import ChangePassword from "./change-password";
-import History from "./history";
+import History from "./history-orders";
 
 interface MainProfileProps {
   active: number;
