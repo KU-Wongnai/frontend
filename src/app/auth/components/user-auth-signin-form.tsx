@@ -12,7 +12,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { loginSchema } from "@/validations/auth-schema";
 import { useAuthStore } from "@/contexts/auth-store";
-import { loginUser, googleAuth } from "@/lib/auth-helper";
+import { loginUser, redirectToGoogleOAuth } from "@/lib/auth-helper";
 
 interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -51,17 +51,6 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
       toast({ title: "Login Success", description: "Welcome back!" });
     } catch (error) {
       console.error("Login failed", error);
-    }
-  };
-
-  const handleGoogleAuth = async () => {
-    try {
-      const token = await googleAuth();
-      setToken(token); // Save token to Zustand store
-      router.push("/"); // Navigate to dashboard
-      toast({ title: "Google Authentication Success", description: "" });
-    } catch (error) {
-      console.error("Google Authentication failed", error);
     }
   };
 
@@ -128,7 +117,7 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
       <Button
         variant="outline"
         type="button"
-        onClick={handleGoogleAuth}
+        onClick={redirectToGoogleOAuth}
         disabled={isLoading}
       >
         {isLoading ? (
