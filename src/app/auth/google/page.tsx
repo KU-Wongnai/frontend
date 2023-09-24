@@ -1,5 +1,6 @@
 "use client";
 
+import { API_URL } from "@/lib/http-client";
 import axios from "axios";
 import React, { useEffect } from "react";
 
@@ -16,7 +17,7 @@ const GoogleAuthPage = () => {
     if (code && scope && prompt) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_USER_API_URL}api/auth/google/callback?code=${code}&scope=${scope}&prompt=${prompt}`
+          `${API_URL}/user/api/auth/google/callback?code=${code}&scope=${scope}&prompt=${prompt}`
         )
         .then((res) => {
           // Save the JWT token to localStorage
