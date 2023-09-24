@@ -25,32 +25,9 @@ import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
 import SearchInput from "./search-input";
 
-import { useAuthStore } from "@/contexts/auth-store";  // Assume you have Zustand store
-import { logoutUser } from '@/lib/auth-helper';  // Import the logoutUser function
-
-import { useRouter } from "next/navigation";
+import { logout } from "@/services/auth"; // Import the logoutUser function
 
 export default function Navbar() {
-  const router = useRouter();
-  const token = useAuthStore((state) => state.token); // Zustand store
-  const clearToken = useAuthStore((state) => state.clearToken); // Function to clear token from Zustand store
-
-const handleLogout = async () => {
-  try {
-    console.log(token);
-    if (token) {
-      // Only proceed if token is not null
-      const success = await logoutUser(token);
-      if (success) {
-        clearToken(); // Clear the token from state
-        router.push("/auth"); // Redirect to auth or home page
-      }
-    }
-  } catch (error) {
-    console.error("Logout failed", error);
-  }
-};
-
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -59,13 +36,13 @@ const handleLogout = async () => {
           href="/"
           className="text-3xl font-semibold tracking-tight mb-2 md:mb-0 hidden md:block"
         >
-          <span className="text-green-600">KU</span>wongnai
+          <span className="text-green-600">KU</span> Wongnai
         </Link>
 
         {/* Logo and Avatar for Mobile */}
         <div className="md:hidden flex justify-between items-center w-full mb-1 px-2">
           <Link href="/" className="text-3xl font-semibold tracking-tight">
-            <span className="text-green-600">KU</span>wongnai
+            <span className="text-green-600">KU</span> Wongnai
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
@@ -113,10 +90,7 @@ const handleLogout = async () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center w-full"
-                  >
+                  <button onClick={logout} className="flex items-center w-full">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
                   </button>
@@ -187,10 +161,7 @@ const handleLogout = async () => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center w-full"
-                >
+                <button onClick={logout} className="flex items-center w-full">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
                 </button>
