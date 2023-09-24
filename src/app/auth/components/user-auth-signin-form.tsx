@@ -12,7 +12,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { loginSchema } from "@/validations/auth-schema";
 import { useAuthStore } from "@/contexts/auth-store";
-import { loginUser, redirectToGoogleOAuth } from "@/lib/auth-helper";
+import { login, redirectToGoogleOAuth } from "@/services/auth";
 
 interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -40,16 +40,18 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
   const { isLoading } = formState;
   const { toast } = useToast();
   const router = useRouter();
-  const setToken = useAuthStore((state) => state.setToken); // Zustand store
+  // const setToken = useAuthStore((state) => state.setToken); // Zustand store
 
   const onSubmit = async (data: FormInputs) => {
     try {
-      const token = await loginUser(data);
-      setToken(token); // Save token to Zustand store
-      console.log("User logged in", token);
-      router.push("/");
+      await login(data);
       toast({ title: "Login Success", description: "Welcome back!" });
+      router.push("/");
     } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: "An error occurred. Please try again.",
+      });
       console.error("Login failed", error);
     }
   };

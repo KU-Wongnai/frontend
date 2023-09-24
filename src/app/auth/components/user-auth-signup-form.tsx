@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { registerUser, googleAuth } from "@/lib/auth-helper";
+import { signUp, redirectToGoogleOAuth } from "@/services/auth";
 import { registerSchema } from "@/validations/auth-schema"; // Import registerSchema
 import { useAuthStore } from "@/contexts/auth-store";
 
@@ -19,7 +19,7 @@ interface FormInputs {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
 }
 
 export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
@@ -28,7 +28,7 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
       name: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      password_confirmation: "",
     },
     resolver: async (data) => {
       try {
@@ -49,26 +49,17 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
   };
 
   const onSubmit = async (data: FormInputs) => {
+    console.log("Form submitted", data);
     try {
-      if (data.password === data.confirmPassword) {
-        const result = await registerUser(data);
-        console.log("User registered", result);
+      if (data.password === data.password_confirmation) {
+        const user = await signUp(data);
+        console.log("User registered", user);
         router.push("/dashboard");
       } else {
         throw new Error("Password and Confirm Password do not match");
       }
     } catch (error) {
       console.error("Registration failed", error);
-    }
-  };
-
-  const handleGoogleAuth = async () => {
-    try {
-      const token = await googleAuth();
-      setToken(token); // Save token to Zustand store
-      router.push("/"); // Navigate to dashboard
-    } catch (error) {
-      console.error("Google Authentication failed", error);
     }
   };
 
@@ -128,15 +119,15 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
             />
           </div>
           <div className="grid gap-1 mb-5">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="password_confirmation">Confirm Password</Label>
             <Controller
-              name="confirmPassword"
+              name="password_confirmation"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <Input
                   {...field}
-                  id="confirmPassword"
+                  id="password_confirmation"
                   placeholder="Confirm your password"
                   type="password"
                   disabled={isLoading}
@@ -169,7 +160,7 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
       <Button
         variant="outline"
         type="button"
-        onClick={handleGoogleAuth}
+        onClick={redirectToGoogleOAuth}
         disabled={isLoading}
       >
         {isLoading ? (
