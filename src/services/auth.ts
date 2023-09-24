@@ -15,17 +15,21 @@ export const redirectToGoogleOAuth = async () => {
 };
 
 export const logout = async () => {
-  const _token = localStorage.getItem("token");
-  await httpClient.post(
-    "user/api/auth/logout",
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${_token}`,
-      },
-    }
-  );
-  localStorage.removeItem("token");
+  try {
+    const _token = localStorage.getItem("token");
+    await httpClient.post(
+      "user/api/auth/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${_token}`,
+        },
+      }
+    );
+    localStorage.removeItem("token");
+  } catch (error) {
+    console.error("Failed to log out", error);
+  }
 };
 
 export const getMe = async () => {

@@ -11,10 +11,10 @@ const Auth = () => {
       {/* Display the logo only on md (tablet) screens and above */}
       <Image
         src={logoRadius}
-        width={200}
-        height={200}
-        alt="KU Wongnai"
-        className="hidden md:block absolute left-4 top-4 md:left-8 md:top-8 z-10"
+        width={150}
+        height={150}
+        alt="KU Wongnai Logo"
+        className="static lg:absolute mx-auto left-4 top-4 md:left-8 md:top-8 z-10"
       />
 
       {/* Display the background div only on lg (large) screens and above */}
@@ -24,7 +24,7 @@ const Auth = () => {
 
       {/* This div will be displayed on all screen sizes, but takes full width only on small screens */}
       <div className="lg:p-8 w-full">
-        <div className="mx-auto flex flex-col justify-center space-y-6 sm:w-[350px] mt-10 md:mt-28">
+        <div className="mx-auto flex flex-col justify-center space-y-6 sm:w-[350px] mt-10 lg:mt-28">
           <Tabs defaultValue="sign-in">
             <TabsList>
               <TabsTrigger value="sign-in">
@@ -44,7 +44,7 @@ const Auth = () => {
                 </p>
               </div>
               <SignInAuthForm />
-              <p className="px-8 text-center text-sm text-muted-foreground">
+              <p className="mt-3 px-8 text-center text-sm text-muted-foreground">
                 If you don&apos;t have an account, you can sign up
               </p>
             </TabsContent>
@@ -58,7 +58,7 @@ const Auth = () => {
                 </p>
               </div>
               <SignUpAuthForm />
-              <p className="px-8 text-center text-sm text-muted-foreground">
+              <p className="mt-3 only:px-8 text-center text-sm text-muted-foreground">
                 If you already have an account, you can sign in
               </p>
             </TabsContent>
