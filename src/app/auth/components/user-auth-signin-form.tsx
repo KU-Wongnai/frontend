@@ -57,6 +57,9 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
   const handleGoogleAuth = async () => {
     try {
       const token = await googleAuth();
+      if (!token) {
+        throw new Error("Google Authentication failed");
+      }
       setToken(token); // Save token to Zustand store
       router.push("/"); // Navigate to dashboard
       toast({ title: "Google Authentication Success", description: "" });

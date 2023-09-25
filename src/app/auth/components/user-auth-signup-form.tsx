@@ -63,13 +63,7 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
   };
 
   const handleGoogleAuth = async () => {
-    try {
-      const token = await googleAuth();
-      setToken(token); // Save token to Zustand store
-      router.push("/"); // Navigate to dashboard
-    } catch (error) {
-      console.error("Google Authentication failed", error);
-    }
+
   };
 
   return (

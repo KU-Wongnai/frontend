@@ -8,6 +8,8 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 - **Shadcn**: Enhancing UI through [Shadcn](https://ui.shadcn.com/), blending Radix UI with Tailwind CSS.
 - **React Hook Form**: For efficient and flexible [form validation](https://react-hook-form.com/).
 - **Lucide Icons**: Elevate aesthetics with [lucide icons](https://lucide.dev/), a set of gorgeous open-source icons.
+- **Zod**: A TypeScript-first schema declaration and validation library. Ensure strong typing and validation with [Zod](https://zod.dev/).
+- **Zustand**: A small, fast, and scaleable bearbones state-management solution. Simplify state logic with [Zustand](https://zustand-demo.pmnd.rs/).
 
 ## 🚀 Setup & Development
 
@@ -70,9 +72,11 @@ Enhance your understanding and skills with these resources:
   - [GitHub Repository](https://github.com/vercel/next.js/) - For those looking to contribute or get under the hood.
 
 - **Other Libraries**:
-  - [React Hook Form](https://react-hook-form.com/)
-  - [Shadcn](https://ui.shadcn.com/)
-  - [Lucide Icons](https://lucide.dev/)
+  - [React Hook Form](https://react-hook-form.com/) - Efficient and flexible form validation for React.
+  - [Shadcn](https://ui.shadcn.com/) - UI library blending Radix UI with Tailwind CSS for rapid design.
+  - [Lucide Icons](https://lucide.dev/) - Open-source icons to enhance app aesthetics.
+  - [Zod]() - Schema declaration and validation made easy.
+  - [Zustand]() - Effortless state management for React.
 
 ## 🚀 Deployment
 

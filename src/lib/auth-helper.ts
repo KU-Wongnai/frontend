@@ -38,11 +38,9 @@ export const loginUser = async (data: any) => {
 
 export const googleAuth = async () => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_USER_API_URL}api/auth/google`,
-      axiosConfig
-    );
-    return response.data.access_token;
+    window.location.href = `${process.env.NEXT_PUBLIC_USER_API_URL}api/auth/google`;
+    const token = window.localStorage.getItem("token");
+    return token;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "An error occurred");
   }
