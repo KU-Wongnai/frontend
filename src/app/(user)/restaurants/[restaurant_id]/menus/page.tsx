@@ -33,7 +33,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
       {/* all menu */}
       <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
         <div className="flex border-b mb-3 gap-2">
-          <ChefHat className="text-green-600 w-8 h-8" />
+          {/* <ChefHat className="text-green-600 w-8 h-8" /> */}
           <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
             All menu
           </h1>

@@ -53,7 +53,7 @@ function Cart() {
       <section className="w-full bg-card pt-3 border shadow-sm rounded-md p-5 mt-6">
         {/* show your cart */}
         <div className="flex border-b mb-3 gap-2">
-          <ChefHat className="text-green-600 w-8 h-8" />
+          {/* <ChefHat className="text-green-600 w-8 h-8" /> */}
           <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
             Your Cart
           </h1>
