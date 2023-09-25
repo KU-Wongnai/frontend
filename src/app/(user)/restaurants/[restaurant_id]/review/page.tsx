@@ -58,7 +58,7 @@ function Review({ params }: { params: { id: string } }) {
         {/* review */}
         <section className="w-full bg-card pt-3 rounded-lg p-5 mt-6 border shadow-sm">
           <div className="flex border-b mb-3 gap-2">
-            <ChefHat className="text-green-600 w-8 h-8" />
+            {/* <ChefHat className="text-green-600 w-8 h-8" /> */}
             <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
               Write a review
             </h1>
