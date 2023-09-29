@@ -21,9 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { signUp, redirectToGoogleOAuth } from "@/services/auth";
 
-interface SignUpAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
+export const SignUpAuthForm = () => {
   const form = useForm<RegisterForm>({
     defaultValues: {
       name: "",
@@ -61,7 +59,7 @@ export function SignUpAuthForm({ className, ...props }: SignUpAuthFormProps) {
   };
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className="grid gap-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-4">

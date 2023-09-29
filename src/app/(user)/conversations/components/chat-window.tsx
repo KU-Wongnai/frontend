@@ -9,7 +9,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 }) => {
 
   return (
-    <div className="flex-1 flex flex-col bg-background rounded-md min-h-[500px] max-h-[500px]">
+    <div className="flex-1 flex flex-col bg-secondary rounded-md min-h-[500px] max-h-[500px]">
       <div className="p-3 mx-4 font-semibold border-b">
         Conversations with{" "}
         <span className="text-primary">
