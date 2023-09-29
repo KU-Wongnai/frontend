@@ -4,8 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { mockReview } from "@/app/__mock__/review";
-import Review from "@/app/(user)/restaurants/[restaurant_id]/review/components/review";
 import { useRouter } from "next/navigation";
+import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
 
 function ShowRestaurant({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -107,15 +107,16 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
         </div>
         <div>
           {mockReview.map((review, index) => (
-            <Review
+            <ReviewCard
               key={index}
               avatarUrl={review.avatarUrl}
               name={review.name}
-              topic={review.topic}
-              detail={review.detail}
+              title={review.title}
+              content={review.content}
               images={review.images}
               comments={review.comments}
               likes={review.likes}
+              rating={review.rating}
             />
           ))}
         </div>

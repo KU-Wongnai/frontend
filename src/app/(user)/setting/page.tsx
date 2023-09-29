@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import MainProfile from "./components/MainProfile";
-import SidebarProfile from "./components/SidebarProfile";
+import MainProfile from "./components/main-profile";
+import SidebarProfile from "./components/sidebar-profile";
 
 export default function Profile() {
   const [active, setActive] = useState(1);

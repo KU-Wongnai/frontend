@@ -36,33 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const data: ColumnType[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    menu: "ยำหมูยอไข่แดง",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    menu: "ข้าวผัดกุ้ง",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    menu: "ข้าวผัดหมู",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    menu: "หมูกระทะ",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    menu: "ห่อหมก",
-  },
-];
+
 
 export type ColumnType = {
   id: string;
@@ -70,28 +44,11 @@ export type ColumnType = {
   menu: string;
 };
 
+type CartTableProps = {
+  data: ColumnType[];
+};
+
 export const columns: ColumnDef<ColumnType>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value: any) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "menu",
     header: ({ column }) => {
@@ -155,7 +112,9 @@ export const columns: ColumnDef<ColumnType>[] = [
   },
 ];
 
-export function CartTable() {
+export function CartTable({
+  data,
+}: CartTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -271,30 +230,6 @@ export function CartTable() {
           </TableBody>
         </Table>
       </div>
-      {/* <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
-      </div> */}
     </div>
   );
 }

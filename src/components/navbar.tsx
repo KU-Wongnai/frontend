@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
@@ -23,7 +25,9 @@ import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
 import SearchInput from "./search-input";
 
-export default async function Navbar() {
+import { logout } from "@/services/auth"; // Import the logoutUser function
+
+export default function Navbar() {
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -32,13 +36,13 @@ export default async function Navbar() {
           href="/"
           className="text-3xl font-semibold tracking-tight mb-2 md:mb-0 hidden md:block"
         >
-          <span className="text-green-600">KU</span>wongnai
+          <span className="text-green-600">KU</span> Wongnai
         </Link>
 
         {/* Logo and Avatar for Mobile */}
         <div className="md:hidden flex justify-between items-center w-full mb-1 px-2">
           <Link href="/" className="text-3xl font-semibold tracking-tight">
-            <span className="text-green-600">KU</span>wongnai
+            <span className="text-green-600">KU</span> Wongnai
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
@@ -86,10 +90,10 @@ export default async function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/login" className="flex items-center w-full">
+                  <button onClick={logout} className="flex items-center w-full">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
-                  </Link>
+                  </button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -157,14 +161,14 @@ export default async function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/login" className="flex items-center w-full">
+                <button onClick={logout} className="flex items-center w-full">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
-                </Link>
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <h4 className="text-xl font-semibold tracking-tight">John doe</h4>
+          <h4 className="text-xl font-semibold tracking-tight">name</h4>
         </div>
       </div>
     </header>

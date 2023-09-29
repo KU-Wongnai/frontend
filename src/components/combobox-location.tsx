@@ -54,7 +54,7 @@ export function ComboboxDemo() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between bg-green-600 rounded-full text-white hover:bg-green-700 hover:text-white h-[45px]"
+          className="w-[290px] justify-between bg-green-600 rounded-full text-white hover:bg-green-700 hover:text-white h-[45px]"
         >
           <MapPin />
           {value ? bars.find((bar) => bar.value === value)?.label : "Bar ..."}

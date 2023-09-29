@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
 import TagTitle from "@/components/tag-title";
 import React, { useState } from "react";
 import RealTimeClock from "@/components/clock";
-import { mockFoodData } from "../../../__mock__/food-card";
+import { mockMenuData } from "../../../__mock__/menu-card";
 import { mockOrderData } from "../../../__mock__/order";
 import OrderCard from "@/app/restaurant/components/order-card-dashboard";
 import RestaurantMenuCard from "@/app/restaurant/components/menu-card-restaurant";
@@ -59,7 +59,7 @@ const RestaurantDashBoard = (props: Props) => {
             </div>
             <div className="overflow-y-auto max-h-[30rem]">
               <div className="flex flex-wrap ml-2 mr-1 px-2 ">
-                {mockFoodData.map((food) => {
+                {mockMenuData.map((food) => {
                   console.log(food); // Add this line for debugging
                   return (
                     <RestaurantMenuCard
