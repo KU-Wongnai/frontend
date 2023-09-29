@@ -24,7 +24,7 @@ const Auth = () => {
 
       {/* This div will be displayed on all screen sizes, but takes full width only on small screens */}
       <div className="lg:p-8 w-full">
-        <div className="mx-auto flex flex-col justify-center space-y-6 sm:w-[350px] mt-10 lg:mt-28">
+        <div className="mx-auto flex flex-col justify-center space-y-3 sm:w-[350px] mt-10 lg:mt-16">
           <Tabs defaultValue="sign-in">
             <TabsList>
               <TabsTrigger value="sign-in">
@@ -35,7 +35,7 @@ const Auth = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="sign-in">
-              <div className="flex flex-col text-start space-y-2 my-8">
+              <div className="flex flex-col text-start space-y-2 my-6">
                 <h1 className="text-4xl font-semibold tracking-tight">
                   Sign In
                 </h1>
@@ -49,7 +49,7 @@ const Auth = () => {
               </p>
             </TabsContent>
             <TabsContent value="sign-up">
-              <div className="flex flex-col space-y-2 text-start my-8">
+              <div className="flex flex-col space-y-2 text-start my-6">
                 <h1 className="text-4xl font-semibold tracking-tight">
                   Register
                 </h1>

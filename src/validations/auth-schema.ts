@@ -1,4 +1,4 @@
-import { ZodSchema, z } from "zod";
+import { z } from "zod";
 
 // Note: Name of the field should be the same as returned from our user-service
 
