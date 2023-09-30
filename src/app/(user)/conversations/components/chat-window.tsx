@@ -47,8 +47,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`flex-initial rounded-sm shadow-sm p-2 ${
-                    log.sender === 0 ? "bg-primary" : "bg-muted"
+                  className={`flex-initial rounded-sm shadow-sm p-2 border ${
+                    log.sender === 0 ? "bg-primary" : "bg-card"
                   }`}
                 >
                   {log.message}

@@ -2,9 +2,7 @@
 
 import { CartTable, ColumnType } from "@/app/(user)/cart/components/cart-table";
 import LocationSelector from "@/app/(user)/cart/components/location-selector";
-import { ChefHat } from "lucide-react";
 import { MapPin } from "lucide-react";
-import { useState } from "react";
 
 function Cart() {
   const data: ColumnType[] = [
@@ -34,19 +32,6 @@ function Cart() {
       menu: "ห่อหมก",
     },
   ];
-
-  const handleRowSelect = (row: ColumnType) => {
-    console.log("Selected Row:", row);
-  };
-
-  const handleFilterApply = (filter: string) => {
-    console.log("Filter Applied:", filter);
-    // You might want to fetch filtered data based on the applied filter
-  };
-
-  const handleMenuAction = (action: string, menu: ColumnType) => {
-    console.log(`Action '${action}' applied on menu:`, menu);
-  };
 
   return (
     <main className="container mx-auto px-4 sm:px-0 pb-6">
