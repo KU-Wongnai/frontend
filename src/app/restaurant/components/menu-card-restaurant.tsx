@@ -67,7 +67,7 @@ const RestaurantMenuCard: React.FC<any> = ({
           <div className="modal-backdrop" onClick={closeModal}></div>
           <dialog
             id="my_modal_5"
-            className="modal modal-bottom xl:modal-middle w-1/3 bg-orange-100 rounded-md "
+            className="modal modal-bottom xl:modal-middle w-1/3 bg-white rounded-md "
           >
             <div className="flex flex-col modal-box px-10 py-5 rounded-lg">
               <div className="flex shadow-lg bg-white rounded-md mt-5">
@@ -82,30 +82,27 @@ const RestaurantMenuCard: React.FC<any> = ({
                   <h3 className="font-bold text-lg">{name}</h3>
                   <h3 className="font-semibold text-md">{category}</h3>
                   <h3 className="font-normal text-md">{price} $</h3>
-
                 </div>
               </div>
               <div className="flex flex-col mt-5 py-1">
-                <p className="text-lg font-semibold mb-3">🥘 Optional</p>
-                <div className="overflow-y-auto max-h-[10rem] bg-yellow-100 px-6 py-3">
-                  <p>Sunny-side-up egg</p>
-                  <p>Vegetable</p>
-                  <p>Sunny-side-up egg</p>
-                  <p>Vegetable</p>
-                  <p>Sunny-side-up egg</p>
-                  <p>Vegetable</p>
-                  <p>Sunny-side-up egg</p>
-                  <p>Vegetable</p>
-                </div>
+                <p className="text-lg font-semibold mb-3">🥘 Description</p>
+                <p>แซ่บหลาย</p>
               </div>
+
               <div className="modal-action mt-5">
-                <form method="dialog">
+                <form method="dialog" className="grid grid-cols-2 gap-4">
                   {/* if there is a button in form, it will close the modal */}
                   <button
-                    className="btn px-2 py-2 bg-green-600 text-white font-normal text-sm rounded-md"
+                    className="btn px-2 py-2 border-green-600 text-green-600 border-2 font-medium text-sm rounded-md"
                     onClick={closeModal}
                   >
                     Close
+                  </button>
+                  <button
+                    className="btn px-2 py-2 bg-green-600 text-white font-medium text-sm rounded-md"
+                    onClick={closeModal}
+                  >
+                    Edit
                   </button>
                 </form>
               </div>
