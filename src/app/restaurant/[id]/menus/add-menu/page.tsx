@@ -5,7 +5,8 @@ import Image from "next/image";
 type Props = {};
 
 const AddMenuPage = (props: Props) => {
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
