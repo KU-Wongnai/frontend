@@ -75,6 +75,7 @@ const FoodManagement = (props: Props) => {
                   name={food.name}
                   price={food.price}
                   category={food.category}
+                  description={food.description}
                   href={`/${food.id}`}
                 />
               );

@@ -18,6 +18,7 @@ export const mockMenuData = [
     name: "Food Name 1",
     category: "Noodle",
     price: 120,
+    description: "I love food !",
     href: "/restaurants/1/menus/1",
   },
   {
@@ -27,6 +28,7 @@ export const mockMenuData = [
     name: "Food Name 2",
     category: "Noodle",
     price: 80,
+    description: "I love food !",
     href: "/restaurants/1/menus/2",
   },
   {
@@ -36,6 +38,7 @@ export const mockMenuData = [
     name: "Food Name 8",
     category: "Cake",
     price: 50,
+    description: "I love food !",
     href: "/restaurants/1/menus/3",
   },
   {
@@ -45,6 +48,7 @@ export const mockMenuData = [
     name: "Food Name 3",
     category: "Sushi",
     price: 40,
+    description: "I love food !",
     href: "/restaurants/1/menus/4",
   },
   {
@@ -54,6 +58,7 @@ export const mockMenuData = [
     name: "Food Name 4",
     category: "Salad",
     price: 30,
+    description: "I love food !",
     href: "/restaurants/1/menus/5",
   },
   {
@@ -63,6 +68,7 @@ export const mockMenuData = [
     name: "Food Name 1",
     category: "Cake",
     price: 120,
+    description: "I love food !",
     href: "/restaurants/1/menus/6",
   },
   {
@@ -72,6 +78,7 @@ export const mockMenuData = [
     name: "Food Name 2",
     category: "Salad",
     price: 80,
+    description: "I love food !",
     href: "/restaurants/1/menus/7",
   },
   {
@@ -81,6 +88,7 @@ export const mockMenuData = [
     name: "Food Name 8",
     category: "Noodle",
     price: 50,
+    description: "I love food !",
     href: "/restaurants/1/menus/8",
   },
   {
@@ -90,6 +98,7 @@ export const mockMenuData = [
     name: "Food Name 3",
     category: "Sushi",
     price: 40,
+    description: "I love food !",
     href: "/restaurants/1/menus/9",
   },
 ];

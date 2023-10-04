@@ -84,6 +84,7 @@ const RestaurantDashBoard = (props: Props) => {
                       imageUrl={food.imageUrl}
                       name={food.name}
                       price={food.price}
+                      description={food.description}
                       category={food.category}
                       href={`/${food.id}`}
                     />

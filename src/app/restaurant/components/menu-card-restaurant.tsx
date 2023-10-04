@@ -6,6 +6,7 @@ const RestaurantMenuCard: React.FC<any> = ({
   name,
   category,
   price,
+  description,
   href,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,7 +87,7 @@ const RestaurantMenuCard: React.FC<any> = ({
               </div>
               <div className="flex flex-col mt-5 py-1">
                 <p className="text-lg font-semibold mb-3">🥘 Description</p>
-                <p>แซ่บหลาย</p>
+                <p>{description}</p>
               </div>
 
               <div className="modal-action mt-5">
