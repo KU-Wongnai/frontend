@@ -8,7 +8,7 @@ import { mockFoodCategoryData } from "@/app/__mock__/food-category";
 import FoodCategoryCard from "../../components/food-category-card";
 type Props = {};
 
-const page = (props: Props) => {
+const MenuManagement = (props: Props) => {
   const [currentPage, setCurrentPage] = useState<string>("All");
   const [mockMenuData, setMockMenuData] = useState(mockFoodData);
 
