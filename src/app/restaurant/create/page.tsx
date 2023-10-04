@@ -132,21 +132,6 @@ export default function CreateRestaurant({}: Props) {
     lng: 100.57007576117385,
   });
 
-  const handleMoveMarker = () => {
-    // if (marker) {
-    //   const newPosition = new window.google.maps.LatLng(
-    //     markerPosition.lat,
-    //     markerPosition.lng
-    //   );
-    if (marker && window.google) {
-      // Add optional chaining here
-      const newPosition = new window.google.maps.LatLng(
-        markerPosition.lat,
-        markerPosition.lng
-      );
-      marker.setPosition(newPosition);
-    }
-  };
 
   useEffect(() => {
     console.log(markerPosition);
@@ -172,8 +157,38 @@ export default function CreateRestaurant({}: Props) {
     });
     marker.addListener("dragend", () => {
       const newPosition = marker.getPosition();
-      setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
+      checkIsAccuratePosition(newPosition.lat(),newPosition.lng());
+      // setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
     });
+  };
+  
+  const checkIsAccuratePosition = (newLat: number, newLong: number) => {
+    const circleCenter = new google.maps.LatLng(13.850563550109797, 100.57007576117385);
+    const circleRadius = 1000; 
+    const newPosition = new google.maps.LatLng(newLat,newLong);
+      const distance = google.maps.geometry.spherical.computeDistanceBetween(circleCenter, newPosition);
+
+      // Check if the marker is inside the circular area
+      if (distance <= circleRadius) {
+        marker.setPosition(newPosition);
+        setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
+      } else {
+        // Marker is outside the circular area, so reset its position to the last valid position
+        marker.setPosition(circleCenter);
+        setMarkerPosition({ lat: circleCenter.lat(), lng: circleCenter.lng() });
+      }
+
+  }
+
+  const handleMoveMarker = () => {
+    if (marker && window.google) {
+      // Add optional chaining here
+      const newPosition = new window.google.maps.LatLng(
+        markerPosition.lat,
+        markerPosition.lng
+      );
+      checkIsAccuratePosition(newPosition.lat(),newPosition.lng());
+    }
   };
 
   return (
@@ -378,7 +393,7 @@ export default function CreateRestaurant({}: Props) {
       </div>
       {/* background of each section*/}
       <div className="bg-white">
-        {/* block for base information  */}
+        {/* block for location  */}
         <div className="flex justify-center text-sm font-bold container">
           {/* sprit 2 side */}
           <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
@@ -493,8 +508,8 @@ export default function CreateRestaurant({}: Props) {
                     >
                       Enter your Longitude
                     </p>
-                    <button onClick={handleMoveMarker}>
-                      Sync lat,lng to map
+                    <button className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md" onClick={handleMoveMarker}>
+                      Sync latitude and longitude to map
                     </button>
                   </div>
                   <div className="col-span-6">
