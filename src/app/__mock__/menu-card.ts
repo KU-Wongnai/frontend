@@ -10,7 +10,7 @@
 // }));
 
 
-export const mockFoodData = [
+export const mockMenuData = [
   {
     id: "1",
     imageUrl:

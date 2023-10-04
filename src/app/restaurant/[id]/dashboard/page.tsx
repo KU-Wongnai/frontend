@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
 import TagTitle from "@/components/tag-title";
 import React, { useEffect, useState } from "react";
 import RealTimeClock from "@/components/clock";
-import { mockFoodData } from "../../../__mock__/menu-card";
+import { mockMenuData } from "../../../__mock__/menu-card";
 import { mockOrderData } from "../../../__mock__/order";
 import OrderCard from "@/app/restaurant/components/order-card-dashboard";
 import RestaurantMenuCard from "@/app/restaurant/components/menu-card-restaurant";
@@ -13,19 +13,19 @@ type Props = {};
 
 const RestaurantDashBoard = (props: Props) => {
   const [currentPage, setCurrentPage] = useState<string>("All");
-  const [mockMenuData, setMockMenuData] = useState(mockFoodData);
+  const [mockFoodData, setMockMenuData] = useState(mockMenuData);
   const itemsPerPage = 6;
   const totalItems = 30;
-  let filteredMockFoodData = mockFoodData;
+  let filteredMockFoodData = mockMenuData;
 
   const handlePageChange = (page: string) => {
     setCurrentPage(page);
-    filteredMockFoodData = mockFoodData.filter(
+    filteredMockFoodData = mockMenuData.filter(
       (item) => item.category === page
     );
     setMockMenuData(filteredMockFoodData);
     if (page === "All") {
-      setMockMenuData(mockFoodData);
+      setMockMenuData(mockMenuData);
     }
   };
 
@@ -75,7 +75,7 @@ const RestaurantDashBoard = (props: Props) => {
             </div>
             <div className="overflow-y-auto max-h-[30rem]">
               <div className="flex flex-wrap ml-2 mr-1 px-2 ">
-                {mockMenuData.map((food) => {
+                {mockFoodData.map((food) => {
                   // console.log(food); // Add this line for debugging
                   return (
                     <RestaurantMenuCard
