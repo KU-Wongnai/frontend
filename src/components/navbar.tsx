@@ -29,17 +29,16 @@ import { useAuthStore } from "../contexts/auth-store";
 import { getMe, logout as logoutService } from "@/services/auth";
 
 export default function Navbar() {
-  const { token, user, setUser } = useAuthStore((state) => ({
-    token: state.token,
+  const { user, setUser } = useAuthStore((state) => ({
     user: state.user,
     setUser: state.setUser,
   }));
 
   React.useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("token")) {
       getMe();
     }
-  }, [setUser, token]);
+  }, [setUser]);
 
   const logout = async () => {
     try {
@@ -67,7 +66,7 @@ export default function Navbar() {
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
-            {token && user ? (
+            { user ? (
               <>
                 <Link href="/notifications">
                   <Button variant="outline" className="relative rounded-full">
@@ -162,7 +161,7 @@ export default function Navbar() {
 
         {/* Icons and Avatar for Desktop */}
         <div className="hidden md:flex items-center gap-3">
-          {token && user ? (
+          {user ? (
             <>
               <Link href="/cart">
                 <Button variant="outline" className="rounded-full">

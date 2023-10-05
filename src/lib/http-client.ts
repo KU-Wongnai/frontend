@@ -10,7 +10,7 @@ export const httpClient = axios.create({
 // Add a request interceptor to attach token
 httpClient.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().token;
+    const token = localStorage.getItem("token");
     // If token is available, set Authorization header
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

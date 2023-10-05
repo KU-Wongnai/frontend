@@ -15,10 +15,7 @@ export const signUp = async (data: RegisterForm) => {
 export const login = async (data: LoginForm) => {
   try {
     const { data: token } = await httpClient.post("user/api/auth/login", data);
-    useAuthStore.getState().setToken(token.access_token);
-    const user = await getMe();
-    useAuthStore.getState().setUser(user);
-    console.log("Login success", user);
+    localStorage.setItem("token", token.access_token);
   } catch (error) {
     console.error("Failed to login", error);
     throw error;
@@ -32,7 +29,7 @@ export const redirectToGoogleOAuth = async () => {
 export const logout = async () => {
   try {
     await httpClient.post("user/api/auth/logout");
-    useAuthStore.getState().clearAuth();
+    localStorage.removeItem("token");
   } catch (error) {
     console.error("Failed to log out", error);
     throw error;
@@ -41,10 +38,8 @@ export const logout = async () => {
 
 export const getMe = async () => {
   try {
-    
     const { data: user } = await httpClient.post("user/api/users/me");
     useAuthStore.getState().setUser(user);
-    return user;
   } catch (error) {
     console.error("Failed to get user", error);
     throw error;

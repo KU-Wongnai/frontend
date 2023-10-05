@@ -45,11 +45,7 @@ export interface User {
 }
 
 export interface AuthState {
-  token: string | null;
   user: User | null;
   setUser: (user: User) => void;
-  setToken: (token: string) => void;
-  clearToken: () => void;
   clearUser: () => void;
-  clearAuth: () => void;
 }
