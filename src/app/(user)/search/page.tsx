@@ -68,26 +68,77 @@ export default async function Search(
 }
 ) {
 
-  const mockRestaurantData = {
+  const mockRestaurantData: Restaurant = {
     id: 123,
     name: "Delicious Eatery",
     foodType: "Asian Fusion",
     rating: 4.7,
     description: "Best Asian Fusion in town. Come taste the deliciousness.",
     location: "123 Yummy St, Food City",
-    operatingHours: 10,
     contactInfo: "555-555-5555",
     image: "https://dummyimage.com/600x400/000/fff", // Replace with actual image URL
     menus: [
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      {
+        id: 1,
+        name: "Pad Thai",
+        description: "Stir-fried rice noodle dish",
+        price: 12.99,
+        category: "Entree",
+        menuOptions: [
+          {
+            id: 1,
+            name: "Spicy",
+            price: 0,
+            category: "Spice Level",
+          },
+          {
+            id: 2,
+            name: "Extra Chicken",
+            price: 2.99,
+            category: "Add Ons",
+          },
+        ],
+        image: "https://dummyimage.com/600x400/000/fff", // Replace with actual image URL
+      },
+      {
+        id: 2,
+        name: "Spring Rolls",
+        description: "Deep fried appetizer",
+        price: 6.99,
+        category: "Appetizer",
+        menuOptions: [
+          {
+            id: 3,
+            name: "Spicy",
+            price: 0,
+            category: "Spice Level",
+          },
+        ],
+        image: "https://dummyimage.com/600x400/000/fff", // Replace with actual image URL
+      },
+      {
+        id: 3,
+        name: "Pad See Ew",
+        description: "Stir-fried rice noodle dish",
+        price: 12.99,
+        category: "Entree",
+        menuOptions: [
+          {
+            id: 4,
+            name: "Spicy",
+            price: 0,
+            category: "Spice Level",
+          },
+          {
+            id: 5,
+            name: "Extra Chicken",
+            price: 2.99,
+            category: "Add Ons",
+          },
+        ],
+        image: "https://dummyimage.com/600x400/000/fff", // Replace with actual image URL
+      },
     ],
-    href: "/restaurants/123",
   };
 
   const checkRestaurant = () => {

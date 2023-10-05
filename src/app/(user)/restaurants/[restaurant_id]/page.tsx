@@ -1,13 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { mockReview } from "@/app/__mock__/review";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
+import { getRestaurant } from "@/services/restaurant";
 
-function ShowRestaurant({ params }: { params: { id: string } }) {
+function ShowRestaurant({
+  params,
+}: {
+  params: {
+    restaurant_id: number;
+    id: string;
+  };
+}) {
+
+  const [restaurant, setRestaurant] = React.useState<Restaurant>();
+
+  useEffect(() => {
+    const fetchRestaurant = async () => {
+      const restaurant = await getRestaurant(params.restaurant_id);
+      console.log(restaurant);
+      setRestaurant(restaurant);
+    }
+    fetchRestaurant();
+  }, [params.restaurant_id]);
+
   const router = useRouter();
 
   const mockRouteReview = () => {
@@ -22,9 +42,12 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
     <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
       {/* image and detail */}
       <section className="flex flex-col md:flex-row gap-3">
-        <div className="w-full md:flex-basis-2/3">
+        <div className="w-full md:flex-basis-2/3 h-auto md:h-[450px]">
           <Image
-            src="https://images.unsplash.com/photo-1628294895950-9805252327bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            src={
+              restaurant?.image ||
+              "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+            }
             alt="KU Wongnai"
             width={700}
             height={700}
@@ -35,14 +58,14 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
           <div className="flex flex-col bg-card rounded-lg p-4 md:p-5 h-auto md:h-[390px] border shadow-sm">
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <h2 className="text-2xl font-bold">
-                  Restaurant Name {params.id}
-                </h2>
-                <p className="text-sm text-gray-500">Japanese</p>
+                <h2 className="text-2xl font-bold">{restaurant?.name}</h2>
+                <p className="text-sm text-gray-500">{restaurant?.foodType}</p>
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center">
-                  <span className="text-red-500 text-2xl font-bold">4.5</span>
+                  <span className="text-red-500 text-2xl font-bold">
+                    {restaurant?.rating}
+                  </span>
                   <span className="ml-2 text-xl font-bold">/ 5</span>
                 </div>
                 <div className="text-sm text-gray-500 text-right">Rating</div>
@@ -51,10 +74,10 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
             <div className="flex justify-between mt-3">
               <div className="flex flex-col">
                 <h3 className="text-2xl font-bold">Location</h3>
-                <p className="text-sm text-gray-500">bar mai</p>
+                <p className="text-sm text-gray-500">{restaurant?.location}</p>
               </div>
             </div>
-            <div className="flex mt-3">
+            {/* <div className="flex mt-3">
               <div className="flex flex-col w-full">
                 <div className="text-2xl font-bold">opening hours</div>
                 <div className="flex justify-between">
@@ -62,20 +85,19 @@ function ShowRestaurant({ params }: { params: { id: string } }) {
                   <p className="text-sm text-gray-500">17:00 - 23:00</p>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex mt-3">
               <div className="flex flex-col w-full">
                 <h3 className="text-2xl font-bold">phone</h3>
-                <p className="text-sm text-gray-500">xxxxxxxxxx</p>
+                <p className="text-sm text-gray-500">
+                  {restaurant?.contactInfo}
+                </p>
               </div>
             </div>
 
             {/* description */}
             <div className="flex mt-5 w-full">
-              <p className="text-sm text-gray-500">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-                voluptatum, quibusdam, voluptate, quia voluptas quod
-              </p>
+              <p className="text-sm text-gray-500">{restaurant?.description}</p>
             </div>
           </div>
           <div className="w-full flex gap-3 mt-4">

@@ -14,7 +14,14 @@ const RichTextEditor = dynamic(() => import("@/components/rich-text-editor"), {
   ssr: false,
 });
 
-function Review({ params }: { params: { id: string } }) {
+function Review({
+  params,
+}: {
+  params: {
+    restaurant_id: number;
+    id: string;
+  };
+}) {
   const [editorContent, setEditorContent] = useState("");
   const [images, setImages] = useState<FileList | null>(null);
   const [rating, setRating] = useState(0);
@@ -35,26 +42,21 @@ function Review({ params }: { params: { id: string } }) {
   };
 
   const handleSubmit = () => {
-    console.log("Submitting:", editorContent, "Rating:", rating, "Images:", images);
+    console.log(
+      "Submitting:",
+      editorContent,
+      "Rating:",
+      rating,
+      "Images:",
+      images
+    );
   };
 
   return (
     <>
       <main className="container mx-auto py-6">
         {/* food card Horizontal */}
-        <RestaurantCardDetail
-          id={0}
-          name={""}
-          foodType={""}
-          rating={0}
-          image={null}
-          href={""}
-          description={""}
-          location={""}
-          operatingHours={0}
-          contactInfo={""}
-          menus={null}
-        />
+        <RestaurantCardDetail id={params.restaurant_id} />
         {/* review */}
         <section className="w-full bg-card pt-3 rounded-lg p-5 mt-6 border shadow-sm">
           <div className="flex border-b mb-3 gap-2">
