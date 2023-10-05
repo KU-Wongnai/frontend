@@ -29,20 +29,22 @@ import { useAuthStore } from "../contexts/auth-store";
 import { getMe, logout as logoutService } from "@/services/auth";
 
 export default function Navbar() {
-  const { user, setUser } = useAuthStore((state) => ({
+  const { token, user } = useAuthStore((state) => ({
+    token: state.token,
     user: state.user,
-    setUser: state.setUser,
   }));
 
   React.useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (token) {
       getMe();
     }
-  }, [setUser]);
+  }, [token]);
 
   const logout = async () => {
     try {
       await logoutService();
+      // re-load page to reset the state
+      
     } catch (error) {
       console.error("Failed to logout", error);
     }
