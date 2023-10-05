@@ -1,15 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +9,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 
 import * as React from "react";
 import { Order } from "@/app/rider/(main)/page";
@@ -113,43 +114,43 @@ export const columns: ColumnDef<Order>[] = [
                     <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
                       Order List
                     </h3>
-                    <table className="w-full text-left border-collapse text-sm sm:text-base">
-                      <thead>
-                        <tr>
-                          <th className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200 bg-muted">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="bg-muted">
                             Restaurant
-                          </th>
-                          <th className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200 bg-muted">
+                          </TableHead>
+                          <TableHead className="bg-muted">
                             Menu Item
-                          </th>
-                          <th className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200 bg-muted">
+                          </TableHead>
+                          <TableHead className="bg-muted">
                             Quantity
-                          </th>
-                          <th className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200 bg-muted">
+                          </TableHead>
+                          <TableHead className="bg-muted">
                             Amount
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                          </TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
                         {orderDetail.order &&
                           orderDetail.order.map((orderList) => (
-                            <tr key={orderList.id}>
-                              <td className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200">
+                            <TableRow key={orderList.id}>
+                              <TableCell>
                                 {orderList.restaurant}
-                              </td>
-                              <td className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200">
+                              </TableCell>
+                              <TableCell>
                                 {orderList.menu}
-                              </td>
-                              <td className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200">
+                              </TableCell>
+                              <TableCell>
                                 x{orderList.quantity}
-                              </td>
-                              <td className="py-1 sm:py-2 px-2 sm:px-4 border-b border-gray-200">
+                              </TableCell>
+                              <TableCell>
                                 ${orderList.amount}
-                              </td>
-                            </tr>
+                              </TableCell>
+                            </TableRow>
                           ))}
-                      </tbody>
-                    </table>
+                      </TableBody>
+                    </Table>
                   </div>
                 </div>
                 <div className="flex justify-end">
