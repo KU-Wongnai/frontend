@@ -37,7 +37,7 @@ const OrderManagement = (props: Props) => {
 
   return (
     <div className="container py-[40px] px-40 ">
-        <div className="col-span-3 bg-white  rounded-[12px] shadow-md py-12 px-14">
+        <div className="col-span-3 bg-card  rounded-[12px] shadow-md py-12 px-14">
             {/* Tag Topic (Menu) */}
             <div className="flex justify-between items-center">
               <div className="flex">

@@ -41,7 +41,7 @@ const RestaurantDashBoard = (props: Props) => {
       <div className="py-10 ">
         <div className="grid grid-cols-4 gap-5  h-full">
           {/* Menu Over All */}
-          <div className="col-span-3 bg-white rounded-[12px] shadow-md py-12 px-14 flex flex-col justify-center items-center">
+          <div className="col-span-3 bg-card rounded-[12px] shadow-md py-12 px-14 flex flex-col justify-center items-center">
             {/* Tag Topic (Menu) */}
             <div className="w-full">
               <div className="flex">
@@ -94,11 +94,11 @@ const RestaurantDashBoard = (props: Props) => {
             </div>
           </div>
           <div className="flex flex-col space-y-8 h-full">
-            <div className="bg-white w-300 rounded-[12px] p-4 shadow-md flex justify-center items-center">
+            <div className="bg-card w-300 rounded-[12px] p-4 shadow-md flex justify-center items-center">
               <RealTimeClock />
             </div>
 
-            <div className="flex flex-col bg-white w-300 h-full rounded-[12px] shadow-md px-2 py-12">
+            <div className="flex flex-col bg-card w-300 h-full rounded-[12px] shadow-md px-2 py-12">
               <div className="flex">
                 <div>
                   <TagTitle />

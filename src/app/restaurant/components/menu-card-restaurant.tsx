@@ -37,7 +37,7 @@ const RestaurantMenuCard: React.FC<any> = ({
         className="btn shadow-md mt-6 rounded-b-sm justify-start mr-5"
         onClick={openModal}
       >
-        <div className="flex flex-col rounded-t-sm">
+        <div className="flex flex-col rounded-sm border">
           {/* food image */}
           {/* <div className="bg-white"> */}
           <Image
@@ -49,7 +49,7 @@ const RestaurantMenuCard: React.FC<any> = ({
           />
           {/* </div> */}
           {/* food description */}
-          <div className="flex justify-between items-end text-black bg-white h-[60px] rounded-b-sm px-2 py-3 m-1">
+          <div className="flex justify-between items-end bg-card h-[60px] rounded-b-sm px-2 py-3 m-1">
             <div className="flex flex-col items-start">
               <p className="text-xs font-normal text-gray-500 mb-1 mt-1">
                 {category}
@@ -68,10 +68,10 @@ const RestaurantMenuCard: React.FC<any> = ({
           <div className="modal-backdrop" onClick={closeModal}></div>
           <dialog
             id="my_modal_5"
-            className="modal modal-bottom xl:modal-middle w-1/3 bg-white rounded-md "
+            className="modal modal-bottom xl:modal-middle w-1/3 bg-background rounded-md border"
           >
             <div className="flex flex-col modal-box px-10 py-5 rounded-lg">
-              <div className="flex shadow-lg bg-white rounded-md mt-5">
+              <div className="flex shadow-lg bg-card rounded-md mt-5">
                 <Image
                   alt="salmon"
                   src={imageUrl} // Update the path to your image

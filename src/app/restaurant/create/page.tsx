@@ -211,7 +211,7 @@ export default function CreateRestaurant({}: Props) {
           {/* sprit 2 side */}
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -396,7 +396,7 @@ export default function CreateRestaurant({}: Props) {
         </div>
       </div>
       {/* background of each section*/}
-      <div className="bg-white">
+      <div className="bg-background">
         {/* block for location  */}
         <div className="flex justify-center text-sm font-bold container">
           {/* sprit 2 side */}
@@ -409,7 +409,7 @@ export default function CreateRestaurant({}: Props) {
           </div>
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -552,7 +552,7 @@ export default function CreateRestaurant({}: Props) {
           {/* sprit 2 side */}
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -702,7 +702,7 @@ export default function CreateRestaurant({}: Props) {
         </div>
       </div>
       {/* background of each section*/}
-      <div className="bg-white">
+      <div className="bg-background">
         {/* block for base information  */}
         <div className="flex justify-center text-sm font-bold container">
           {/* sprit 2 side */}
@@ -715,7 +715,7 @@ export default function CreateRestaurant({}: Props) {
           </div>
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">

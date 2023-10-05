@@ -27,7 +27,7 @@ const FoodManagement = (props: Props) => {
 
   return (
     <div className="container py-[40px] px-40 ">
-      <div className="bg-white  rounded-[12px] shadow-md py-12 px-14">
+      <div className="bg-card  rounded-[12px] shadow-md py-12 px-14">
         {/* Tag Topic (Food) */}
         <div className="flex justify-between items-center">
           <div className="flex">
