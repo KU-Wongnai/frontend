@@ -8,6 +8,7 @@ import {
   Bike,
   Home,
   LogOut,
+  MessageCircle,
   Settings,
   ShoppingCart,
   UtensilsCrossed,
@@ -103,6 +104,11 @@ export default function Navbar() {
 
         {/* Icons and Avatar for Desktop */}
         <div className="hidden md:flex items-center gap-3">
+          <Link href="/rider/conversations">
+            <Button variant="outline" className="rounded-full">
+              <MessageCircle className="w-5 h-5" />
+            </Button>
+          </Link>
           <Link href="/notifications">
             <Button variant="outline" className="relative rounded-full">
               <Bell className="w-5 h-5" />

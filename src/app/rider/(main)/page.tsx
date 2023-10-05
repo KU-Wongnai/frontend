@@ -31,6 +31,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns } from "@/app/rider/(main)/components/columns";
+import { NavigationMenuDemo } from "./components/navigation-menu";
+import { Separator } from "@/components/ui/separator";
 
 const data: Order[] = [
   {
@@ -508,7 +510,7 @@ export default function Rider() {
   });
 
   return (
-    <div className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
+    <>
       <h1 className="pb-2 mb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
         Choose order delivery
       </h1>
@@ -586,6 +588,6 @@ export default function Rider() {
           </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
