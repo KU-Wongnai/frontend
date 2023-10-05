@@ -25,9 +25,30 @@ import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
 import SearchInput from "./search-input";
 
-import { logout } from "@/services/auth"; // Import the logoutUser function
+import { useAuthStore } from "../contexts/auth-store";
+import { getMe, logout as logoutService } from "@/services/auth";
 
 export default function Navbar() {
+  const { token, user, setUser } = useAuthStore((state) => ({
+    token: state.token,
+    user: state.user,
+    setUser: state.setUser,
+  }));
+
+  React.useEffect(() => {
+    if (token) {
+      getMe();
+    }
+  }, [setUser, token]);
+
+  const logout = async () => {
+    try {
+      await logoutService();
+    } catch (error) {
+      console.error("Failed to logout", error);
+    }
+  };
+
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -46,57 +67,81 @@ export default function Navbar() {
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
-            <Link href="/notifications">
-              <Button variant="outline" className="relative rounded-full">
-                <Bell className="w-5 h-5" />
-                <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
-                  3
-                </span>
-              </Button>
-            </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href="/cart" className="flex items-center w-full">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    <span>Cart</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/restaurant" className="flex items-center w-full">
-                    <UtensilsCrossed className="mr-2 h-4 w-4" />
-                    <span>Your restaurant</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/rider" className="flex items-center w-full">
-                    <Bike className="mr-2 h-4 w-4" />
-                    <span>Rider</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/setting" className="flex items-center w-full">
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <button onClick={logout} className="flex items-center w-full">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
-                  </button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {token && user ? (
+              <>
+                <Link href="/notifications">
+                  <Button variant="outline" className="relative rounded-full">
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+                      3
+                    </span>
+                  </Button>
+                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarImage
+                        src={
+                          user?.user_profile?.avatar ||
+                          "https://github.com/shadcn.png"
+                        }
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Link href="/cart" className="flex items-center w-full">
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        <span>Cart</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href="/restaurant"
+                        className="flex items-center w-full"
+                      >
+                        <UtensilsCrossed className="mr-2 h-4 w-4" />
+                        <span>Your restaurant</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/rider" className="flex items-center w-full">
+                        <Bike className="mr-2 h-4 w-4" />
+                        <span>Rider</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href="/setting"
+                        className="flex items-center w-full"
+                      >
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <button
+                        onClick={logout}
+                        className="flex items-center w-full"
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Logout</span>
+                      </button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            ) : (
+              <Link href="/auth">
+                <Button variant="outline" className="rounded-full">
+                  Sign in / Sign up
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -117,58 +162,84 @@ export default function Navbar() {
 
         {/* Icons and Avatar for Desktop */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/cart">
-            <Button variant="outline" className="rounded-full">
-              <ShoppingCart className="w-5 h-5" />
-            </Button>
-          </Link>
-          <Link href="/notifications">
-            <Button variant="outline" className="relative rounded-full">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
-                3
-              </span>
-            </Button>
-          </Link>
-          <ModeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href="/restaurant" className="flex items-center w-full">
-                  <UtensilsCrossed className="mr-2 h-4 w-4" />
-                  <span>Your restaurant</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/rider" className="flex items-center w-full">
-                  <Bike className="mr-2 h-4 w-4" />
-                  <span>Rider</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/setting" className="flex items-center w-full">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <button onClick={logout} className="flex items-center w-full">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                </button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <h4 className="text-xl font-semibold tracking-tight">name</h4>
+          {token && user ? (
+            <>
+              <Link href="/cart">
+                <Button variant="outline" className="rounded-full">
+                  <ShoppingCart className="w-5 h-5" />
+                </Button>
+              </Link>
+              <Link href="/notifications">
+                <Button variant="outline" className="relative rounded-full">
+                  <Bell className="w-5 h-5" />
+                  <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+                    3
+                  </span>
+                </Button>
+              </Link>
+              <ModeToggle />
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage
+                      src={
+                        user?.user_profile?.avatar ||
+                        "https://github.com/shadcn.png"
+                      }
+                    />
+                    <AvatarFallback>{user.name[0]}</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link
+                      href="/restaurant"
+                      className="flex items-center w-full"
+                    >
+                      <UtensilsCrossed className="mr-2 h-4 w-4" />
+                      <span>Your restaurant</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/rider" className="flex items-center w-full">
+                      <Bike className="mr-2 h-4 w-4" />
+                      <span>Rider</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/setting" className="flex items-center w-full">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <button
+                      onClick={logout}
+                      className="flex items-center w-full"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Logout</span>
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <h4 className="text-xl font-semibold tracking-tight">
+                {user.name.split(" ")[0]}
+              </h4>
+            </>
+          ) : (
+            <>
+              <ModeToggle />
+              <Link href="/auth">
+                <Button variant="outline" className="rounded-full">
+                  Sign in / Sign up
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

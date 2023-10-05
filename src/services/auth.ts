@@ -1,14 +1,28 @@
 import { API_URL, httpClient } from "@/lib/http-client";
 import { LoginForm, RegisterForm } from "@/validations/auth-schema";
+import { useAuthStore } from "../contexts/auth-store";
 
 export const signUp = async (data: RegisterForm) => {
-  const { data: user } = await httpClient.post("user/register", data);
-  return user;
+  try {
+    const { data: user } = await httpClient.post("user/register", data);
+    return user;
+  } catch (error) {
+    console.error("Failed to sign up", error);
+    throw error;
+  }
 };
 
 export const login = async (data: LoginForm) => {
-  const { data: token } = await httpClient.post("user/api/auth/login", data);
-  localStorage.setItem("token", token.access_token);
+  try {
+    const { data: token } = await httpClient.post("user/api/auth/login", data);
+    useAuthStore.getState().setToken(token.access_token);
+    const user = await getMe();
+    useAuthStore.getState().setUser(user);
+    console.log("Login success", user);
+  } catch (error) {
+    console.error("Failed to login", error);
+    throw error;
+  }
 };
 
 export const redirectToGoogleOAuth = async () => {
@@ -17,28 +31,22 @@ export const redirectToGoogleOAuth = async () => {
 
 export const logout = async () => {
   try {
-    const _token = localStorage.getItem("token");
-    await httpClient.post(
-      "user/api/auth/logout",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${_token}`,
-        },
-      }
-    );
-    localStorage.removeItem("token");
+    await httpClient.post("user/api/auth/logout");
+    useAuthStore.getState().clearAuth();
   } catch (error) {
     console.error("Failed to log out", error);
+    throw error;
   }
 };
 
 export const getMe = async () => {
-  const _token = localStorage.getItem("token");
-  const { data: user } = await httpClient.get("user/api/users/me", {
-    headers: {
-      Authorization: `Bearer ${_token}`,
-    },
-  });
-  return user;
+  try {
+    
+    const { data: user } = await httpClient.post("user/api/users/me");
+    useAuthStore.getState().setUser(user);
+    return user;
+  } catch (error) {
+    console.error("Failed to get user", error);
+    throw error;
+  }
 };
