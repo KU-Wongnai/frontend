@@ -1,4 +1,5 @@
 import { User } from "@/app/interfaces/user";
+import { Timestamp } from "firebase/firestore";
 
 export interface ChatUser {
   id: number;
@@ -10,7 +11,7 @@ export interface ChatMessage {
   sender: number;
   recipient: number;
   message: string;
-  createdAt: string;
+  createdAt: Timestamp;
 }
 
 export interface MessageInputProps {
