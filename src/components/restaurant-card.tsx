@@ -1,26 +1,24 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Star } from "lucide-react";
 
-const RestaurantCard: React.FC<RestaurantProps> = ({
+const RestaurantCard: React.FC<Restaurant> = ({
   id,
   name,
-  description = "good food",
-  location = "new bar",
-  foodType = "Thai Food",
-  operatingHours = 0,
-  contactInfo = "xxxxxxxxxx",
+  foodType,
   image,
   rating,
-  href,
+
+  menus,
 }) => {
   const imageUrl =
     image ||
     "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"; // Replace with your default image path
 
   return (
-    <Link href={href}>
-      <div className="rounded-lg overflow-hidden shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-56 border">
+    <Link href={`/restaurants/${id}`}>
+      <div className="rounded-lg overflow-hidden shadow-md w-full border">
         <div className="h-40 relative">
           <Image
             src={imageUrl}
@@ -31,14 +29,19 @@ const RestaurantCard: React.FC<RestaurantProps> = ({
           />
         </div>
         <div className="p-4">
-          <h2 className="font-bold text-lg sm:text-xl mb-2">{name}</h2>
-          <p className="text-gray-600 text-sm sm:text-base">{foodType}</p>
-          <div className="flex items-center mt-2">
-            <span className="text-red-500 font-bold text-xl sm:text-2xl">
-              {rating}
-            </span>
-            <span className="text-gray-500 ml-2 text-sm sm:text-base">
-              / 5 (100 reviews)
+          <h2 className="font-bold text-2xl sm:text-xl mb-2">{name}</h2>
+          <p className="text-gray-400 text-sm sm:text-base">{foodType}</p>
+          <div className="flex items-center gap-3 mt-2">
+            <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
+              <h2 className=" text-base font-semibold tracking-tight ">
+                {rating}
+              </h2>
+              <Star className="w-4 h-4" />
+            </div>
+            <span>
+              <span className="text-gray-400 text-sm sm:text-base">
+                100 reviews
+              </span>
             </span>
           </div>
         </div>

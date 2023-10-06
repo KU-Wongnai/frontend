@@ -22,7 +22,7 @@ const RestaurantNavbar = (props: Props) => {
   
   return (
     <>
-      <header className="px-3 py-8 border-b top-0 bg-white mx-auto w-full">
+      <header className="px-3 py-8 border-b top-0 bg-background mx-auto w-full text-black">
         <div className="flex flex-wrap gap-8 container justify-center">
           {/* <Link href="/restaurant/dashboard"> */}
           <Link  href="/restaurant/{id}/menus" className="relative ">

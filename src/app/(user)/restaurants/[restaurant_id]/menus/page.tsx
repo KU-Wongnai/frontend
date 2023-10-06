@@ -1,34 +1,28 @@
-import FoodCard from "@/components/food-card";
+import FoodCard from "@/app/(user)/restaurants/[restaurant_id]/components/food-card";
 import { mockMenuData } from "@/app/__mock__/menu-card";
-import React from "react";
+import React, { useEffect } from "react";
 import { mockRestaurants } from "@/app/__mock__/restaurant-card";
 import { ChefHat, Star } from "lucide-react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
+import RestaurantFoodCard from "@/app/restaurant/components/menu-card-restaurant";
+import { getRestaurant } from "@/services/restaurant";
+import FoodCardList from "../components/food-card-list";
 
-interface RestaurantMenuPageProps {
-  params: { id: string };
-}
-
-const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
-  const id = Number(params.id);
-
+const RestaurantMenuPage = ({
+  params,
+}: {
+  params: {
+    restaurant_id: number;
+    id: string;
+  };
+}) => {
   // const restaurantCard: RestaurantProps = mockRestaurants[id];
   const menuCards: MenuCardProps[] = mockMenuData;
 
   return (
     <main className="container mx-auto py-6 px-2 sm:px-4 md:px-6 lg:px-8">
       {/* food card Horizontal */}
-      <RestaurantCardDetail
-        id={0}
-        name={""}
-        foodType={""}
-        rating={0}
-        image={null}
-        href={""}
-        description={""}
-        location={""}
-        operatingHours={0}
-        contactInfo={""} menus={null}      />
+      <RestaurantCardDetail id={params.restaurant_id} />
 
       {/* all menu */}
       <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
@@ -38,11 +32,7 @@ const RestaurantMenuPage: React.FC<RestaurantMenuPageProps> = ({ params }) => {
             All menu
           </h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4">
-          {menuCards.map((foodCard, index) => (
-            <FoodCard key={index} {...foodCard} />
-          ))}
-        </div>
+        <FoodCardList id={params.restaurant_id} />
       </section>
     </main>
   );

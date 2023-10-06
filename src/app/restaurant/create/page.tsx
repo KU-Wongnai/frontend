@@ -132,22 +132,6 @@ export default function CreateRestaurant({}: Props) {
     lng: 100.57007576117385,
   });
 
-  const handleMoveMarker = () => {
-    // if (marker) {
-    //   const newPosition = new window.google.maps.LatLng(
-    //     markerPosition.lat,
-    //     markerPosition.lng
-    //   );
-    if (marker && window.google) {
-      // Add optional chaining here
-      const newPosition = new window.google.maps.LatLng(
-        markerPosition.lat,
-        markerPosition.lng
-      );
-      marker.setPosition(newPosition);
-    }
-  };
-
   useEffect(() => {
     console.log(markerPosition);
   }, [markerPosition]);
@@ -172,8 +156,43 @@ export default function CreateRestaurant({}: Props) {
     });
     marker.addListener("dragend", () => {
       const newPosition = marker.getPosition();
-      setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
+      checkIsAccuratePosition(newPosition.lat(), newPosition.lng());
+      // setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
     });
+  };
+
+  const checkIsAccuratePosition = (newLat: number, newLong: number) => {
+    const circleCenter = new google.maps.LatLng(
+      13.850563550109797,
+      100.57007576117385
+    );
+    const circleRadius = 1000;
+    const newPosition = new google.maps.LatLng(newLat, newLong);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      circleCenter,
+      newPosition
+    );
+
+    // Check if the marker is inside the circular area
+    if (distance <= circleRadius) {
+      marker.setPosition(newPosition);
+      setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
+    } else {
+      // Marker is outside the circular area, so reset its position to the last valid position
+      marker.setPosition(circleCenter);
+      setMarkerPosition({ lat: circleCenter.lat(), lng: circleCenter.lng() });
+    }
+  };
+
+  const handleMoveMarker = () => {
+    if (marker && window.google) {
+      // Add optional chaining here
+      const newPosition = new window.google.maps.LatLng(
+        markerPosition.lat,
+        markerPosition.lng
+      );
+      checkIsAccuratePosition(newPosition.lat(), newPosition.lng());
+    }
   };
 
   return (
@@ -192,7 +211,7 @@ export default function CreateRestaurant({}: Props) {
           {/* sprit 2 side */}
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -377,8 +396,8 @@ export default function CreateRestaurant({}: Props) {
         </div>
       </div>
       {/* background of each section*/}
-      <div className="bg-white">
-        {/* block for base information  */}
+      <div className="bg-background">
+        {/* block for location  */}
         <div className="flex justify-center text-sm font-bold container">
           {/* sprit 2 side */}
           <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
@@ -390,7 +409,7 @@ export default function CreateRestaurant({}: Props) {
           </div>
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -493,8 +512,11 @@ export default function CreateRestaurant({}: Props) {
                     >
                       Enter your Longitude
                     </p>
-                    <button onClick={handleMoveMarker}>
-                      Sync lat,lng to map
+                    <button
+                      className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md"
+                      onClick={handleMoveMarker}
+                    >
+                      Sync latitude and longitude to map
                     </button>
                   </div>
                   <div className="col-span-6">
@@ -530,7 +552,7 @@ export default function CreateRestaurant({}: Props) {
           {/* sprit 2 side */}
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">
@@ -680,7 +702,7 @@ export default function CreateRestaurant({}: Props) {
         </div>
       </div>
       {/* background of each section*/}
-      <div className="bg-white">
+      <div className="bg-background">
         {/* block for base information  */}
         <div className="flex justify-center text-sm font-bold container">
           {/* sprit 2 side */}
@@ -693,7 +715,7 @@ export default function CreateRestaurant({}: Props) {
           </div>
           <div className="w-2/3">
             {/* inner white block for input */}
-            <div className="bg-white w-600 rounded-[12px] m-10 pb-16 shadow-md">
+            <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
               <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
               <div>
                 <div className="px-10 py-10 flex items-center mt-6">

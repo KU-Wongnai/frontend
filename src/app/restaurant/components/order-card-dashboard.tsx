@@ -9,6 +9,7 @@ const OrderCard: React.FC<any> = ({
     orderID,
     customer,
     totalItem,
+    decoration
   }) =>{
   return (
     <>
@@ -28,7 +29,7 @@ const OrderCard: React.FC<any> = ({
                 <p className="text-xs font-light">{totalItem} items</p>
               </div>
             </div>
-            <button className="bg-green-600 text-white px-1 py-1 text-xs rounded-md">
+            <button className={"bg-green-600 text-white px-1 py-1  rounded-md "+ decoration}>
               accept
             </button>
           </div>

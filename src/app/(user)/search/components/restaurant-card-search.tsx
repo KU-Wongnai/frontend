@@ -2,16 +2,14 @@ import React from "react";
 import Image from "next/image";
 import { Star } from "lucide-react";
 
-const RestaurantCardDetail: React.FC<RestaurantProps> = ({
+const RestaurantCardDetail: React.FC<Restaurant> = ({
   id,
   name,
   foodType,
   rating,
   image,
-  href,
   description,
   location,
-  operatingHours,
   contactInfo,
   menus,
 }) => {
@@ -25,16 +23,16 @@ const RestaurantCardDetail: React.FC<RestaurantProps> = ({
       <div className="mb-5">
         {/* Display up to 5 images */}
         <div className="flex gap-3">
-          {menus?.slice(0, 5).map((img: string, index: number) => (
-            <div className="relative w-20 h-20" key={index}>
+          {menus?.slice(0, 5).map((menu) => (
+            <div className="relative w-20 h-20" key={menu.id}>
               <Image
-                src={img}
+                src={menu.image || "https://via.placeholder.com/150"}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-sm"
-                alt={name}
+                alt={menu.name}
               />
-              {index === 4 && menus.length > 5 && (
+              {menu.id === 4 && menus.length > 5 && (
                 <div className="absolute inset-0 flex items-center justify-center rounded-sm bg-black bg-opacity-50 text-white font-bold">
                   +{menus.length - 5}
                 </div>

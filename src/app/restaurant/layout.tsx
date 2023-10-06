@@ -20,7 +20,7 @@ export default function UserLayout({
       {/* Content */}
       <RestaurantNavbar />
       {/* {pathName !== "/restaurant/create" && pathName !== "/restaurant" && <RestaurantNavbar/>} */}
-      <main className="flex-1 bg-gray-100">
+      <main className="flex-1 bg-secondary">
         {/* <div className="container px-auto py-3">{children}</div> */}
         <div>
           {children}
