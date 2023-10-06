@@ -1,3 +1,5 @@
+import { User } from "@/app/interfaces/user";
+
 export interface ChatUser {
   id: number;
   name: string;
@@ -8,7 +10,7 @@ export interface ChatMessage {
   sender: number;
   recipient: number;
   message: string;
-  timestamp: string;
+  createdAt: string;
 }
 
 export interface MessageInputProps {
@@ -21,13 +23,13 @@ export interface ComboboxChatUserProps {
 }
 
 export interface ChatWindowProps {
-  users: ChatUser[];
-  chatLogs: ChatMessage[];
-  selectedUser: number | null;
+  me: User;
+  messages: ChatMessage[];
+  // selectedUser: number | null;
 }
 
 export interface ChatSideBarProps {
   users: ChatUser[];
   selectedUser: number | null;
-  onSelectUser: (id: number | null) => void;
+  // onSelectUser: (id: number | null) => void;
 }

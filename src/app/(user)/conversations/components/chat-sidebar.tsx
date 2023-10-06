@@ -7,7 +7,7 @@ import { ChatSideBarProps } from "../interfaces/conversations";
 const ChatSideBar: React.FC<ChatSideBarProps> = ({
   users,
   selectedUser,
-  onSelectUser,
+  // onSelectUser,
 }) => {
   return (
     <aside className="w-full md:w-1/4 bg-card rounded-l-md md:pr-5 mb-4 md:mb-0">
@@ -19,7 +19,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
       </div>
       {/* This is the combobox for mobile */}
       <div className="md:hidden mt-4">
-        <ComboboxChatUser
+        {/* <ComboboxChatUser
           data={users}
           onSelect={(user) => {
             if (user) {
@@ -28,7 +28,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
               onSelectUser(null);
             }
           }}
-        />
+        /> */}
       </div>
       <ul className="hidden md:flex md:flex-col mt-2 gap-y-2">
         {users.map((user) => (
@@ -37,7 +37,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
             className={`flex items-center p-4 hover:bg-muted rounded-sm ${
               selectedUser === user.id ? "bg-muted" : ""
             }`}
-            onClick={() => onSelectUser(user.id)}
+            // onClick={() => onSelectUser(user.id)}
           >
             <Avatar>
               <AvatarImage src={user.avatarUrl} />
