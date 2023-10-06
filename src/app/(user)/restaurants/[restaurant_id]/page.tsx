@@ -7,6 +7,7 @@ import { mockReview } from "@/app/__mock__/review";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
 import { getRestaurant } from "@/services/restaurant";
+import { Star } from "lucide-react";
 
 function ShowRestaurant({
   params,
@@ -61,7 +62,7 @@ function ShowRestaurant({
                 <h2 className="text-2xl font-bold">{restaurant?.name}</h2>
                 <p className="text-sm text-gray-500">{restaurant?.foodType}</p>
               </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <div className="flex items-center">
                   <span className="text-red-500 text-2xl font-bold">
                     {restaurant?.rating}
@@ -69,6 +70,19 @@ function ShowRestaurant({
                   <span className="ml-2 text-xl font-bold">/ 5</span>
                 </div>
                 <div className="text-sm text-gray-500 text-right">Rating</div>
+              </div> */}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
+                  <h2 className="text-lg font-semibold tracking-tight ">
+                    {restaurant?.rating}
+                  </h2>
+                  <Star className="w-5 h-5" />
+                </div>
+                <span>
+                  <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
+                    Rating
+                  </span>
+                </span>
               </div>
             </div>
             <div className="flex justify-between mt-3">

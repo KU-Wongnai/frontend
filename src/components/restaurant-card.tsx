@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Star } from "lucide-react";
 
 const RestaurantCard: React.FC<Restaurant> = ({
   id,
@@ -9,7 +10,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
   image,
   rating,
 
-  menus
+  menus,
 }) => {
   const imageUrl =
     image ||
@@ -17,7 +18,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
 
   return (
     <Link href={`/restaurants/${id}`}>
-      <div className="rounded-lg overflow-hidden shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-56 border">
+      <div className="rounded-lg overflow-hidden shadow-md w-full border">
         <div className="h-40 relative">
           <Image
             src={imageUrl}
@@ -28,14 +29,19 @@ const RestaurantCard: React.FC<Restaurant> = ({
           />
         </div>
         <div className="p-4">
-          <h2 className="font-bold text-lg sm:text-xl mb-2">{name}</h2>
-          <p className="text-gray-600 text-sm sm:text-base">{foodType}</p>
-          <div className="flex items-center mt-2">
-            <span className="text-red-500 font-bold text-xl sm:text-2xl">
-              {rating}
-            </span>
-            <span className="text-gray-500 ml-2 text-sm sm:text-base">
-              / 5 (100 reviews)
+          <h2 className="font-bold text-2xl sm:text-xl mb-2">{name}</h2>
+          <p className="text-gray-400 text-sm sm:text-base">{foodType}</p>
+          <div className="flex items-center gap-3 mt-2">
+            <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
+              <h2 className=" text-base font-semibold tracking-tight ">
+                {rating}
+              </h2>
+              <Star className="w-4 h-4" />
+            </div>
+            <span>
+              <span className="text-gray-400 text-sm sm:text-base">
+                100 reviews
+              </span>
             </span>
           </div>
         </div>
