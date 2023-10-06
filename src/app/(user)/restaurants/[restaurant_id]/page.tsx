@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { mockReview } from "@/app/__mock__/review";
+import { mockReview } from "@/mock/review";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
 import { getRestaurant } from "@/services/restaurant";
