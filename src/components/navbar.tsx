@@ -25,26 +25,16 @@ import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
 import SearchInput from "./search-input";
 
-import { useAuthStore } from "../contexts/auth-store";
+import useStore from "@/contexts/useStore";
+import useAuthStore from "../contexts/auth-store";
 import { getMe, logout as logoutService } from "@/services/auth";
 
 export default function Navbar() {
-  const { token, user } = useAuthStore((state) => ({
-    token: state.token,
-    user: state.user,
-  }));
-
-  React.useEffect(() => {
-    if (token) {
-      getMe();
-    }
-  }, [token]);
+  const user = useStore(useAuthStore, (state) => state.user);
 
   const logout = async () => {
     try {
       await logoutService();
-      // re-load page to reset the state
-      
     } catch (error) {
       console.error("Failed to logout", error);
     }
@@ -228,7 +218,7 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
               <h4 className="text-xl font-semibold tracking-tight">
-                {user.name.split(" ")[0]}
+                {user?.name.split(" ")[0]}
               </h4>
             </>
           ) : (

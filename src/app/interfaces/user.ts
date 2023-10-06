@@ -43,13 +43,3 @@ export interface User {
   user_profile: UserProfile;
   rider_profile: null | any; // TODO: RiderProfile
 }
-
-export interface AuthState {
-  token: string | null;
-  user: User | null;
-  setUser: (user: User) => void;
-  setToken: (token: string) => void;
-  clearToken: () => void;
-  clearUser: () => void;
-  clearAuth: () => void;
-}

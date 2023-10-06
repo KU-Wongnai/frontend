@@ -1,6 +1,6 @@
 import { API_URL, httpClient } from "@/lib/http-client";
 import { LoginForm, RegisterForm } from "@/validations/auth-schema";
-import { useAuthStore } from "../contexts/auth-store";
+import useAuthStore from "../contexts/auth-store";
 
 export const signUp = async (data: RegisterForm) => {
   try {
@@ -16,7 +16,7 @@ export const login = async (data: LoginForm) => {
   try {
     const { data: token } = await httpClient.post("user/api/auth/login", data);
     useAuthStore.getState().setToken(token.access_token);
-    localStorage.setItem("token", token.access_token);
+    getMe();
   } catch (error) {
     console.error("Failed to login", error);
     throw error;
@@ -31,7 +31,6 @@ export const logout = async () => {
   try {
     await httpClient.post("user/api/auth/logout");
     useAuthStore.getState().clearAuth();
-    localStorage.removeItem("token");
   } catch (error) {
     console.error("Failed to log out", error);
     throw error;

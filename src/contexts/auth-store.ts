@@ -1,16 +1,32 @@
 import { create } from "zustand";
-import { AuthState } from "./interfaces/auth";
+import { persist } from "zustand/middleware";
+import { User } from "@/app/interfaces/user";
 
-export const useAuthStore = create<AuthState>((set) => ({
-  token: null,
+interface AuthState {
+  token: string | null;
+  user: User | null;
+  setUser: (user: User) => void;
+  setToken: (token: string) => void;
+  clearToken: () => void;
+  clearUser: () => void;
+  clearAuth: () => void;
+}
 
-  user: null,
+const useAuthStore = create<AuthState>()(
+  persist(
+    (set, get) => ({
+      token: null,
+      user: null,
+      setToken: (token: string) => set({ token }),
+      clearUser: () => set({ user: null }),
+      setUser: (user: User) => set({ user }),
+      clearToken: () => set({ token: null }),
+      clearAuth: () => set({ token: null, user: null }),
+    }),
+    {
+      name: "auth",
+    }
+  )
+);
 
-  setToken: (token) => set({ token }),
-  clearUser: () => set({ user: null }),
-  
-  setUser: (user) => set({ user }),
-  clearToken: () => set({ token: null }),
-  
-  clearAuth: () => set({ token: null, user: null }),
-}));
+export default useAuthStore;
