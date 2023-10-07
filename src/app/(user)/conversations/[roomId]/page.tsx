@@ -20,6 +20,7 @@ import { useParams } from "next/navigation";
 import ChatBubble from "../components/chat-bubble";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { findUserBy } from "@/services/user";
+import { sendMessage } from "@/services/chat";
 
 const Room = () => {
   const me = useAuthStore((state) => state.user);
@@ -33,22 +34,7 @@ const Room = () => {
   const messagesRef = collection(roomsRef, "messages");
 
   const handleSendMessage = async (message: string) => {
-    await addDoc(messagesRef, {
-      sender: me?.id,
-      message,
-      createdAt: serverTimestamp(),
-    });
-
-    await setDoc(
-      roomsRef,
-      {
-        lastMessage: message,
-        updatedAt: serverTimestamp(),
-      },
-      {
-        merge: true,
-      }
-    );
+    await sendMessage(params.roomId as string, me!.id, message);
   };
 
   useEffect(() => {
