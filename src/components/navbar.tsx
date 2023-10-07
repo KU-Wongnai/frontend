@@ -32,6 +32,18 @@ import { getMe, logout as logoutService } from "@/services/auth";
 export default function Navbar() {
   const user = useStore(useAuthStore, (state) => state.user);
 
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await getMe();
+        useAuthStore.setState({ user });
+      } catch (error) {
+        console.error("Failed to fetch user", error);
+      }
+    };
+    fetchUser();
+  }, []);
   const logout = async () => {
     try {
       await logoutService();
