@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useAuthStore from "@/contexts/auth-store";
 import { db } from "@/lib/firebase";
+import { createRoomIfNotExists, sendMessage } from "@/services/chat";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   addDoc,
@@ -66,42 +67,11 @@ const NewChat = () => {
     }
 
     // Check if recipient is not already in a room with me
-    const roomQuery = query(
-      roomsRef,
-      or(
-        where("users", "in", [[data.recipientId, me?.id]]),
-        where("users", "in", [[me?.id, data.recipientId]])
-      )
-    );
-    const roomsSnapshot = await getDocs(roomQuery);
-    let roomId: string;
-    if (roomsSnapshot.empty) {
-      const docRef = await addDoc(roomsRef, {
-        users: [me?.id, data.recipientId],
-      });
-      roomId = docRef.id;
-    } else {
-      roomId = roomsSnapshot.docs[0].id;
-    }
+    const roomId = await createRoomIfNotExists(me!.id, data.recipientId);
 
     // If user provide a message, send it to the room.
     if (data.message) {
-      await addDoc(collection(roomsRef, roomId, "messages"), {
-        sender: me?.id,
-        message: data.message,
-        createdAt: serverTimestamp(),
-      });
-
-      await setDoc(
-        doc(roomsRef, roomId),
-        {
-          lastMessage: data.message,
-          updatedAt: serverTimestamp(),
-        },
-        {
-          merge: true,
-        }
-      );
+      await sendMessage(roomId, me!.id, data.message);
     }
 
     setDialogOpen(false);
