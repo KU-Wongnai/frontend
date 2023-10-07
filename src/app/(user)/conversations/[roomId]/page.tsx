@@ -21,6 +21,8 @@ import ChatBubble from "../components/chat-bubble";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { findUserBy } from "@/services/user";
 import { sendMessage } from "@/services/chat";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 const Room = () => {
   const me = useAuthStore((state) => state.user);
@@ -77,10 +79,13 @@ const Room = () => {
   return (
     <div
       ref={chatRef}
-      className="relative flex flex-col bg-secondary overflow-y-scroll w-full"
+      className="relative col-span-12 md:col-span-9 flex flex-col bg-secondary overflow-y-scroll w-full"
     >
       <div className="flex-1 flex flex-col">
         <header className="sticky top-0 w-full p-3 border-b bg-card z-10 flex items-center gap-6">
+          <Link href="/conversations" className="block md:hidden">
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
           <Avatar className="h-14 w-14">
             <AvatarImage src={room?.to.avatarUrl} alt={room?.to.name} />
             <AvatarFallback className="bg-green-300">

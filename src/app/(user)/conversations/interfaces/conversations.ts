@@ -38,7 +38,5 @@ export interface ChatWindowProps {
 }
 
 export interface ChatSideBarProps {
-  users: ChatUser[];
-  selectedUser: number | null;
-  // onSelectUser: (id: number | null) => void;
+
 }
