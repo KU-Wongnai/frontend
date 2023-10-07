@@ -13,15 +13,15 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import useAuthStore from "@/contexts/auth-store";
 import Link from "next/link";
+import { findUserBy } from "@/services/user";
+import { formatDistance } from "date-fns";
+import { useParams } from "next/navigation";
 
-const ChatSideBar: React.FC<ChatSideBarProps> = ({
-  users,
-  selectedUser,
-  // onSelectUser,
-}) => {
+const ChatSideBar: React.FC<ChatSideBarProps> = () => {
   const me = useAuthStore((state) => state.user);
   const [rooms, setRooms] = useState<ChatRoom[]>([]);
   const roomsRef = collection(db, "rooms");
+  const params = useParams();
 
   useEffect(() => {
     const roomsQuery = query(
@@ -29,24 +29,30 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
       where("users", "array-contains", me?.id)
     );
 
-    const unsuscribe = onSnapshot(roomsQuery, (snapshot) => {
+    const unsubscribe = onSnapshot(roomsQuery, async (snapshot) => {
       const rooms: ChatRoom[] = [];
-      snapshot.forEach((doc) => {
+
+      for (const doc of snapshot.docs) {
         const room = doc.data();
-        const otherUser = room.users.find((user: number) => user !== me?.id);
+        const otherUserId = room.users.find((user: number) => user !== me?.id);
+        const otherUser = await findUserBy(otherUserId);
         rooms.push({
           id: doc.id,
+          lastMessage: room.lastMessage,
+          updatedAt: room.updatedAt,
           to: {
-            id: otherUser,
-            name: "Alice",
-            avatarUrl: `https://ui-avatars.com/api/?name=${otherUser}&background=random`,
+            id: otherUser.id,
+            name: otherUser.name,
+            avatarUrl: otherUser.user_profile?.avatar,
           },
         });
-      });
+      }
+
+      // snapshot.forEach(async (doc) => {});
       setRooms(rooms);
     });
 
-    return () => unsuscribe();
+    return () => unsubscribe();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -70,16 +76,28 @@ const ChatSideBar: React.FC<ChatSideBarProps> = ({
           <li key={room.id}>
             <Link
               href={`/conversations/${room.id}`}
-              className="flex items-center p-4 hover:bg-muted border-b"
+              className={cn(
+                "flex items-center p-4 hover:bg-muted border-b",
+                params.roomId === room.id ? "bg-muted" : ""
+              )}
             >
               <Avatar>
                 <AvatarImage src={room.to.avatarUrl} />
-                <AvatarFallback>{room.to.id}</AvatarFallback>
+                <AvatarFallback className="bg-green-300">
+                  {room.to.name[0]}
+                </AvatarFallback>
               </Avatar>
               <div className="ml-3">
-                <p className="font-bold">{room.to.id}</p>
-                <span className="text-sm text-gray-600">Hi</span>
+                <p className="text-sm font-bold">{room.to.name}</p>
+                <span className="text-sm text-gray-600">
+                  {room.lastMessage}
+                </span>
               </div>
+              <span className="text-xs text-gray-600 ml-auto">
+                {room.updatedAt
+                  ? formatDistance(room.updatedAt?.toDate(), new Date())
+                  : null}
+              </span>
             </Link>
           </li>
         ))}

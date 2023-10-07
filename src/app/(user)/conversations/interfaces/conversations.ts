@@ -10,6 +10,8 @@ export interface ChatUser {
 export interface ChatRoom {
   id: string;
   to: ChatUser;
+  lastMessage?: string;
+  updatedAt?: Timestamp;
 }
 
 export interface ChatMessage {

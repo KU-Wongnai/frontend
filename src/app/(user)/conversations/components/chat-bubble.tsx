@@ -10,7 +10,7 @@ const ChatBubble = ({
   fromMe,
   lastMessage,
 }: {
-  fromUser: ChatUser;
+  fromUser: ChatUser | undefined;
   message: ChatMessage;
   fromMe: boolean;
   lastMessage?: boolean;
@@ -23,11 +23,11 @@ const ChatBubble = ({
         {!fromMe && (
           <Avatar>
             <AvatarImage
-              src={fromUser.avatarUrl}
-              alt={fromUser.name}
+              src={fromUser?.avatarUrl}
+              alt={fromUser?.name}
             ></AvatarImage>
-            <AvatarFallback className="bg-pink-300">
-              {fromUser.id}
+            <AvatarFallback className="bg-green-300">
+              {fromUser?.name[0]}
             </AvatarFallback>
           </Avatar>
         )}
