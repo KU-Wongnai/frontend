@@ -19,6 +19,7 @@ import { ChatMessage, ChatRoom } from "../interfaces/conversations";
 import { useParams } from "next/navigation";
 import ChatBubble from "../components/chat-bubble";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { findUserBy } from "@/services/user";
 
 const Room = () => {
   const me = useAuthStore((state) => state.user);
@@ -37,24 +38,36 @@ const Room = () => {
       message,
       createdAt: serverTimestamp(),
     });
+
+    await setDoc(
+      roomsRef,
+      {
+        lastMessage: message,
+        updatedAt: serverTimestamp(),
+      },
+      {
+        merge: true,
+      }
+    );
   };
 
   useEffect(() => {
-    getDoc(roomsRef).then((doc) => {
+    getDoc(roomsRef).then(async (doc) => {
       const room = doc.data();
-      const otherUser = room?.users.find((user: number) => user !== me?.id);
+      const otherUserId = room?.users.find((user: number) => user !== me?.id);
+      const otherUser = await findUserBy(otherUserId);
       setRoom({
         id: doc.id,
         to: {
-          id: otherUser,
-          name: "Alice",
-          avatarUrl: `https://ui-avatars.com/api/?name=${otherUser}&background=random`,
+          id: otherUser.id,
+          name: otherUser.name,
+          avatarUrl: otherUser.user_profile?.avatar,
         },
       });
     });
 
     const queryMessage = query(messagesRef, orderBy("createdAt"));
-    const unsuscribe = onSnapshot(queryMessage, (snapshot) => {
+    const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
       const messages: ChatMessage[] = [];
       snapshot.forEach((doc) => {
         messages.push(doc.data() as ChatMessage);
@@ -62,7 +75,7 @@ const Room = () => {
       setmessages(messages);
     });
 
-    return () => unsuscribe();
+    return () => unsubscribe();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -81,11 +94,11 @@ const Room = () => {
         <header className="sticky top-0 w-full p-3 border-b bg-card z-10 flex items-center gap-6">
           <Avatar className="h-14 w-14">
             <AvatarImage src={room?.to.avatarUrl} alt={room?.to.name} />
-            <AvatarFallback className="bg-pink-300">
-              {room?.to.id}
+            <AvatarFallback className="bg-green-300">
+              {room?.to.name[0]}
             </AvatarFallback>
           </Avatar>
-          <span className="text-lg font-bold">{room?.to.id}</span>
+          <span className="text-lg font-bold">{room?.to.name}</span>
         </header>
 
         <div ref={chatRef} className="space-y-4 p-4">
@@ -93,7 +106,7 @@ const Room = () => {
             <ChatBubble
               key={idx}
               message={message}
-              fromUser={room?.to!}
+              fromUser={room?.to}
               fromMe={message.sender === me?.id}
               lastMessage={idx === messages.length - 1}
             />
