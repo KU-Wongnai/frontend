@@ -26,7 +26,7 @@ const ChatBubble = ({
               src={fromUser?.avatarUrl}
               alt={fromUser?.name}
             ></AvatarImage>
-            <AvatarFallback className="bg-green-300">
+            <AvatarFallback className="bg-green-300 dark:bg-green-600">
               {fromUser?.name[0]}
             </AvatarFallback>
           </Avatar>
@@ -34,7 +34,7 @@ const ChatBubble = ({
         <div
           className={cn(
             "rounded-lg ml-2 max-w-[300px] px-4 py-3 break-words",
-            fromMe ? "bg-green-300" : "bg-gray-300"
+            fromMe ? "bg-green-300 dark:bg-green-600" : "bg-gray-300 dark:bg-gray-600"
           )}
         >
           {message.message}

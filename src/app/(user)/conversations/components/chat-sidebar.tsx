@@ -123,17 +123,17 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
                 >
                   <Avatar>
                     <AvatarImage src={room.to.avatarUrl} />
-                    <AvatarFallback className="bg-green-300">
+                    <AvatarFallback className="bg-green-300 dark:bg-green-600">
                       {room.to.name[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="ml-3">
                     <p className="text-sm font-bold">{room.to.name}</p>
-                    <span className="text-sm text-gray-600 overflow-hidden whitespace-nowrap max-w-[16ch] inline-block">
+                    <span className="text-sm text-gray-600 dark:text-gray-300 overflow-hidden whitespace-nowrap max-w-[16ch] inline-block">
                       {room.lastMessage}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-600 ml-auto">
+                  <span className="text-xs text-gray-600 dark:text-gray-300 ml-auto">
                     {room.updatedAt
                       ? formatDistance(room.updatedAt?.toDate(), new Date())
                       : null}
@@ -143,7 +143,9 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
             ))}
           </>
         ) : (
-          <div className="text-center py-12 text-sm text-gray-600">No chat</div>
+          <div className="text-center py-12 text-sm text-gray-600 dark:text-gray-300">
+            No chat
+          </div>
         )}
       </ul>
     </aside>

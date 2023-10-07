@@ -88,7 +88,7 @@ const Room = () => {
           </Link>
           <Avatar className="h-14 w-14">
             <AvatarImage src={room?.to.avatarUrl} alt={room?.to.name} />
-            <AvatarFallback className="bg-green-300">
+            <AvatarFallback className="bg-green-300 dark:bg-green-600">
               {room?.to.name[0]}
             </AvatarFallback>
           </Avatar>
