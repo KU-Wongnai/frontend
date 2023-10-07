@@ -89,7 +89,10 @@ const Room = () => {
   }, [messages]);
 
   return (
-    <div className="relative flex flex-col bg-secondary overflow-y-scroll w-full">
+    <div
+      ref={chatRef}
+      className="relative flex flex-col bg-secondary overflow-y-scroll w-full"
+    >
       <div className="flex-1 flex flex-col">
         <header className="sticky top-0 w-full p-3 border-b bg-card z-10 flex items-center gap-6">
           <Avatar className="h-14 w-14">
@@ -101,7 +104,7 @@ const Room = () => {
           <span className="text-lg font-bold">{room?.to.name}</span>
         </header>
 
-        <div ref={chatRef} className="space-y-4 p-4">
+        <div className="space-y-4 p-4">
           {messages.map((message, idx) => (
             <ChatBubble
               key={idx}
