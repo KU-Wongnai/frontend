@@ -82,7 +82,14 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
   };
 
   return (
-    <aside className="w-full relative md:w-1/3 border-r bg-card mb-4 md:mb-0 overflow-y-scroll">
+    <aside
+      className={cn(
+        "w-full relative border-r bg-card overflow-y-scroll",
+        params.roomId
+          ? "hidden md:block md:col-span-3"
+          : "col-span-12 md:col-span-3"
+      )}
+    >
       <div className="sticky top-0 bg-card z-10 border-b">
         <div className="flex items-center gap-2 p-4">
           <h1 className="text-xl font-semibold tracking-tight transition-colors first:mt-0">
@@ -100,7 +107,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
           />
         </div>
       </div>
-      <ul className="hidden md:flex md:flex-col">
+      <ul className="flex flex-col">
         {loading ? (
           <ChatListSkeleton />
         ) : filteredRooms.length > 0 ? (
