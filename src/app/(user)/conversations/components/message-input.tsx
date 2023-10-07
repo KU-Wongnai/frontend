@@ -4,8 +4,13 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { MessageInputProps } from "../interfaces/conversations";
+import { cn } from "@/lib/utils";
 
-const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
+const MessageInput: React.FC<MessageInputProps> = ({
+  className,
+  onSend,
+  ...props
+}) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,10 +22,14 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
   };
 
   return (
-    <form onSubmit={handleSendMessage} className="flex items-center pt-4">
+    <form
+      onSubmit={handleSendMessage}
+      {...props}
+      className={cn("flex items-center p-4", className)}
+    >
       <Input
         type="text"
-        placeholder="Type a message..."
+        placeholder="Type your message..."
         className="flex-1 p-3 mr-4 rounded-md shadow-md"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}

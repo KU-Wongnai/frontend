@@ -1,14 +1,16 @@
 import React from "react";
-import { ChatMessage } from "../interfaces/conversations";
+import { ChatMessage, ChatUser } from "../interfaces/conversations";
 import { cn } from "@/lib/utils";
 import { formatDistance } from "date-fns";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const ChatBubble = ({
   message,
+  fromUser,
   fromMe,
   lastMessage,
 }: {
+  fromUser: ChatUser;
   message: ChatMessage;
   fromMe: boolean;
   lastMessage?: boolean;
@@ -20,8 +22,13 @@ const ChatBubble = ({
       >
         {!fromMe && (
           <Avatar>
-            <AvatarImage src="" alt=""></AvatarImage>
-            <AvatarFallback className="bg-pink-300">SC</AvatarFallback>
+            <AvatarImage
+              src={fromUser.avatarUrl}
+              alt={fromUser.name}
+            ></AvatarImage>
+            <AvatarFallback className="bg-pink-300">
+              {fromUser.id}
+            </AvatarFallback>
           </Avatar>
         )}
         <div
