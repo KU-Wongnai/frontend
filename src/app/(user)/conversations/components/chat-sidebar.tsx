@@ -14,9 +14,11 @@ import Link from "next/link";
 import { findUserBy } from "@/services/user";
 import { formatDistance, set } from "date-fns";
 import { useParams } from "next/navigation";
+import ChatListSkeleton from "./chat-list-skeleton";
 
 const ChatSideBar: React.FC<ChatSideBarProps> = () => {
   const me = useAuthStore((state) => state.user);
+  const [loading, setLoading] = useState<boolean>(true);
   const [rooms, setRooms] = useState<ChatRoom[]>([]);
   const [filteredRooms, setFilteredRooms] = useState<ChatRoom[]>([]);
   const roomsRef = collection(db, "rooms");
@@ -56,6 +58,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
             .includes(searchRef.current?.value.toLowerCase() || "")
         )
       );
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -91,7 +94,9 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
         </div>
       </div>
       <ul className="hidden md:flex md:flex-col">
-        {filteredRooms.length > 0 ? (
+        {loading ? (
+          <ChatListSkeleton />
+        ) : filteredRooms.length > 0 ? (
           <>
             {filteredRooms.map((room) => (
               <li key={room.id}>
