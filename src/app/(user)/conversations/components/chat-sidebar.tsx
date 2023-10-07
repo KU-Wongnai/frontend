@@ -7,7 +7,13 @@ import { ChatRoom, ChatSideBarProps } from "../interfaces/conversations";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import NewChat from "./new-chat";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import useAuthStore from "@/contexts/auth-store";
 import Link from "next/link";
@@ -28,7 +34,8 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
   useEffect(() => {
     const roomsQuery = query(
       roomsRef,
-      where("users", "array-contains", me?.id)
+      where("users", "array-contains", me?.id),
+      orderBy("updatedAt", "desc")
     );
 
     const unsubscribe = onSnapshot(roomsQuery, async (snapshot) => {
