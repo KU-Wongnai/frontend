@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import ChatWindow from "../components/chat-window";
 import MessageInput from "../components/message-input";
 import useAuthStore from "@/contexts/auth-store";
 import { db } from "@/lib/firebase";
@@ -10,13 +9,13 @@ import {
   addDoc,
   serverTimestamp,
   query,
-  where,
   orderBy,
   onSnapshot,
   doc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
-import { ChatMessage, ChatUser } from "../interfaces/conversations";
+import { ChatMessage, ChatRoom } from "../interfaces/conversations";
 import { useParams } from "next/navigation";
 import ChatBubble from "../components/chat-bubble";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,17 +24,9 @@ const Room = () => {
   const me = useAuthStore((state) => state.user);
   const params = useParams();
   const [messages, setmessages] = useState<ChatMessage[]>([]);
+  const [room, setRoom] = useState<ChatRoom>();
 
   const roomsRef = doc(collection(db, "rooms"), params.roomId as string);
-  setDoc(
-    roomsRef,
-    {
-      users: [me?.id, 3],
-    },
-    {
-      merge: true,
-    }
-  );
 
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesRef = collection(roomsRef, "messages");
@@ -49,6 +40,19 @@ const Room = () => {
   };
 
   useEffect(() => {
+    getDoc(roomsRef).then((doc) => {
+      const room = doc.data();
+      const otherUser = room?.users.find((user: number) => user !== me?.id);
+      setRoom({
+        id: doc.id,
+        to: {
+          id: otherUser,
+          name: "Alice",
+          avatarUrl: `https://ui-avatars.com/api/?name=${otherUser}&background=random`,
+        },
+      });
+    });
+
     const queryMessage = query(messagesRef, orderBy("createdAt"));
     const unsuscribe = onSnapshot(queryMessage, (snapshot) => {
       const messages: ChatMessage[] = [];
@@ -72,28 +76,34 @@ const Room = () => {
   }, [messages]);
 
   return (
-    <div className="flex-1 flex flex-col bg-background rounded-md">
-      <div className="flex-1 flex flex-col bg-secondary rounded-md min-h-[500px] max-h-[500px]">
-        <div className="p-3 mx-4 border-b flex items-center gap-6">
+    <div className="relative flex flex-col bg-secondary overflow-y-scroll w-full">
+      <div className="flex-1 flex flex-col">
+        <header className="sticky top-0 w-full p-3 border-b bg-card z-10 flex items-center gap-6">
           <Avatar className="h-14 w-14">
-            <AvatarImage src="" alt="" />
-            <AvatarFallback className="bg-pink-300">SC</AvatarFallback>
+            <AvatarImage src={room?.to.avatarUrl} alt={room?.to.name} />
+            <AvatarFallback className="bg-pink-300">
+              {room?.to.id}
+            </AvatarFallback>
           </Avatar>
-          <span className="text-lg font-bold">Saccsos</span>
-        </div>
+          <span className="text-lg font-bold">{room?.to.id}</span>
+        </header>
 
-        <div ref={chatRef} className="space-y-4 p-4 overflow-y-scroll">
+        <div ref={chatRef} className="space-y-4 p-4">
           {messages.map((message, idx) => (
             <ChatBubble
               key={idx}
               message={message}
+              fromUser={room?.to!}
               fromMe={message.sender === me?.id}
               lastMessage={idx === messages.length - 1}
             />
           ))}
         </div>
       </div>
-      <MessageInput onSend={handleSendMessage} />
+      <MessageInput
+        onSend={handleSendMessage}
+        className="mt-auto sticky bottom-0 backdrop-blur-lg"
+      />
     </div>
   );
 };

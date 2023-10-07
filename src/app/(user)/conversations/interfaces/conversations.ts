@@ -7,6 +7,11 @@ export interface ChatUser {
   avatarUrl: string;
 }
 
+export interface ChatRoom {
+  id: string;
+  to: ChatUser;
+}
+
 export interface ChatMessage {
   sender: number;
   recipient: number;
@@ -14,7 +19,8 @@ export interface ChatMessage {
   createdAt: Timestamp;
 }
 
-export interface MessageInputProps {
+export interface MessageInputProps extends React.HTMLProps<HTMLFormElement> {
+  className?: string;
   onSend: (message: string) => void;
 }
 
