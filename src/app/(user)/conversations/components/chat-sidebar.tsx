@@ -122,7 +122,7 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
                   </Avatar>
                   <div className="ml-3">
                     <p className="text-sm font-bold">{room.to.name}</p>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 overflow-hidden whitespace-nowrap max-w-[16ch] inline-block">
                       {room.lastMessage}
                     </span>
                   </div>
