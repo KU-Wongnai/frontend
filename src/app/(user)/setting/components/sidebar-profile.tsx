@@ -13,7 +13,7 @@ export default function SidebarProfile({
   return (
     <div className="md:p-6 mr-4 font-bold">
       <h2 className="mb-4 text-4xl hidden md:block">Setting</h2>
-      <div className="md:hidden grid place-content-center">
+      <div className="sm:hidden grid place-content-center">
         <button
           className="flex justify-center"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -21,7 +21,7 @@ export default function SidebarProfile({
           ☰
         </button>
       </div>
-      <nav className={`md:block mt-2 md:mt-0 ${menuOpen ? "block" : "hidden"}`}>
+      <nav className={`sm:block mt-2 md:mt-0 ${menuOpen ? "block" : "hidden"}`}>
         <ul className="space-y-2 text-lg">
           <li>
             <div
@@ -53,7 +53,7 @@ export default function SidebarProfile({
               History
             </div>
           </li>
-          <li>
+          {/* <li>
             <div
               className={`flex items-center rounded-lg px-4 py-2 transition-colors duration-200 hover:bg-primary  hover:text-primary-foreground ${
                 active === 4 ? "bg-card" : "text-gray-500"
@@ -62,7 +62,7 @@ export default function SidebarProfile({
             >
               Change Password
             </div>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

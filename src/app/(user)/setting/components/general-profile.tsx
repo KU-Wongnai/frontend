@@ -41,12 +41,13 @@ const General = () => {
 
   const user = useStore(useAuthStore, (state) => state.user);
 
+  const birthDate = new Date(user?.user_profile?.birth_date || "");
+
   const form = useForm<UserProfileForm>({
     defaultValues: {
       phone_number: user?.user_profile?.phone_number || null,
-      birth_date: user?.user_profile?.birth_date || null,
+      birth_date: birthDate,
       address: user?.user_profile?.address || null,
-      // avatar: user?.user_profile?.avatar || "",
       student_id: user?.user_profile?.student_id || null,
       faculty: user?.user_profile?.faculty || null,
       major: user?.user_profile?.major || null,
@@ -92,8 +93,13 @@ const General = () => {
 
   const onSubmit = async (data: UserProfileForm) => {
     console.log(data);
+    const submittedData = {
+      ...data,
+      birth_date: format(new Date(data.birth_date), "yyyy-M-d"),
+    };
+    console.log(submittedData);
     try {
-      await updateUserProfile(data);
+      await updateUserProfile(submittedData);
       toast.success("Update profile success");
     } catch (error: any) {
       if (error.response.status === 422)
@@ -119,7 +125,7 @@ const General = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center "
         >
-          <Avatar className="w-24 h-24 mb-4">
+          <Avatar className="w-24 h-24 mb-4 cursor-pointer">
             <AvatarImage
               src={
                 user?.user_profile?.avatar || "https://github.com/shadcn.png"
@@ -137,26 +143,6 @@ const General = () => {
           />
 
           <main className="w-full max-w-md ">
-            {/* avatar */}
-            {/* <FormField
-              name="avatar"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Avatar</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      id="avatar"
-                      type="file"
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
             {/* phone_number */}
             <FormField
               name="phone_number"
@@ -200,13 +186,13 @@ const General = () => {
                           )}
                         >
                           {field.value ? (
-                            format(new Date(field.value), "PPP")
+                            format(new Date(field.value), "yyyy-M-d")
                           ) : (
                             <div>
                               {user?.user_profile?.birth_date ? (
                                 format(
                                   new Date(user?.user_profile?.birth_date),
-                                  "PPP"
+                                  "yyyy-M-d"
                                 )
                               ) : (
                                 <p>Pick a date</p>
@@ -220,7 +206,7 @@ const General = () => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value || undefined}
+                        selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) =>
                           date > new Date() || date < new Date("1900-01-01")
