@@ -20,14 +20,7 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-interface SignInAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-// interface FormInputs {
-//   email: string;
-//   password: string;
-// }
-
-export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
+export function SignInAuthForm() {
   const form = useForm<LoginForm>({
     defaultValues: {
       email: "",
@@ -40,6 +33,7 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
 
   const onSubmit = async (data: LoginForm) => {
     try {
+      console.log("data", data);
       await login(data);
       toast.success("Welcome back!");
       router.push("/");
@@ -63,7 +57,7 @@ export function SignInAuthForm({ className, ...props }: SignInAuthFormProps) {
   };
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className="grid gap-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-4">

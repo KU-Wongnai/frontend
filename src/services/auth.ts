@@ -41,8 +41,20 @@ export const getMe = async () => {
   try {
     const { data: user } = await httpClient.post("user/api/users/me");
     useAuthStore.getState().setUser(user);
+    return user;
   } catch (error) {
     console.error("Failed to get user", error);
+    throw error;
+  }
+};
+
+export const updateUserProfile = async (data: any) => {
+  try {
+    console.log(data);
+    await httpClient.put("user/api/users/profile/user", data);
+    getMe();
+  } catch (error) {
+    console.error("Failed to update user", error);
     throw error;
   }
 };

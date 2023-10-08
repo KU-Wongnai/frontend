@@ -1,4 +1,4 @@
-import { API_URL, httpClient } from "@/lib/http-client";
+import { httpClient } from "@/lib/http-client";
 
 export const getRestaurants = async () => {
   try {

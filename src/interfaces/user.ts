@@ -14,7 +14,7 @@ export interface Role {
 export interface UserProfile {
   user_id: number;
   phone_number: string;
-  birth_date: string;
+  birth_date: Date;
   address: null | string;
   avatar: string;
   student_id: null | string;

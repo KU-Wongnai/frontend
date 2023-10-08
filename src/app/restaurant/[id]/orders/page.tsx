@@ -2,7 +2,7 @@
 import TagTitle from "@/components/tag-title";
 import React, { useState } from "react";
 import OrderCard from "@/app/restaurant/components/order-card-dashboard";
-import { mockOrderData } from "../../../__mock__/order";
+import { mockOrderData } from "../../../../mock/order";
 import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
 
 type Props = {}

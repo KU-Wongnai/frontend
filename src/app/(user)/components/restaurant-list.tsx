@@ -10,31 +10,31 @@ const RestaurantList = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       const allRestaurants = await getRestaurants();
+      console.log(allRestaurants);
       setRestaurants(allRestaurants);
-    }
+    };
     fetchRestaurants();
   }, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-      {restaurants.map((restaurant) => (
+      {restaurants.map((restaurant: Restaurant) => (
         <RestaurantCard
           key={restaurant.id}
           id={restaurant.id}
           description={restaurant.description}
           location={restaurant.location}
-          operatingHours={restaurant.operatingHours}
+          // operatingHours={restaurant.operatingHours}
           contactInfo={restaurant.contactInfo}
           image={restaurant.image}
           name={restaurant.name}
           foodType={restaurant.foodType}
           rating={restaurant.rating}
-          href={`/restaurants/${restaurant.id}`}
-          menus={null}
+          menus={restaurant.menus}
         />
       ))}
     </div>
   );
-}
+};
 
 export default RestaurantList;

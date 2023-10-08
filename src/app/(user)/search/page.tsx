@@ -1,4 +1,4 @@
-import { SearchParams } from "@/app/interfaces/search-params";
+import { SearchParams } from "@/interfaces/search-params";
 import SearchSideBar from "./components/filter-sidebar";
 import RestaurantCardSearch from "./components/restaurant-card-search";
 
