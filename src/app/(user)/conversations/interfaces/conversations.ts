@@ -1,17 +1,28 @@
+import { User } from "@/app/interfaces/user";
+import { Timestamp } from "firebase/firestore";
+
 export interface ChatUser {
   id: number;
   name: string;
   avatarUrl: string;
 }
 
+export interface ChatRoom {
+  id: string;
+  to: ChatUser;
+  lastMessage?: string;
+  updatedAt?: Timestamp;
+}
+
 export interface ChatMessage {
   sender: number;
   recipient: number;
   message: string;
-  timestamp: string;
+  createdAt: Timestamp;
 }
 
-export interface MessageInputProps {
+export interface MessageInputProps extends React.HTMLProps<HTMLFormElement> {
+  className?: string;
   onSend: (message: string) => void;
 }
 
@@ -21,13 +32,11 @@ export interface ComboboxChatUserProps {
 }
 
 export interface ChatWindowProps {
-  users: ChatUser[];
-  chatLogs: ChatMessage[];
-  selectedUser: number | null;
+  me: User;
+  messages: ChatMessage[];
+  // selectedUser: number | null;
 }
 
 export interface ChatSideBarProps {
-  users: ChatUser[];
-  selectedUser: number | null;
-  onSelectUser: (id: number | null) => void;
+
 }

@@ -27,30 +27,10 @@ import SearchInput from "./search-input";
 
 import useStore from "@/contexts/useStore";
 import useAuthStore from "../contexts/auth-store";
-import { getMe, logout as logoutService } from "@/services/auth";
+import { getMe, logout } from "@/services/auth";
 
 export default function Navbar() {
   const user = useStore(useAuthStore, (state) => state.user);
-
-
-  React.useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await getMe();
-        useAuthStore.setState({ user });
-      } catch (error) {
-        console.error("Failed to fetch user", error);
-      }
-    };
-    fetchUser();
-  }, []);
-  const logout = async () => {
-    try {
-      await logoutService();
-    } catch (error) {
-      console.error("Failed to logout", error);
-    }
-  };
 
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
@@ -70,7 +50,7 @@ export default function Navbar() {
           </Link>
           <div className="flex gap-1">
             <ModeToggle />
-            { user ? (
+            {user ? (
               <>
                 <Link href="/notifications">
                   <Button variant="outline" className="relative rounded-full">
@@ -84,12 +64,10 @@ export default function Navbar() {
                   <DropdownMenuTrigger>
                     <Avatar>
                       <AvatarImage
-                        src={
-                          user?.user_profile?.avatar ||
-                          "https://github.com/shadcn.png"
-                        }
+                        src={user.user_profile?.avatar}
+                        alt={user.name}
                       />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback>{user.name[0]}</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
@@ -184,12 +162,7 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage
-                      src={
-                        user?.user_profile?.avatar ||
-                        "https://github.com/shadcn.png"
-                      }
-                    />
+                    <AvatarImage src={user?.user_profile?.avatar} />
                     <AvatarFallback>{user.name[0]}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
