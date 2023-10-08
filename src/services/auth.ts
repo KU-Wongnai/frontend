@@ -47,14 +47,3 @@ export const getMe = async () => {
     throw error;
   }
 };
-
-export const updateUserProfile = async (data: any) => {
-  try {
-    console.log(data);
-    await httpClient.put("user/api/users/profile/user", data);
-    getMe();
-  } catch (error) {
-    console.error("Failed to update user", error);
-    throw error;
-  }
-};

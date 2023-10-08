@@ -1,4 +1,4 @@
-import { User } from "@/app/interfaces/user";
+import { User } from "@/interfaces/user";
 import { Timestamp } from "firebase/firestore";
 
 export interface ChatUser {

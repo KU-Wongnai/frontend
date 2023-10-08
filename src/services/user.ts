@@ -1,5 +1,17 @@
-import { User } from "@/app/interfaces/user";
+import { User } from "@/interfaces/user";
 import { httpClient } from "@/lib/http-client";
+import { getMe } from "./auth";
+
+export const updateUserProfile = async (data: any) => {
+  try {
+    console.log(data);
+    await httpClient.put("user/api/users/profile/user", data);
+    getMe();
+  } catch (error) {
+    console.error("Failed to update user", error);
+    throw error;
+  }
+};
 
 export const findUserBy = async (id: number): Promise<User> => {
   try {

@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useStore } from "zustand";
 import useAuthStore from "@/contexts/auth-store";
 import toast from "react-hot-toast";
-import { updateUserProfile } from "@/services/auth";
+import { updateUserProfile } from "@/services/user";
 import { uploadFile } from "@/services/file-upload";
 import { hash } from "@/lib/hash";
 import {
