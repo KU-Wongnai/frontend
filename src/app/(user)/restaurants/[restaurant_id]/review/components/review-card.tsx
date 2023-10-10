@@ -1,52 +1,61 @@
 "use client";
 
-import React, { useState } from "react";
-import { MoreHorizontal, ThumbsUp, MessageSquare } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { ThumbsUp, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Toggle } from "@/components/ui/toggle";
 import { Input } from "../../../../../../components/ui/input";
 import { Button } from "../../../../../../components/ui/button";
+import { getReviewsByID, likeReview } from "@/services/review";
+import useStore from "@/contexts/useStore";
+import useAuthStore from "@/contexts/auth-store";
+import ReviewDialog from "./review-dialog";
+import Rating from "@mui/material/Rating";
 
-const ReviewCard: React.FC<ReviewProps> = ({
-  avatarUrl,
-  name,
-  title,
-  content,
-  images,
-  comments,
-  likes,
-}) => {
+const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [comment, setComment] = useState<ReviewComment[]>([]);
+  // const [comment, setComment] = useState<ReviewComment[]>([]);
 
-  const handleToggleLike = () => {
-    setIsLiked(!isLiked);
+  const me = useStore(useAuthStore, (state) => state.user);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      const review: Review = await getReviewsByID(id);
+      setReview(review);
+      for (let i = 0; i < review.likes.length; i++) {
+        if (review.likes[i].id === me?.id) {
+          setIsLiked(true);
+        }
+      }
+    };
+    fetchReview();
+  }, [id, me?.id, review]);
+
+  const handleToggleLike = async () => {
+    await likeReview(id).then(() => {
+      setIsLiked(!isLiked);
+    });
   };
+
+  const isMyReview = me?.id === review?.user.id;
 
   const handleToggleCommentInput = () => {
     setShowCommentInput(!showCommentInput);
   };
 
   const handleAddComment = () => {
-    if (commentText.trim()) {
-      setComment((prevComments) => [
-        ...prevComments,
-        { avatarUrl: avatarUrl, name: name, content: commentText },
-      ]);
-      setCommentText("");
-      setShowCommentInput(false);
-    }
+    // if (commentText.trim()) {
+    //   setComment((prevComments) => [
+    //     ...prevComments,
+    //     { user: user avatarUrl: avatarUrl, name: name, content: commentText },
+    //   ]);
+    //   setCommentText("");
+    //   setShowCommentInput(false);
+    // }
   };
 
   return (
@@ -54,36 +63,33 @@ const ReviewCard: React.FC<ReviewProps> = ({
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
           <Avatar>
-            <AvatarImage src={avatarUrl} />
+            <AvatarImage src={review?.user.avatar} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <span className="scroll-m-20 text-2xl font-semibold tracking-tight">
-            {name}
+            {review?.user.name}
           </span>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <MoreHorizontal className="cursor-pointer" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>
-              <p className="text-red-500">Delete</p>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {isMyReview && review ? <ReviewDialog review={review} /> : null}
       </div>
-      <h3 className="text-lg sm:text-xl font-bold mb-2">{title}</h3>
-      <div
-        className="text-gray-500 mb-4"
-        dangerouslySetInnerHTML={{ __html: content }} // Render HTML content
+      <Rating
+        name="half-rating-read"
+        defaultValue={rating}
+        precision={0.5}
+        readOnly
       />
-
+      <h3 className="text-lg sm:text-xl font-bold mb-2">{review?.title}</h3>
+      {review?.content ? (
+        <div
+          className="text-gray-500 mb-4"
+          dangerouslySetInnerHTML={{ __html: review?.content }}
+        />
+      ) : null}
       <div className="grid grid-cols-2 sm:grid-cols-8 gap-2 mb-4">
-        {images.map((img, index) => (
+        {review?.images.map((img, index) => (
           <div key={index}>
             <Image
-              src={img}
+              src={img.imageUrl}
               alt={`Review image ${index}`}
               width={100}
               height={100}
@@ -102,7 +108,7 @@ const ReviewCard: React.FC<ReviewProps> = ({
               className={`cursor-pointer ${isLiked ? "text-blue-500" : ""}`}
             />
           </Toggle>
-          <span className="font-semibold ">{likes}</span>
+          <span className="font-semibold ">{review?.likes.length}</span>
         </div>
         <div className="transition-colors duration-300 hover:text-blue-500">
           <MessageSquare
@@ -132,7 +138,7 @@ const ReviewCard: React.FC<ReviewProps> = ({
         </div>
       )}
       <ul className="space-y-2">
-        {comments.map((comment, index) => (
+        {review?.comments.map((comment: any, index: any) => (
           <li
             key={index}
             className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-secondary rounded-lg"

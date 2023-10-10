@@ -7,6 +7,7 @@ import {
   Bell,
   Bike,
   LogOut,
+  MessageCircle,
   Settings,
   ShoppingCart,
   UtensilsCrossed,
@@ -77,6 +78,15 @@ export default function Navbar() {
                       <Link href="/cart" className="flex items-center w-full">
                         <ShoppingCart className="mr-2 h-4 w-4" />
                         <span>Cart</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        href="/conversations"
+                        className="flex items-center w-full"
+                      >
+                        <MessageCircle className="mr-2 h-4 w-4" />
+                        <span>Chat</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
@@ -169,6 +179,15 @@ export default function Navbar() {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link
+                      href="/conversations"
+                      className="flex items-center w-full"
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      <span>Chat</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
                       href="/restaurant"

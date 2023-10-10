@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { mockReview } from "@/mock/review";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
 import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
+import { getReviewsRestaurant } from "@/services/review";
+import ReviewList from "./review/components/review-list";
 
 function ShowRestaurant({
   params,
@@ -17,27 +18,58 @@ function ShowRestaurant({
     id: string;
   };
 }) {
-
   const [restaurant, setRestaurant] = React.useState<Restaurant>();
+  // const [review, setReview] = React.useState<Review[]>();
 
+  // console.log(review);
+
+  // useEffect(() => {
+  //   const fetchRestaurant = async () => {
+  //     const restaurant = await getRestaurant(params.restaurant_id);
+  //     setRestaurant(restaurant);
+  //   };
+  //   fetchRestaurant();
+
+  //   const fetchReviewRestaurant = async () => {
+  //     const review = await getReviewsRestaurant(params.restaurant_id);
+  //     setReview(review);
+  //   };
+  //   fetchReviewRestaurant();
+  // }, [params.restaurant_id, review]);
   useEffect(() => {
     const fetchRestaurant = async () => {
       const restaurant = await getRestaurant(params.restaurant_id);
-      console.log(restaurant);
       setRestaurant(restaurant);
-    }
+    };
     fetchRestaurant();
   }, [params.restaurant_id]);
 
+  // useEffect(() => {
+  //   const fetchReviewRestaurant = async () => {
+  //     const review = await getReviewsRestaurant(params.restaurant_id);
+  //     setReview(review);
+  //   };
+  //   fetchReviewRestaurant();
+  // }, [params.restaurant_id]);
+
+
   const router = useRouter();
 
-  const mockRouteReview = () => {
-    router.push("/restaurants/1/review");
-  };
+  // const mockRouteReview = () => {
+  //   router.push(`/restaurants/${params.restaurant_id}/review`);
+  // };
 
-  const mockRouteMenus = () => {
-    router.push("/restaurants/1/menus");
-  };
+  // const mockRouteMenus = () => {
+  //   router.push(`/restaurants/${params.restaurant_id}/menus`);
+  // };
+  const mockRouteReview = useCallback(() => {
+    router.push(`/restaurants/${params.restaurant_id}/review`);
+  }, [router, params.restaurant_id]);
+
+  const mockRouteMenus = useCallback(() => {
+    router.push(`/restaurants/${params.restaurant_id}/menus`);
+  }, [router, params.restaurant_id]);
+
 
   return (
     <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
@@ -49,7 +81,7 @@ function ShowRestaurant({
               restaurant?.image ||
               "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
             }
-            alt="KU Wongnai"
+            alt=""
             width={700}
             height={700}
             className="border shadow-sm rounded-lg w-full h-full"
@@ -59,18 +91,13 @@ function ShowRestaurant({
           <div className="flex flex-col bg-card rounded-lg p-4 md:p-5 h-auto md:h-[390px] border shadow-sm">
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <h2 className="text-2xl font-bold">{restaurant?.name}</h2>
-                <p className="text-sm text-gray-500">{restaurant?.foodType}</p>
+                <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
+                  {restaurant?.name}
+                </h2>
+                <p className="text-lg font-semibold tracking-tight  text-gray-400">
+                  {restaurant?.foodType}
+                </p>
               </div>
-              {/* <div className="flex flex-col">
-                <div className="flex items-center">
-                  <span className="text-red-500 text-2xl font-bold">
-                    {restaurant?.rating}
-                  </span>
-                  <span className="ml-2 text-xl font-bold">/ 5</span>
-                </div>
-                <div className="text-sm text-gray-500 text-right">Rating</div>
-              </div> */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
                   <h2 className="text-lg font-semibold tracking-tight ">
@@ -88,7 +115,9 @@ function ShowRestaurant({
             <div className="flex justify-between mt-3">
               <div className="flex flex-col">
                 <h3 className="text-2xl font-bold">Location</h3>
-                <p className="text-sm text-gray-500">{restaurant?.location}</p>
+                <p className="text-lg font-semibold tracking-tight  text-gray-400">
+                  {restaurant?.location}
+                </p>
               </div>
             </div>
             {/* <div className="flex mt-3">
@@ -102,8 +131,8 @@ function ShowRestaurant({
             </div> */}
             <div className="flex mt-3">
               <div className="flex flex-col w-full">
-                <h3 className="text-2xl font-bold">phone</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-2xl font-semibold tracking-tight">phone</h3>
+                <p className="text-lg font-semibold tracking-tight  text-gray-400">
                   {restaurant?.contactInfo}
                 </p>
               </div>
@@ -111,7 +140,9 @@ function ShowRestaurant({
 
             {/* description */}
             <div className="flex mt-5 w-full">
-              <p className="text-sm text-gray-500">{restaurant?.description}</p>
+              <p className="text-lg font-semibold tracking-tight  text-gray-400">
+                {restaurant?.description}
+              </p>
             </div>
           </div>
           <div className="w-full flex gap-3 mt-4">
@@ -132,31 +163,8 @@ function ShowRestaurant({
       </section>
 
       {/* reviews */}
-      <section className="mt-3 bg-card rounded-lg p-4 md:p-5 border shadow-sm">
-        <div className="flex gap-4 border-b items-end">
-          <h1 className="pb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors text-primary">
-            Reviews
-          </h1>
-          <p className="text-xl md:text-2xl font-semibold tracking-tight text-gray-500 pb-2">
-            ({mockReview.length})
-          </p>
-        </div>
-        <div>
-          {mockReview.map((review, index) => (
-            <ReviewCard
-              key={index}
-              avatarUrl={review.avatarUrl}
-              name={review.name}
-              title={review.title}
-              content={review.content}
-              images={review.images}
-              comments={review.comments}
-              likes={review.likes}
-              rating={review.rating}
-            />
-          ))}
-        </div>
-      </section>
+      <ReviewList restaurant_id={params.restaurant_id} />
+
     </main>
   );
 }
