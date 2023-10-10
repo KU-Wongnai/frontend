@@ -1,32 +1,45 @@
-import { mockComments } from "./comment";
-
-export const mockReview: ReviewProps[] = [
+export const mockReview: Review[] = [
   {
-    avatarUrl: "https://github.com/shadcn.png",
-    name: "John Doe",
-    title: "Amazing restaurant!",
-    content:
-      "<h1>H1</h1><ol><li>a</li></ol><ul><li>b</li></ul><p><strong>bold</strong></p><p><em>i</em></p><p><u>u</u></p>",
+    id: 1,
+    user: {
+      id: 1,
+      name: "Alice",
+      email: "alice@example.com",
+      emailVerifiedAt: "2023-01-01T00:00:00Z",
+      avatar: "https://example.com/images/alice.jpg",
+    },
+    title: "Great product!",
+    content: "I absolutely love this product. It has changed my life!",
     rating: 5,
-    images: [
-      "https://images.unsplash.com/photo-1693930270229-694fc4216a69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
-      "https://images.unsplash.com/photo-1682685796766-0fddd3e480de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    likes: [
+      {
+        id: 2,
+        name: "Bob",
+        email: "bob@example.com",
+        emailVerifiedAt: "2023-01-02T00:00:00Z",
+        avatar: "https://example.com/images/bob.jpg",
+      },
+      {
+        id: 3,
+        name: "Charlie",
+        email: "charlie@example.com",
+        emailVerifiedAt: null,
+        avatar: "https://example.com/images/charlie.jpg",
+      },
     ],
-    comments: mockComments,
-    likes: 10,
-  },
-  {
-    avatarUrl: "https://github.com/shadcn.png",
-    name: "Nancy",
-    title: "Great food!",
-    content:
-      "<h1><strong><u>I really loved the food here.</u></strong></h1><p><em>It was fantastic.</em></p><p><br></p>",
-    rating: 4,
-    images: [
-      "https://images.unsplash.com/photo-1693930270229-694fc4216a69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
-      "https://images.unsplash.com/photo-1682685796766-0fddd3e480de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    comments: [
+      // Depending on the structure of comments you may add some mock data here
     ],
-    comments: mockComments,
-    likes: 104,
+    images: [
+      {
+        id: 1,
+        imageUrl: "https://example.com/images/product1.jpg",
+        createdAt: "2023-01-03T00:00:00Z",
+        updatedAt: "2023-01-03T01:00:00Z",
+      },
+    ],
+    createdAt: "2023-01-04T00:00:00Z",
+    updatedAt: "2023-01-04T01:00:00Z",
   },
+  // You can add more reviews as per your testing requirements...
 ];

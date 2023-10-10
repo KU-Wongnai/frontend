@@ -1,14 +1,38 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChefHat, ImageIcon } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import StarRatings from "react-star-ratings";
 import { Label } from "@/components/ui/label";
+
+import Rating from "@mui/material/Rating";
+import Box from "@mui/material/Box";
+import StarIcon from "@mui/icons-material/Star";
+import { createReview } from "@/services/review";
+import { reviewSchema } from "@/validations/review-schema";
+import { hash } from "@/lib/hash";
+import { uploadFile } from "@/services/file-upload";
+
+const labels: { [index: string]: string } = {
+  0.5: "Useless",
+  1: "Useless+",
+  1.5: "Poor",
+  2: "Poor+",
+  2.5: "Ok",
+  3: "Ok+",
+  3.5: "Good",
+  4: "Good+",
+  4.5: "Excellent",
+  5: "Excellent+",
+};
+
+function getLabelText(value: number) {
+  return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
+}
 
 const RichTextEditor = dynamic(() => import("@/components/rich-text-editor"), {
   ssr: false,
@@ -22,13 +46,12 @@ function Review({
     id: string;
   };
 }) {
+  const [value, setValue] = React.useState<number | null>(2);
+  const [hover, setHover] = React.useState(-1);
+  const [title, setTitle] = useState("");
   const [editorContent, setEditorContent] = useState("");
   const [images, setImages] = useState<FileList | null>(null);
-  const [rating, setRating] = useState(0);
-
-  const handleRatingChange = (newRating: number) => {
-    setRating(newRating);
-  };
+  const [error, setError] = useState<string | null>(null);
 
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
@@ -41,15 +64,100 @@ function Review({
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(
       "Submitting:",
       editorContent,
       "Rating:",
-      rating,
+      value,
       "Images:",
       images
     );
+    try {
+      setError(null); // Reset error on new submission attempt
+
+      // upload image
+      // if (file) {
+      //   const file_name_hash = hash(file.name);
+      //   const file_name = `avatar/${file_name_hash}`;
+      //   console.log(file_name);
+      //   const res = await uploadFile(file, file_name);
+      //   console.log(res);
+      //   if (res?.data) {
+      //     const avatar = res.data.replace(
+      //       "http://host.docker.internal:8093",
+      //       "http://localhost:8093"
+      //     );
+      //     await updateUserProfile({
+      //       phone_number: user?.user_profile?.phone_number,
+      //       birth_date: user?.user_profile?.birth_date,
+      //       avatar: avatar,
+      //     });
+      //     toast.success("Update avatar success");
+      //   }
+      //   return;
+      // }
+      // upload image
+
+      // let imageName: string[] = [];
+      // imageName keep object imageUrl like this
+      //   imageName = [
+      //     {
+      //         "imageUrl": "http://localhost:8093/storage/avatar/9e5d3f61f13251c7.jpeg"
+      //     },
+      //     {
+      //         "imageUrl": "http://localhost:8093/storage/avatar/9e5d3f61f13251c7.jpeg"
+      //     }
+      // ]
+      let imageName = [];
+
+      if (images) {
+        for (let i = 0; i < images?.length; i++) {
+          const file = images[i];
+          const file_name_hash = hash(file.name);
+          const file_name = `review/${file_name_hash}`;
+          console.log(file_name);
+          const res = await uploadFile(file, file_name);
+          console.log(res);
+          if (res?.data) {
+            const imageReview = res.data.replace(
+              "http://host.docker.internal:8093",
+              "http://localhost:8093"
+            );
+            console.log(imageReview);
+            // keep object imageUrl
+
+            imageName.push({
+              imageUrl: imageReview,
+            });
+          }
+        }
+      }
+
+      const formData = {
+        title: title,
+        content: editorContent,
+        rating: value,
+        images: imageName,
+      };
+
+      console.log("Submitting:", formData);
+
+      // const validatedData = reviewSchema.parse({
+      //   title,
+      //   content: editorContent,
+      //   rating: value,
+      // });
+
+      // Sending data to the API and getting the response.
+      const reviewResponse = await createReview(params.restaurant_id, formData);
+
+      console.log("Review submitted successfully:", reviewResponse);
+      // Handle successful review submission here, like redirecting to the restaurant page.
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      // Handle error here, like showing an error message to the user.
+    }
   };
 
   return (
@@ -65,23 +173,65 @@ function Review({
               Write a review
             </h1>
           </div>
+
+          {error && (
+            <div className="text-red-500 p-2 mt-2 border-l-4 border-red-500 bg-red-50">
+              <p>{error}</p>
+            </div>
+          )}
+
           {/* Star Rating */}
           <div className="mb-3">
             <span className="text-xl font-semibold tracking-tight">
               Rate this restaurant
             </span>
             <div className="ml-2">
-              <StarRatings
-                rating={rating}
-                starRatedColor="red"
-                changeRating={handleRatingChange}
-                numberOfStars={5}
-                name="rating"
-                starDimension="35px" // Adjust the size here
-                starSpacing="2px" // Adjust the spacing here
-              />
+              <Box
+                sx={{
+                  width: 200,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Rating
+                  name="hover-feedback"
+                  size="large"
+                  value={value}
+                  precision={0.5}
+                  getLabelText={getLabelText}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                  }}
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  }
+                />
+                {value !== null && (
+                  <Box sx={{ ml: 2 }}>
+                    {labels[hover !== -1 ? hover : value]}
+                  </Box>
+                )}
+              </Box>
             </div>
           </div>
+
+          {/* Title */}
+          <div className="my-4 ">
+            <Label className="text-xl font-semibold tracking-tight mb-2">
+              Title
+            </Label>
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Title here"
+              className="border rounded-lg p-2 w-full mt-2"
+              type="text"
+            />
+          </div>
+
           {/* rich text editor */}
           <RichTextEditor onChange={handleEditorChange} />
 

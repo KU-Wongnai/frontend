@@ -41,7 +41,12 @@ const General = () => {
 
   const user = useStore(useAuthStore, (state) => state.user);
 
-  const birthDate = new Date(user?.user_profile?.birth_date || "");
+  let birthDate;
+  if (user?.user_profile?.birth_date === null) {
+    birthDate = undefined;
+  } else {
+    birthDate = user?.user_profile?.birth_date;
+  }
 
   const form = useForm<UserProfileForm>({
     defaultValues: {
@@ -62,6 +67,7 @@ const General = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onChangeAvatar = () => {
+    console.log("clicked");
     fileInputRef.current?.click();
   };
 
@@ -125,12 +131,13 @@ const General = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center "
         >
-          <Avatar className="w-24 h-24 mb-4 cursor-pointer">
+          <Avatar
+            className="w-24 h-24 mb-4 cursor-pointer"
+            onClick={onChangeAvatar}
+          >
             <AvatarImage
-              src={
-                user?.user_profile?.avatar || "https://github.com/shadcn.png"
-              }
-              onClick={onChangeAvatar}
+              src={user?.user_profile?.avatar}
+              // onClick={onChangeAvatar}
             />
             <AvatarFallback>{user?.name[0]}</AvatarFallback>
           </Avatar>
@@ -185,20 +192,33 @@ const General = () => {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          {field.value ? (
-                            format(new Date(field.value), "yyyy-M-d")
+                          {/* {field.value === null || field.value === "" ? (
+                            <p>Pick a date</p>
                           ) : (
                             <div>
-                              {user?.user_profile?.birth_date ? (
-                                format(
-                                  new Date(user?.user_profile?.birth_date),
-                                  "yyyy-M-d"
-                                )
+                              {field.value && user?.user_profile?.birth_date ? (
+                                format(new Date(field.value), "yyyy-M-d")
                               ) : (
                                 <p>Pick a date</p>
                               )}
                             </div>
+                          )} */}
+                          {field.value ? (
+                            format(new Date(field.value), "yyyy-M-d")
+                          ) : (
+                            <p>Pick a date</p>
                           )}
+                          {/* {field.value ? (
+                            format(new Date(field.value), "yyyy-M-d")
+                          ) : (
+                            <div>
+                              {field.value && user?.user_profile?.birth_date ? (
+                                format(new Date(field.value), "yyyy-M-d")
+                              ) : (
+                                <p>Pick a date</p>
+                              )}
+                            </div>
+                          )} */}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
