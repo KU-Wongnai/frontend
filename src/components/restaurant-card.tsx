@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { use, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
+import { getReviewsRestaurant } from "@/services/review";
+import { calAverageReview, calReviewCount } from "@/lib/review-help";
 
 const RestaurantCard: React.FC<Restaurant> = ({
   id,
@@ -12,10 +16,23 @@ const RestaurantCard: React.FC<Restaurant> = ({
 
   menus,
 }) => {
+  const [review, setReview] = React.useState<Review[]>([]);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      const review = await getReviewsRestaurant(id);
+      setReview(review);
+    };
+    fetchReview();
+  }, []);
+
+  const reviewCount = calReviewCount(review);
+
+  const average = calAverageReview(review);
+
   const imageUrl =
     image ||
     "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"; // Replace with your default image path
-
   return (
     <Link href={`/restaurants/${id}`}>
       <div className="rounded-lg overflow-hidden shadow-md w-full border">
@@ -34,13 +51,13 @@ const RestaurantCard: React.FC<Restaurant> = ({
           <div className="flex items-center gap-3 mt-2">
             <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
               <h2 className=" text-base font-semibold tracking-tight ">
-                {rating}
+                {average}
               </h2>
               <Star className="w-4 h-4" />
             </div>
             <span>
               <span className="text-gray-400 text-sm sm:text-base">
-                100 reviews
+                {reviewCount} reviews
               </span>
             </span>
           </div>

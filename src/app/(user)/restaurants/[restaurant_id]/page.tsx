@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect } from "react";
+import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review-list";
+import { calAverageReview } from "@/lib/review-help";
 
 function ShowRestaurant({
   params,
@@ -19,23 +20,8 @@ function ShowRestaurant({
   };
 }) {
   const [restaurant, setRestaurant] = React.useState<Restaurant>();
-  // const [review, setReview] = React.useState<Review[]>();
+  const [review, setReview] = React.useState<Review[]>([]);
 
-  // console.log(review);
-
-  // useEffect(() => {
-  //   const fetchRestaurant = async () => {
-  //     const restaurant = await getRestaurant(params.restaurant_id);
-  //     setRestaurant(restaurant);
-  //   };
-  //   fetchRestaurant();
-
-  //   const fetchReviewRestaurant = async () => {
-  //     const review = await getReviewsRestaurant(params.restaurant_id);
-  //     setReview(review);
-  //   };
-  //   fetchReviewRestaurant();
-  // }, [params.restaurant_id, review]);
   useEffect(() => {
     const fetchRestaurant = async () => {
       const restaurant = await getRestaurant(params.restaurant_id);
@@ -44,24 +30,18 @@ function ShowRestaurant({
     fetchRestaurant();
   }, [params.restaurant_id]);
 
-  // useEffect(() => {
-  //   const fetchReviewRestaurant = async () => {
-  //     const review = await getReviewsRestaurant(params.restaurant_id);
-  //     setReview(review);
-  //   };
-  //   fetchReviewRestaurant();
-  // }, [params.restaurant_id]);
+  useEffect(() => {
+    const fetchReview = async () => {
+      const review = await getReviewsRestaurant(params.restaurant_id);
+      setReview(review);
+    };
+    fetchReview();
+  }, [params.restaurant_id]);
 
+  const average = calAverageReview(review);
 
   const router = useRouter();
 
-  // const mockRouteReview = () => {
-  //   router.push(`/restaurants/${params.restaurant_id}/review`);
-  // };
-
-  // const mockRouteMenus = () => {
-  //   router.push(`/restaurants/${params.restaurant_id}/menus`);
-  // };
   const mockRouteReview = useCallback(() => {
     router.push(`/restaurants/${params.restaurant_id}/review`);
   }, [router, params.restaurant_id]);
@@ -69,7 +49,6 @@ function ShowRestaurant({
   const mockRouteMenus = useCallback(() => {
     router.push(`/restaurants/${params.restaurant_id}/menus`);
   }, [router, params.restaurant_id]);
-
 
   return (
     <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
@@ -101,7 +80,7 @@ function ShowRestaurant({
               <div className="flex items-center gap-3 mb-3">
                 <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
                   <h2 className="text-lg font-semibold tracking-tight ">
-                    {restaurant?.rating}
+                    {average}
                   </h2>
                   <Star className="w-5 h-5" />
                 </div>
@@ -164,7 +143,6 @@ function ShowRestaurant({
 
       {/* reviews */}
       <ReviewList restaurant_id={params.restaurant_id} />
-
     </main>
   );
 }

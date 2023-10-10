@@ -4,9 +4,12 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { getRestaurant } from "@/services/restaurant";
+import { getReviewsRestaurant } from "@/services/review";
+import { calAverageReview, calReviewCount } from "@/lib/review-help";
 
 const RestaurantCardDetail = ({ id }: { id: number }) => {
   const [restaurant, setRestaurant] = React.useState<Restaurant>();
+  const [review, setReview] = React.useState<Review[]>([]);
 
   useEffect(() => {
     const fetchRestaurant = async () => {
@@ -16,6 +19,18 @@ const RestaurantCardDetail = ({ id }: { id: number }) => {
     };
     fetchRestaurant();
   }, [id]);
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      const review = await getReviewsRestaurant(id);
+      setReview(review);
+    };
+    fetchReview();
+  }, [id]);
+
+  const average = calAverageReview(review);
+
+  const reviewCount = calReviewCount(review);
 
   // Provide a default image source if image is null
   const imageUrl =
@@ -44,12 +59,14 @@ const RestaurantCardDetail = ({ id }: { id: number }) => {
           </div>
           <div className="flex items-center gap-3 mb-3">
             <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
-              <h2 className="text-lg font-semibold tracking-tight ">{restaurant?.rating}</h2>
+              <h2 className="text-lg font-semibold tracking-tight ">
+                {average}
+              </h2>
               <Star className="w-5 h-5" />
             </div>
             <span>
               <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                100 reviews
+                {reviewCount} reviews
               </span>
             </span>
           </div>

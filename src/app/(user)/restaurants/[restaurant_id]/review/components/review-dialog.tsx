@@ -106,7 +106,7 @@ const ReviewDialog = ({ review }: { review: Review }) => {
             <DialogHeader>
               <DialogTitle>Edit review</DialogTitle>
               <DialogDescription>
-                Make changes to your review here. Click save when you're done.
+                Make changes to your review here. Click save when you are done.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 pt-4">

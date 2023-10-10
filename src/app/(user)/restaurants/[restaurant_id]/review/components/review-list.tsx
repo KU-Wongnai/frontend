@@ -1,6 +1,10 @@
+"use client";
+
 import React, { useEffect } from "react";
 import ReviewCard from "./review-card";
 import { getReviewsRestaurant } from "@/services/review";
+import Image from "next/image";
+import NoReviewBro from "@/assets/undraw/undraw_review_re_kgg1.svg";
 
 const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
   const [review, setReview] = React.useState<Review[]>();
@@ -14,6 +18,8 @@ const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
     fetchReviewRestaurant();
   }, [restaurant_id]);
 
+  const isEmpty = review?.length === 0;
+
   return (
     <section className="mt-3 bg-card rounded-lg p-4 md:p-5 border shadow-sm">
       <div className="flex gap-4 border-b items-end">
@@ -24,7 +30,7 @@ const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
           ({review?.length ?? 0})
         </p>
       </div>
-      {review && (
+      {/* {review && (
         <div>
           {review?.map((review, index) => (
             <ReviewCard
@@ -42,6 +48,39 @@ const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
             />
           ))}
         </div>
+      )} */}
+
+      {isEmpty ? (
+        <div className="flex flex-col justify-center items-center col-span-full p-8">
+          <Image
+            src={NoReviewBro}
+            alt="No review available"
+            width={300}
+            height={300}
+          />
+          <h1 className="text-3xl font-bold  mt-4">
+            No review for this restaurant
+          </h1>
+          <p className="text-lg text-gray-400 mt-2">
+            Be the first one to review this restaurant.
+          </p>
+        </div>
+      ) : (
+        review?.map((review, index) => (
+          <ReviewCard
+            key={index}
+            id={review.id}
+            // user_id={review.user.id}
+            // avatar={review.user.avatar}
+            // name={review.user.name}
+            // content={review.content}
+            // images={review.images}
+            rating={review.rating}
+            // title={review.title}
+            // likes={review.likes}
+            // comments={review.comments}
+          />
+        ))
       )}
     </section>
   );
