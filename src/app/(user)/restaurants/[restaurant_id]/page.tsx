@@ -24,20 +24,17 @@ function ShowRestaurant({
   useEffect(() => {
     const fetchRestaurant = async () => {
       const restaurant = await getRestaurant(params.restaurant_id);
-      console.log(restaurant);
       setRestaurant(restaurant);
     };
     fetchRestaurant();
 
     const fetchReviewRestaurant = async () => {
       const review = await getReviewsRestaurant(params.restaurant_id);
-      console.log(review);
       setReview(review);
     };
     fetchReviewRestaurant();
   }, [params.restaurant_id, review]);
 
-  console.log(review);
   const router = useRouter();
 
   const mockRouteReview = () => {
@@ -152,7 +149,11 @@ function ShowRestaurant({
         {review && (
           <div>
             {review?.map((review, index) => (
-              <ReviewCard restaurant_id={params.restaurant_id} key={index} id={review.id} />
+              <ReviewCard
+                restaurant_id={params.restaurant_id}
+                key={index}
+                id={review.id}
+              />
             ))}
           </div>
         )}

@@ -17,7 +17,7 @@ import { reviewSchema } from "@/validations/review-schema";
 import { hash } from "@/lib/hash";
 import { uploadFile } from "@/services/file-upload";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",
@@ -55,9 +55,10 @@ function Review({
   const [images, setImages] = useState<FileList | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const router = useRouter();
+
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
-    console.log(content);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,14 +68,6 @@ function Review({
   };
 
   const handleSubmit = async () => {
-    console.log(
-      "Submitting:",
-      editorContent,
-      "Rating:",
-      value,
-      "Images:",
-      images
-    );
     try {
       setError(null); // Reset error on new submission attempt
       // upload image
@@ -84,17 +77,13 @@ function Review({
           const file = images[i];
           const file_name_hash = hash(file.name);
           const file_name = `review/${file_name_hash}`;
-          console.log(file_name);
           const res = await uploadFile(file, file_name);
-          console.log(res);
           if (res?.data) {
             const imageReview = res.data.replace(
               "http://host.docker.internal:8093",
               "http://localhost:8093"
             );
-            console.log(imageReview);
             // keep object imageUrl
-
             imageName.push({
               imageUrl: imageReview,
             });
@@ -107,11 +96,11 @@ function Review({
         rating: value,
         images: imageName,
       };
-      console.log("Submitting:", formData);
       // Sending data to the API and getting the response.
       await createReview(params.restaurant_id, formData);
 
-      useRouter().push(`/restaurants/${params.restaurant_id}`);
+      // useRouter().push(`/restaurants/${params.restaurant_id}`);
+      router.push(`/restaurants/${params.restaurant_id}`);
       console.log("Review submitted successfully:");
       // Handle successful review submission here, like redirecting to the restaurant page.
     } catch (error) {
