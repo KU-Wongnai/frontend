@@ -42,8 +42,11 @@ export const getMe = async () => {
     const { data: user } = await httpClient.post("user/api/users/me");
     useAuthStore.getState().setUser(user);
     return user;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      // Clear auth state if token is invalid or expired
+      useAuthStore.getState().clearAuth();
+    }
     console.error("Failed to get user", error);
-    throw error;
   }
 };
