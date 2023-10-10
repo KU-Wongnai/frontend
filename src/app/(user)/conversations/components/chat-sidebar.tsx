@@ -44,7 +44,14 @@ const ChatSideBar: React.FC<ChatSideBarProps> = () => {
       for (const doc of snapshot.docs) {
         const room = doc.data();
         const otherUserId = room.users.find((user: number) => user !== me?.id);
-        const otherUser = await findUserBy(otherUserId);
+        let otherUser;
+
+        try {
+          otherUser = await findUserBy(otherUserId);
+        } catch (err) {
+          continue; // skip if user not found
+        }
+
         rooms.push({
           id: doc.id,
           lastMessage: room.lastMessage,
