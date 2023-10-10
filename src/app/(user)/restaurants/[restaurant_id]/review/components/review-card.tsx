@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ThumbsUp, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,8 +11,9 @@ import { getReviewsByID, likeReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
 import ReviewDialog from "./review-dialog";
+import Rating from "@mui/material/Rating";
 
-const ReviewCard = ({ id }: { id: number }) => {
+const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -32,11 +33,10 @@ const ReviewCard = ({ id }: { id: number }) => {
       }
     };
     fetchReview();
-    // console.log(review);
   }, [id, me?.id, review]);
 
-  const handleToggleLike = () => {
-    likeReview(id).then(() => {
+  const handleToggleLike = async () => {
+    await likeReview(id).then(() => {
       setIsLiked(!isLiked);
     });
   };
@@ -72,6 +72,12 @@ const ReviewCard = ({ id }: { id: number }) => {
         </div>
         {isMyReview && review ? <ReviewDialog review={review} /> : null}
       </div>
+      <Rating
+        name="half-rating-read"
+        defaultValue={rating}
+        precision={0.5}
+        readOnly
+      />
       <h3 className="text-lg sm:text-xl font-bold mb-2">{review?.title}</h3>
       {review?.content ? (
         <div
@@ -132,7 +138,7 @@ const ReviewCard = ({ id }: { id: number }) => {
         </div>
       )}
       <ul className="space-y-2">
-        {review?.comments.map((comment, index) => (
+        {review?.comments.map((comment: any, index: any) => (
           <li
             key={index}
             className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-secondary rounded-lg"

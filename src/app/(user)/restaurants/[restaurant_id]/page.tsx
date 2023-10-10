@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/componen
 import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
+import ReviewList from "./review/components/review-list";
 
 function ShowRestaurant({
   params,
@@ -18,31 +19,57 @@ function ShowRestaurant({
   };
 }) {
   const [restaurant, setRestaurant] = React.useState<Restaurant>();
-  const [review, setReview] = React.useState<Review[]>();
+  // const [review, setReview] = React.useState<Review[]>();
 
+  // console.log(review);
+
+  // useEffect(() => {
+  //   const fetchRestaurant = async () => {
+  //     const restaurant = await getRestaurant(params.restaurant_id);
+  //     setRestaurant(restaurant);
+  //   };
+  //   fetchRestaurant();
+
+  //   const fetchReviewRestaurant = async () => {
+  //     const review = await getReviewsRestaurant(params.restaurant_id);
+  //     setReview(review);
+  //   };
+  //   fetchReviewRestaurant();
+  // }, [params.restaurant_id, review]);
   useEffect(() => {
     const fetchRestaurant = async () => {
       const restaurant = await getRestaurant(params.restaurant_id);
       setRestaurant(restaurant);
     };
     fetchRestaurant();
+  }, [params.restaurant_id]);
 
-    const fetchReviewRestaurant = async () => {
-      const review = await getReviewsRestaurant(params.restaurant_id);
-      setReview(review);
-    };
-    fetchReviewRestaurant();
-  }, [params.restaurant_id, review]);
+  // useEffect(() => {
+  //   const fetchReviewRestaurant = async () => {
+  //     const review = await getReviewsRestaurant(params.restaurant_id);
+  //     setReview(review);
+  //   };
+  //   fetchReviewRestaurant();
+  // }, [params.restaurant_id]);
+
 
   const router = useRouter();
 
-  const mockRouteReview = () => {
-    router.push(`/restaurants/${params.restaurant_id}/review`);
-  };
+  // const mockRouteReview = () => {
+  //   router.push(`/restaurants/${params.restaurant_id}/review`);
+  // };
 
-  const mockRouteMenus = () => {
+  // const mockRouteMenus = () => {
+  //   router.push(`/restaurants/${params.restaurant_id}/menus`);
+  // };
+  const mockRouteReview = useCallback(() => {
+    router.push(`/restaurants/${params.restaurant_id}/review`);
+  }, [router, params.restaurant_id]);
+
+  const mockRouteMenus = useCallback(() => {
     router.push(`/restaurants/${params.restaurant_id}/menus`);
-  };
+  }, [router, params.restaurant_id]);
+
 
   return (
     <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
@@ -136,23 +163,8 @@ function ShowRestaurant({
       </section>
 
       {/* reviews */}
-      <section className="mt-3 bg-card rounded-lg p-4 md:p-5 border shadow-sm">
-        <div className="flex gap-4 border-b items-end">
-          <h1 className="pb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors text-primary">
-            Reviews
-          </h1>
-          <p className="text-xl md:text-2xl font-semibold tracking-tight text-gray-500 pb-2">
-            ({review?.length ?? 0})
-          </p>
-        </div>
-        {review && (
-          <div>
-            {review?.map((review, index) => (
-              <ReviewCard key={index} id={review.id} />
-            ))}
-          </div>
-        )}
-      </section>
+      <ReviewList restaurant_id={params.restaurant_id} />
+
     </main>
   );
 }
