@@ -27,7 +27,7 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import RichTextEditor from "@/components/rich-text-editor";
 import { deleteReview, updateReview } from "@/services/review";
-import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",
@@ -46,30 +46,16 @@ function getLabelText(value: number) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
-const ReviewDialog = ({
-  restaurant_id,
-  // id,
-  // value,
-  // title,
-  // editorContent,
-  review
-}: {
-  restaurant_id: number;
-  // id: number;
-  // value: number | null;
-  // title: string;
-  // editorContent: string;
-  review: Review;
-}) => {
-  const [valueS, setValue] = React.useState<number | null>(review.rating || null);
+const ReviewDialog = ({ review }: { review: Review }) => {
+  const [valueS, setValue] = React.useState<number | null>(
+    review.rating || null
+  );
   const [hover, setHover] = React.useState(-1);
   const [titleS, setTitle] = useState(review.title || "");
   const [editorContentS, setEditorContent] = useState(review.content || "");
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
-
-  const router = useRouter();
 
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
@@ -82,13 +68,12 @@ const ReviewDialog = ({
         content: editorContentS,
         rating: valueS,
       };
-
       await updateReview(review.id, formData);
-
+      toast.success("Review updated");
       console.log(formData);
       setOpen(false);
-      // setOpenMenu(false);
     } catch (error) {
+      toast.error("An error occurred. Please try again.");
       console.log(error);
     }
   };
@@ -96,9 +81,10 @@ const ReviewDialog = ({
   const handleDelete = async () => {
     try {
       await deleteReview(review.id);
-      // reload page
+      toast.success("Review deleted");
       setOpenDelete(false);
     } catch (error) {
+      toast.error("An error occurred. Please try again.");
       console.log(error);
     }
   };

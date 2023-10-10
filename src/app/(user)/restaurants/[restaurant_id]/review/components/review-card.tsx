@@ -7,18 +7,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toggle } from "@/components/ui/toggle";
 import { Input } from "../../../../../../components/ui/input";
 import { Button } from "../../../../../../components/ui/button";
-import { getReviewsByID, likeReview, updateReview } from "@/services/review";
+import { getReviewsByID, likeReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
 import ReviewDialog from "./review-dialog";
 
-const ReviewCard = ({
-  id,
-  restaurant_id,
-}: {
-  id: number;
-  restaurant_id: number;
-}) => {
+const ReviewCard = ({ id }: { id: number }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -76,16 +70,7 @@ const ReviewCard = ({
             {review?.user.name}
           </span>
         </div>
-        {isMyReview && review ? (
-          <ReviewDialog
-            restaurant_id={restaurant_id}
-            // id={review.id}
-            // value={review.rating}
-            // title={review.title}
-            // editorContent={review.content}
-            review={review}
-          />
-        ) : null}
+        {isMyReview && review ? <ReviewDialog review={review} /> : null}
       </div>
       <h3 className="text-lg sm:text-xl font-bold mb-2">{review?.title}</h3>
       {review?.content ? (

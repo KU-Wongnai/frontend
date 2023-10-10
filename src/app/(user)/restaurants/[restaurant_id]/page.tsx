@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { mockReview } from "@/mock/review";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
 import { getRestaurant } from "@/services/restaurant";
@@ -149,11 +148,7 @@ function ShowRestaurant({
         {review && (
           <div>
             {review?.map((review, index) => (
-              <ReviewCard
-                restaurant_id={params.restaurant_id}
-                key={index}
-                id={review.id}
-              />
+              <ReviewCard key={index} id={review.id} />
             ))}
           </div>
         )}

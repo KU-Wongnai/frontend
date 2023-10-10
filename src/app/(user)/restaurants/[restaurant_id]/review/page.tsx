@@ -8,12 +8,12 @@ import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/compo
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import toast from "react-hot-toast";
 
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import { createReview } from "@/services/review";
-import { reviewSchema } from "@/validations/review-schema";
 import { hash } from "@/lib/hash";
 import { uploadFile } from "@/services/file-upload";
 
@@ -98,12 +98,12 @@ function Review({
       };
       // Sending data to the API and getting the response.
       await createReview(params.restaurant_id, formData);
-
-      // useRouter().push(`/restaurants/${params.restaurant_id}`);
+      toast.success("Review submitted successfully");
       router.push(`/restaurants/${params.restaurant_id}`);
       console.log("Review submitted successfully:");
       // Handle successful review submission here, like redirecting to the restaurant page.
     } catch (error) {
+      toast.error("Error submitting review");
       console.error("Error submitting review:", error);
       // Handle error here, like showing an error message to the user.
     }
