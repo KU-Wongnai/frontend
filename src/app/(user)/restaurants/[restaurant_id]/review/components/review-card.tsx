@@ -1,25 +1,24 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
-import { MoreHorizontal, ThumbsUp, MessageSquare } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ThumbsUp, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Toggle } from "@/components/ui/toggle";
 import { Input } from "../../../../../../components/ui/input";
 import { Button } from "../../../../../../components/ui/button";
-import { getReviewsByID, likeReview } from "@/services/review";
+import { getReviewsByID, likeReview, updateReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
+import ReviewDialog from "./review-dialog";
 
-const ReviewCard = ({ id }: { id: number }) => {
+const ReviewCard = ({
+  id,
+  restaurant_id,
+}: {
+  id: number;
+  restaurant_id: number;
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -39,6 +38,7 @@ const ReviewCard = ({ id }: { id: number }) => {
       }
     };
     fetchReview();
+    // console.log(review);
   }, [id, me?.id, review]);
 
   const handleToggleLike = () => {
@@ -76,25 +76,18 @@ const ReviewCard = ({ id }: { id: number }) => {
             {review?.user.name}
           </span>
         </div>
-        {isMyReview ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <MoreHorizontal className="cursor-pointer" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem>
-                <p className="text-red-500">Delete</p>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        {isMyReview && review ? (
+          <ReviewDialog
+            restaurant_id={restaurant_id}
+            // id={review.id}
+            // value={review.rating}
+            // title={review.title}
+            // editorContent={review.content}
+            review={review}
+          />
         ) : null}
       </div>
       <h3 className="text-lg sm:text-xl font-bold mb-2">{review?.title}</h3>
-      {/* <div
-        className="text-gray-500 mb-4"
-        dangerouslySetInnerHTML={{ __html: review?.content }} // Render HTML content
-      /> */}
       {review?.content ? (
         <div
           className="text-gray-500 mb-4"

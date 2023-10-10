@@ -35,7 +35,7 @@ function ShowRestaurant({
       setReview(review);
     };
     fetchReviewRestaurant();
-  }, [params.restaurant_id]);
+  }, [params.restaurant_id, review]);
 
   console.log(review);
   const router = useRouter();
@@ -75,15 +75,6 @@ function ShowRestaurant({
                   {restaurant?.foodType}
                 </p>
               </div>
-              {/* <div className="flex flex-col">
-                <div className="flex items-center">
-                  <span className="text-red-500 text-2xl font-bold">
-                    {restaurant?.rating}
-                  </span>
-                  <span className="ml-2 text-xl font-bold">/ 5</span>
-                </div>
-                <div className="text-sm text-gray-500 text-right">Rating</div>
-              </div> */}
               <div className="flex items-center gap-3 mb-3">
                 <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
                   <h2 className="text-lg font-semibold tracking-tight ">
@@ -161,10 +152,7 @@ function ShowRestaurant({
         {review && (
           <div>
             {review?.map((review, index) => (
-              <ReviewCard
-                key={index}
-                id={review.id}
-              />
+              <ReviewCard restaurant_id={params.restaurant_id} key={index} id={review.id} />
             ))}
           </div>
         )}

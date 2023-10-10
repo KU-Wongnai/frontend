@@ -17,6 +17,8 @@ import { reviewSchema } from "@/validations/review-schema";
 import { hash } from "@/lib/hash";
 import { uploadFile } from "@/services/file-upload";
 
+import { useRouter } from "next/router";
+
 const labels: { [index: string]: string } = {
   0.5: "Useless",
   1: "Useless+",
@@ -75,42 +77,8 @@ function Review({
     );
     try {
       setError(null); // Reset error on new submission attempt
-
       // upload image
-      // if (file) {
-      //   const file_name_hash = hash(file.name);
-      //   const file_name = `avatar/${file_name_hash}`;
-      //   console.log(file_name);
-      //   const res = await uploadFile(file, file_name);
-      //   console.log(res);
-      //   if (res?.data) {
-      //     const avatar = res.data.replace(
-      //       "http://host.docker.internal:8093",
-      //       "http://localhost:8093"
-      //     );
-      //     await updateUserProfile({
-      //       phone_number: user?.user_profile?.phone_number,
-      //       birth_date: user?.user_profile?.birth_date,
-      //       avatar: avatar,
-      //     });
-      //     toast.success("Update avatar success");
-      //   }
-      //   return;
-      // }
-      // upload image
-
-      // let imageName: string[] = [];
-      // imageName keep object imageUrl like this
-      //   imageName = [
-      //     {
-      //         "imageUrl": "http://localhost:8093/storage/avatar/9e5d3f61f13251c7.jpeg"
-      //     },
-      //     {
-      //         "imageUrl": "http://localhost:8093/storage/avatar/9e5d3f61f13251c7.jpeg"
-      //     }
-      // ]
       let imageName = [];
-
       if (images) {
         for (let i = 0; i < images?.length; i++) {
           const file = images[i];
@@ -133,26 +101,18 @@ function Review({
           }
         }
       }
-
       const formData = {
         title: title,
         content: editorContent,
         rating: value,
         images: imageName,
       };
-
       console.log("Submitting:", formData);
-
-      // const validatedData = reviewSchema.parse({
-      //   title,
-      //   content: editorContent,
-      //   rating: value,
-      // });
-
       // Sending data to the API and getting the response.
-      const reviewResponse = await createReview(params.restaurant_id, formData);
+      await createReview(params.restaurant_id, formData);
 
-      console.log("Review submitted successfully:", reviewResponse);
+      useRouter().push(`/restaurants/${params.restaurant_id}`);
+      console.log("Review submitted successfully:");
       // Handle successful review submission here, like redirecting to the restaurant page.
     } catch (error) {
       console.error("Error submitting review:", error);

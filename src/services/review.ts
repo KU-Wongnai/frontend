@@ -81,3 +81,15 @@ export const createReview = async (id : number, data : any) => {
     throw error;
   }
 }
+
+export const deleteReview = async (id : number) => {
+  try {
+    const { data: reviews } = await httpClient.delete(
+      `review/api/reviews/${id}`
+    );
+    return reviews;
+  } catch (error) {
+    console.error("Failed to get reviews", error);
+    throw error;
+  }
+}
