@@ -16,19 +16,19 @@ const RestaurantCard: React.FC<Restaurant> = ({
 
   menus,
 }) => {
-  const [review, setReview] = React.useState<Review[]>([]);
+  // const [review, setReview] = React.useState<Review[]>([]);
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      const review = await getReviewsRestaurant(id);
-      setReview(review);
-    };
-    fetchReview();
-  }, []);
+  // useEffect(() => {
+  //   const fetchReview = async () => {
+  //     const review = await getReviewsRestaurant(id);
+  //     setReview(review);
+  //   };
+  //   fetchReview();
+  // }, []);
 
-  const reviewCount = calReviewCount(review);
+  // const reviewCount = calReviewCount(review);
 
-  const average = calAverageReview(review);
+  // const average = calAverageReview(review);
 
   const imageUrl =
     image ||
@@ -51,13 +51,14 @@ const RestaurantCard: React.FC<Restaurant> = ({
           <div className="flex items-center gap-3 mt-2">
             <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
               <h2 className=" text-base font-semibold tracking-tight ">
-                {average}
+                {rating}
               </h2>
               <Star className="w-4 h-4" />
             </div>
             <span>
               <span className="text-gray-400 text-sm sm:text-base">
-                {reviewCount} reviews
+                {/* {reviewCount} reviews */}
+                restaruant-service don't have total review yet
               </span>
             </span>
           </div>

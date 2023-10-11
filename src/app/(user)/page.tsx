@@ -26,16 +26,16 @@ export default function MainHome() {
       </div>
 
       {/* Show all restaurants */}
-      <main className="container mx-auto py-6 px-4 sm:px-0">
-        <section className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
+      <section className="container mx-auto pb-6 px-4 sm:px-0">
+        <div className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
-            <h1 className="border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
+            <h1 className="pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
               All restaurant
             </h1>
           </div>
             <RestaurantList />
-        </section>
-      </main>
+        </div>
+      </section>
     </>
   );
 }
