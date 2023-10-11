@@ -12,16 +12,9 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Info, Truck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -33,6 +26,10 @@ import {
 import { columns } from "@/app/rider/(main)/components/columns";
 import { NavigationMenuDemo } from "./components/navigation-menu";
 import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useAuthStore from "@/contexts/auth-store";
+import Link from "next/link";
+import useStore from "@/contexts/useStore";
 
 const data: Order[] = [
   {
@@ -489,6 +486,7 @@ export default function Rider() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const user = useStore(useAuthStore, (state) => state.user);
 
   const table = useReactTable({
     data,
@@ -511,8 +509,58 @@ export default function Rider() {
 
   return (
     <>
-      <h1 className="pb-2 mb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
-        Choose order delivery
+      <section className="my-6">
+        <div className="flex gap-3">
+          <Avatar className="w-20 h-20">
+            <AvatarImage
+              src={user?.user_profile?.avatar}
+              alt={`${user?.name} avatar`}
+            ></AvatarImage>
+            <AvatarFallback className="bg-green-400 dark:bg-green-600">
+              {user?.name[0]}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h2 className="font-bold text-xl sm:text-2xl md:text-3xl p-4">
+              Welcome back, {user?.name}
+            </h2>
+            <div className="flex gap-3 mb-3">
+              <div className="p-4 border-r">
+                <h3
+                  className="text-sm flex gap-1"
+                  title="Total income you made from delivering orders so far."
+                >
+                  Total Income <Info className="w-4 h-4" />
+                </h3>
+                <span className="text-primary font-bold md:text-lg">
+                  THB 100.00
+                </span>
+              </div>
+              <div className="p-4">
+                <h3
+                  className="text-sm flex gap-1"
+                  title="Amount you can transfer to your bank account."
+                >
+                  Transferable
+                  <Info className="w-4 h-4" />
+                </h3>
+                <span className="text-primary font-bold md:text-lg">
+                  THB 100.00
+                </span>
+              </div>
+            </div>
+            <Button asChild>
+              <Link href="/rider/pickup">
+                <Truck className="mr-2" />
+                Start a delivery
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <Separator className="my-3" />
+      </section>
+      <h1 className="pb-2 mb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
+        Order Delivery History
       </h1>
       <div className="rounded-md border bg-background">
         <Table>
