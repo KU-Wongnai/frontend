@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 type Cart = {
   menu: {
     id: number;
+    name: string;
+    image: string;
     price: number;
   };
   quantity: number;
@@ -43,7 +45,7 @@ const Summary = () => {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <span>Menu Id: {item.menu.id}</span>
+                    <span> {item.menu.name}</span>
                   </div>
                   <span className="ml-auto">THB {item.menu.price}</span>
                 </div>
