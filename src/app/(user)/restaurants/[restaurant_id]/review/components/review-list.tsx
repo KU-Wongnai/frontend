@@ -30,26 +30,6 @@ const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
           ({review?.length ?? 0})
         </p>
       </div>
-      {/* {review && (
-        <div>
-          {review?.map((review, index) => (
-            <ReviewCard
-              key={index}
-              id={review.id}
-              // user_id={review.user.id}
-              // avatar={review.user.avatar}
-              // name={review.user.name}
-              // content={review.content}
-              // images={review.images}
-              rating={review.rating}
-              // title={review.title}
-              // likes={review.likes}
-              // comments={review.comments}
-            />
-          ))}
-        </div>
-      )} */}
-
       {isEmpty ? (
         <div className="flex flex-col justify-center items-center col-span-full p-8">
           <Image
@@ -67,19 +47,7 @@ const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
         </div>
       ) : (
         review?.map((review, index) => (
-          <ReviewCard
-            key={index}
-            id={review.id}
-            // user_id={review.user.id}
-            // avatar={review.user.avatar}
-            // name={review.user.name}
-            // content={review.content}
-            // images={review.images}
-            rating={review.rating}
-            // title={review.title}
-            // likes={review.likes}
-            // comments={review.comments}
-          />
+          <ReviewCard key={index} id={review.id} rating={review.rating} />
         ))
       )}
     </section>

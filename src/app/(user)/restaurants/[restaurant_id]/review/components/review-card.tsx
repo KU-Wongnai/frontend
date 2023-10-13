@@ -7,13 +7,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toggle } from "@/components/ui/toggle";
 import { Input } from "../../../../../../components/ui/input";
 import { Button } from "../../../../../../components/ui/button";
-import { getReviewsByID, likeReview } from "@/services/review";
+import { createComment, getReviewsByID, likeReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
 import ReviewDialog from "./review-dialog";
 import Rating from "@mui/material/Rating";
+import CommentList from "./comment-list";
 
-const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
+const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -56,6 +57,17 @@ const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
     //   setCommentText("");
     //   setShowCommentInput(false);
     // }
+    // console.log("commentText", commentText);
+    try {
+      if (commentText != "") {
+        console.log("commentText", {content: commentText});
+        createComment(id, { content: commentText });
+        setShowCommentInput(false);
+        setCommentText("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -64,7 +76,7 @@ const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarImage src={review?.user.avatar} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{review?.user.name}</AvatarFallback>
           </Avatar>
           <span className="scroll-m-20 text-2xl font-semibold tracking-tight">
             {review?.user.name}
@@ -137,25 +149,7 @@ const ReviewCard = ({ id, rating }: { id: number, rating:number }) => {
           </Button>
         </div>
       )}
-      <ul className="space-y-2">
-        {review?.comments.map((comment: any, index: any) => (
-          <li
-            key={index}
-            className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-secondary rounded-lg"
-          >
-            <Avatar className="w-8 h-8">
-              <AvatarImage src={comment.avatarUrl} />
-              <AvatarFallback>
-                {comment.name.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <span className="font-bold">{comment.name}</span>:
-              {comment.content}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {review ? <CommentList review={review} /> : null}
     </div>
   );
 };

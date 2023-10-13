@@ -1,11 +1,6 @@
-import FoodCard from "@/app/(user)/restaurants/[restaurant_id]/components/food-card";
 import { mockMenuData } from "@/mock/menu-card";
 import React, { useEffect } from "react";
-import { mockRestaurants } from "@/mock/restaurant-card";
-import { ChefHat, Star } from "lucide-react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
-import RestaurantFoodCard from "@/app/restaurant/components/menu-card-restaurant";
-import { getRestaurant } from "@/services/restaurant";
 import FoodCardList from "../components/food-card-list";
 
 const RestaurantMenuPage = ({

@@ -61,7 +61,7 @@ const ReviewDialog = ({ review }: { review: Review }) => {
     setEditorContent(content);
   };
 
-  const handleSubmit = async () => {
+  const handleUpdate = async () => {
     try {
       const formData = {
         title: titleS,
@@ -69,6 +69,9 @@ const ReviewDialog = ({ review }: { review: Review }) => {
         rating: valueS,
       };
       await updateReview(review.id, formData);
+      if (review.rating !== formData.rating) {
+        window.location.reload();
+      }
       toast.success("Review updated");
       console.log(formData);
       setOpen(false);
@@ -166,7 +169,7 @@ const ReviewDialog = ({ review }: { review: Review }) => {
               />
             </div>
             <DialogFooter>
-              <Button onClick={handleSubmit} className="mt-10">
+              <Button onClick={handleUpdate} className="mt-10">
                 Save changes
               </Button>
             </DialogFooter>
@@ -191,7 +194,7 @@ const ReviewDialog = ({ review }: { review: Review }) => {
                 className="mt-10"
                 variant="destructive"
               >
-                Save changes
+                Delete
               </Button>
             </DialogFooter>
           </DialogContent>

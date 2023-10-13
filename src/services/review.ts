@@ -1,16 +1,6 @@
+import { create } from 'zustand';
 import { httpClient } from "@/lib/http-client";
 import { } from "@/validations/auth-schema";
-import useAuthStore from "../contexts/auth-store";
-
-// export const signUp = async (data: RegisterForm) => {
-//   try {
-//     const { data: user } = await httpClient.post("user/register", data);
-//     return user;
-//   } catch (error) {
-//     console.error("Failed to sign up", error);
-//     throw error;
-//   }
-// };
 
 export const getReviews = async () => {
   try {
@@ -88,6 +78,42 @@ export const deleteReview = async (id : number) => {
       `review/api/reviews/${id}`
     );
     return reviews;
+  } catch (error) {
+    console.error("Failed to get reviews", error);
+    throw error;
+  }
+}
+
+export const createComment = async (id : number, data : any) => {
+  try {
+    const { data: comment } = await httpClient.post(
+      `review/api/reviews/${id}/comments`, data
+    );
+    return comment;
+  } catch (error) {
+    console.error("Failed to get reviews", error);
+    throw error;
+  }
+}
+
+export const deleteComment = async (id : number) => {
+  try {
+    const { data: comment } = await httpClient.delete(
+      `review/api/comments/${id}`
+    );
+    return comment;
+  } catch (error) {
+    console.error("Failed to get reviews", error);
+    throw error;
+  }
+}
+
+export const updateComment = async (id : number, data : any) => {
+  try {
+    const { data: comment } = await httpClient.put(
+      `review/api/comments/${id}`, data
+    );
+    return comment;
   } catch (error) {
     console.error("Failed to get reviews", error);
     throw error;
