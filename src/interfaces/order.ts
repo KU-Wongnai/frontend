@@ -2,9 +2,11 @@ export type Delivery = {
   id: string;
   riderId: string | null;
   deliveryAddress: string;
-  status: "PENDING" | "ASSIGNED" | "DELIVERED" | "CANCELLED";
+  status: DeliveryStatus;
   order: Order;
 };
+
+export type DeliveryStatus = "PENDING" | "ASSIGNED" | "DELIVERED" | "CANCELLED";
 
 export type Order = {
   id: string;
