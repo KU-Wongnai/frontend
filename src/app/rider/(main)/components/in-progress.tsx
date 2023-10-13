@@ -60,7 +60,7 @@ const InProgressDelivery = () => {
               <h3 className="text-lg font-medium">
                 Order #{" "}
                 <Link
-                  href={`/rider/pickup/${d.order.id}`}
+                  href={`/rider/pickup/${d.id}`}
                   className="underline"
                   title="View Details"
                 >

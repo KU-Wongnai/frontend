@@ -89,3 +89,16 @@ export const completeDelivery = async (deliveryId: string) => {
     throw error;
   }
 };
+
+export const getDelivery = async (deliveryId: string) => {
+  try {
+    const { data } = await httpClient.get(
+      `/order/api/deliveries/${deliveryId}`
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
