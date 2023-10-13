@@ -40,5 +40,19 @@ export const updateOrderStatus = async (id: string, status: OrderStatus) => {
     return data;
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+};
+
+export const assignDelivery = async (deliveryId: string) => {
+  try {
+    const { data } = await httpClient.post(
+      `/order/api/deliveries/${deliveryId}/assign`
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
