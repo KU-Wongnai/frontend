@@ -104,7 +104,7 @@ export const columns: ColumnDef<Delivery>[] = [
     },
   },
   {
-    id: "actions",
+    accessorKey: "id",
     enableHiding: false,
     cell: ({ row }) => {
       return (

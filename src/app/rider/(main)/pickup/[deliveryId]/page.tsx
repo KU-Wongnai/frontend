@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -10,60 +11,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Delivery } from "@/interfaces/order";
+import { getDelivery } from "@/services/order";
 import { CardContent } from "@mui/material";
+import { ChefHat, MapPin, Phone } from "lucide-react";
 import React, { useEffect } from "react";
 
-const orderDetail = {
-  id: "65181d45dafa7f1b714b7b61",
-  name: "Louella Mooney",
-  restaurantLocation: "39 Conway Street, Corriganville, Kansas",
-  deliveryLocation: "39 Conway Street, Corriganville, Kansas",
-  amount: 592,
-  order: [
-    {
-      id: "m5gr84i9",
-      amount: 316,
-      menu: "ยำหมูยอไข่แดง",
-      restaurant: "ร้านอาหาร 1",
-      quantity: 1,
-    },
-    {
-      id: "3u1reuv4",
-      amount: 242,
-      menu: "ข้าวผัดกุ้ง",
-      restaurant: "ร้านอาหาร 2",
-      quantity: 1,
-    },
-    {
-      id: "derv1ws0",
-      amount: 837,
-      menu: "ข้าวผัดหมู",
-      restaurant: "ร้านอาหาร 3",
-      quantity: 1,
-    },
-    {
-      id: "5kma53ae",
-      amount: 874,
-      menu: "หมูกระทะ",
-      restaurant: "ร้านอาหาร 4",
-      quantity: 1,
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      menu: "ห่อหมก",
-      restaurant: "ร้านอาหาร 5",
-      quantity: 1,
-    },
-  ],
-};
-
 const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
+  const [deliveryOrder, setDeliveryOrder] = React.useState<Delivery>();
+
   useEffect(() => {
     const fetchData = async () => {
-      // const data = await getDeliveryBy(params.deliveryId);
-      // setDeliveryOrders(data);
+      const data = await getDelivery(params.deliveryId);
+      setDeliveryOrder(data);
     };
+    fetchData();
   }, []);
 
   return (
@@ -74,7 +36,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
       <CardContent>
         <div className="px-3 sm:px-3">
           <div className="mb-2 sm:mb-4 space-y-1 sm:space-y-2 ">
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <div className="text-sm sm:text-base font-medium">Name</div>
               <div className="text-sm sm:text-base font-medium">
                 {orderDetail.name}
@@ -85,53 +47,84 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
               <div className="text-sm sm:text-base font-medium">
                 ${orderDetail.amount}
               </div>
+            </div> */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                <ChefHat />
+                Restaurant
+              </div>
+              <div className="flex items-center gap-3 text-sm sm:text-base font-medium">
+                <Avatar>
+                  <AvatarImage
+                    src={deliveryOrder?.order.restaurant?.image || ""}
+                    alt={deliveryOrder?.order.restaurant?.name}
+                  ></AvatarImage>
+                  <AvatarFallback>
+                    {deliveryOrder?.order.restaurant?.name?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                {deliveryOrder?.order.restaurant?.name}
+              </div>
             </div>
             <div className="flex justify-between">
-              <div className="text-sm sm:text-base font-medium">
+              <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                <MapPin />
                 Restaurant Location
               </div>
               <div className="text-sm sm:text-base font-medium">
-                {orderDetail.restaurantLocation}
+                {deliveryOrder?.order.restaurant?.location}
               </div>
             </div>
             <div className="flex justify-between">
+              <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                <Phone />
+                Restaurant Contact
+              </div>
               <div className="text-sm sm:text-base font-medium">
+                {deliveryOrder?.order.restaurant?.contactInfo}
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                <MapPin />
                 Delivery Location
               </div>
               <div className="text-sm sm:text-base font-medium">
-                {orderDetail.deliveryLocation}
+                {deliveryOrder?.deliveryAddress}
               </div>
             </div>
           </div>
           <div className="mb-2 sm:mb-4 mt-4">
             <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
-              Order List
+              Order Items
             </h3>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="bg-muted">Restaurant</TableHead>
+                  <TableHead className="bg-muted">#</TableHead>
                   <TableHead className="bg-muted">Menu Item</TableHead>
                   <TableHead className="bg-muted">Quantity</TableHead>
                   <TableHead className="bg-muted">Amount</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {orderDetail.order &&
-                  orderDetail.order.map((orderList) => (
-                    <TableRow key={orderList.id}>
-                      <TableCell>{orderList.restaurant}</TableCell>
-                      <TableCell>{orderList.menu}</TableCell>
-                      <TableCell>x{orderList.quantity}</TableCell>
-                      <TableCell>${orderList.amount}</TableCell>
+                {deliveryOrder?.order &&
+                  deliveryOrder?.order.orderItems.map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell>{item.menu.id}</TableCell>
+                      <TableCell>{item.menu.name}</TableCell>
+                      <TableCell>x{item.quantity}</TableCell>
+                      <TableCell>
+                        {new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "THB",
+                        }).format(item.price)}
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
             </Table>
           </div>
-        </div>
-        <div className="flex justify-end">
-          <Button>Accept</Button>
         </div>
       </CardContent>
     </Card>
