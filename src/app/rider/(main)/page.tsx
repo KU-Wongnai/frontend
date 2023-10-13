@@ -33,6 +33,7 @@ import useStore from "@/contexts/useStore";
 import { useEffect } from "react";
 import { getMyDeliveries } from "@/services/order";
 import { Delivery } from "@/interfaces/order";
+import InProgressDelivery from "./components/in-progress";
 
 const data: Order[] = [
   {
@@ -571,9 +572,10 @@ export default function Rider() {
         </div>
         <Separator className="my-3" />
       </section>
-      <h1 className="pb-2 mb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
+      <InProgressDelivery />
+      <h2 className="pb-2 mb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
         Order Delivery History
-      </h1>
+      </h2>
       <div className="rounded-md border bg-background">
         <Table>
           <TableHeader>

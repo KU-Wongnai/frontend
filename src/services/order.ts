@@ -1,4 +1,4 @@
-import { OrderStatus } from "@/interfaces/order";
+import { DeliveryStatus, OrderStatus } from "@/interfaces/order";
 import { httpClient } from "@/lib/http-client";
 
 export const getUnassignedDeliveryOrders = async () => {
@@ -64,5 +64,28 @@ export const getMyDeliveries = async () => {
     return data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getMyDeliveriesWithStatus = async (status: DeliveryStatus) => {
+  try {
+    const { data } = await httpClient.get(`/order/api/deliveries/me/${status}`);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const completeDelivery = async (deliveryId: string) => {
+  try {
+    const { data } = await httpClient.post(
+      `/order/api/deliveries/${deliveryId}/complete`
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
