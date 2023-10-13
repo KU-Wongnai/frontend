@@ -5,21 +5,20 @@ import { ThumbsUp, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toggle } from "@/components/ui/toggle";
-import { Input } from "../../../../../../components/ui/input";
-import { Button } from "../../../../../../components/ui/button";
+import { Input } from "../../../../../../../components/ui/input";
+import { Button } from "../../../../../../../components/ui/button";
 import { createComment, getReviewsByID, likeReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
 import ReviewDialog from "./review-dialog";
 import Rating from "@mui/material/Rating";
-import CommentList from "./comment-list";
+import CommentList from "../comment/comment-list";
 
 const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [review, setReview] = useState<Review>();
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
-  // const [comment, setComment] = useState<ReviewComment[]>([]);
 
   const me = useStore(useAuthStore, (state) => state.user);
 

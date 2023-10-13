@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function SearchSideBar(
@@ -6,23 +8,23 @@ export default function SearchSideBar(
   const locations = [
     {
       id: "1",
-      name: "Toronto",
+      name: "New bar",
     },
     {
       id: "2",
-      name: "Mississauga",
+      name: "Newer bar",
     },
     {
       id: "3",
-      name: "Scarborough",
+      name: "Old bar",
     },
     {
       id: "4",
-      name: "North York",
+      name: "Science bar",
     },
     {
       id: "5",
-      name: "Markham",
+      name: "Engineering bar",
     },
   ];
 
@@ -40,29 +42,6 @@ export default function SearchSideBar(
       name: "Chinese",
     },
   ];
-
-  const prices = [
-    {
-      price: "CHEAP",
-      label: "$",
-      className: "w-full p-2 font-light border rounded-l text-reg text-center",
-    },
-    {
-      price: "REGULAR",
-      label: "$$",
-      className: "w-full p-2 font-light border text-reg text-center",
-    },
-    {
-      price: "EXPENSIVE",
-      label: "$$$",
-      className: "w-full p-2 font-light border rounded-r text-reg text-center",
-    },
-  ];
-
-  // generate key for map price
-  const generateKey = (pre: string) => {
-    return `${pre}_${new Date().getTime()}`;
-  };
 
   return (
     <div className="flex flex-row w-full md:w-1/5 md:flex-col mr-5">
@@ -101,26 +80,6 @@ export default function SearchSideBar(
             {type.name}
           </Link>
         ))}
-      </div>
-      <div className="pb-4 mt-0 md:mt-3">
-        <h1 className="mb-2">Price</h1>
-        <div className="flex">
-          {prices.map(({ price, label, className }) => (
-            <Link
-              href={{
-                pathname: "/search",
-                query: {
-                  // ...searchParams,
-                  price,
-                },
-              }}
-              className={className}
-              key={generateKey(price)}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
       </div>
     </div>
   );

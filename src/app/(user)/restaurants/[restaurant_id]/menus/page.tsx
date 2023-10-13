@@ -1,4 +1,3 @@
-import { mockMenuData } from "@/mock/menu-card";
 import React, { useEffect } from "react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
 import FoodCardList from "../components/food-card-list";
@@ -11,8 +10,6 @@ const RestaurantMenuPage = ({
     id: string;
   };
 }) => {
-  // const restaurantCard: RestaurantProps = mockRestaurants[id];
-  const menuCards: MenuCardProps[] = mockMenuData;
 
   return (
     <main className="container mx-auto py-6 px-2 sm:px-4 md:px-6 lg:px-8">

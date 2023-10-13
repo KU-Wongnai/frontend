@@ -3,6 +3,6 @@ import { PRICE } from "./price";
 export interface SearchParams {
   name?: string;
   type?: string;
-  price?: PRICE;
+  // price?: PRICE;
   location?: string;
 }

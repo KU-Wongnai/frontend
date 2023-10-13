@@ -4,11 +4,11 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
+import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review/review-card";
 import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
-import ReviewList from "./review/components/review-list";
+import ReviewList from "./review/components/review/review-list";
 import { calAverageReview } from "@/lib/review-help";
 
 function ShowRestaurant({
