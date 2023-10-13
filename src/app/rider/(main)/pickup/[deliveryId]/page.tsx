@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -9,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CardContent } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 
 const orderDetail = {
   id: "65181d45dafa7f1b714b7b61",
@@ -56,7 +58,14 @@ const orderDetail = {
   ],
 };
 
-const DeliveryDetails = () => {
+const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      // const data = await getDeliveryBy(params.deliveryId);
+      // setDeliveryOrders(data);
+    };
+  }, []);
+
   return (
     <Card>
       <CardHeader>

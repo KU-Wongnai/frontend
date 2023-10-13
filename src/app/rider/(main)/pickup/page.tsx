@@ -11,9 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Delivery } from "@/interfaces/order";
-import { getUnassignedDeliveryOrders } from "@/services/order";
+import { assignDelivery, getUnassignedDeliveryOrders } from "@/services/order";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const OrderPickupPage = () => {
   const [deliveryOrders, setDeliveryOrders] = useState<Delivery[]>([]);
@@ -27,6 +28,18 @@ const OrderPickupPage = () => {
 
     fetchData();
   }, []);
+
+  const handleAccept = async (deliveryId: string) => {
+    try {
+      const data = await assignDelivery(deliveryId);
+
+      setDeliveryOrders((prev) =>
+        prev.filter((delivery) => delivery.id !== data.id)
+      );
+    } catch (err) {
+      toast.error("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <main>
@@ -72,9 +85,9 @@ const OrderPickupPage = () => {
                 </div>
               </CardContent>
               <CardFooter className="space-x-3">
-                <Button>Accept</Button>
+                <Button onClick={() => handleAccept(d.id)}>Accept</Button>
                 <Button variant="outline" asChild>
-                  <Link href="/rider/pickup/1">View Details</Link>
+                  <Link href={`/rider/pickup/${d.id}`}>View Details</Link>
                 </Button>
               </CardFooter>
             </Card>
