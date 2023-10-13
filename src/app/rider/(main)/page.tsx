@@ -30,6 +30,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useAuthStore from "@/contexts/auth-store";
 import Link from "next/link";
 import useStore from "@/contexts/useStore";
+import { useEffect } from "react";
+import { getMyDeliveries } from "@/services/order";
+import { Delivery } from "@/interfaces/order";
 
 const data: Order[] = [
   {
@@ -487,9 +490,10 @@ export default function Rider() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const user = useStore(useAuthStore, (state) => state.user);
+  const [deliveryOrders, setDeliveryOrders] = React.useState<Delivery[]>([]);
 
   const table = useReactTable({
-    data,
+    data: deliveryOrders,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -506,6 +510,14 @@ export default function Rider() {
       rowSelection,
     },
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMyDeliveries();
+      setDeliveryOrders(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>

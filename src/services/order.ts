@@ -56,3 +56,13 @@ export const assignDelivery = async (deliveryId: string) => {
     throw error;
   }
 };
+
+export const getMyDeliveries = async () => {
+  try {
+    const { data } = await httpClient.get("/order/api/deliveries/me");
+
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

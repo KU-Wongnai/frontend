@@ -19,18 +19,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-
 import * as React from "react";
-import { Order } from "@/app/rider/(main)/page";
+import { Delivery, DeliveryStatus, Order } from "@/interfaces/order";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
-export const columns: ColumnDef<Order>[] = [
+export const columns: ColumnDef<Delivery>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
+    accessorKey: "order",
+    header: "Order #",
+    cell: ({ row }) => {
+      const order: Order = row.getValue("order");
+      return <div>{order.id}</div>;
+    },
   },
   {
-    accessorKey: "location",
+    accessorKey: "deliveryAddress",
     header: ({ column }) => {
       return (
         <Button
@@ -43,125 +47,70 @@ export const columns: ColumnDef<Order>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("location")}</div>
+      <div className="lowercase">{row.getValue("deliveryAddress")}</div>
     ),
   },
   {
-    accessorKey: "amount",
+    accessorKey: "order",
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const order: Order = row.getValue("order");
+
+      console.log(row);
+
+      const total =
+        order?.orderItems.reduce((acc, curr) => ({
+          ...acc,
+          price: acc.price + curr.price * curr.quantity,
+        })) || 0;
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
-      }).format(amount);
+        currency: "THB",
+      }).format(total.price);
 
       return <div className="text-right font-medium">{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: () => <div className="text-right">Status</div>,
+    cell: ({ row }) => {
+      const status: DeliveryStatus = row.getValue("status");
+
+      const statusColor = {
+        PENDING:
+          "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+        ASSIGNED:
+          "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+        DELIVERED:
+          "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+        CANCELLED: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+      }[status];
+
+      return (
+        <div className="w-full flex justify-end">
+          <span
+            className={cn(
+              "text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full",
+              statusColor
+            )}
+          >
+            {status}
+          </span>
+        </div>
+      );
     },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const orderDetail = row.original;
-
       return (
-        <Dialog>
-          <DialogTrigger>
-            <div className="font-semibold py-1 px-2 border text-center flex align-middle bg-primary text-white rounded-sm">
-              View order detail
-            </div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                {" "}
-                <div className="mb-4">
-                  <h2 className="text-lg font-bold">Order Details</h2>
-                </div>
-              </DialogTitle>
-              <DialogDescription>
-                <div className="p-2 sm:p-4 bg-card rounded-sm container">
-                  <div className="mb-2 sm:mb-4">
-                    <div className="flex justify-between mb-1 sm:mb-2">
-                      <div className="text-sm sm:text-base font-medium">
-                        Name
-                      </div>
-                      <div className="text-sm sm:text-base font-medium">
-                        {orderDetail.name}
-                      </div>
-                    </div>
-                    <div className="flex justify-between mb-1 sm:mb-2">
-                      <div className="text-sm sm:text-base font-medium">
-                        Total
-                      </div>
-                      <div className="text-sm sm:text-base font-medium">
-                        ${orderDetail.amount}
-                      </div>
-                    </div>
-                    <div className="flex justify-between mb-1 sm:mb-2">
-                      <div className="text-sm sm:text-base font-medium">
-                        Location
-                      </div>
-                      <div className="text-sm sm:text-base font-medium">
-                        {orderDetail.location}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-2 sm:mb-4">
-                    <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
-                      Order List
-                    </h3>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="bg-muted">
-                            Restaurant
-                          </TableHead>
-                          <TableHead className="bg-muted">
-                            Menu Item
-                          </TableHead>
-                          <TableHead className="bg-muted">
-                            Quantity
-                          </TableHead>
-                          <TableHead className="bg-muted">
-                            Amount
-                          </TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {orderDetail.order &&
-                          orderDetail.order.map((orderList) => (
-                            <TableRow key={orderList.id}>
-                              <TableCell>
-                                {orderList.restaurant}
-                              </TableCell>
-                              <TableCell>
-                                {orderList.menu}
-                              </TableCell>
-                              <TableCell>
-                                x{orderList.quantity}
-                              </TableCell>
-                              <TableCell>
-                                ${orderList.amount}
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-                <div className="flex justify-end">
-                  <Button className="h-8 w-45 p-2 text-sm sm:text-base text-white">
-                    Accept
-                  </Button>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <Button asChild>
+          <Link href={`/rider/pickup/${row.getValue("id")}`}>View Details</Link>
+        </Button>
       );
     },
   },
