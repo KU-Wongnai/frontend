@@ -4,12 +4,12 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review-card";
+import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review/review-card";
 import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
-import ReviewList from "./review/components/review-list";
-import { calAverageReview } from "@/lib/review-help";
+import ReviewList from "./review/components/review/review-list";
+import { calAverageReview, calReviewCount } from "@/lib/review-help";
 
 function ShowRestaurant({
   params,
@@ -39,6 +39,8 @@ function ShowRestaurant({
   }, [params.restaurant_id]);
 
   const average = calAverageReview(review);
+
+  const reviewCount = calReviewCount(review);
 
   const router = useRouter();
 
@@ -77,19 +79,25 @@ function ShowRestaurant({
                   {restaurant?.foodType}
                 </p>
               </div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
-                  <h2 className="text-lg font-semibold tracking-tight ">
-                    {average}
-                  </h2>
-                  <Star className="w-5 h-5" />
-                </div>
-                <span>
-                  <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                    Rating
-                  </span>
+              {reviewCount === 0 ? (
+                <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
+                  don't have review
                 </span>
-              </div>
+              ) : (
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
+                    <h2 className="text-lg font-semibold tracking-tight ">
+                      {average}
+                    </h2>
+                    <Star className="w-5 h-5" />
+                  </div>
+                  <span>
+                    <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
+                      Rating
+                    </span>
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex justify-between mt-3">
               <div className="flex flex-col">

@@ -9,7 +9,6 @@
 //   href: `/restaurants/1/menus/${index + 1}`,
 // }));
 
-
 export const mockMenuData = [
   {
     id: "1",
