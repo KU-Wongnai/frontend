@@ -106,6 +106,7 @@ export const columns: ColumnDef<Delivery>[] = [
   {
     accessorKey: "id",
     enableHiding: false,
+    header: () => null,
     cell: ({ row }) => {
       return (
         <Button asChild>

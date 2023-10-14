@@ -14,8 +14,8 @@ export default function UserLayout({
       <Navbar />
       <main className="flex-1 bg-secondary">
         <div className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
-          <NavigationMenuDemo />
-          <Separator className="my-4" />
+          {/* <NavigationMenuDemo /> */}
+          {/* <Separator className="my-4" /> */}
           {children}
         </div>
       </main>

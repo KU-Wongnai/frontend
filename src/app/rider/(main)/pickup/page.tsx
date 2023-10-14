@@ -42,7 +42,7 @@ const OrderPickupPage = () => {
   };
 
   return (
-    <main>
+    <main className="my-12">
       <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">
         Order Delivery Near You
       </h1>
