@@ -137,24 +137,28 @@ const RegisterAsStudent = () => {
           </h1>
           <div className="space-y-8 grid gap-6 ">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className=" mx-44">
-                <div className="space-y-4">
-                  <div className="flex justify-center">
-                    <Avatar
-                      className="w-44 h-44 mb-4 cursor-pointer"
-                      onClick={onChangeAvatar}
-                    >
-                      <AvatarImage src={avatarShow || undefined} />
-                      <AvatarFallback>Avatar</AvatarFallback>
-                    </Avatar>
-                    <Input
-                      type="file"
-                      ref={fileInputRef}
-                      className="hidden"
-                      onChange={onFileChange}
-                      accept="image/*" // Accept only image files
-                    />
-                  </div>
+              <div className="flex justify-center">
+                <Avatar
+                  className="w-44 h-44 mb-4 cursor-pointer"
+                  onClick={onChangeAvatar}
+                >
+                  <AvatarImage src={avatarShow || undefined} />
+                  <AvatarFallback>Avatar</AvatarFallback>
+                </Avatar>
+                <Input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  onChange={onFileChange}
+                  accept="image/*"
+                />
+              </div>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="mx-44 grid grid-cols-12 gap-6"
+              >
+                <div className="space-y-4 col-span-6">
+                  {/* Left Column Fields */}
                   <FormField
                     name="phone_number"
                     control={form.control}
@@ -196,7 +200,13 @@ const RegisterAsStudent = () => {
                     control={form.control}
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Birth Date</FormLabel>
+                        <FormLabel>
+                          
+                          <div className="my-1">
+                          Birth Date
+
+                          </div>
+                          </FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -251,6 +261,9 @@ const RegisterAsStudent = () => {
                       </FormItem>
                     )}
                   />
+                </div>
+
+                <div className="space-y-4 col-span-6">
                   <FormField
                     name="student_id"
                     control={form.control}
@@ -327,7 +340,9 @@ const RegisterAsStudent = () => {
                       </FormItem>
                     )}
                   />
+                </div>
 
+                <div className="col-span-12">
                   <Button
                     type="submit"
                     disabled={isLoading}
