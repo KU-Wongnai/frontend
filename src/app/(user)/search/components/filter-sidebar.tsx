@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 
-export default function SearchSideBar(
-) {
-
+export default function SearchSideBar() {
   const locations = [
     {
       id: "1",
@@ -44,15 +42,14 @@ export default function SearchSideBar(
   ];
 
   return (
-    <div className="flex flex-row w-full md:w-1/5 md:flex-col mr-5">
+    <div className="flex flex-row w-full md:w-1/5 md:flex-col mr-5 bg-card border p-3 rounded-md shadow-sm">
       <div className="flex flex-col w-full pb-4 border-b">
-        <h1 className="mb-2">Location</h1>
+        <h1 className="mb-2 text-lg font-extrabold">Location</h1>
         {locations.map((location) => (
           <Link
             href={{
               pathname: "/search",
               query: {
-                // ...searchParams, // spread operator to copy all the properties of searchParams
                 location: location.name,
               },
             }}
@@ -64,13 +61,12 @@ export default function SearchSideBar(
         ))}
       </div>
       <div className="flex flex-col w-full pb-4 mt-0 border-b md:mt-3">
-        <h1 className="mb-2">Type</h1>
+        <h1 className="mb-2 text-lg font-extrabold">Type</h1>
         {types.map((type) => (
           <Link
             href={{
               pathname: "/search",
               query: {
-                // ...searchParams,
                 type: type.name,
               },
             }}

@@ -5,7 +5,6 @@ import SearchSideBar from "./components/filter-sidebar";
 import RestaurantCardSearch from "./components/restaurant-card-search";
 import { useEffect, useState } from "react";
 import { getRestaurants } from "@/services/restaurant";
-import { calAverageReview, calReviewCount } from "@/lib/review-help";
 
 export default function Search({
   searchParams,
@@ -13,7 +12,6 @@ export default function Search({
   searchParams: SearchParams;
 }) {
   const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
-  const [review, setReview] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,6 +72,7 @@ export default function Search({
                 location={restaurant.location}
                 contactInfo={restaurant.contactInfo}
                 menus={restaurant.menus}
+                rating={restaurant.rating}
               />
             ))
           ) : (

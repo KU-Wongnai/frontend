@@ -26,7 +26,7 @@ function SearchInput() {
       />
       <button
         type="submit"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 rounded-full pl-1 flex items-center"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary rounded-full pl-1 flex items-center"
         style={{ width: "30px", height: "30px" }}
       >
         🍳
