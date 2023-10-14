@@ -50,7 +50,7 @@ const General = () => {
 
   const form = useForm<UserProfileForm>({
     defaultValues: {
-      phone_number: user?.user_profile?.phone_number || null,
+      phone_number: user?.user_profile?.phone_number,
       birth_date: birthDate,
       address: user?.user_profile?.address || null,
       student_id: user?.user_profile?.student_id || null,
@@ -108,18 +108,7 @@ const General = () => {
       await updateUserProfile(submittedData);
       toast.success("Update profile success");
     } catch (error: any) {
-      if (error.response.status === 422)
-        // Loop over the errors object and set errors return from user-service
-        for (const key in error.response.data.errors) {
-          if (error.response.data.errors.hasOwnProperty(key)) {
-            form.setError(key as any, {
-              message: error.response.data.errors[key][0], // Use the first error message
-            });
-          }
-        }
-      else {
-        toast.error("An error occurred. Please try again.");
-      }
+      toast.error("Update profile failed");
       console.error("Update profile failed", error);
     }
   };
@@ -137,7 +126,6 @@ const General = () => {
           >
             <AvatarImage
               src={user?.user_profile?.avatar}
-              // onClick={onChangeAvatar}
             />
             <AvatarFallback>{user?.name[0]}</AvatarFallback>
           </Avatar>
@@ -192,33 +180,11 @@ const General = () => {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          {/* {field.value === null || field.value === "" ? (
-                            <p>Pick a date</p>
-                          ) : (
-                            <div>
-                              {field.value && user?.user_profile?.birth_date ? (
-                                format(new Date(field.value), "yyyy-M-d")
-                              ) : (
-                                <p>Pick a date</p>
-                              )}
-                            </div>
-                          )} */}
                           {field.value ? (
                             format(new Date(field.value), "yyyy-M-d")
                           ) : (
                             <p>Pick a date</p>
                           )}
-                          {/* {field.value ? (
-                            format(new Date(field.value), "yyyy-M-d")
-                          ) : (
-                            <div>
-                              {field.value && user?.user_profile?.birth_date ? (
-                                format(new Date(field.value), "yyyy-M-d")
-                              ) : (
-                                <p>Pick a date</p>
-                              )}
-                            </div>
-                          )} */}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
