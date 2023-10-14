@@ -116,9 +116,10 @@ const RegisterAsStudent = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center min-h-screen mx-16">
-      <div className="grid grid-cols-2 gap-4 mt-5">
-        <section className="col-span-1">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen mx-4 md:mx-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 w-full">
+        {/* Image Section */}
+        <section className="hidden md:block col-span-1">
           <div className="flex align-middle h-full">
             <Image
               src={StudentRider}
@@ -130,12 +131,13 @@ const RegisterAsStudent = () => {
             />
           </div>
         </section>
-        <section className="p-6 col-span-1 rounded-md border bg-card">
-          <h1 className="pb-6 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
+        {/* Form Section */}
+        <section className="p-4 md:p-6 md:col-span-1 rounded-md border bg-card w-full">
+          <h1 className="pb-4 md:pb-6 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
             Register{" "}
             <span className="text-secondary-foreground">as Student Rider</span>
           </h1>
-          <div className="space-y-8 grid gap-6 ">
+          <div className="space-y-8 md:grid gap-6">
             <Form {...form}>
               <div className="flex justify-center">
                 <Avatar
@@ -155,7 +157,7 @@ const RegisterAsStudent = () => {
               </div>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="mx-44 grid grid-cols-12 gap-6"
+                className="md:mx-44 md:grid grid-cols-12 gap-6"
               >
                 <div className="space-y-4 col-span-6">
                   {/* Left Column Fields */}
@@ -201,12 +203,8 @@ const RegisterAsStudent = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>
-                          
-                          <div className="my-1">
-                          Birth Date
-
-                          </div>
-                          </FormLabel>
+                          <div className="my-1">Birth Date</div>
+                        </FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -342,7 +340,7 @@ const RegisterAsStudent = () => {
                   />
                 </div>
 
-                <div className="col-span-12">
+                <div className="col-span-12 my-4">
                   <Button
                     type="submit"
                     disabled={isLoading}
