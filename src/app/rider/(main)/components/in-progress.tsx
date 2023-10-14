@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Delivery } from "@/interfaces/order";
 import { completeDelivery, getMyDeliveriesWithStatus } from "@/services/order";
-import { Truck } from "lucide-react";
+import { Bike } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -55,7 +55,7 @@ const InProgressDelivery = () => {
             role="alert"
           >
             <div className="flex items-center">
-              <Truck className="flex-shrink-0 w-4 h-4 mr-2" />
+              <Bike className="flex-shrink-0 w-4 h-4 mr-2" />
               <span className="sr-only">Delivery # {d.id}</span>
               <h3 className="text-lg font-medium">
                 Order #{" "}

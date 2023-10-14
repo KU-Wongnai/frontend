@@ -12,7 +12,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { ChevronDown, Info, Truck } from "lucide-react";
+import { Bike, Info } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,11 @@ import { useEffect } from "react";
 import { getMyDeliveries } from "@/services/order";
 import { Delivery } from "@/interfaces/order";
 import InProgressDelivery from "./components/in-progress";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const data: Order[] = [
   {
@@ -523,7 +528,7 @@ export default function Rider() {
   return (
     <>
       <section className="my-6">
-        <div className="flex gap-3">
+        <div className="flex gap-3 pb-3">
           <Avatar className="w-20 h-20">
             <AvatarImage
               src={user?.user_profile?.avatar}
@@ -539,32 +544,46 @@ export default function Rider() {
             </h2>
             <div className="flex gap-3 mb-3">
               <div className="p-4 border-r">
-                <h3
-                  className="text-sm flex gap-1"
-                  title="Total income you made from delivering orders so far."
-                >
-                  Total Income <Info className="w-4 h-4" />
-                </h3>
-                <span className="text-primary font-bold md:text-lg">
-                  THB 100.00
-                </span>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button>
+                      <h3
+                        className="text-xs md:text-sm flex gap-1"
+                        title="Total income you made from delivering orders so far."
+                      >
+                        Total Income <Info className="w-4 h-4" />
+                      </h3>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    Total income you made from delivering orders so far.
+                  </PopoverContent>
+                </Popover>
+                <p className="text-primary font-bold md:text-lg">THB 100.00</p>
               </div>
               <div className="p-4">
-                <h3
-                  className="text-sm flex gap-1"
-                  title="Amount you can transfer to your bank account."
-                >
-                  Transferable
-                  <Info className="w-4 h-4" />
-                </h3>
-                <span className="text-primary font-bold md:text-lg">
-                  THB 100.00
-                </span>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button>
+                      <h3
+                        className="text-xs md:text-sm flex gap-1"
+                        title="Amount you can transfer to your bank account."
+                      >
+                        Transferable
+                        <Info className="w-4 h-4" />
+                      </h3>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    Amount you can transfer to your bank account.
+                  </PopoverContent>
+                </Popover>
+                <p className="text-primary font-bold md:text-lg">THB 100.00</p>
               </div>
             </div>
             <Button asChild>
               <Link href="/rider/pickup">
-                <Truck className="mr-2" />
+                <Bike className="mr-2" />
                 Start a delivery
               </Link>
             </Button>
@@ -573,7 +592,7 @@ export default function Rider() {
         <Separator className="my-3" />
       </section>
       <InProgressDelivery />
-      <h2 className="pb-2 mb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
+      <h2 className="pb-2 mt-4 mb-2 text-2xl md:text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
         Order Delivery History
       </h2>
       <div className="rounded-md border bg-background">
