@@ -3,6 +3,7 @@
 import Map from "@/app/rider/(main)/components/map";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -14,7 +15,8 @@ import {
 import { Delivery } from "@/interfaces/order";
 import { getDelivery } from "@/services/order";
 import { CardContent } from "@mui/material";
-import { ChefHat, MapPin, Phone } from "lucide-react";
+import { ChefHat, Mail, MapPin, Phone, User2 } from "lucide-react";
+import { formatPhoneNumber } from "react-phone-number-input";
 import React, { useEffect } from "react";
 
 const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
@@ -32,27 +34,58 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
     <main className="my-12">
       <Card>
         <CardHeader>
-          <CardTitle>Order Details</CardTitle>
+          <CardTitle>
+            Order{" "}
+            <span className="text-primary">#{deliveryOrder?.order.id}</span>{" "}
+            Details
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="px-3 sm:px-3">
-            <div className="mb-2 sm:mb-4 space-y-1 sm:space-y-2 ">
-              {/* <div className="flex justify-between">
-              <div className="text-sm sm:text-base font-medium">Name</div>
-              <div className="text-sm sm:text-base font-medium">
-                {orderDetail.name}
+            <div className="mb-2 sm:mb-4 space-y-1 sm:space-y-2">
+              <h2 className="text-lg font-bold">Customer Details</h2>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                  <User2 />
+                  Name
+                </div>
+                <div className="flex items-center gap-3 text-sm sm:text-base font-medium">
+                  <Avatar>
+                    <AvatarImage
+                      src={deliveryOrder?.order.user?.avatar || ""}
+                      alt={deliveryOrder?.order.user?.name}
+                    ></AvatarImage>
+                    <AvatarFallback>
+                      {deliveryOrder?.order.user?.name?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  {deliveryOrder?.order?.user?.name}
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1 first-letter:text-sm sm:text-base font-medium">
+                  <Mail /> Email
+                </div>
+                <div className="text-sm sm:text-base font-medium">
+                  {deliveryOrder?.order?.user?.email}
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
+                  <Phone /> Contact
+                </div>
+                <div className="text-sm sm:text-base font-medium">
+                  {formatPhoneNumber(deliveryOrder?.contactInfo || "")}
+                </div>
               </div>
             </div>
-            <div className="flex justify-between">
-              <div className="text-sm sm:text-base font-medium">Total</div>
-              <div className="text-sm sm:text-base font-medium">
-                ${orderDetail.amount}
-              </div>
-            </div> */}
+            <Separator className="my-4" />
+            <div className="mb-2 sm:mb-4 space-y-1 sm:space-y-2 ">
+              <h2 className="text-lg font-bold">Restaurant Details</h2>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
                   <ChefHat />
-                  Restaurant
+                  Name
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base font-medium">
                   <Avatar>
@@ -70,7 +103,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
               <div className="flex justify-between">
                 <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
                   <MapPin />
-                  Restaurant Location
+                  Location
                 </div>
                 <div className="text-sm sm:text-base font-medium">
                   {deliveryOrder?.order.restaurant?.location}
@@ -79,7 +112,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
               <div className="flex justify-between">
                 <div className="flex items-center gap-1 text-sm sm:text-base font-medium">
                   <Phone />
-                  Restaurant Contact
+                  Contact
                 </div>
                 <div className="text-sm sm:text-base font-medium">
                   {deliveryOrder?.order.restaurant?.contactInfo}
@@ -95,6 +128,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
                 </div>
               </div>
             </div>
+            <Separator className="my-4" />
             <div className="mb-2 sm:mb-4 mt-4">
               <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
                 Order Items
@@ -127,7 +161,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
               </Table>
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
+              <h3 className="text-sm sm:text-base font-medium mb-2 text-left">
                 Location
               </h3>
               <Map />

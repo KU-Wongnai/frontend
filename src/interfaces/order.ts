@@ -2,6 +2,7 @@ export type Delivery = {
   id: string;
   riderId: string | null;
   deliveryAddress: string;
+  contactInfo: string;
   status: DeliveryStatus;
   order: Order;
 };
@@ -11,6 +12,13 @@ export type DeliveryStatus = "PENDING" | "ASSIGNED" | "DELIVERED" | "CANCELLED";
 export type Order = {
   id: string;
   restaurant: Restaurant;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    emailVerifiedAt: Date;
+    avatar: string;
+  };
   orderItems: OrderItem[];
   status: OrderStatus;
   delivery: Delivery | null;
