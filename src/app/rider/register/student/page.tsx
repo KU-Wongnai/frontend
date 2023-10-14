@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
@@ -22,53 +22,95 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import {
-  RiderRegisterForm,
-  riderRegisterSchema,
+  RiderRegisterStudentForm,
+  riderRegisterStudentSchema,
 } from "@/validations/rider-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import StudentRider from "@/assets/rider/student-rider.png"
+import StudentRider from "@/assets/rider/undraw_on_the_way_re_swjt.svg";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
+import useAuthStore from "@/contexts/auth-store";
+import useStore from "@/contexts/useStore";
+import { hash } from "@/lib/hash";
+import { uploadFile } from "@/services/file-upload";
+import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { riderUpdateProfile } from "@/services/rider";
+import { useRouter } from "next/navigation";
 
 const RegisterAsStudent = () => {
-  const form = useForm<RiderRegisterForm>({
+  const [avatarShow, setAvatarShow] = React.useState<string | undefined>(
+    undefined
+  );
+
+  const form = useForm<RiderRegisterStudentForm>({
     defaultValues: {
       phone_number: "",
       id_card: "",
-      // birth_date: ,
+      birth_date: undefined,
       bank_account_number: "",
-      avatar: "",
       student_id: "",
       faculty: "",
       major: "",
-      // desire_location: "",
+      desire_location: "",
+      avatar: "",
     },
-    resolver: zodResolver(riderRegisterSchema),
+    resolver: zodResolver(riderRegisterStudentSchema),
   });
+
+  const router = useRouter();
 
   const { isLoading } = form.formState;
 
-  const onSubmit = async (data: RiderRegisterForm) => {
-    console.log("Form submitted", data);
-    try {
-      // await signUp(data);
-      toast.success("Account created successfully");
-      window.location.href = "/rider";
-    } catch (error: any) {
-      if (error.response.status === 422)
-        // Loop over the errors object and set errors return from user-service
-        for (const key in error.response.data.errors) {
-          if (error.response.data.errors.hasOwnProperty(key)) {
-            form.setError(key as any, {
-              message: error.response.data.errors[key][0], // Use the first error message
-            });
-          }
-        }
-      else {
-        toast.error("An error occurred. Please try again.");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const onChangeAvatar = () => {
+    console.log("clicked");
+    fileInputRef.current?.click();
+  };
+
+  const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    console.log(file);
+    if (file) {
+      const file_name_hash = hash(file.name);
+      const file_name = `avatar-rider/${file_name_hash}`;
+      console.log(file_name);
+      const res = await uploadFile(file, file_name);
+      console.log(res);
+      if (res?.data) {
+        const avatar = res.data.replace(
+          "http://host.docker.internal:8093",
+          "http://localhost:8093"
+        );
+        console.log(avatar);
+        setAvatarShow(avatar);
+        form.setValue("avatar", avatar);
       }
+      return;
+    }
+    console.log("File selected:", file);
+    console.log("avatar", form.getValues("avatar"));
+  };
+
+  const onSubmit = async (data: RiderRegisterStudentForm) => {
+    console.log("Form submitted 1", data);
+
+    const submittedData = {
+      ...data,
+      birth_date: format(new Date(data.birth_date), "yyyy-MM-dd"),
+    };
+
+    console.log("Form submitted 2", submittedData);
+
+    try {
+      await riderUpdateProfile(submittedData);
+      toast.success("Account created successfully");
+      router.push("/rider/register/success");
+    } catch (error: any) {
+      toast.error("An error occurred. Please try again.");
       console.error("Registration failed", error);
     }
   };
@@ -77,23 +119,42 @@ const RegisterAsStudent = () => {
     <div className="flex flex-row items-center justify-center min-h-screen mx-16">
       <div className="grid grid-cols-2 gap-4 mt-5">
         <section className="col-span-1">
-          <Image
-            src={StudentRider}
-            width={1100}
-            height={1100}
-            alt="Student Rider"
-            className="mx-auto left-4 top-4 md:left-8 md:top-8 z-10"
-          />
+          <div className="flex align-middle h-full">
+            <Image
+              src={StudentRider}
+              priority={true}
+              width={1100}
+              height={1100}
+              alt="Student Rider"
+              className="mx-auto left-4 top-4 md:left-8 md:top-8 z-10"
+            />
+          </div>
         </section>
         <section className="p-6 col-span-1 rounded-md border bg-card">
           <h1 className="pb-6 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
             Register{" "}
             <span className="text-secondary-foreground">as Student Rider</span>
           </h1>
-          <div className="max-w-full space-y-8 grid gap-6 justify-center">
+          <div className="space-y-8 grid gap-6 ">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className=" mx-44">
                 <div className="space-y-4">
+                  <div className="flex justify-center">
+                    <Avatar
+                      className="w-44 h-44 mb-4 cursor-pointer"
+                      onClick={onChangeAvatar}
+                    >
+                      <AvatarImage src={avatarShow || undefined} />
+                      <AvatarFallback>Avatar</AvatarFallback>
+                    </Avatar>
+                    <Input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={onFileChange}
+                      accept="image/*" // Accept only image files
+                    />
+                  </div>
                   <FormField
                     name="phone_number"
                     control={form.control}
@@ -147,7 +208,7 @@ const RegisterAsStudent = () => {
                                 )}
                               >
                                 {field.value ? (
-                                  format(field.value, "PPP")
+                                  format(field.value, "yyyy-M-d")
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -183,26 +244,6 @@ const RegisterAsStudent = () => {
                             {...field}
                             id="bank_account_number"
                             placeholder="Bank Account Number"
-                            disabled={isLoading}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="avatar"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Avatar</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            value={field.value || ""}
-                            id="avatar"
-                            type="file"
-                            placeholder="Avatar"
                             disabled={isLoading}
                           />
                         </FormControl>
@@ -260,6 +301,25 @@ const RegisterAsStudent = () => {
                             value={field.value || ""}
                             id="major"
                             placeholder="Major"
+                            disabled={isLoading}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name="desire_location"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Desire Location</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            value={field.value || ""}
+                            id="desire_location"
+                            placeholder="Desire Location"
                             disabled={isLoading}
                           />
                         </FormControl>

@@ -3,14 +3,12 @@ import { z } from "zod";
 export const userProfileSchema = z.object({
   phone_number: z
     .string()
-    .nullable()
     .refine(
       (data) => data === null || data.length === 10,
       "Phone number should be either null or 10 characters"
     ),
   birth_date: z
     .date()
-    // .nullable()
     .refine(
       (data) => data === null || data instanceof Date,
       {
