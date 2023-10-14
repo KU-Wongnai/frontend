@@ -45,7 +45,9 @@ const General = () => {
   if (user?.user_profile?.birth_date === null) {
     birthDate = undefined;
   } else {
-    birthDate = user?.user_profile?.birth_date;
+    // birthDate = user?.user_profile?.birth_date;
+    // convert string to Date object
+    birthDate = user?.user_profile?.birth_date ? new Date(user?.user_profile?.birth_date) : undefined;
   }
 
   const form = useForm<UserProfileForm>({

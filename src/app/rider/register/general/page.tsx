@@ -36,6 +36,7 @@ import { useRouter } from "next/navigation";
 import { hash } from "@/lib/hash";
 import { uploadFile } from "@/services/file-upload";
 import { riderUpdateProfile } from "@/services/rider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const RegisterAsGeneral = () => {
   const [avatarShow, setAvatarShow] = React.useState<string | undefined>(
@@ -128,10 +129,26 @@ const RegisterAsGeneral = () => {
             Register{" "}
             <span className="text-secondary-foreground">as General Rider</span>
           </h1>
-          <div className="max-w-full space-y-8 grid gap-6 justify-center">
+          <div className="space-y-8 grid gap-6">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mx-44">
                 <div className="space-y-4">
+                  <div className="flex justify-center">
+                    <Avatar
+                      className="w-44 h-44 mb-4 cursor-pointer"
+                      onClick={onChangeAvatar}
+                    >
+                      <AvatarImage src={avatarShow || undefined} />
+                      <AvatarFallback>Avatar</AvatarFallback>
+                    </Avatar>
+                    <Input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={onFileChange}
+                      accept="image/*" // Accept only image files
+                    />
+                  </div>
                   <FormField
                     name="phone_number"
                     control={form.control}
@@ -185,7 +202,7 @@ const RegisterAsGeneral = () => {
                                 )}
                               >
                                 {field.value ? (
-                                  format(field.value, "PPP")
+                                  format(field.value, "yyyy-M-d")
                                 ) : (
                                   <span>Pick a date</span>
                                 )}
@@ -229,18 +246,17 @@ const RegisterAsGeneral = () => {
                     )}
                   />
                   <FormField
-                    name="avatar"
+                    name="desire_location"
                     control={form.control}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Avatar</FormLabel>
+                        <FormLabel>Desire Location</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             value={field.value || ""}
-                            id="avatar"
-                            type="file"
-                            placeholder="Avatar"
+                            id="desire_location"
+                            placeholder="Desire Location"
                             disabled={isLoading}
                           />
                         </FormControl>
@@ -248,6 +264,7 @@ const RegisterAsGeneral = () => {
                       </FormItem>
                     )}
                   />
+
                   <Button
                     type="submit"
                     disabled={isLoading}

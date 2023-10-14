@@ -9,7 +9,7 @@ const RiderRegisterSucceed = () => {
   return (
     <main className="flex flex-col justify-center items-center gap-4 py-12 min-h-screen">
       <Check className="bg-primary text-white h-14 w-14 rounded-full" />
-      <div>Register Rider Succeed</div>
+      <div>Register Rider Successfully</div>
       <div className="text-sm text-gray-500">Wait for admin to approve your account</div>
       <Button asChild>
         <Link href="/">Back to Home</Link>
