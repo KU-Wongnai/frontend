@@ -1,7 +1,7 @@
 "use client";
 
+import Map from "@/app/rider/(main)/components/map";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -124,6 +124,12 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
                   ))}
               </TableBody>
             </Table>
+          </div>
+          <div>
+            <h3 className="text-sm sm:text-base font-medium mb-1 sm:mb-2 text-left">
+              Location
+            </h3>
+            <Map />
           </div>
         </div>
       </CardContent>
