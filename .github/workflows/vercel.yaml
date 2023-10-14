@@ -19,8 +19,8 @@ jobs:
 
       - name: Setup .env
         run: |
-          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
-          echo "ANOTHER_SECRET=${{ secrets.ANOTHER_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_GATEWAY_URL=${{ secrets.NEXT_PUBLIC_GATEWAY_URL }}" >> .env
+          echo "NEXT_PUBLIC_OMISE_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_OMISE_PUBLIC_KEY }}" >> .env
           
       - name: Install pnpm
         run: npm install -g pnpm
