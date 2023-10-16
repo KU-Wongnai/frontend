@@ -10,9 +10,8 @@ const OrderList: React.FC<OrderListProps> = ({ orders }) => {
   return (
     <div>
       {orders.map((order) => (
-        <div className="mb-3">
+        <div className="mb-3" key={order.id}>
           <OrderCard key={order.id} order={order} />
-
         </div>
       ))}
     </div>

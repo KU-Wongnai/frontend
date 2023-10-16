@@ -56,6 +56,7 @@ const OrderPickupPage = () => {
           <div className="space-y-4">
             {new Array(5).fill(0).map((_, i) => (
               <div
+                key={i}
                 role="status"
                 className="flex items-center justify-center h-72 w-full bg-neutral-300 rounded-lg animate-pulse dark:bg-neutral-700"
               >
@@ -66,7 +67,7 @@ const OrderPickupPage = () => {
         ) : deliveryOrders?.length > 0 ? (
           <div className="space-y-4">
             {deliveryOrders.map((d) => (
-              <Card>
+              <Card key={d.id}>
                 <CardHeader>
                   <div className="flex gap-3">
                     <Avatar>

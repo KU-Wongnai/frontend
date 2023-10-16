@@ -30,7 +30,7 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [params.deliveryId]);
 
   return (
     <main className="my-12">

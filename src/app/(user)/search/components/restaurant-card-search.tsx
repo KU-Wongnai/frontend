@@ -71,7 +71,7 @@ const RestaurantCardDetail: React.FC<Restaurant> = ({
             <div className="flex items-center gap-3 mb-3">
               {reviewCount === 0 ? (
                 <span className="text-base font-semibold tracking-tight mb-3 text-gray-400">
-                  don't have review yet
+                  don&apos;t have review yet
                 </span>
               ) : (
                 <>
