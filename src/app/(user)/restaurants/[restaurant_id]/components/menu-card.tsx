@@ -15,7 +15,7 @@ import {
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Menu } from "@/types/restaurant";
 
-const FoodCard: React.FC<Menu> = ({
+const MenuCard: React.FC<Menu> = ({
   id,
   image,
   name,
@@ -113,4 +113,4 @@ const FoodCard: React.FC<Menu> = ({
   );
 };
 
-export default FoodCard;
+export default MenuCard;
