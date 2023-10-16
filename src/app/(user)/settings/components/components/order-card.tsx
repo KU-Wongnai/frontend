@@ -61,10 +61,22 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
               </div>
               <div className="flex flex-col justify-start items-start text-sm">
                 <div>{order.orderItems[0].name}</div>
-                <div>Price: ${totalPrice.toFixed(2)}</div>
-                <div>Quantity: {order.orderItems[0].quantity}</div>
-                <div>Contact rider: {order.delivery?.contactInfo}</div>
-                <div>Delivery Address: {order.delivery?.deliveryAddress}</div>
+                <div>
+                  <span className=" font-semibold">Price: </span>$
+                  {totalPrice.toFixed(2)}
+                </div>
+                <div>
+                  <span className=" font-semibold">Quantity: </span>
+                  {order.orderItems[0].quantity}
+                </div>
+                <div>
+                  <span className=" font-semibold">Contact rider: </span>
+                  {order.delivery?.contactInfo}
+                </div>
+                <div>
+                  <span className=" font-semibold">Delivery Address: </span>
+                  {order.delivery?.deliveryAddress}
+                </div>
               </div>
               <p className="text-right w-full text-sm text-gray-500 mt-2">
                 Update at {new Date(order.updatedAt).toLocaleString()}
