@@ -5,6 +5,7 @@ import useAuthStore from "@/contexts/auth-store";
 import useStore from "@/contexts/useStore";
 import React from "react";
 import CommentDialog from "./comment-dialog";
+import { Review, Comment } from "@/types/reivew";
 
 const CommentList = ({ review }: { review: Review }) => {
   const me = useStore(useAuthStore, (state) => state.user);

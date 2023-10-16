@@ -32,7 +32,7 @@ import Link from "next/link";
 import useStore from "@/contexts/useStore";
 import { useEffect } from "react";
 import { getMyDeliveries } from "@/services/order";
-import { Delivery } from "@/interfaces/order";
+import { Delivery } from "@/types/order";
 import InProgressDelivery from "./components/in-progress";
 import {
   Popover,
@@ -497,6 +497,7 @@ export default function Rider() {
   const [rowSelection, setRowSelection] = React.useState({});
   const user = useStore(useAuthStore, (state) => state.user);
   const [deliveryOrders, setDeliveryOrders] = React.useState<Delivery[]>([]);
+  const [isHaveTable, setIsHaveTable] = React.useState<boolean>(false);
 
   const table = useReactTable({
     data: deliveryOrders,

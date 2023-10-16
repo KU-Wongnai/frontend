@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Delivery } from "@/interfaces/order";
+import { Delivery } from "@/types/order";
 import { getDelivery } from "@/services/order";
 import { CardContent } from "@mui/material";
 import { ChefHat, Mail, MapPin, Phone, User2 } from "lucide-react";

@@ -19,33 +19,54 @@ function getToken() {
   }
 }
 
-// Add a response interceptor to handle token expiration
-httpClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
+// // Add a response interceptor to handle token expiration
+// httpClient.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   async (error) => {
+//     const originalRequest = error.config;
 
-    // Check if error is 401 and not a retry request
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+//     // Check if error is 401 and not a retry request
+//     if (error.response?.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
       
-      try {
-        await refreshToken();  // refresh the token
-        // Resend the request with new token
-        const token = getToken();
-        if (token) {
-          originalRequest.headers.Authorization = `Bearer ${token}`;
-          return httpClient(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error("Failed to refresh token", refreshError);
-        useAuthStore.getState().clearAuth();
-        return Promise.reject(refreshError);
-      }
-    }
+//       try {
+//         await refreshToken();  // refresh the token
+//         // Resend the request with new token
+//         const token = getToken();
+//         if (token) {
+//           originalRequest.headers.Authorization = `Bearer ${token}`;
+//           return httpClient(originalRequest);
+//         }
+//       } catch (refreshError) {
+//         console.error("Failed to refresh token", refreshError);
+//         useAuthStore.getState().clearAuth();
+//         return Promise.reject(refreshError);
+//       }
+//     }
 
+//     return Promise.reject(error);
+//   }
+// );
+
+// Add a request interceptor to attach token
+httpClient.interceptors.request.use(
+  (config) => {
+    const token = getToken();
+    // If token is available, set Authorization header
+    if (token) {
+      // if token is expired, refresh it
+      const tokenExp = JSON.parse(atob(token.split(".")[1])).exp;
+      const now = Math.floor(Date.now() / 1000);
+      if (tokenExp <= now) {
+        refreshToken();
+      }
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   }
 );

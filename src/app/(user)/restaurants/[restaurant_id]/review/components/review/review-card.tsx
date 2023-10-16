@@ -13,6 +13,7 @@ import useAuthStore from "@/contexts/auth-store";
 import ReviewDialog from "./review-dialog";
 import Rating from "@mui/material/Rating";
 import CommentList from "../comment/comment-list";
+import { Review } from "@/types/reivew";
 
 const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
   const [isLiked, setIsLiked] = useState(false);

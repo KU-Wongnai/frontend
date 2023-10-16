@@ -7,7 +7,7 @@ import { mockMenuData } from "../../../../mock/menu-card";
 import { mockOrderData } from "../../../../mock/order";
 import OrderCard from "@/app/restaurant/components/order-card-dashboard";
 import RestaurantMenuCard from "@/app/restaurant/components/menu-card-restaurant";
-import { mockFoodCategoryData } from "@/mock/food-category";
+import { mockFoodCategoryData } from "@/mock/food-ype";
 import FoodCategoryCard from "../../components/food-category-card";
 type Props = {};
 

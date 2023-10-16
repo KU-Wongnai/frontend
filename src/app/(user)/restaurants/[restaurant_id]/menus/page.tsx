@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
-import FoodCardList from "../components/food-card-list";
+import FoodCardList from "../components/menu-card-list";
 
 const RestaurantMenuPage = ({
   params,

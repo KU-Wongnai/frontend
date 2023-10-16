@@ -6,6 +6,8 @@ import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
 import Link from "next/link";
+import { Review } from "@/types/reivew";
+import { Restaurant } from "@/types/restaurant";
 
 const RestaurantCardDetail: React.FC<Restaurant> = ({
   id,

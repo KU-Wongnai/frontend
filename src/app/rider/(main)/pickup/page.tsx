@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Delivery } from "@/interfaces/order";
+import { Delivery } from "@/types/order";
 import { assignDelivery, getUnassignedDeliveryOrders } from "@/services/order";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -63,7 +63,7 @@ const OrderPickupPage = () => {
               </div>
             ))}
           </div>
-        ) : deliveryOrders.length > 0 ? (
+        ) : deliveryOrders?.length > 0 ? (
           <div className="space-y-4">
             {deliveryOrders.map((d) => (
               <Card>

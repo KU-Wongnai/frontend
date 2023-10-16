@@ -1,10 +1,11 @@
 "use client";
 
-import { SearchParams } from "@/interfaces/search-params";
+import { SearchParams } from "@/types/search-params";
 import SearchSideBar from "./components/filter-sidebar";
 import RestaurantCardSearch from "./components/restaurant-card-search";
 import { useEffect, useState } from "react";
 import { getRestaurants } from "@/services/restaurant";
+import { Restaurant } from "@/types/restaurant";
 
 export default function Search({
   searchParams,

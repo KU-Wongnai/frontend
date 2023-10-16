@@ -5,6 +5,7 @@ import ReviewCard from "./review-card";
 import { getReviewsRestaurant } from "@/services/review";
 import Image from "next/image";
 import NoReviewBro from "@/assets/undraw/undraw_review_re_kgg1.svg";
+import { Review } from "@/types/reivew";
 
 const ReviewList = ({ restaurant_id }: { restaurant_id: number }) => {
   const [review, setReview] = React.useState<Review[]>();

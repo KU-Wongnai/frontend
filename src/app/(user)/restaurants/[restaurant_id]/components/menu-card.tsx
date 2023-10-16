@@ -13,6 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Menu } from "@/types/restaurant";
 
 const FoodCard: React.FC<Menu> = ({
   id,

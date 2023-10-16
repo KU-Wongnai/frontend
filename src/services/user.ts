@@ -1,4 +1,4 @@
-import { User } from "@/interfaces/user";
+import { User } from "@/types/user";
 import { httpClient } from "@/lib/http-client";
 import { getMe } from "./auth";
 

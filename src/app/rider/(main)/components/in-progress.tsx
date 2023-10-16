@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Delivery } from "@/interfaces/order";
+import { Delivery } from "@/types/order";
 import { completeDelivery, getMyDeliveriesWithStatus } from "@/services/order";
 import { Bike } from "lucide-react";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const InProgressDelivery = () => {
     }
   };
 
-  if (delivery.length === 0) {
+  if (delivery?.length === 0) {
     return null;
   }
 
@@ -48,7 +48,7 @@ const InProgressDelivery = () => {
         Delivery In Progress
       </h2>
       <div>
-        {delivery.map((d) => (
+        {delivery?.map((d) => (
           <div
             id="alert-additional-content-1"
             className="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"

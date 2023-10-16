@@ -5,6 +5,7 @@ import RestaurantCard from "@/components/restaurant-card";
 import { getRestaurants } from "@/services/restaurant";
 import Image from "next/image";
 import NoRestaurantBro from "@/assets/undraw/undraw_chef_cu-0-r.svg";
+import { Restaurant } from "@/types/restaurant";
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = React.useState([]);
