@@ -46,17 +46,8 @@ export const getMe = async () => {
     if (error.response?.status === 401) {
       // Clear auth state if token is invalid or expired
       useAuthStore.getState().clearAuth();
+      return;
     }
     console.error("Failed to get user", error);
   }
 };
-
-export const refreshToken = async () => {
-  try {
-    const { data: token } = await httpClient.post("user/api/auth/refresh");
-    useAuthStore.getState().setToken(token.access_token);
-  } catch (error) {
-    console.error("Failed to refresh token", error);
-    throw error;
-  }
-}
