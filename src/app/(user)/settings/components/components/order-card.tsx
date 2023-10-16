@@ -32,7 +32,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="border p-4 rounded-sm shadow bg-card lg:w-[980px] md:w-[600px]  w-full mx-auto">
+        <div className="border p-4 rounded-sm shadow bg-card lg:w-[710px]   w-full mx-auto">
           <div className="flex flex-col md:flex-row justify-start w-full items-center">
             <div className="mb-4 md:mb-0 md:mr-6">
               <Image
@@ -54,7 +54,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                 <div
                   className={`${
                     statusColors[order.status]
-                  } px-3 py-1 rounded-sm font-semibold`}
+                  } px-2 py-1 rounded-sm font-semibold`}
                 >
                   {order.status}
                 </div>
