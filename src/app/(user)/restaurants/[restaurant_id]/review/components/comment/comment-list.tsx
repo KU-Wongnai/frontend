@@ -15,14 +15,14 @@ const CommentList = ({ review }: { review: Review }) => {
       {review?.comments.map((comment: Comment, index: number) => (
         <li
           key={index}
-          className="text-sm text-gray-500 flex items-center gap-3 p-2 bg-secondary rounded-lg"
+          className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-3 p-2 bg-secondary rounded-lg"
         >
           <div className="flex justify-between w-full">
             <div className="flex">
               <div>
                 <Avatar className="w-8 h-8">
                   <AvatarImage src={comment.user.avatar} />
-                  <AvatarFallback>{comment.user.name}</AvatarFallback>
+                  <AvatarFallback>{comment.user.name[0]}</AvatarFallback>
                 </Avatar>
               </div>
               <div className="ml-3">
