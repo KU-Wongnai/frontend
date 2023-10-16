@@ -83,7 +83,7 @@ function ShowRestaurant({
               </div>
               {reviewCount === 0 ? (
                 <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                  don't have review
+                  don&apos;t have review
                 </span>
               ) : (
                 <div className="flex items-center gap-3 mb-3">

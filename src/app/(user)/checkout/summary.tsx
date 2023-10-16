@@ -1,6 +1,7 @@
 "use client";
 
 import { httpClient } from "@/lib/http-client";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 type Cart = {
@@ -35,9 +36,11 @@ const Summary = () => {
               {cart.map((item, idx) => (
                 <div key={idx} className="flex items-center">
                   <div className="relative">
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
                       alt="Menu Image"
+                      width={100}
+                      height={100}
                       className="w-[100px] h-[100px] rounded-lg"
                     />
                     <div className="absolute -top-2 -right-2 bg-primary text-white text-sm rounded-full h-5 w-5 flex items-center justify-center">

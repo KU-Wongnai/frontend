@@ -38,7 +38,7 @@ const RestaurantList = () => {
           />
           <h1 className="text-3xl font-bold  mt-4">No restaurant available</h1>
           <p className="text-lg text-gray-400 mt-2">
-            We're sorry for the inconvenience, let's be join us and add your
+            We&apos;re sorry for the inconvenience, let&apos;s be join us and add your
             restaurant.
           </p>
         </div>

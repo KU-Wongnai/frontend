@@ -33,7 +33,7 @@ const MenuCardList = ({ id }: { id: number }) => {
           />
           <h1 className="text-3xl font-bold  mt-4">No menu available</h1>
           <p className="text-lg text-gray-400 mt-2">
-            We're sorry for the inconvenience, please check back later.
+            We&apos;re sorry for the inconvenience, please check back later.
           </p>
         </div>
       ) : (
