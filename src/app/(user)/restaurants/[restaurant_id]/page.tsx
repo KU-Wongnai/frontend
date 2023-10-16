@@ -6,12 +6,20 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review/review-card";
 import { getRestaurant } from "@/services/restaurant";
-import { Star } from "lucide-react";
+import { Star, StarIcon } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
 import { Review } from "@/types/reivew";
 import { Restaurant } from "@/types/restaurant";
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 function ShowRestaurant({
   params,
@@ -55,104 +63,126 @@ function ShowRestaurant({
   }, [router, params.restaurant_id]);
 
   return (
-    <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
-      {/* image and detail */}
-      <section className="flex flex-col md:flex-row gap-3">
-        <div className="w-full md:flex-basis-2/3 h-auto md:h-[450px]">
-          <Image
-            src={
-              restaurant?.image ||
-              "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-            }
-            alt=""
-            width={700}
-            height={700}
-            className="border shadow-sm rounded-lg w-full h-full"
-          />
-        </div>
-        <aside className="w-full mt-6 md:mt-0 md:flex-basis-1/3">
-          <div className="flex flex-col bg-card rounded-lg p-4 md:p-5 h-auto md:h-[390px] border shadow-sm">
-            <div className="flex justify-between">
-              <div className="flex flex-col">
-                <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-                  {restaurant?.name}
-                </h2>
-                <p className="text-lg font-semibold tracking-tight  text-gray-400">
-                  {restaurant?.foodType}
-                </p>
-              </div>
-              {reviewCount === 0 ? (
-                <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                  don&apos;t have review
-                </span>
-              ) : (
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
-                    <h2 className="text-lg font-semibold tracking-tight ">
-                      {average}
-                    </h2>
-                    <Star className="w-5 h-5" />
-                  </div>
-                  <span>
-                    <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                      Rating
-                    </span>
+    <main>
+      <div className="w-full h-auto md:h-[300px]">
+        <Image
+          src={
+            restaurant?.image ||
+            "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+          }
+          alt=""
+          width={700}
+          height={700}
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      <section
+        style={{ gridTemplateRows: "auto 1fr" }}
+        className="grid grid-cols-1 md:grid-cols-12 gap-4 container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8"
+      >
+        <Card className="order-1 col-span-8">
+          <CardHeader>
+            <CardTitle>{restaurant?.name}</CardTitle>
+            <CardDescription>
+              <div className="flex items-center gap-2">
+                <div className="inline-block px-2 py-1 rounded-lg text-white bg-orange-600 dark:bg-orange-300">
+                  <span className="flex items-center">
+                    {average} <StarIcon className="ml-1 w-4 h-4" />
                   </span>
                 </div>
-              )}
-            </div>
-            <div className="flex justify-between mt-3">
-              <div className="flex flex-col">
-                <h3 className="text-2xl font-bold">Location</h3>
-                <p className="text-lg font-semibold tracking-tight  text-gray-400">
-                  {restaurant?.location}
-                </p>
-              </div>
-            </div>
-            {/* <div className="flex mt-3">
-              <div className="flex flex-col w-full">
-                <div className="text-2xl font-bold">opening hours</div>
-                <div className="flex justify-between">
-                  <h3 className="text-sm text-gray-500">mon - fri</h3>
-                  <p className="text-sm text-gray-500">17:00 - 23:00</p>
+                <div>
+                  <span className="text-sm text-gray-500">
+                    {reviewCount} reviews
+                  </span>
                 </div>
               </div>
-            </div> */}
-            <div className="flex mt-3">
-              <div className="flex flex-col w-full">
-                <h3 className="text-2xl font-semibold tracking-tight">phone</h3>
-                <p className="text-lg font-semibold tracking-tight  text-gray-400">
-                  {restaurant?.contactInfo}
+              <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+                {restaurant?.foodType}
+              </div>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-gray-600 dark:text-gray-300">
+              <span className="text-primary">Open</span> until 16:00
+            </div>
+            <div className="w-full flex gap-3 mt-4">
+              <Button
+                className="bg-cyan-500 hover:bg-cyan-700 text-white"
+                onClick={mockRouteReview}
+              >
+                Review
+              </Button>
+              <Button
+                className="bg-gray-800 hover:bg-gray-900 text-white"
+                onClick={mockRouteMenus}
+              >
+                All menu
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="order-3 col-span-8 p-6 flex gap-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+          <Image
+            src="https://static2.wongnai.com/static2/images/3zM_NIh.png"
+            alt="map"
+            width={200}
+            height={200}
+            className="rounded-lg"
+          />
+          <div className="w-full">
+            <div className="border-b pb-4 mb-4">
+              <div className="flex justify-between items-center">
+                <p className="text-sm tracking-tight text-gray-600 dark:text-gray-300">
+                  {restaurant?.location}
                 </p>
+                <Button variant="outline" asChild>
+                  <Link href="#">Waypoint</Link>
+                </Button>
               </div>
             </div>
-
-            {/* description */}
-            <div className="flex mt-5 w-full">
-              <p className="text-lg font-semibold tracking-tight  text-gray-400">
-                {restaurant?.description}
+            <div>
+              <h2>Contact</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {restaurant?.contactInfo}
               </p>
             </div>
           </div>
-          <div className="w-full flex gap-3 mt-4">
-            <Button
-              className="w-full bg-cyan-500 hover:bg-cyan-700 text-white"
-              onClick={mockRouteReview}
-            >
-              Review
-            </Button>
-            <Button
-              className="w-full bg-gray-800 hover:bg-gray-900 text-white"
-              onClick={mockRouteMenus}
-            >
-              All menu
-            </Button>
+        </div>
+        <div className="order-2 col-span-8 md:col-span-4 row-span-3">
+          <div className="w-full p-6 flex flex-col gap-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+            <div>
+              <h2 className="font-bold">Open Hours</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                8:00 AM - 4:00 PM
+              </p>
+            </div>
+            <div>
+              <h2 className="font-bold">Prices</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                20 - 60 THB
+              </p>
+            </div>
+            <div>
+              <h2 className="font-bold">Description</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                {restaurant?.description}
+              </p>
+            </div>
+            <div className="border-t pt-6">
+              <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300">
+                <li>Line</li>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>Tiktok</li>
+              </ul>
+            </div>
           </div>
-        </aside>
+        </div>
+        {/* reviews */}
+        <div className="col-span-8 order-4">
+          <ReviewList restaurant_id={params.restaurant_id} />
+        </div>
       </section>
-
-      {/* reviews */}
-      <ReviewList restaurant_id={params.restaurant_id} />
     </main>
   );
 }

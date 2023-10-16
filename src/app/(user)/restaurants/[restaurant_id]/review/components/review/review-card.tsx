@@ -60,7 +60,7 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
     // console.log("commentText", commentText);
     try {
       if (commentText != "") {
-        console.log("commentText", {content: commentText});
+        console.log("commentText", { content: commentText });
         createComment(id, { content: commentText });
         setShowCommentInput(false);
         setCommentText("");
@@ -71,14 +71,14 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
   };
 
   return (
-    <div className="border-b p-4 sm:p-6">
+    <div className="border-b last:border-none px-4 sm:px-6">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarImage src={review?.user.avatar} />
-            <AvatarFallback>{review?.user.name}</AvatarFallback>
+            <AvatarFallback>{review?.user.name[0]}</AvatarFallback>
           </Avatar>
-          <span className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          <span className="scroll-m-20 font-semibold tracking-tight">
             {review?.user.name}
           </span>
         </div>
@@ -88,16 +88,17 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
         name="half-rating-read"
         defaultValue={rating}
         precision={0.5}
+        size="small"
         readOnly
       />
-      <h3 className="text-lg sm:text-xl font-bold mb-2">{review?.title}</h3>
+      <h3 className="font-bold mb-2">{review?.title}</h3>
       {review?.content ? (
         <div
-          className="text-gray-500 mb-4"
+          className="text-sm text-gray-500 mb-4"
           dangerouslySetInnerHTML={{ __html: review?.content }}
         />
       ) : null}
-      <div className="grid grid-cols-2 sm:grid-cols-8 gap-2 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-8 gap-2 pb-2">
         {review?.images.map((img, index) => (
           <div key={index}>
             <Image
@@ -122,11 +123,12 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
           </Toggle>
           <span className="font-semibold ">{review?.likes.length}</span>
         </div>
-        <div className="transition-colors duration-300 hover:text-blue-500">
+        <div className="flex items-center gap-2 transition-colors duration-300 hover:text-blue-500">
           <MessageSquare
             className="cursor-pointer"
             onClick={handleToggleCommentInput}
           />
+          <span className="font-semibold ">{review?.comments.length}</span>
         </div>
       </div>
       {showCommentInput && (
@@ -141,12 +143,7 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
               if (e.key === "Enter") handleAddComment();
             }}
           />
-          <Button
-            onClick={handleAddComment}
-            className=" text-white p-2 rounded-lg w-full sm:w-auto px-8"
-          >
-            Post
-          </Button>
+          <Button onClick={handleAddComment}>Post</Button>
         </div>
       )}
       {review ? <CommentList review={review} /> : null}
