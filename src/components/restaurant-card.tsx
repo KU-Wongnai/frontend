@@ -26,7 +26,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
       setReview(review);
     };
     fetchReview();
-  }, []);
+  }, [id]);
 
   const reviewCount = calReviewCount(review);
 
@@ -53,7 +53,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
           <div className="flex items-center gap-3 mt-2">
             {reviewCount === 0 ? (
               <span className="text-gray-400 text-sm sm:text-base my-1">
-                don't have review yet
+                don&apos;t have review yet
               </span>
             ) : (
               <>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
-import FoodCardList from "../components/menu-card-list";
+import MenuCardList from "../components/menu-card-list";
 
 const RestaurantMenuPage = ({
   params,
@@ -24,7 +24,7 @@ const RestaurantMenuPage = ({
             All menu
           </h1>
         </div>
-        <FoodCardList id={params.restaurant_id} />
+        <MenuCardList id={params.restaurant_id} />
       </section>
     </main>
   );
