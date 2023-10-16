@@ -12,7 +12,7 @@ export default function SidebarProfile({
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="md:p-6 mr-4 font-bold">
-      <h2 className="mb-4 text-4xl hidden md:block">Setting</h2>
+      <h2 className="mb-4 text-4xl hidden md:block">Settings</h2>
       <div className="sm:hidden grid place-content-center">
         <button
           className="flex justify-center"

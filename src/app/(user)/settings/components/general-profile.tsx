@@ -39,6 +39,7 @@ import {
   CardContent,
   CardHeader,
 } from "@/components/ui/card";
+import { httpClient } from "@/lib/http-client";
 
 const General = () => {
   const [isClient, setIsClient] = useState(false);
@@ -125,6 +126,18 @@ const General = () => {
     }
   };
 
+  const sendVerificationEmail = async () => {
+    try {
+      await httpClient.post("/user/api/users/v1/email/verify");
+      toast.success("Verification email sent! Please check your email.");
+    } catch (err) {
+      toast.error(
+        "There was an error sending the verification email. Please try again."
+      );
+      console.log(err);
+    }
+  };
+
   return (
     <Form {...form}>
       {isClient ? (
@@ -175,7 +188,9 @@ const General = () => {
                         Verified
                       </span>
                     ) : (
-                      <Button variant="link">Verify email</Button>
+                      <Button variant="link" onClick={sendVerificationEmail}>
+                        Verify email
+                      </Button>
                     )}
                   </div>
                 }
