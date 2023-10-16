@@ -1,3 +1,5 @@
+import { Review } from "@/types/reivew";
+
 export const calAverageReview = (reviews: Review[]) => {
   const reviewCount = reviews.length;
   if (reviewCount === 0) return "No review";

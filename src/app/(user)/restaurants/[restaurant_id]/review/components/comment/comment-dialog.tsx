@@ -20,6 +20,7 @@ import { deleteComment, updateComment } from "@/services/review";
 import { MoreHorizontal } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { Comment } from "@/types/reivew";
 
 const CommentDialog = ({ comment }: { comment: Comment }) => {
   const [open, setOpen] = React.useState(false);

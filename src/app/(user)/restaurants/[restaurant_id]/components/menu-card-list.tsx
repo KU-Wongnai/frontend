@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useEffect } from "react";
-import FoodCard from "./food-card";
+import FoodCard from "./menu-card";
 import { getRestaurantMenu } from "@/services/restaurant";
 import Image from "next/image";
 import NoMenuBro from "@/assets/undraw/undraw_barbecue_3x93.svg";
+import { Menu } from "@/types/restaurant";
 
 const FoodCardList = ({ id }: { id: number }) => {
   const [menus, setMenus] = React.useState<Menu[]>([]);

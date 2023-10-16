@@ -6,6 +6,8 @@ import { Star } from "lucide-react";
 import { getRestaurant } from "@/services/restaurant";
 import { getReviewsRestaurant } from "@/services/review";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
+import { Restaurant } from "@/types/restaurant";
+import { Review } from "@/types/reivew";
 
 const RestaurantCardDetail = ({ id }: { id: number }) => {
   const [restaurant, setRestaurant] = React.useState<Restaurant>();

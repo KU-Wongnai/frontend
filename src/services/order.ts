@@ -1,4 +1,4 @@
-import { DeliveryStatus, OrderStatus } from "@/interfaces/order";
+import { DeliveryStatus, OrderStatus } from "@/types/order";
 import { httpClient } from "@/lib/http-client";
 
 export const getUnassignedDeliveryOrders = async () => {

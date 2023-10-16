@@ -1,9 +1,9 @@
-export interface Pivot {
+export type Pivot = {
   user_id: number;
   role_id: number;
 }
 
-export interface Role {
+export type Role = {
   id: number;
   name: string;
   created_at: string;
@@ -11,7 +11,7 @@ export interface Role {
   pivot: Pivot;
 }
 
-export interface UserProfile {
+export type UserProfile = {
   user_id: number;
   phone_number: string;
   birth_date: Date;
@@ -27,7 +27,7 @@ export interface UserProfile {
   updated_at: string;
 }
 
-export interface UserRider {
+export type UserRider = {
   user_id: number;
   phone_number: string;
   id_card: string;
@@ -45,7 +45,7 @@ export interface UserRider {
   updated_at: string;
 }
 
-export interface User {
+export type User = {
   id: number;
   name: string;
   email: string;

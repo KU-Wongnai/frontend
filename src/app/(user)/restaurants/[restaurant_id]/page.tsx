@@ -10,6 +10,8 @@ import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
+import { Review } from "@/types/reivew";
+import { Restaurant } from "@/types/restaurant";
 
 function ShowRestaurant({
   params,

@@ -1,3 +1,5 @@
+import { Review } from "@/types/reivew";
+
 export const mockReview: Review[] = [
   {
     id: 1,

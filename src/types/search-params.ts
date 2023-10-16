@@ -1,6 +1,6 @@
 import { PRICE } from "./price";
 
-export interface SearchParams {
+export type SearchParams = {
   name?: string;
   type?: string;
   // price?: PRICE;

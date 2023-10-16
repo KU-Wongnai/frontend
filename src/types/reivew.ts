@@ -1,4 +1,4 @@
-interface UserReview {
+export type UserReview = {
   id: number;
   name: string;
   email: string;
@@ -6,7 +6,7 @@ interface UserReview {
   avatar: string;
 }
 
-interface Like {
+export type Like = {
   id: number;
   name: string;
   email: string;
@@ -14,14 +14,14 @@ interface Like {
   avatar: string;
 }
 
-interface Image {
+export type Image = {
   id: number;
   imageUrl: string;
   createdAt: string;
   updatedAt: string;
 }
 
-interface Comment {
+export type Comment = {
   id: number;
   content: string;
   user: UserReview;
@@ -29,7 +29,7 @@ interface Comment {
   updatedAt: string;
 }
 
-interface Review {
+export type Review = {
   id: number;
   user: UserReview;
   title: string;

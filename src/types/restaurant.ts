@@ -1,11 +1,11 @@
-interface MenuOption {
+export type MenuOption = {
   id: number;
   name: string;
   price: number;
   category: string;
 }
 
-interface Menu {
+export type Menu = {
   id: number;
   name: string;
   description: string;
@@ -15,7 +15,7 @@ interface Menu {
   menuOptions: MenuOption[];
 }
 
-interface Restaurant {
+export type Restaurant = {
   id: number;
   name: string;
   description: string;

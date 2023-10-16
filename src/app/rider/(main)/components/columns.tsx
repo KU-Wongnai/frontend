@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table";
 
 import * as React from "react";
-import { Delivery, DeliveryStatus, Order } from "@/interfaces/order";
+import { Delivery, DeliveryStatus, Order } from "@/types/order";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 

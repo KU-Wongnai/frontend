@@ -28,8 +28,13 @@ import { Button } from "@/components/ui/button";
 import SearchInput from "@/components/search-input";
 
 import { logout } from "@/services/auth"; // Import the logoutUser function
+import useStore from "@/contexts/useStore";
+import useAuthStore from "@/contexts/auth-store";
 
 export default function Navbar() {
+
+  const me = useStore(useAuthStore, (state) => state.user);
+
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
       <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -59,8 +64,8 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={me?.rider_profile?.avatar || undefined} />
+                  <AvatarFallback>{me?.name[0]}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -121,8 +126,8 @@ export default function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={me?.rider_profile?.avatar || undefined} />
+                <AvatarFallback>{me?.name[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -155,7 +160,7 @@ export default function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <h4 className="text-xl font-semibold tracking-tight">name</h4>
+          <h4 className="text-xl font-semibold tracking-tight">{me?.name.split(" ")[0]}</h4>
         </div>
       </div>
     </header>

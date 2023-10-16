@@ -28,6 +28,7 @@ import Rating from "@mui/material/Rating";
 import RichTextEditor from "@/components/rich-text-editor";
 import { deleteReview, updateReview } from "@/services/review";
 import toast from "react-hot-toast";
+import { Review } from "@/types/reivew";
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",

@@ -1,3 +1,5 @@
+import { Restaurant } from "./restaurant";
+
 export type Delivery = {
   id: string;
   riderId: string | null;
