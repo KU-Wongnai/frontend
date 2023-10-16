@@ -1,5 +1,6 @@
 "use client";
 
+import useAuthStore from "@/contexts/auth-store";
 import { API_URL } from "@/lib/http-client";
 import axios from "axios";
 import React, { useEffect } from "react";
@@ -21,7 +22,8 @@ const GoogleAuthPage = () => {
         )
         .then((res) => {
           // Save the JWT token to localStorage
-          localStorage.setItem("token", res.data.access_token);
+          useAuthStore.getState().setToken(res.data.access_token);
+
           // Redirect to home page
           window.location.href = "/";
         })

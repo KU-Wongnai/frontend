@@ -46,6 +46,7 @@ export const getMe = async () => {
     if (error.response?.status === 401) {
       // Clear auth state if token is invalid or expired
       useAuthStore.getState().clearAuth();
+      return;
     }
     console.error("Failed to get user", error);
   }
