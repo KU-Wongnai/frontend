@@ -40,9 +40,12 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { httpClient } from "@/lib/http-client";
+import PhoneNumberInput from "@/components/phone-number-input";
+import { formatPhoneNumber } from "react-phone-number-input";
 
 const General = () => {
   const [isClient, setIsClient] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -75,7 +78,7 @@ const General = () => {
     resolver: zodResolver(userProfileSchema),
   });
 
-  const { isLoading } = form.formState;
+  // const { isLoading } = form.formState;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -111,10 +114,13 @@ const General = () => {
   };
 
   const onSubmit = async (data: UserProfileForm) => {
+    setIsLoading(true);
     console.log(data);
     const submittedData = {
       ...data,
-      birth_date: format(new Date(data.birth_date), "yyyy-M-d"),
+      birth_date: data.birth_date
+        ? format(new Date(data.birth_date), "yyyy-M-d")
+        : null,
     };
     console.log(submittedData);
     try {
@@ -124,6 +130,7 @@ const General = () => {
       toast.error("Update profile failed");
       console.error("Update profile failed", error);
     }
+    setIsLoading(false);
   };
 
   const sendVerificationEmail = async () => {
@@ -188,7 +195,11 @@ const General = () => {
                         Verified
                       </span>
                     ) : (
-                      <Button variant="link" onClick={sendVerificationEmail}>
+                      <Button
+                        variant="link"
+                        type="button"
+                        onClick={sendVerificationEmail}
+                      >
                         Verify email
                       </Button>
                     )}
@@ -197,7 +208,11 @@ const General = () => {
               />
               <Field
                 label="Phone Number"
-                defaultValue={user?.user_profile?.phone_number}
+                defaultValue={
+                  user?.user_profile?.phone_number
+                    ? formatPhoneNumber(user?.user_profile?.phone_number)
+                    : undefined
+                }
                 isLoading={isLoading}
                 form={
                   <FormField
@@ -206,12 +221,10 @@ const General = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input
-                            {...field}
+                          <PhoneNumberInput
                             id="phone_number"
-                            placeholder="phone_number"
-                            type="text"
                             disabled={isLoading}
+                            onChange={field.onChange}
                             value={field.value || ""}
                           />
                         </FormControl>

@@ -8,6 +8,7 @@ type FieldProps = {
   form?: React.ReactNode;
   editable?: boolean;
   isLoading?: boolean;
+  onSubmit?: () => Promise<void>;
 };
 
 const Field = ({
@@ -16,6 +17,7 @@ const Field = ({
   defaultValue,
   form,
   isLoading,
+  onSubmit,
 }: FieldProps) => {
   const [edit, setEdit] = React.useState(false);
 
@@ -39,12 +41,7 @@ const Field = ({
           <>
             {form}
             <div className="mt-2">
-              <Button
-                type="submit"
-                disabled={isLoading}
-                // onClick={() => (!isLoading ? setEdit(false) : null)}
-                className="mr-2"
-              >
+              <Button type="submit" disabled={isLoading} className="mr-2">
                 {isLoading && (
                   <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                 )}
