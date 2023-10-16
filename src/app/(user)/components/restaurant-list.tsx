@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantCard from "@/components/restaurant-card";
 import { getRestaurants } from "@/services/restaurant";
 import Image from "next/image";
 import NoRestaurantBro from "@/assets/undraw/undraw_chef_cu-0-r.svg";
 import { Restaurant } from "@/types/restaurant";
+import RestaurantListSkeleton from "./restaurant-list-skeleton";
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = React.useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -17,13 +19,16 @@ const RestaurantList = () => {
       setRestaurants(allRestaurants);
     };
     fetchRestaurants();
+    setLoading(false);
   }, []);
 
   const isEmpty = restaurants.length === 0;
 
   return (
     <>
-      {isEmpty ? (
+      {loading ? (
+        <RestaurantListSkeleton />
+      ) : restaurants.length === 0 ? (
         <div className="flex flex-col justify-center items-center col-span-full p-8">
           <Image
             src={NoRestaurantBro}
