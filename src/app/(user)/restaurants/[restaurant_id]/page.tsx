@@ -54,14 +54,6 @@ function ShowRestaurant({
 
   const router = useRouter();
 
-  const mockRouteReview = useCallback(() => {
-    router.push(`/restaurants/${params.restaurant_id}/review`);
-  }, [router, params.restaurant_id]);
-
-  const mockRouteMenus = useCallback(() => {
-    router.push(`/restaurants/${params.restaurant_id}/menus`);
-  }, [router, params.restaurant_id]);
-
   return (
     <main>
       <div className="w-full h-auto md:h-[300px]">
@@ -78,14 +70,14 @@ function ShowRestaurant({
       </div>
       <section
         style={{ gridTemplateRows: "auto 1fr" }}
-        className="grid grid-cols-1 md:grid-cols-12 gap-4 container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8"
+        className="grid grid-cols-1 md:grid-cols-12 gap-4 container mx-auto py-6 px-2 sm:px-4 md:px-6 lg:px-8"
       >
         <Card className="order-1 col-span-8">
           <CardHeader>
             <CardTitle>{restaurant?.name}</CardTitle>
             <CardDescription>
               <div className="flex items-center gap-2">
-                <div className="inline-block px-2 py-1 rounded-lg text-white bg-orange-600 dark:bg-orange-300">
+                <div className="inline-block px-2 py-1 rounded-lg text-white bg-orange-600">
                   <span className="flex items-center">
                     {average} <StarIcon className="ml-1 w-4 h-4" />
                   </span>
@@ -108,15 +100,19 @@ function ShowRestaurant({
             <div className="w-full flex gap-3 mt-4">
               <Button
                 className="bg-cyan-500 hover:bg-cyan-700 text-white"
-                onClick={mockRouteReview}
+                asChild
               >
-                Review
+                <Link href={`/restaurants/${params.restaurant_id}/review`}>
+                  Review
+                </Link>
               </Button>
               <Button
                 className="bg-gray-800 hover:bg-gray-900 text-white"
-                onClick={mockRouteMenus}
+                asChild
               >
-                All menu
+                <Link href={`/restaurants/${params.restaurant_id}/menus`}>
+                  View menu
+                </Link>
               </Button>
             </div>
           </CardContent>
