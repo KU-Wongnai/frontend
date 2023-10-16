@@ -26,14 +26,12 @@ export default function MainProfile({ active }: MainProfileProps) {
       case 2:
         return (
           <>
-            <h2 className="mb-4 text-2xl font-bold">Order</h2>
             <MyOrders />
           </>
         );
       case 3:
         return (
           <>
-            <h2 className="mb-4 text-2xl font-bold">History</h2>
             <History />
           </>
         );
