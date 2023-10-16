@@ -3,10 +3,8 @@
 import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review/review-card";
 import { getRestaurant } from "@/services/restaurant";
-import { Star, StarIcon } from "lucide-react";
+import { StarIcon } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
@@ -51,8 +49,6 @@ function ShowRestaurant({
   const average = calAverageReview(review);
 
   const reviewCount = calReviewCount(review);
-
-  const router = useRouter();
 
   return (
     <main>
@@ -137,7 +133,7 @@ function ShowRestaurant({
               </div>
             </div>
             <div>
-              <h2>Contact</h2>
+              <h2 className="font-bold">Contact</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 {restaurant?.contactInfo}
               </p>
