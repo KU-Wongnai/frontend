@@ -106,7 +106,7 @@ export default function Navbar() {
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Link
-                        href="/setting"
+                        href="/settings"
                         className="flex items-center w-full"
                       >
                         <Settings className="mr-2 h-4 w-4" />
@@ -204,7 +204,7 @@ export default function Navbar() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/setting" className="flex items-center w-full">
+                    <Link href="/settings" className="flex items-center w-full">
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </Link>
