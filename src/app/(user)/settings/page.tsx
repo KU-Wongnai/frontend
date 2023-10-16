@@ -9,7 +9,7 @@ export default function Profile() {
   return (
     <>
       <div className="container px-4 pb-6 mx-auto">
-        <div className="flex flex-col h-screen m-auto sm:flex-row">
+        <div className="flex flex-col m-auto sm:flex-row">
           {/* Sidebar */}
           <aside className="w-full overflow-hidden rounded-lg sm:w-80">
             {/* Sidebar content */}

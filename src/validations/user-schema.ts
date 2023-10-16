@@ -1,63 +1,23 @@
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
-export const userProfileSchema = z.object({
-  phone_number: z
-    .string()
-    .refine(
-      (data) => data === null || data.length === 10,
-      "Phone number should be either null or 10 characters"
-    ),
-  birth_date: z
-    .date()
-    .refine(
-      (data) => data === null || data instanceof Date,
-      {
-        message: "Birth date should be either null or a valid date",
-        params: {}
-      }
-    ),
-  address: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length >= 1 || data.length === 0,
-      "Address should be either null or not empty"
-    ),
-  student_id: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length === 10 || data.length === 0,
-      "Student ID should be either null or 10 characters"
-    ),
-  faculty: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length >= 1 || data.length === 0,
-      "Faculty should be either null or not empty"
-    ),
-  major: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length >= 1 || data.length === 0,
-      "Major should be either null or not empty"
-    ),
-  favorite_food: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length >= 1,
-      "Favorite food should be either null or not empty"
-    ),
-  allergy_food: z
-    .string()
-    .nullable()
-    .refine(
-      (data) => data === null || data.length >= 1 || data.length === 0,
-      "Allergy food should be either null or not empty"
-    ),
-});
+export const userProfileSchema = z
+  .object({
+    phone_number: z.string().nullable().optional(),
+    birth_date: z.date().optional(),
+    address: z.string().nullable().optional(),
+    student_id: z.string().length(10).nullable().optional(),
+    faculty: z.string().max(255).nullable().optional(),
+    major: z.string().max(255).nullable().optional(),
+    favorite_food: z.string().max(255).nullable().optional(),
+    allergy_food: z.string().max(255).nullable().optional(),
+  })
+  .refine(
+    (data) => !data.phone_number || isValidPhoneNumber(data.phone_number),
+    {
+      message: "Invalid phone number",
+      path: ["phone_number"],
+    }
+  );
 
 export type UserProfileForm = z.infer<typeof userProfileSchema>;

@@ -13,21 +13,25 @@ export default function MainProfile({ active }: MainProfileProps) {
       case 1:
         return (
           <>
-            <h2 className="mb-4 text-2xl font-bold">Profile</h2>
+            {/* <section className="mb-4">
+              <h2 className="text-lg font-bold">Profile</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Update personal infomation for your better experience browsing
+                our website.
+              </p>
+            </section> */}
             <General />
           </>
         );
       case 2:
         return (
           <>
-            <h2 className="mb-4 text-2xl font-bold">Order</h2>
             <MyOrders />
           </>
         );
       case 3:
         return (
           <>
-            <h2 className="mb-4 text-2xl font-bold">History</h2>
             <History />
           </>
         );
@@ -44,7 +48,7 @@ export default function MainProfile({ active }: MainProfileProps) {
   };
 
   return (
-    <main className="flex-1 p-8 mt-3 md:mt-16 overflow-auto rounded-sm shadow-sm border bg-card">
+    <main className="flex-1 p-8">
       <div>{renderContent()}</div>
     </main>
   );

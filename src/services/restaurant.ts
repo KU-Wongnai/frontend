@@ -1,4 +1,5 @@
 import { httpClient } from "@/lib/http-client";
+import {RestaurantForm} from "@/validations/restaurant-schema";
 
 export const getRestaurants = async () => {
   try {
@@ -23,6 +24,18 @@ export const getRestaurant = async (id: number) => {
     throw error;
   }
 };
+
+export const createRestaurant = async (data : RestaurantForm) => {
+  try {
+    const { data: restaurant } = await httpClient.post(
+        `restaurant/api/restaurants`, data
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to create a restaurant", error);
+    throw error;
+  }
+}
 
 export const getRestaurantMenu = async (id: number) => {
   try {

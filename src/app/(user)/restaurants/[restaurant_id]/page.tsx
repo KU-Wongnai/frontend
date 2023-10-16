@@ -4,7 +4,6 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import ReviewCard from "@/app/(user)/restaurants/[restaurant_id]/review/components/review/review-card";
 import { getRestaurant } from "@/services/restaurant";
 import { Star } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
@@ -83,7 +82,7 @@ function ShowRestaurant({
               </div>
               {reviewCount === 0 ? (
                 <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
-                  don't have review
+                  don&apos;t have review
                 </span>
               ) : (
                 <div className="flex items-center gap-3 mb-3">
