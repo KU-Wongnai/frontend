@@ -336,46 +336,7 @@ export default function CreateRestaurant({}: Props) {
                                 )}
                             />
                           </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
-                                name="location"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>Location</FormLabel>
-                                      <FormControl>
-                                        <Input
-                                            {...field}
-                                            id="location"
-                                            placeholder="Alley or Road Name"
-                                            disabled={isLoading}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                          </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
-                                name="contactInfo"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>Contact Information</FormLabel>
-                                      <FormControl>
-                                        <Input
-                                            {...field}
-                                            id="contactInfo"
-                                            placeholder="Describe your restaurant"
-                                            disabled={isLoading}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                          </div>
+
                           <div className="flex flex-col px-14 mr-8 ml-8">
                             <FormField
                                 name="foodType"
@@ -566,96 +527,102 @@ export default function CreateRestaurant({}: Props) {
                     </div>
                     <div className="grid grid-cols-12 pl-14 mr-2 ml-11 gap-5">
                       <div className="col-span-6 flex flex-col">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Location
-                        </label>
-                        <input
-                          type="text"
-                          id="location"
-                          className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="Alley or Road Name "
+                        <FormField
+                            name="location"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                    Location *
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                           {...field}
+                                           id="location"
+                                           placeholder="Alley or Road name"
+                                           disabled={isLoading}
+                                    />
+                                  </FormControl>
+                                  <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                    Enter your restaurant location
+                                  </FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant location
-                        </p>
 
                         <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
+                            htmlFor="input-label-with-helper-text"
+                            className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Route
                         </label>
                         <input
-                          type="text"
-                          id="route"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="Specify the route or landmarks to assist in navigating to the restaurant"
+                            type="text"
+                            id="route"
+                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                            placeholder="Specify the route or landmarks to assist in navigating to the restaurant"
                         />
                         <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
+                            className="text-xs font-light text-gray-500 mt-2"
+                            id="hs-input-helper-text"
                         >
                           Enter your restaurant route
                         </p>
                         <label
-                          htmlFor="lat"
-                          className="block text-sm font-medium mb-2 text-green-600"
+                            htmlFor="lat"
+                            className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Latitude
                         </label>
                         <input
-                          type="number"
-                          id="lat"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="Latitude"
-                          value={markerPosition.lat}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setMarkerPosition({
-                              lat: Number(e.target.value),
-                              lng: markerPosition.lng,
-                            })
-                          }
+                            type="number"
+                            id="lat"
+                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                            placeholder="Latitude"
+                            value={markerPosition.lat}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                setMarkerPosition({
+                                  lat: Number(e.target.value),
+                                  lng: markerPosition.lng,
+                                })
+                            }
                         />
                         <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
+                            className="text-xs font-light text-gray-500 mt-2"
+                            id="hs-input-helper-text"
                         >
                           Enter your Latitude
                         </p>
                         <label
-                          htmlFor="lng"
-                          className="block text-sm font-medium mb-2 text-green-600"
+                            htmlFor="lng"
+                            className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Longitude
                         </label>
                         <input
-                          type="number"
-                          id="lng"
-                          value={markerPosition.lng}
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="Longitude"
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setMarkerPosition({
-                              lat: markerPosition.lat,
-                              lng: Number(e.target.value),
-                            })
-                          }
+                            type="number"
+                            id="lng"
+                            value={markerPosition.lng}
+                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                            placeholder="Longitude"
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                setMarkerPosition({
+                                  lat: markerPosition.lat,
+                                  lng: Number(e.target.value),
+                                })
+                            }
                         />
                         <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
+                            className="text-xs font-light text-gray-500 mt-2"
+                            id="hs-input-helper-text"
                         >
                           Enter your Longitude
                         </p>
                         <button
-                          className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md"
-                          onClick={handleMoveMarker}
+                            className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md"
+                            type="button"
+                            onClick={handleMoveMarker}
                         >
                           Sync latitude and longitude to map
                         </button>
@@ -663,18 +630,18 @@ export default function CreateRestaurant({}: Props) {
                       <div className="col-span-6">
                         <div style={{ height: "400px", width: "100%" }}>
                           <GoogleMapReact
-                            bootstrapURLKeys={{
-                              key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
-                            }}
-                            defaultCenter={{
-                              lat: 13.850563550109797,
-                              lng: 100.57007576117385,
-                            }}
-                            defaultZoom={15}
-                            yesIWantToUseGoogleMapApiInternals
-                            onGoogleApiLoaded={({ map, maps }) =>
-                              renderMarkers(map, maps)
-                            }
+                              bootstrapURLKeys={{
+                                key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
+                              }}
+                              defaultCenter={{
+                                lat: 13.850563550109797,
+                                lng: 100.57007576117385,
+                              }}
+                              defaultZoom={15}
+                              yesIWantToUseGoogleMapApiInternals
+                              onGoogleApiLoaded={({ map, maps }) =>
+                                  renderMarkers(map, maps)
+                              }
                           ></GoogleMapReact>
                         </div>
                       </div>
@@ -709,24 +676,29 @@ export default function CreateRestaurant({}: Props) {
                     </div>
                     <div className="flex flex-col ml-3 space-y-4">
                       <div className="flex flex-col px-14 mr-8 ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Tel
-                        </label>
-                        <input
-                          type="tel"
-                          id="tel"
-                          className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="restaurant tel"
-                        />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant tel
-                        </p>
+                        <FormField
+                            name="contactInfo"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                    Phone
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                           {...field}
+                                           id="contactInfo"
+                                           placeholder="012-345-6789"
+                                           disabled={isLoading}
+                                    />
+                                  </FormControl>
+                                  <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                    Enter your restaurant phone number
+                                  </FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                            )}
+                            />
                       </div>
                       <div className="flex flex-col px-14 mr-8 ml-8">
                         <label
