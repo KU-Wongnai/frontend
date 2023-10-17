@@ -2,6 +2,7 @@
 import DropdownDayInWeek from "@/components/dropdown-dayInWeek";
 import DropdownFoodCategories from "@/components/dropdown-foodCategories";
 import TagTitle from "@/components/tag-title";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import DropdownTimeScale from "@/components/dropdown-timeScale";
@@ -39,13 +40,14 @@ export default function CreateRestaurant({}: Props) {
     });
 
   const { isLoading } = form.formState;
+  const router = useRouter();
 
   const onSubmit = async (data: RestaurantForm) => {
     console.log("Form submitted", data);
     try {
       await createRestaurant(data);
       toast.success("Restaurant created successfully");
-      // window.location.href = "/";
+      router.push("/");
     } catch (error: any) {
       if (error.response.status === 422)
           // Loop over the errors object and set errors return from restaurant-service
