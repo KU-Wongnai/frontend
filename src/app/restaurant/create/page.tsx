@@ -290,57 +290,22 @@ export default function CreateRestaurant({}: Props) {
                                 control={form.control}
                                 render={({ field }) => (
                                     <FormItem>
-                                      <FormLabel>Name</FormLabel>
+                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">Name *</FormLabel>
                                       <FormControl>
-                                        <Input
-                                            {...field}
-                                            id="name"
-                                            placeholder="Restaurant name"
-                                            disabled={isLoading}
+                                        <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                               {...field}
+                                               id="name"
+                                               placeholder="Restaurant name"
+                                               disabled={isLoading}
                                         />
                                       </FormControl>
                                       <FormMessage />
+                                      <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                        Enter your restaurant name
+                                      </FormDescription>
                                     </FormItem>
                                 )}
                             />
-                            {/*<label*/}
-                            {/*  htmlFor="input-label-with-helper-text"*/}
-                            {/*  className="block text-sm font-medium mb-2 text-green-600"*/}
-                            {/*>*/}
-                            {/*  Name*/}
-                            {/*</label>*/}
-                            {/*<input*/}
-                            {/*  type="text"*/}
-                            {/*  id="name"*/}
-                            {/*  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"*/}
-                            {/*  placeholder="restaurant name"*/}
-                            {/*/>*/}
-                            <p
-                              className="text-xs font-light text-gray-500 mt-2"
-                              id="hs-input-helper-text"
-                            >
-                              Enter your restaurant name
-                            </p>
-                          </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <label
-                              htmlFor="input-label-with-helper-text"
-                              className="block text-sm font-medium mb-2 text-green-600"
-                            >
-                              Branch
-                            </label>
-                            <input
-                              type="text"
-                              id="branch"
-                              className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                              placeholder="restaurant branch"
-                            />
-                            <p
-                              className="text-xs font-light text-gray-500 mt-2"
-                              id="hs-input-helper-text"
-                            >
-                              Enter your restaurant branch
-                            </p>
                           </div>
                           <div className="flex flex-col px-14 mr-8 ml-8">
                             <FormField
@@ -348,13 +313,15 @@ export default function CreateRestaurant({}: Props) {
                                 control={form.control}
                                 render={({ field }) => (
                                     <FormItem>
-                                      <FormLabel>Description</FormLabel>
+                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                        Description
+                                      </FormLabel>
                                       <FormControl>
-                                        <Input
-                                            {...field}
-                                            id="description"
-                                            placeholder="Describe your restaurant"
-                                            disabled={isLoading}
+                                        <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                               {...field}
+                                               id="description"
+                                               placeholder="Describe your restaurant"
+                                               disabled={isLoading}
                                         />
                                       </FormControl>
                                       <FormMessage />
