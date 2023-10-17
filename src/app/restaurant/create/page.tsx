@@ -21,6 +21,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {Button} from "@/components/ui/button";
 import {Icons} from "@/components/icons";
 type Props = {};
@@ -331,26 +338,6 @@ export default function CreateRestaurant({}: Props) {
                           </div>
                           <div className="flex flex-col px-14 mr-8 ml-8">
                             <FormField
-                                name="foodType"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>Category</FormLabel>
-                                      <FormControl>
-                                        <Input
-                                            {...field}
-                                            id="foodType"
-                                            placeholder="Select Food Category"
-                                            disabled={isLoading}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                          </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
                                 name="location"
                                 control={form.control}
                                 render={({ field }) => (
@@ -389,39 +376,68 @@ export default function CreateRestaurant({}: Props) {
                                 )}
                             />
                           </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">
-                            <label
-                              htmlFor="input-label-with-helper-text"
-                              className="block text-sm font-medium mb-1 text-green-600"
-                            >
-                              Category of Food
-                            </label>
-                            {Array.from({ length: optionCount }).map((_, index) => (
-                              <div
-                                className="flex justify-center items-center gap-3"
-                                key={index}
-                              >
-                                <DropdownFoodCategories
-                                  value={selectedCategories[index] || ""}
-                                  onChange={(selectedCategory) =>
-                                    handleCategoryChange(index, selectedCategory)
-                                  }
-                                />
-                                <button
-                                  className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "
-                                  onClick={() => handleDeleteCategory(index)}
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            ))}
-                            <button
-                              className="text-sm font-light text-green-600 underline"
-                              onClick={handleAddCategory}
-                            >
-                              + Add Additional Categories
-                            </button>
+                          <div className="flex flex-col px-14 mr-8 ml-8">
+                            <FormField
+                                name="foodType"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                        Category
+                                      </FormLabel>
+                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                          <div className="text-sm font-light  dark:text-gray-400" >
+                                            <SelectTrigger>
+                                              <SelectValue  placeholder="Select Food Category..." />
+                                            </SelectTrigger>
+                                          </div>
+                                        </FormControl>
+                                        <SelectContent>
+                                          <SelectItem value="Noodle">Noodle</SelectItem>
+                                          <SelectItem value="Breakfast">Breakfast</SelectItem>
+                                          <SelectItem value="Beverage">Beverage</SelectItem>
+                                          <SelectItem value="Steak">Steak</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                      <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                           </div>
+                          {/*<div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">*/}
+                          {/*  <label*/}
+                          {/*    htmlFor="input-label-with-helper-text"*/}
+                          {/*    className="block text-sm font-medium mb-1 text-green-600"*/}
+                          {/*  >*/}
+                          {/*    Category of Food*/}
+                          {/*  </label>*/}
+                          {/*  {Array.from({ length: optionCount }).map((_, index) => (*/}
+                          {/*    <div*/}
+                          {/*      className="flex justify-center items-center gap-3"*/}
+                          {/*      key={index}*/}
+                          {/*    >*/}
+                          {/*      <DropdownFoodCategories*/}
+                          {/*        value={selectedCategories[index] || ""}*/}
+                          {/*        onChange={(selectedCategory) =>*/}
+                          {/*          handleCategoryChange(index, selectedCategory)*/}
+                          {/*        }*/}
+                          {/*      />*/}
+                          {/*      <button*/}
+                          {/*        className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "*/}
+                          {/*        onClick={() => handleDeleteCategory(index)}*/}
+                          {/*      >*/}
+                          {/*        Delete*/}
+                          {/*      </button>*/}
+                          {/*    </div>*/}
+                          {/*  ))}*/}
+                          {/*  <button*/}
+                          {/*    className="text-sm font-light text-green-600 underline"*/}
+                          {/*    onClick={handleAddCategory}*/}
+                          {/*  >*/}
+                          {/*    + Add Additional Categories*/}
+                          {/*  </button>*/}
+                          {/*</div>*/}
                           <div className="flex flex-col px-14 mr-8 ml-8">
                             <label
                               htmlFor="input-label-with-helper-text"
