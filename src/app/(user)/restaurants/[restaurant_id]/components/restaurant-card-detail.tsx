@@ -55,33 +55,27 @@ const RestaurantCardDetail = ({ id }: { id: number }) => {
         {/* detail */}
         <div className="flex flex-col ml-5">
           <div className="flex items-end gap-4">
-            <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
+            <h1 className="scroll-m-20 pb-2 text-2xl font-semibold tracking-tight transition-colors">
               {restaurant?.name}
             </h1>
           </div>
-          <div className="flex items-center gap-3 mb-3">
-            <div className="bg-red-600 rounded-lg flex px-2 py-1 text-white w-fit gap-2 items-center">
-              <h2 className="text-lg font-semibold tracking-tight ">
-                {average}
-              </h2>
-              <Star className="w-5 h-5" />
+          <div className="flex items-center gap-2 mb-3">
+            <div className="inline-block px-2 py-1 rounded-lg text-white bg-orange-600">
+              <span className="flex items-center">
+                {average} <Star className="ml-1 w-4 h-4" />
+              </span>
             </div>
-            <span>
-              <span className="text-xl font-semibold tracking-tight mb-3 text-gray-400">
+            <div>
+              <span className="text-sm text-gray-500">
                 {reviewCount} reviews
               </span>
-            </span>
+            </div>
           </div>
-          <div className="flex items-end gap-3 mb-3">
-            <h2 className="text-2xl font-semibold tracking-tight">Category:</h2>
-            <h3 className="text-xl font-semibold tracking-tight  text-gray-400">
-              {restaurant?.foodType}
-            </h3>
+          <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+            {restaurant?.foodType}
           </div>
-          <div className="flex items-end gap-3 mb-3">
-            <p className="text-xl font-semibold tracking-tight text-gray-400">
-              {restaurant?.description}
-            </p>
+          <div className="mt-3 text-gray-600 dark:text-gray-300">
+            {restaurant?.description}
           </div>
         </div>
       </div>
