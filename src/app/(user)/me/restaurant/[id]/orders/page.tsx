@@ -1,9 +1,9 @@
 "use client";
 import TagTitle from "@/components/tag-title";
 import React, { useState } from "react";
-import OrderCard from "@/app/restaurant/components/order-card-dashboard";
-import { mockOrderData } from "../../../../mock/order";
-import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
+import OrderCard from "@/app/(user)/me/restaurant/components/order-card-dashboard";
+import { mockOrderData } from "../../../../../../mock/order";
+import { Avatar, AvatarImage } from "../../../../../../components/ui/avatar";
 
 type Props = {}
 

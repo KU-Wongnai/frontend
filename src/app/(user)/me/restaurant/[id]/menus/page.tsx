@@ -1,9 +1,9 @@
 "use client";
 import TagTitle from "@/components/tag-title";
 import React, { useState } from "react";
-import { mockMenuData } from "../../../../mock/menu-card";
+import { mockMenuData } from "../../../../../../mock/menu-card";
 import Link from "next/link";
-import RestaurantFoodCard from "@/app/restaurant/components/menu-card-restaurant";
+import RestaurantFoodCard from "@/app/(user)/me/restaurant/components/menu-card-restaurant";
 import { mockFoodCategoryData } from "@/mock/food-ype";
 import FoodCategoryCard from "../../components/food-category-card";
 type Props = {};

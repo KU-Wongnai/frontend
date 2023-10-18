@@ -1,12 +1,12 @@
 "use client";
-import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
+import { Avatar, AvatarImage } from "../../../../../../components/ui/avatar";
 import TagTitle from "@/components/tag-title";
 import React, { useEffect, useState } from "react";
 import RealTimeClock from "@/components/clock";
-import { mockMenuData } from "../../../../mock/menu-card";
-import { mockOrderData } from "../../../../mock/order";
-import OrderCard from "@/app/restaurant/components/order-card-dashboard";
-import RestaurantMenuCard from "@/app/restaurant/components/menu-card-restaurant";
+import { mockMenuData } from "../../../../../../mock/menu-card";
+import { mockOrderData } from "../../../../../../mock/order";
+import OrderCard from "@/app/(user)/me/restaurant/components/order-card-dashboard";
+import RestaurantMenuCard from "@/app/(user)/me/restaurant/components/menu-card-restaurant";
 import { mockFoodCategoryData } from "@/mock/food-ype";
 import FoodCategoryCard from "../../components/food-category-card";
 type Props = {};
