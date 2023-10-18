@@ -190,11 +190,11 @@ export default function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
-                      href="/restaurant"
-                      className="flex items-center w-full"
+                        href="/restaurants/create"
+                        className="flex items-center w-full"
                     >
                       <UtensilsCrossed className="mr-2 h-4 w-4" />
-                      <span>Your restaurant</span>
+                      <span>Add restaurant</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
