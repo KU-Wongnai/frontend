@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@emotion/react':
     specifier: ^11.11.1
@@ -130,6 +134,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-currency-format:
+    specifier: ^1.1.0
+    version: 1.1.0(react-dom@18.2.0)(react@18.2.0)
   react-day-picker:
     specifier: ^8.8.2
     version: 8.8.2(date-fns@2.30.0)(react@18.2.0)
@@ -180,6 +187,9 @@ devDependencies:
   '@types/google.maps':
     specifier: ^3.54.1
     version: 3.54.1
+  '@types/react-currency-format':
+    specifier: ^1.0.2
+    version: 1.0.2
   '@types/react-payment-inputs':
     specifier: ^1.1.1
     version: 1.1.1
@@ -3752,6 +3762,12 @@ packages:
       parchment: 1.1.4
     dev: false
 
+  /@types/react-currency-format@1.0.2:
+    resolution: {integrity: sha512-unylX163BgjZvyR+NTA48Us29Ry0bVgpP2s5TSLe31z2bGqzoTs2fRLEeVNrSRkDQeCq27FVM8kwZEN0IUOFig==}
+    dependencies:
+      '@types/react': 18.2.21
+    dev: true
+
   /@types/react-dom@18.2.7:
     resolution: {integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA==}
     dependencies:
@@ -6186,6 +6202,17 @@ packages:
       quill-delta: 3.6.3
     dev: false
 
+  /react-currency-format@1.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-WWrEOIp/3GbDSk1wlhFXaBc7IHGT3IwL306DHbGP3GVr4YFa0iS5hHPbKjHa0haruGL4Ly+WG4/5jBHpUtgqZg==}
+    peerDependencies:
+      react: ^0.14 || ^15.0.0-rc || ^15.0.0 || ^16.0.0-rc || ^16.0.0 || ^17.0.0
+      react-dom: ^0.14 || ^15.0.0-rc || ^15.0.0 || ^16.0.0-rc || ^16.0.0 || ^17.0.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /react-day-picker@8.8.2(date-fns@2.30.0)(react@18.2.0):
     resolution: {integrity: sha512-sK5M5PNZaLiszmACUKUpVu1eX3eFDVV+WLdWQ3BxTPbEC9jhuawmlgpbSXX5dIIQQwJpZ4wwP5+vsMVOwa1IRw==}
     peerDependencies:
@@ -7230,7 +7257,3 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

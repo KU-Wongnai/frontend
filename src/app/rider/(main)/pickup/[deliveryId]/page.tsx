@@ -18,6 +18,7 @@ import { CardContent } from "@mui/material";
 import { ChefHat, Mail, MapPin, Phone, User2 } from "lucide-react";
 import { formatPhoneNumber } from "react-phone-number-input";
 import React, { useEffect } from "react";
+import CurrencyFormat from "react-currency-format";
 
 const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
   const [deliveryOrder, setDeliveryOrder] = React.useState<Delivery>();
@@ -229,10 +230,13 @@ const DeliveryDetails = ({ params }: { params: { deliveryId: string } }) => {
                             <TableCell>{item.menu.name}</TableCell>
                             <TableCell>x{item.quantity}</TableCell>
                             <TableCell>
-                              {new Intl.NumberFormat("en-US", {
-                                style: "currency",
-                                currency: "THB",
-                              }).format(item.price)}
+                              <CurrencyFormat
+                                value={item.price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"฿"}
+                                className="text-right font-medium"
+                              />
                             </TableCell>
                           </TableRow>
                         ))}

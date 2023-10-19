@@ -4,19 +4,18 @@ import { Item } from "@/types/cart";
 import { calculateMenuTotal } from "@/utils/cart";
 import { removeFromCart } from "@/services/cart";
 import toast from "react-hot-toast";
-import MenuDrawer from "../restaurants/[restaurant_id]/components/menu-drawer";
 import { X } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import CurrencyFormat from "react-currency-format";
 
 type CartMenuProps = {
   item: Item;
@@ -54,11 +53,23 @@ const CartItem = ({ item, editable }: CartMenuProps) => {
           <ul className="ml-6 text-sm list-disc text-gray-600 dark:text-gray-300">
             {item.options.map((o) => (
               <li key={o.id}>
-                {o.name} - {o.price} THB
+                {o.name} -{" "}
+                <CurrencyFormat
+                  value={o.price}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"฿"}
+                />
               </li>
             ))}
           </ul>
-          <p className="mt-3 font-bold">{calculateMenuTotal(item)} THB</p>
+          <CurrencyFormat
+            value={calculateMenuTotal(item)}
+            displayType={"text"}
+            thousandSeparator={true}
+            prefix={"฿"}
+            className="mt-3 font-bold"
+          />
         </div>
       </div>
       {editable && (

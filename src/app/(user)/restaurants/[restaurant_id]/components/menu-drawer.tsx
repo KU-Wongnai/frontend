@@ -27,6 +27,7 @@ import { Drawer } from "vaul";
 import toast from "react-hot-toast";
 import { addToCart } from "@/services/cart";
 import { Item } from "@/types/cart";
+import CurrencyFormat from "react-currency-format";
 
 type GroupedOption = {
   [key: string]: MenuOption[];
@@ -151,7 +152,12 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
                   </div>
                   <div className="flex justify-between text-xl font-semibold tracking-tight">
                     <p>{menu.category}</p>
-                    <p>{menu.price} THB</p>
+                    <CurrencyFormat
+                      value={menu.price}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"฿"}
+                    />
                   </div>
                   <p>{menu.description}</p>
 
@@ -193,7 +199,16 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
                                           </FormControl>
                                           <FormLabel className="w-full font-normal flex justify-between gap-2">
                                             <span>{option.name}</span>
-                                            <span>+{option.price} THB</span>
+
+                                            <span>
+                                              +
+                                              <CurrencyFormat
+                                                value={option.price}
+                                                displayType={"text"}
+                                                thousandSeparator={true}
+                                                prefix={"฿"}
+                                              />
+                                            </span>
                                           </FormLabel>
                                         </FormItem>
                                       ))}
@@ -230,7 +245,14 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
                     </Button>
                   </div>
                   <Button type="submit" className="text-white mt-4">
-                    Add to Cart {total * quantity} THB
+                    Add to Cart
+                    <CurrencyFormat
+                      value={total * quantity}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"฿"}
+                      className="ml-2"
+                    />
                   </Button>
                 </div>
               </form>
