@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import {
@@ -7,7 +7,7 @@ import {
   AvatarImage,
 } from "../../../../../components/ui/avatar";
 import { Order } from "@/types/order";
-import { getOrderByID } from "@/services/order";
+import { getOrderByID, updateOrderStatus } from "@/services/order";
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/button";
 import { mockOrderData } from "@/mock/order";
 import { Separator } from "@/components/ui/separator";
 
-
 const OrderCard: React.FC<any> = ({ id, decoration }) => {
   const [order, setOrder] = useState<Order>(mockOrderData[0]);
 
@@ -32,6 +31,15 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
     };
     fetchOrder();
   }, [id]);
+
+  const handlePreparing = () => {
+    console.log("id", id);
+    updateOrderStatus(id, "PREPARING");
+  };
+
+  const handleCompleted = () => {
+    updateOrderStatus(id, "COMPLETED");
+  };
 
   // setOrder(mockOrderData[0]);
 
@@ -138,9 +146,21 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" className="text-white">
-            Accept
-          </Button>
+          {order?.status === "RECEIVED" ? (
+            <Button type="submit" onClick={handlePreparing} className="text-white">
+              Accept
+            </Button>
+          ) : (
+            <>
+              {order?.status === "PREPARING" ? (
+                <Button type="submit" onClick={handleCompleted} className="text-white">
+                  Completed
+                </Button>
+              ) : (
+                <></>
+              )}
+            </>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -34,7 +34,7 @@ export const getMyBillBy = async (id: string) => {
 export const updateOrderStatus = async (id: string, status: OrderStatus) => {
   try {
     const { data } = await httpClient.put(
-      `/order/api/orders/${id}?status=${status}}`
+      `/order/api/orders/${id}?status=${status}`
     );
 
     return data;
