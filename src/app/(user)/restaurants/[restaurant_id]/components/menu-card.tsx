@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Menu, MenuOption } from "@/types/restaurant";
+import CurrencyFormat from "react-currency-format";
 
 const MenuCard: React.FC<Menu> = ({
   id,
@@ -31,7 +32,14 @@ const MenuCard: React.FC<Menu> = ({
       <div className="p-4 flex flex-col text-start">
         <p className="text-gray-600 text-sm sm:text-base">{category}</p>
         <h2 className="font-bold text-lg sm:text-xl mb-2">{name}</h2>
-        <span className="text-gray-500 text-sm sm:text-base">{price} $</span>
+        {/* <span className="text-gray-500 text-sm sm:text-base">{price} $</span> */}
+        <CurrencyFormat
+          value={price}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"฿"}
+          className="text-gray-500 text-sm sm:text-base"
+        />
       </div>
     </div>
   );

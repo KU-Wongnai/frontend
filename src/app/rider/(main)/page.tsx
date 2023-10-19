@@ -39,6 +39,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import CurrencyFormat from "react-currency-format";
 
 const data: Order[] = [
   {
@@ -560,7 +561,13 @@ export default function Rider() {
                     Total income you made from delivering orders so far.
                   </PopoverContent>
                 </Popover>
-                <p className="text-primary font-bold md:text-lg">THB 100.00</p>
+                <CurrencyFormat
+                  value={3456789}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"฿"}
+                  className="block text-primary font-bold md:text-lg"
+                />
               </div>
               <div className="p-4">
                 <Popover>
@@ -579,7 +586,13 @@ export default function Rider() {
                     Amount you can transfer to your bank account.
                   </PopoverContent>
                 </Popover>
-                <p className="text-primary font-bold md:text-lg">THB 100.00</p>
+                <CurrencyFormat
+                  value={69420}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"฿"}
+                  className="block text-primary font-bold md:text-lg"
+                />
               </div>
             </div>
             <Button asChild>

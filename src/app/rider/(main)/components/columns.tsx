@@ -23,6 +23,7 @@ import * as React from "react";
 import { Delivery, DeliveryStatus, Order } from "@/types/order";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import CurrencyFormat from "react-currency-format";
 
 export const columns: ColumnDef<Delivery>[] = [
   {
@@ -64,13 +65,15 @@ export const columns: ColumnDef<Delivery>[] = [
           price: acc.price + curr.price * curr.quantity,
         })) || 0;
 
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "THB",
-      }).format(total.price);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      return (
+        <CurrencyFormat
+          value={total.price}
+          displayType={"text"}
+          thousandSeparator={true}
+          prefix={"฿"}
+          className="text-right font-medium"
+        />
+      );
     },
   },
   {

@@ -5,6 +5,7 @@ import { Item } from "@/types/cart";
 import { calculateCartTotal } from "@/utils/cart";
 import React, { useEffect, useState } from "react";
 import CartItem from "./cart-item";
+import CurrencyFormat from "react-currency-format";
 
 const Summary = ({ editable }: { editable?: boolean }) => {
   const [cart, setCart] = useState<Item[]>([]);
@@ -37,15 +38,30 @@ const Summary = ({ editable }: { editable?: boolean }) => {
         <ul className="mt-8 space-y-2">
           <li className="flex justify-between">
             <span>Subtotal</span>
-            <span>{calculateCartTotal(cart)}</span>
+            <CurrencyFormat
+              value={calculateCartTotal(cart)}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={"฿"}
+            />
           </li>
           <li className="flex justify-between text-sm">
             <span>Shipping</span>
-            <span>0.00</span>
+            <CurrencyFormat
+              value={0}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={"฿"}
+            />
           </li>
           <li className="flex justify-between font-bold">
             <span>Total</span>
-            <span>{calculateCartTotal(cart)}</span>
+            <CurrencyFormat
+              value={calculateCartTotal(cart)}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={"฿"}
+            />
           </li>
         </ul>
       </div>
