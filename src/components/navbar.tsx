@@ -185,11 +185,11 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel className="m-5 text-lg">{user.name}</DropdownMenuLabel>
-                  <Button
+                  <button
                       onClick={handleViewProfileButton}
-                      className="flex items-center w-full">
+                      className="flex items-center w-full bg-primary justify-center rounded-sm p-1">
                     View Profile
-                  </Button>
+                  </button>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link

@@ -6,12 +6,15 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import DropdownTimeScale from "@/components/dropdown-timeScale";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {RestaurantForm, restaurantSchema} from "@/validations/restaurant-schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  RestaurantForm,
+  restaurantSchema,
+} from "@/validations/restaurant-schema";
 import toast from "react-hot-toast";
-import {createRestaurant} from "@/services/restaurant";
-import {Input} from "@/components/ui/input";
+import { createRestaurant } from "@/services/restaurant";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -28,23 +31,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {Button} from "@/components/ui/button";
-import {Icons} from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 type Props = {};
 
 let marker: any;
 export default function CreateRestaurant({}: Props) {
-    const form = useForm<RestaurantForm>({
-      defaultValues: {
-        name: '',
-        description: '',
-        location: '',
-        foodType: '',
-        contactInfo: '',
-        rating: 3,
-      },
-      resolver: zodResolver(restaurantSchema),
-    });
+  const form = useForm<RestaurantForm>({
+    defaultValues: {
+      name: "",
+      description: "",
+      location: "",
+      foodType: "",
+      contactInfo: "",
+      rating: 3,
+    },
+    resolver: zodResolver(restaurantSchema),
+  });
 
   const { isLoading } = form.formState;
   const router = useRouter();
@@ -57,7 +60,7 @@ export default function CreateRestaurant({}: Props) {
       router.push("/");
     } catch (error: any) {
       if (error.response.status === 422)
-          // Loop over the errors object and set errors return from restaurant-service
+        // Loop over the errors object and set errors return from restaurant-service
         for (const key in error.response.data.errors) {
           if (error.response.data.errors.hasOwnProperty(key)) {
             form.setError(key as any, {
@@ -261,7 +264,7 @@ export default function CreateRestaurant({}: Props) {
 
   return (
     <div className="">
-      <div className="container py-10 mt-14 px-20">
+      <div className="container py-10 mt-14 md:px-20">
         <p className="text-3xl font-bold">Add your restaurant</p>
         <p className="text-green-600 py-4">
           Providing accurate information will make it easier for users to find
@@ -269,249 +272,262 @@ export default function CreateRestaurant({}: Props) {
         </p>
       </div>
       {/* form for creating restaurant */}
-      <Form {...form} >
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {/* background of each section*/}
           <div className="">
-                  {/* block for base information  */}
-                <div className="flex justify-center text-sm font-bold container">
-                  {/* split 2 side */}
-                  <div className="w-2/3">
-                    {/* inner white block for input */}
-                    <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
-                      <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
+            {/* block for base information  */}
+            <div className="flex flex-col md:flex-row justify-center text-sm font-bold container pb-3 md:pb-0">
+              {/* split 2 side */}
+              <div className="w-full md:w-2/3">
+                {/* inner white block for input */}
+                <div className="bg-card border w-600 rounded-[12px] md:m-10 pb-16 shadow-md">
+                  <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
+                  <div>
+                    <div className="px-10 py-10 flex items-center mt-6">
+                      <TagTitle />
                       <div>
-                        <div className="px-10 py-10 flex items-center mt-6">
-                          <TagTitle />
-                          <div>
-                            <p className="font-bold text-lg py-2">Basic information</p>
-                            <p className="text-md font-light text-gray-500">
-                              restaurant information
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col ml-3 space-y-4">
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
-                                name="name"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">Name *</FormLabel>
-                                      <FormControl>
-                                        <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                               {...field}
-                                               id="name"
-                                               placeholder="Restaurant name"
-                                               disabled={isLoading}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                      <FormDescription className="text-xs font-light text-gray-500 mt-2">
-                                        Enter your restaurant name
-                                      </FormDescription>
-                                    </FormItem>
-                                )}
-                            />
-                          </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
-                                name="description"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                        Description
-                                      </FormLabel>
-                                      <FormControl>
-                                        <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                               {...field}
-                                               id="description"
-                                               placeholder="Describe your restaurant"
-                                               disabled={isLoading}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                          </div>
+                        <p className="font-bold text-lg py-2">
+                          Basic information
+                        </p>
+                        <p className="text-md font-light text-gray-500">
+                          restaurant information
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col ml-3 space-y-4 md:mx-8 px-14 justify-center">
+                      <div className="flex flex-col space-y-4 md:flex-row px-2">
+                        <FormField
+                          name="name"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem className="w-full md:pr-2">
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Name *
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="name"
+                                  placeholder="Restaurant name"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant name
+                              </FormDescription>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col space-y-4 md:flex-row px-2">
+                        <FormField
+                          name="description"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem className="w-full md:pr-2">
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Description
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="description"
+                                  placeholder="Describe your restaurant"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                          <div className="flex flex-col px-14 mr-8 ml-8">
-                            <FormField
-                                name="foodType"
-                                control={form.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                        Category
-                                      </FormLabel>
-                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                          <div className="text-sm font-light  dark:text-gray-400" >
-                                            <SelectTrigger>
-                                              <SelectValue  placeholder="Select Food Category..." />
-                                            </SelectTrigger>
-                                          </div>
-                                        </FormControl>
-                                        <SelectContent>
-                                          <SelectItem value="Noodle">Noodle</SelectItem>
-                                          <SelectItem value="Breakfast">Breakfast</SelectItem>
-                                          <SelectItem value="Beverage">Beverage</SelectItem>
-                                          <SelectItem value="Steak">Steak</SelectItem>
-                                        </SelectContent>
-                                      </Select>
-                                      <FormMessage />
-                                    </FormItem>
-                                )}
+                      <div className="flex flex-col space-y-4 md:flex-row px-2">
+                        <FormField
+                          name="foodType"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem className="w-full md:pr-2">
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Category
+                              </FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <div className="text-sm font-light  dark:text-gray-400">
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Select Food Category..." />
+                                    </SelectTrigger>
+                                  </div>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="Noodle">Noodle</SelectItem>
+                                  <SelectItem value="Breakfast">
+                                    Breakfast
+                                  </SelectItem>
+                                  <SelectItem value="Beverage">
+                                    Beverage
+                                  </SelectItem>
+                                  <SelectItem value="Steak">Steak</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      {/*<div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">*/}
+                      {/*  <label*/}
+                      {/*    htmlFor="input-label-with-helper-text"*/}
+                      {/*    className="block text-sm font-medium mb-1 text-green-600"*/}
+                      {/*  >*/}
+                      {/*    Category of Food*/}
+                      {/*  </label>*/}
+                      {/*  {Array.from({ length: optionCount }).map((_, index) => (*/}
+                      {/*    <div*/}
+                      {/*      className="flex justify-center items-center gap-3"*/}
+                      {/*      key={index}*/}
+                      {/*    >*/}
+                      {/*      <DropdownFoodCategories*/}
+                      {/*        value={selectedCategories[index] || ""}*/}
+                      {/*        onChange={(selectedCategory) =>*/}
+                      {/*          handleCategoryChange(index, selectedCategory)*/}
+                      {/*        }*/}
+                      {/*      />*/}
+                      {/*      <button*/}
+                      {/*        className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "*/}
+                      {/*        onClick={() => handleDeleteCategory(index)}*/}
+                      {/*      >*/}
+                      {/*        Delete*/}
+                      {/*      </button>*/}
+                      {/*    </div>*/}
+                      {/*  ))}*/}
+                      {/*  <button*/}
+                      {/*    className="text-sm font-light text-green-600 underline"*/}
+                      {/*    onClick={handleAddCategory}*/}
+                      {/*  >*/}
+                      {/*    + Add Additional Categories*/}
+                      {/*  </button>*/}
+                      {/*</div>*/}
+                      <div className="flex flex-col px-2">
+                        <label
+                          htmlFor="input-label-with-helper-text"
+                          className="block text-sm font-medium mb-2 text-green-600"
+                        >
+                          Service option
+                        </label>
+                        <div className="flex gap-4">
+                          <div className="flex items-center">
+                            <input
+                              id="link-checkbox-delivery"
+                              type="checkbox"
+                              value="delivery"
+                              onClick={onHandleChangeDeliveryStatus}
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2"
                             />
-                          </div>
-                          {/*<div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">*/}
-                          {/*  <label*/}
-                          {/*    htmlFor="input-label-with-helper-text"*/}
-                          {/*    className="block text-sm font-medium mb-1 text-green-600"*/}
-                          {/*  >*/}
-                          {/*    Category of Food*/}
-                          {/*  </label>*/}
-                          {/*  {Array.from({ length: optionCount }).map((_, index) => (*/}
-                          {/*    <div*/}
-                          {/*      className="flex justify-center items-center gap-3"*/}
-                          {/*      key={index}*/}
-                          {/*    >*/}
-                          {/*      <DropdownFoodCategories*/}
-                          {/*        value={selectedCategories[index] || ""}*/}
-                          {/*        onChange={(selectedCategory) =>*/}
-                          {/*          handleCategoryChange(index, selectedCategory)*/}
-                          {/*        }*/}
-                          {/*      />*/}
-                          {/*      <button*/}
-                          {/*        className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "*/}
-                          {/*        onClick={() => handleDeleteCategory(index)}*/}
-                          {/*      >*/}
-                          {/*        Delete*/}
-                          {/*      </button>*/}
-                          {/*    </div>*/}
-                          {/*  ))}*/}
-                          {/*  <button*/}
-                          {/*    className="text-sm font-light text-green-600 underline"*/}
-                          {/*    onClick={handleAddCategory}*/}
-                          {/*  >*/}
-                          {/*    + Add Additional Categories*/}
-                          {/*  </button>*/}
-                          {/*</div>*/}
-                          <div className="flex flex-col px-14 mr-8 ml-8">
                             <label
-                              htmlFor="input-label-with-helper-text"
-                              className="block text-sm font-medium mb-2 text-green-600"
+                              htmlFor="link-checkbox-delivery"
+                              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                             >
-                              Service option
+                              Delivery
                             </label>
-                            <div className="flex gap-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="link-checkbox-delivery"
-                                  type="checkbox"
-                                  value="delivery"
-                                  onClick={onHandleChangeDeliveryStatus}
-                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2"
-                                />
-                                <label
-                                  htmlFor="link-checkbox-delivery"
-                                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                  Delivery
-                                </label>
-                              </div>
-                              <div className="flex items-center">
-                                <input
-                                  id="link-checkbox-walkIn"
-                                  type="checkbox"
-                                  value="walkIn"
-                                  onClick={onHandleChangeWalkInStatus}
-                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2"
-                                />
-                                <label
-                                  htmlFor="link-checkbox-walkIn"
-                                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                  Walk In
-                                </label>
-                              </div>
-                            </div>
                           </div>
-                          <div className="flex flex-col px-14 mr-8 ml-8">
+                          <div className="flex items-center">
+                            <input
+                              id="link-checkbox-walkIn"
+                              type="checkbox"
+                              value="walkIn"
+                              onClick={onHandleChangeWalkInStatus}
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2"
+                            />
                             <label
-                              htmlFor="input-label-with-helper-text"
-                              className="block text-sm font-medium mb-2 text-green-600"
+                              htmlFor="link-checkbox-walkIn"
+                              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                             >
-                              Price Range
+                              Walk In
                             </label>
-                            <div className="flex flex-col gap-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="under-100"
-                                  type="radio"
-                                  name="default-radio"
-                                  value="underHundred"
-                                  checked={pricingRange === "underHundred"}
-                                  onChange={onPricingChange}
-                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                  htmlFor="under-100"
-                                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                  Less than 100 baht.
-                                </label>
-                              </div>
-                              <div className="flex items-center">
-                                <input
-                                  id="100-to-1000"
-                                  type="radio"
-                                  value="hundredToThousand"
-                                  name="default-radio"
-                                  checked={pricingRange === "hundredToThousand"}
-                                  onChange={onPricingChange}
-                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                  htmlFor="100-to-1000"
-                                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                  100 to 1000 baht.
-                                </label>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
-                      <div></div>
+                      <div className="flex flex-col px-2">
+                        <label
+                          htmlFor="input-label-with-helper-text"
+                          className="block text-sm font-medium mb-2 text-green-600"
+                        >
+                          Price Range
+                        </label>
+                        <div className="flex flex-col gap-4">
+                          <div className="flex items-center">
+                            <input
+                              id="under-100"
+                              type="radio"
+                              name="default-radio"
+                              value="underHundred"
+                              checked={pricingRange === "underHundred"}
+                              onChange={onPricingChange}
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label
+                              htmlFor="under-100"
+                              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              Less than 100 baht.
+                            </label>
+                          </div>
+                          <div className="flex items-center">
+                            <input
+                              id="100-to-1000"
+                              type="radio"
+                              value="hundredToThousand"
+                              name="default-radio"
+                              checked={pricingRange === "hundredToThousand"}
+                              onChange={onPricingChange}
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label
+                              htmlFor="100-to-1000"
+                              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >
+                              100 to 1000 baht.
+                            </label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
-                    <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center">
-                      <p className="font-bold text-2xl text-white">1</p>
-                    </div>
-                    <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
-                    <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
-                  </div>
+                  <div></div>
                 </div>
+              </div>
+              <div className="p-4 hidden md:flex flex-col justify-center items-center w-full md:w-1/3 gap-4 mt-4 md:mt-0">
+                <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center">
+                  <p className="font-bold text-2xl text-white">1</p>
+                </div>
+                <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
+                <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
+              </div>
+            </div>
           </div>
           {/* background of each section*/}
           <div className="bg-background">
             {/* block for location  */}
-            <div className="flex justify-center text-sm font-bold container">
+            <div className="flex flex-col md:flex-row justify-center text-sm font-bold container pt-3 md:pt-0 pb-3 md:pb-0">
               {/* sprit 2 side */}
-              <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
+              <div className="p-4 md:flex hidden flex-col justify-center items-center w-1/3 gap-4">
                 <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center">
                   <p className="font-bold text-2xl text-white">2</p>
                 </div>
                 <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
                 <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
               </div>
-              <div className="w-2/3">
+              <div className="w-full md:w-2/3">
                 {/* inner white block for input */}
-                <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
+                <div className="bg-card border w-full md:w-600 mx-auto rounded-[12px] md:m-10 pb-16 shadow-md">
                   <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
                   <div>
                     <div className="px-10 py-10 flex items-center mt-6">
@@ -525,123 +541,124 @@ export default function CreateRestaurant({}: Props) {
                         </p>
                       </div>
                     </div>
-                    <div className="grid grid-cols-12 pl-14 mr-2 ml-11 gap-5">
-                      <div className="col-span-6 flex flex-col">
+                    <div className="grid grid-cols-1 md:grid-cols-12 pl-4 md:pl-14 mr-2 ml-11 px-14 gap-5">
+                      <div className="col-span-6 flex flex-col space-y-4">
                         <FormField
-                            name="location"
-                            control={form.control}
-                            render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                    Location *
-                                  </FormLabel>
-                                  <FormControl>
-                                    <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                           {...field}
-                                           id="location"
-                                           placeholder="Alley or Road name"
-                                           disabled={isLoading}
-                                    />
-                                  </FormControl>
-                                  <FormDescription className="text-xs font-light text-gray-500 mt-2">
-                                    Enter your restaurant location
-                                  </FormDescription>
-                                  <FormMessage />
-                                </FormItem>
-                            )}
+                          name="location"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Location *
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="location"
+                                  placeholder="Alley or Road name"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant location
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
 
                         <label
-                            htmlFor="input-label-with-helper-text"
-                            className="block text-sm font-medium mb-2 text-green-600"
+                          htmlFor="input-label-with-helper-text"
+                          className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Route
                         </label>
                         <input
-                            type="text"
-                            id="route"
-                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                            placeholder="Specify the route or landmarks to assist in navigating to the restaurant"
+                          type="text"
+                          id="route"
+                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                          placeholder="Specify the route or landmarks to assist in navigating to the restaurant"
                         />
                         <p
-                            className="text-xs font-light text-gray-500 mt-2"
-                            id="hs-input-helper-text"
+                          className="text-xs font-light text-gray-500 mt-2"
+                          id="hs-input-helper-text"
                         >
                           Enter your restaurant route
                         </p>
                         <label
-                            htmlFor="lat"
-                            className="block text-sm font-medium mb-2 text-green-600"
+                          htmlFor="lat"
+                          className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Latitude
                         </label>
                         <input
-                            type="number"
-                            id="lat"
-                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                            placeholder="Latitude"
-                            value={markerPosition.lat}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                setMarkerPosition({
-                                  lat: Number(e.target.value),
-                                  lng: markerPosition.lng,
-                                })
-                            }
+                          type="number"
+                          id="lat"
+                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                          placeholder="Latitude"
+                          value={markerPosition.lat}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setMarkerPosition({
+                              lat: Number(e.target.value),
+                              lng: markerPosition.lng,
+                            })
+                          }
                         />
                         <p
-                            className="text-xs font-light text-gray-500 mt-2"
-                            id="hs-input-helper-text"
+                          className="text-xs font-light text-gray-500 mt-2"
+                          id="hs-input-helper-text"
                         >
                           Enter your Latitude
                         </p>
                         <label
-                            htmlFor="lng"
-                            className="block text-sm font-medium mb-2 text-green-600"
+                          htmlFor="lng"
+                          className="block text-sm font-medium mb-2 text-green-600"
                         >
                           Longitude
                         </label>
                         <input
-                            type="number"
-                            id="lng"
-                            value={markerPosition.lng}
-                            className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                            placeholder="Longitude"
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                setMarkerPosition({
-                                  lat: markerPosition.lat,
-                                  lng: Number(e.target.value),
-                                })
-                            }
+                          type="number"
+                          id="lng"
+                          value={markerPosition.lng}
+                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                          placeholder="Longitude"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setMarkerPosition({
+                              lat: markerPosition.lat,
+                              lng: Number(e.target.value),
+                            })
+                          }
                         />
                         <p
-                            className="text-xs font-light text-gray-500 mt-2"
-                            id="hs-input-helper-text"
+                          className="text-xs font-light text-gray-500 mt-2"
+                          id="hs-input-helper-text"
                         >
                           Enter your Longitude
                         </p>
                         <button
-                            className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md"
-                            type="button"
-                            onClick={handleMoveMarker}
+                          className="font-medium text-white bg-green-600 p-2 mt-3 rounded-md"
+                          type="button"
+                          onClick={handleMoveMarker}
                         >
                           Sync latitude and longitude to map
                         </button>
                       </div>
-                      <div className="col-span-6">
-                        <div style={{ height: "400px", width: "100%" }}>
+                      <div className="col-span-6 mt-6 md:mt-0">
+                        <div className="w-full h-40 md:h-400">
                           <GoogleMapReact
-                              bootstrapURLKeys={{
-                                key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
-                              }}
-                              defaultCenter={{
-                                lat: 13.850563550109797,
-                                lng: 100.57007576117385,
-                              }}
-                              defaultZoom={15}
-                              yesIWantToUseGoogleMapApiInternals
-                              onGoogleApiLoaded={({ map, maps }) =>
-                                  renderMarkers(map, maps)
-                              }
+                            bootstrapURLKeys={{
+                              key: "AIzaSyBBUB0Wrt1xnu8qOK1_7teVZF2J7hY4Smk",
+                            }}
+                            defaultCenter={{
+                              lat: 13.850563550109797,
+                              lng: 100.57007576117385,
+                            }}
+                            defaultZoom={15}
+                            yesIWantToUseGoogleMapApiInternals
+                            onGoogleApiLoaded={({ map, maps }) =>
+                              renderMarkers(map, maps)
+                            }
                           ></GoogleMapReact>
                         </div>
                       </div>
@@ -656,11 +673,11 @@ export default function CreateRestaurant({}: Props) {
           {/* background of each section*/}
           <div className="">
             {/* block for base information  */}
-            <div className="flex justify-center text-sm font-bold container">
+            <div className="flex justify-center text-sm font-bold container pt-3 md:pt-0 pb-3 md:pb-0">
               {/* sprit 2 side */}
-              <div className="w-2/3">
+              <div className="w-full md:w-2/3">
                 {/* inner white block for input */}
-                <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
+                <div className="bg-card border w-600 rounded-[12px] md:m-10 pb-16 shadow-md">
                   <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
                   <div>
                     <div className="px-10 py-10 flex items-center mt-6">
@@ -675,32 +692,33 @@ export default function CreateRestaurant({}: Props) {
                       </div>
                     </div>
                     <div className="flex flex-col ml-3 space-y-4">
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <FormField
-                            name="contactInfo"
-                            control={form.control}
-                            render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                    Phone
-                                  </FormLabel>
-                                  <FormControl>
-                                    <Input className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                           {...field}
-                                           id="contactInfo"
-                                           placeholder="012-345-6789"
-                                           disabled={isLoading}
-                                    />
-                                  </FormControl>
-                                  <FormDescription className="text-xs font-light text-gray-500 mt-2">
-                                    Enter your restaurant phone number
-                                  </FormDescription>
-                                  <FormMessage />
-                                </FormItem>
-                            )}
-                            />
+                          name="contactInfo"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Phone
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="contactInfo"
+                                  placeholder="012-345-6789"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant phone number
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       </div>
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-2 text-green-600"
@@ -720,7 +738,7 @@ export default function CreateRestaurant({}: Props) {
                           Enter your restaurant email
                         </p>
                       </div>
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-2 text-green-600"
@@ -740,7 +758,7 @@ export default function CreateRestaurant({}: Props) {
                           Enter your restaurant facebook page
                         </p>
                       </div>
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-2 text-green-600"
@@ -760,7 +778,7 @@ export default function CreateRestaurant({}: Props) {
                           Enter your restaurant LINE ID
                         </p>
                       </div>
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-2 text-green-600"
@@ -780,7 +798,7 @@ export default function CreateRestaurant({}: Props) {
                           Enter your restaurant Instagram
                         </p>
                       </div>
-                      <div className="flex flex-col px-14 mr-8 ml-8">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-2 text-green-600"
@@ -805,7 +823,7 @@ export default function CreateRestaurant({}: Props) {
                   <div></div>
                 </div>
               </div>
-              <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
+              <div className="p-4 hidden md:flex flex-col justify-center items-center w-1/3 gap-4">
                 <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center animate-wiggle animate-infinite">
                   <p className="font-bold text-2xl text-white">3</p>
                 </div>
@@ -816,19 +834,18 @@ export default function CreateRestaurant({}: Props) {
           </div>
           {/* background of each section*/}
           <div className="bg-background">
-            {/* block for base information  */}
-            <div className="flex justify-center text-sm font-bold container">
-              {/* sprit 2 side */}
-              <div className="p-4 flex flex-col justify-center items-center w-1/3 gap-4">
+            <div className="flex flex-col md:flex-row justify-center text-sm font-bold container py-6">
+              <div className="p-4 hidden md:flex flex-col justify-center items-center w-1/3 gap-4">
                 <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center">
                   <p className="font-bold text-2xl text-white">4</p>
                 </div>
                 <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
                 <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
               </div>
-              <div className="w-2/3">
-                {/* inner white block for input */}
-                <div className="bg-card w-600 rounded-[12px] m-10 pb-16 shadow-md">
+
+              <div className="w-full md:w-2/3 lg:w-3/4">
+                <div className="bg-card border w-full lg:max-w-xl xl:max-w-2xl rounded-[12px] md:m-10 pb-16 shadow-md">
+                  {/* ... Other contents inside this div ... */}
                   <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
                   <div>
                     <div className="px-10 py-10 flex items-center mt-6">
@@ -843,32 +860,34 @@ export default function CreateRestaurant({}: Props) {
                       </div>
                     </div>
                     <div className="flex flex-col ml-3 space-y-4">
-                      <div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8 justify-start items-start gap-4">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-1 text-green-600"
                         >
                           Open Day
                         </label>
-                        {Array.from({ length: optionCountDay }).map((_, index) => (
-                          <div
-                            className="flex justify-center items-center gap-3"
-                            key={index}
-                          >
-                            <DropdownDayInWeek
-                              value={selectedDay[index] || ""}
-                              onChange={(selectedDay) =>
-                                handleDayChange(index, selectedDay)
-                              }
-                            />
-                            <button
-                              className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "
-                              onClick={() => handleDeleteDay(index)}
+                        {Array.from({ length: optionCountDay }).map(
+                          (_, index) => (
+                            <div
+                              className="flex justify-center items-center gap-3"
+                              key={index}
                             >
-                              Delete
-                            </button>
-                          </div>
-                        ))}
+                              <DropdownDayInWeek
+                                value={selectedDay[index] || ""}
+                                onChange={(selectedDay) =>
+                                  handleDayChange(index, selectedDay)
+                                }
+                              />
+                              <button
+                                className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "
+                                onClick={() => handleDeleteDay(index)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )
+                        )}
                         <button
                           className="text-sm font-light text-green-600 underline"
                           onClick={handleAddDay}
@@ -878,7 +897,7 @@ export default function CreateRestaurant({}: Props) {
                       </div>
                     </div>
                     <div className="flex flex-col ml-3 space-y-4 mt-4">
-                      <div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8 justify-start items-start gap-4">
                         <label
                           htmlFor="input-label-with-helper-text"
                           className="block text-sm font-medium mb-1 text-green-600"
@@ -891,11 +910,11 @@ export default function CreateRestaurant({}: Props) {
                         />
                       </div>
                     </div>
-                    <div className="flex flex-col ml-3 space-y-4 mt-4">
-                      <div className="flex flex-col px-14 mr-8 ml-8 justify-start items-start gap-4">
+                    <div className="flex flex-col ml-3 space-y-4 mt-4 w-full">
+                      <div className="flex flex-col px-14 md:mr-8 md:ml-8 justify-start items-start gap-4 w-full">
                         <label
                           htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-1 text-green-600"
+                          className="block text-sm font-medium mb-1 text-green-600 w-full"
                         >
                           Close Time
                         </label>
@@ -907,14 +926,14 @@ export default function CreateRestaurant({}: Props) {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end mr-9">
+                <div className="flex justify-end mt-4 px-4 md:px-0">
                   <Button
-                      disabled={isLoading}
-                      type="submit"
-                      className="w-1/3 selection:bg-green-600 hover:bg-green-800 text-white"
+                    disabled={isLoading}
+                    type="submit"
+                    className="w-full md:w-1/3 selection:bg-green-600 hover:bg-green-800 text-white"
                   >
                     {isLoading && (
-                        <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                      <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                     )}
                     Submit
                   </Button>
@@ -925,6 +944,5 @@ export default function CreateRestaurant({}: Props) {
         </form>
       </Form>
     </div>
-
   );
 }

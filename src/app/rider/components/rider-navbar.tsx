@@ -78,7 +78,7 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/restaurant" className="flex items-center w-full">
+                  <Link href="/me/restaurant" className="flex items-center w-full">
                     <UtensilsCrossed className="mr-2 h-4 w-4" />
                     <span>Your restaurant</span>
                   </Link>
@@ -90,7 +90,7 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/setting" className="flex items-center w-full">
+                  <Link href="/settings" className="flex items-center w-full">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
                   </Link>
@@ -134,7 +134,7 @@ export default function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/restaurant" className="flex items-center w-full">
+                <Link href="/me/restaurant" className="flex items-center w-full">
                   <UtensilsCrossed className="mr-2 h-4 w-4" />
                   <span>Your restaurant</span>
                 </Link>
@@ -146,7 +146,7 @@ export default function Navbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/setting" className="flex items-center w-full">
+                <Link href="/settings" className="flex items-center w-full">
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </Link>
