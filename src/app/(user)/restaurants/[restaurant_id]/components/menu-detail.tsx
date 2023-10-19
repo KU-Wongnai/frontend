@@ -1,6 +1,18 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+"use client";
 
+import React, { useEffect } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Menu, MenuOption } from "@/types/restaurant";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,37 +23,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Drawer } from "vaul";
-import { Menu, MenuOption } from "@/types/restaurant";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
+import toast from "react-hot-toast";
+import { addToCart } from "@/services/cart";
+import { Item } from "@/types/cart";
+import CurrencyFormat from "react-currency-format";
 
 type GroupedOption = {
   [key: string]: MenuOption[];
 };
 
-const MenuOption: React.FC<Menu> = ({
-  id,
-  image,
-  name,
-  description,
-  category,
-  price,
-  menuOptions,
-}) => {
+type MenuDetailProps = {
+  menu: Menu;
+  defaultValues?: Item;
+};
+
+const MenuDetail: React.FC<MenuDetailProps> = ({ menu, defaultValues }) => {
   const [quantity, setQuantity] = React.useState(1);
+  const [total, setTotal] = React.useState(menu.price);
 
-  // const optionNames = menuOptions.map((option) => option.name);
-
-  const groupedData = menuOptions.reduce(
+  const groupedData = menu.menuOptions.reduce(
     (result: GroupedOption, item: MenuOption) => {
       const { category, name, price } = item;
       result[category] = result[category] || [];
@@ -55,12 +55,7 @@ const MenuOption: React.FC<Menu> = ({
     Object.keys(groupedData).reduce(
       (result, key) => ({
         ...result,
-        [key]: z.object({
-          id: z.number(),
-          name: z.string(),
-          price: z.number(),
-          category: z.string(),
-        }),
+        [key]: z.string(),
       }),
       {}
     )
@@ -69,30 +64,62 @@ const MenuOption: React.FC<Menu> = ({
   type MenuForm = z.infer<typeof menuSchema>;
 
   const form = useForm({
-    defaultValues: Object.keys(groupedData).reduce(
-      (result, key) => ({
-        ...result,
-        [key]: undefined,
-      }),
-      {}
-    ) as any,
+    defaultValues: defaultValues
+      ? defaultValues.options.reduce(
+          (obj, option) => ({ ...obj, [option.category]: option.id }),
+          {}
+        )
+      : (Object.keys(groupedData).reduce(
+          (result, key) => ({
+            ...result,
+            [key]: undefined,
+          }),
+          {}
+        ) as any),
     resolver: zodResolver(menuSchema),
   });
 
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      console.log(value, name, type);
+      const total = Object.values(value).reduce((acc: number, value: any) => {
+        const option = findOption(+value);
+        if (!option) return acc;
+        return acc + option.price;
+      }, menu.price);
+      setTotal(total);
+    });
+    return () => subscription.unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.watch]);
+
   const onSubmit = async (data: MenuForm) => {
     console.log("Form submitted");
-    console.log(data);
+    console.log(Object.values(data).map((d: any) => +d));
+
+    await addToCart({
+      menuId: menu.id,
+      quantity,
+      optionIds: Object.values(data),
+    });
+
+    toast.success("Item added to cart.");
+  };
+
+  const findOption = (id: number) => {
+    return menu.menuOptions.find((option) => option.id === id);
   };
 
   const imageUrlUse =
-    image ||
+    menu.image ||
     "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
 
   return (
     <div className="w-full max-w-md mx-auto overflow-auto p-6">
       <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-8" />
       <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
-        {name}
+        {menu.name}
       </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6">
@@ -109,10 +136,15 @@ const MenuOption: React.FC<Menu> = ({
               </AspectRatio>
             </div>
             <div className="flex justify-between text-xl font-semibold tracking-tight">
-              <p>{category}</p>
-              <p>{price} THB</p>
+              <p>{menu.category}</p>
+              <CurrencyFormat
+                value={menu.price}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"฿"}
+              />
             </div>
-            <p>{description}</p>
+            <p>{menu.description}</p>
 
             <section className="space-y-4">
               <Accordion
@@ -122,7 +154,14 @@ const MenuOption: React.FC<Menu> = ({
               >
                 {Object.keys(groupedData).map((group) => (
                   <AccordionItem value={group} key={group}>
-                    <AccordionTrigger>{group}</AccordionTrigger>
+                    <AccordionTrigger>
+                      <div className="text-left">
+                        <p>{group}</p>
+                        <p className="text-xs text-primary">
+                          {findOption(+form.watch(group))?.name}
+                        </p>
+                      </div>
+                    </AccordionTrigger>
                     <AccordionContent>
                       <FormField
                         control={form.control}
@@ -141,11 +180,22 @@ const MenuOption: React.FC<Menu> = ({
                                     className="flex items-center space-x-3 space-y-0"
                                   >
                                     <FormControl>
-                                      <RadioGroupItem value={option} />
+                                      <RadioGroupItem
+                                        value={option.id.toString()}
+                                      />
                                     </FormControl>
                                     <FormLabel className="w-full font-normal flex justify-between gap-2">
                                       <span>{option.name}</span>
-                                      <span>+{option.price} THB</span>
+
+                                      <span>
+                                        +
+                                        <CurrencyFormat
+                                          value={option.price}
+                                          displayType={"text"}
+                                          thousandSeparator={true}
+                                          prefix={"฿"}
+                                        />
+                                      </span>
                                     </FormLabel>
                                   </FormItem>
                                 ))}
@@ -181,6 +231,13 @@ const MenuOption: React.FC<Menu> = ({
             </div>
             <Button type="submit" className="text-white mt-4">
               Add to Cart
+              <CurrencyFormat
+                value={total * quantity}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"฿"}
+                className="ml-2"
+              />
             </Button>
           </div>
         </form>
@@ -189,4 +246,4 @@ const MenuOption: React.FC<Menu> = ({
   );
 };
 
-export default MenuOption;
+export default MenuDetail;
