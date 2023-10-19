@@ -6,6 +6,7 @@ import { getRestaurantMenu } from "@/services/restaurant";
 import Image from "next/image";
 import NoMenuBro from "@/assets/undraw/undraw_barbecue_3x93.svg";
 import { Menu } from "@/types/restaurant";
+import MenuDrawer from "./menu-drawer";
 
 const MenuCardList = ({ id }: { id: number }) => {
   const [menus, setMenus] = React.useState<Menu[]>([]);
@@ -38,15 +39,21 @@ const MenuCardList = ({ id }: { id: number }) => {
         </div>
       ) : (
         menus.map((menu) => (
-          <MenuCard
-            id={menu.id}
+          <MenuDrawer
             key={menu.id}
-            name={menu.name}
-            description={menu.description}
-            image={menu.image}
-            price={menu.price}
-            category={menu.category}
-            menuOptions={menu.menuOptions}
+            menu={menu}
+            trigger={
+              <MenuCard
+                id={menu.id}
+                key={menu.id}
+                name={menu.name}
+                description={menu.description}
+                image={menu.image}
+                price={menu.price}
+                category={menu.category}
+                menuOptions={menu.menuOptions}
+              />
+            }
           />
         ))
       )}
