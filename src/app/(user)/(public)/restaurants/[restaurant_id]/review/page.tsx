@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ImageIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
+import RestaurantCardDetail from "@/app/(user)/(public)/restaurants/[restaurant_id]/components/restaurant-card-detail";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

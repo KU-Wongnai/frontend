@@ -5,7 +5,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "../../../../../components/ui/avatar";
+} from "../../../../../../components/ui/avatar";
 import { Order } from "@/types/order";
 import { getOrderByID, updateOrderStatus } from "@/services/order";
 import {
@@ -147,13 +147,21 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
         </div>
         <DialogFooter>
           {order?.status === "RECEIVED" ? (
-            <Button type="submit" onClick={handlePreparing} className="text-white">
+            <Button
+              type="submit"
+              onClick={handlePreparing}
+              className="text-white"
+            >
               Accept
             </Button>
           ) : (
             <>
               {order?.status === "PREPARING" ? (
-                <Button type="submit" onClick={handleCompleted} className="text-white">
+                <Button
+                  type="submit"
+                  onClick={handleCompleted}
+                  className="text-white"
+                >
                   Completed
                 </Button>
               ) : (

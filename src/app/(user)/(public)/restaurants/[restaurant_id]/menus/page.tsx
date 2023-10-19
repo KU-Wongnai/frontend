@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
+import RestaurantCardDetail from "@/app/(user)/(public)/restaurants/[restaurant_id]/components/restaurant-card-detail";
 import MenuCardList from "../components/menu-card-list";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

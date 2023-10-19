@@ -10,8 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "../../../../../../../components/ui/input";
-import { Button } from "../../../../../../../components/ui/button";
+import { Input } from "../../../../../../../../components/ui/input";
+import { Button } from "../../../../../../../../components/ui/button";
 import StarIcon from "@mui/icons-material/Star";
 import {
   Dialog,

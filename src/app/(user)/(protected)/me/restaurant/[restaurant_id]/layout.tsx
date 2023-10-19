@@ -1,4 +1,4 @@
-import RestaurantNavbar from "../../../../../components/navbar-restaurant";
+import RestaurantNavbar from "../../../../../../components/navbar-restaurant";
 import React from "react";
 
 export default function RestaurantLayout({

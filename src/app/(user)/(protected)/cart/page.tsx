@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Summary from "../components/summary";
+import Summary from "../../components/summary";
 import Link from "next/link";
 
 function CartPage() {
