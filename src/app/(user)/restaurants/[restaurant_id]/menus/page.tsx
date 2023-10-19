@@ -2,7 +2,14 @@ import React, { useEffect } from "react";
 import RestaurantCardDetail from "@/app/(user)/restaurants/[restaurant_id]/components/restaurant-card-detail";
 import MenuCardList from "../components/menu-card-list";
 
-const RestaurantMenuPage = ({
+type Props = {
+  params: {
+    restaurant_id: number;
+    id: string;
+  };
+};
+
+const RestaurantMenuPage: React.FC<Props> = ({
   params,
 }: {
   params: {
@@ -10,7 +17,6 @@ const RestaurantMenuPage = ({
     id: string;
   };
 }) => {
-
   return (
     <main className="container mx-auto py-6 px-2 sm:px-4 md:px-6 lg:px-8">
       {/* food card Horizontal */}

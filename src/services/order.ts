@@ -102,3 +102,28 @@ export const getDelivery = async (deliveryId: string) => {
     throw error;
   }
 };
+
+export const getOrderByRestaurant = async (restaurantId: string) => {
+  try {
+    const { data } = await httpClient.get(
+      `/order/api/orders/restaurant/${restaurantId}`
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export const getOrderByID = async (orderId: string) => {
+  try {
+    const { data } = await httpClient.get(
+      `/order/api/order/${orderId}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
