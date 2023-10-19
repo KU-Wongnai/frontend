@@ -25,7 +25,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
         <div className="flex flex-wrap gap-8 container justify-center">
           {/* <Link href="/restaurant/dashboard"> */}
           <Link
-            href={`/restaurant/${restaurant_id}/menus`}
+            href={`/me/restaurant/${restaurant_id}/menus`}
             className="relative "
           >
             <Image
@@ -43,7 +43,10 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
               </h3>
             </div>
           </Link>
-          <Link href={`/restaurant/${restaurant_id}/orders`} className="relative ">
+          <Link
+            href={`/me/restaurant/${restaurant_id}/orders`}
+            className="relative "
+          >
             <Image
               src={OrderManagementImage}
               width={240}
@@ -60,7 +63,10 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             </div>
           </Link>
 
-          <Link href={`/restaurant/${restaurant_id}/dashboard`} className="relative ">
+          <Link
+            href={`/me/restaurant/${restaurant_id}/dashboard`}
+            className="relative "
+          >
             <Image
               src={DashboardManagementImage}
               width={240}
@@ -76,7 +82,10 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
               </h3>
             </div>
           </Link>
-          <Link href={`/restaurant/${restaurant_id}/menus/add-menu`} className="relative ">
+          <Link
+            href={`/me/restaurant/${restaurant_id}/menus`}
+            className="relative "
+          >
             <Image
               src={MenuManagementImage}
               width={240}

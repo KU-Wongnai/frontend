@@ -21,7 +21,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
     return acc + item.price * item.quantity;
   }, 0);
 
-  const statusColors = {
+  const statusColors:any = {
     PENDING: "bg-yellow-200 text-yellow-800",
     RECEIVED: "bg-blue-200 text-blue-800",
     PREPARING: "bg-orange-200 text-orange-800",
@@ -60,7 +60,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                 </div>
               </div>
               <div className="flex flex-col justify-start items-start text-sm">
-                <div>{order.orderItems[0].name}</div>
+                {/* <div>{order.orderItems[0]}</div> */}
                 <div>
                   <span className=" font-semibold">Price: </span>$
                   {totalPrice.toFixed(2)}
@@ -103,7 +103,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
                   )}
                 </div>
                 <div>
-                  <div className="text-lg">{item.name}</div>
+                  {/* <div className="text-lg">{item.}</div> */}
                   <div>
                     Price: ${item.price.toFixed(2)} (x{item.quantity})
                   </div>

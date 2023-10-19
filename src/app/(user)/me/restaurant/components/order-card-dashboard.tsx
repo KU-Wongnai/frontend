@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "../../../components/ui/avatar";
+} from "../../../../../components/ui/avatar";
 import { Order } from "@/types/order";
 import { getOrderByID } from "@/services/order";
 import {

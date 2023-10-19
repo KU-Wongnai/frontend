@@ -1,13 +1,13 @@
 "use client";
 import TagTitle from "@/components/tag-title";
 import React, { useEffect, useState } from "react";
-import OrderCard from "@/app/restaurant/components/order-card-dashboard";
-import { mockOrderData } from "../../../../mock/order";
-import { Avatar, AvatarImage } from "../../../../components/ui/avatar";
+
 import { getOrderByRestaurant } from "@/services/order";
 import { Order } from "@/types/order";
+import OrderCard from "../../components/order-card-dashboard";
 
-const OrderManagement = ({ params }: {params: {restaurant_id: string}}) => {
+
+const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
   const [statusReceivedDecoration, setStatusReceivedDecoration] = useState("");
   const [statusProcessingDecoration, setStatusProcessingDecoration] =
     useState("");

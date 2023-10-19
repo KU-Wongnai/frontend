@@ -29,9 +29,16 @@ import SearchInput from "./search-input";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "../contexts/auth-store";
 import { getMe, logout } from "@/services/auth";
+import {useRouter} from "next/navigation";
 
 export default function Navbar() {
   const user = useStore(useAuthStore, (state) => state.user);
+  const router = useRouter();
+
+  const handleViewProfileButton = () => {
+    // Change the path when the button is pressed
+    router.push('/me'); // Replace '/new-page' with your desired route
+  };
 
   return (
     <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
@@ -177,7 +184,12 @@ export default function Navbar() {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuLabel className="m-5 text-lg">{user.name}</DropdownMenuLabel>
+                  <Button
+                      onClick={handleViewProfileButton}
+                      className="flex items-center w-full">
+                    View Profile
+                  </Button>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link
@@ -190,11 +202,11 @@ export default function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
-                      href="/restaurant"
-                      className="flex items-center w-full"
+                        href="/restaurants/create"
+                        className="flex items-center w-full"
                     >
                       <UtensilsCrossed className="mr-2 h-4 w-4" />
-                      <span>Your restaurant</span>
+                      <span>Add restaurant</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
