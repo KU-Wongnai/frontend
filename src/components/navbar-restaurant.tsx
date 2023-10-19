@@ -10,9 +10,8 @@ import DashboardManagementImage from "/src/assets/restaurant/dashboardManagement
 import { usePathname } from "next/navigation";
 
 
-type Props = {};
 
-const RestaurantNavbar = (props: Props) => {
+const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
   const pathName = usePathname();
 
   if (pathName === "/restaurant/create" || pathName === "/restaurant") {
@@ -25,7 +24,10 @@ const RestaurantNavbar = (props: Props) => {
       <header className="px-3 py-8 border-b top-0 bg-background mx-auto w-full text-black">
         <div className="flex flex-wrap gap-8 container justify-center">
           {/* <Link href="/restaurant/dashboard"> */}
-          <Link  href="/restaurant/{id}/menus" className="relative ">
+          <Link
+            href={`/restaurant/${restaurant_id}/menus`}
+            className="relative "
+          >
             <Image
               src={MenuManagementImage}
               width={240}
@@ -34,10 +36,14 @@ const RestaurantNavbar = (props: Props) => {
               alt="Picture of the author"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-5">
-              <h3>Menu<br />Management</h3>
+              <h3>
+                Menu
+                <br />
+                Management
+              </h3>
             </div>
           </Link>
-          <Link  href="/restaurant/{id}/orders" className="relative ">
+          <Link href={`/restaurant/${restaurant_id}/orders`} className="relative ">
             <Image
               src={OrderManagementImage}
               width={240}
@@ -46,11 +52,15 @@ const RestaurantNavbar = (props: Props) => {
               alt="Picture of the author"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-5">
-              <h3>Order<br />Management</h3>
+              <h3>
+                Order
+                <br />
+                Management
+              </h3>
             </div>
           </Link>
 
-          <Link  href="/restaurant/{id}/dashboard" className="relative ">
+          <Link href={`/restaurant/${restaurant_id}/dashboard`} className="relative ">
             <Image
               src={DashboardManagementImage}
               width={240}
@@ -59,10 +69,14 @@ const RestaurantNavbar = (props: Props) => {
               alt="Picture of the author"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-4">
-              <h3>Dashboard<br />Management</h3>
+              <h3>
+                Dashboard
+                <br />
+                Management
+              </h3>
             </div>
           </Link>
-          <Link  href="/restaurant/dashboard" className="relative ">
+          <Link href={`/restaurant/${restaurant_id}/menus/add-menu`} className="relative ">
             <Image
               src={MenuManagementImage}
               width={240}
@@ -71,7 +85,11 @@ const RestaurantNavbar = (props: Props) => {
               alt="Picture of the author"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-4">
-              <h3>Menu<br />Management</h3>
+              <h3>
+                Menu
+                <br />
+                Management
+              </h3>
             </div>
           </Link>
           {/* </Link> */}

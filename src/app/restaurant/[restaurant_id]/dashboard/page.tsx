@@ -118,9 +118,9 @@ const RestaurantDashBoard = (props: Props) => {
                       <OrderCard
                         key={order.id}
                         id={order.id}
-                        customer={order.customer}
-                        totalItem={order.totalItems}
-                        orderID={order.orderID}
+                        // customer={order.customer}
+                        // totalItem={order.totalItems}
+                        // orderID={order.orderID}
                         decoration="text-xs"
                       />
                     );

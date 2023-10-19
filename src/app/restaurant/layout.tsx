@@ -7,7 +7,7 @@ import RestaurantNavbar from "../../components/navbar-restaurant";
 // import { usePathname } from 'next/navigation';
 import React from "react";
 
-export default function UserLayout({
+export default function RestaurantLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -17,8 +17,6 @@ export default function UserLayout({
     <div className="flex flex-col min-h-screen">
       {/* Sticky Navbar */}
       <Navbar />
-      {/* Content */}
-      <RestaurantNavbar />
       {/* {pathName !== "/restaurant/create" && pathName !== "/restaurant" && <RestaurantNavbar/>} */}
       <main className="flex-1 bg-secondary">
         {/* <div className="container px-auto py-3">{children}</div> */}
