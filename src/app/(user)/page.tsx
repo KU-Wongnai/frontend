@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import RestaurantList from "@/app/(user)/components/restaurant-list";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function MainHome() {
-
   return (
     <>
       {/* Hero section */}
@@ -26,7 +26,7 @@ export default function MainHome() {
       </div>
 
       {/* Show all restaurants */}
-      <section className="container mx-auto pb-6 px-4 sm:px-0">
+      {/* <section className="container mx-auto pb-6 px-4 sm:px-0">
         <div className="w-full bg-card pt-3 border shadow-sm rounded-lg p-5 mt-6">
           <div className="flex border-b mb-3 gap-2">
             <h1 className="pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 text-primary">
@@ -35,6 +35,16 @@ export default function MainHome() {
           </div>
             <RestaurantList />
         </div>
+      </section> */}
+      <section className="container mx-auto pb-6 px-4 sm:px-0 mt-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>All restaurant</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RestaurantList />
+          </CardContent>
+        </Card>
       </section>
     </>
   );

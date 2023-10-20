@@ -30,24 +30,34 @@ const items = [
   //   icon: <ShoppingCart className="mr-2 h-4 w-4" />,
   // },
   {
-    label: "Chat",
-    href: "/conversations",
-    icon: <MessageCircle className="mr-2 h-4 w-4" />,
+    label: "Social",
+    items: [
+      {
+        label: "Messages",
+        href: "/conversations",
+        icon: <MessageCircle className="mr-2 h-4 w-4" />,
+      },
+    ],
   },
   {
-    label: "Your restaurant",
-    href: "/me/restaurant/1",
-    icon: <UtensilsCrossed className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Rider",
-    href: "/rider",
-    icon: <Bike className="mr-2 h-4 w-4" />,
-  },
-  {
-    label: "Settings",
-    href: "/settings",
-    icon: <Settings className="mr-2 h-4 w-4" />,
+    label: "Others",
+    items: [
+      {
+        label: "Add your restaurant",
+        href: "/me/restaurant/1",
+        icon: <UtensilsCrossed className="mr-2 h-4 w-4" />,
+      },
+      {
+        label: "Become a rider",
+        href: "/rider",
+        icon: <Bike className="mr-2 h-4 w-4" />,
+      },
+      {
+        label: "Settings",
+        href: "/settings",
+        icon: <Settings className="mr-2 h-4 w-4" />,
+      },
+    ],
   },
 ];
 
@@ -61,12 +71,12 @@ export default function Navbar() {
   const isRestaurant = paths[1] === "me" && paths[2] === "restaurant";
 
   return (
-    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 py-2 border-b sticky top-0 z-50 bg-background">
+    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 py-3 border-b sticky top-0 z-50 bg-background">
       <div className="px-3 md:px-0 lg:container mx-auto flex flex-wrap justify-between items-center gap-2">
         {/* Logo */}
         <Link
           href="/"
-          className="order-1 md:order-1 text-3xl font-semibold tracking-tight mb-2 md:mb-0"
+          className="order-1 md:order-1 text-2xl font-semibold tracking-tight mb-2 md:mb-0"
         >
           <span className="text-green-600">KU</span> Wongnai
         </Link>

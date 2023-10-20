@@ -20,12 +20,16 @@ import {
   Menu,
 } from "lucide-react";
 import useAuthStore from "@/contexts/auth-store";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 
 type DropdownNavProps = {
   items: {
     label: string;
-    href: string;
-    icon: React.ReactNode;
+    items: {
+      label: string;
+      href: string;
+      icon: React.ReactNode;
+    }[];
   }[];
 };
 
@@ -63,13 +67,18 @@ const DropdownNav: React.FC<DropdownNavProps> = ({ items }) => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {items.map((item) => (
-          <DropdownMenuItem key={item.href} className="py-3">
-            <Link href={item.href} className="flex items-center w-full">
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
-          </DropdownMenuItem>
+        {items.map((group) => (
+          <DropdownMenuGroup key={group.label}>
+            <DropdownMenuLabel>{group.label}</DropdownMenuLabel>
+            {group.items.map((item) => (
+              <DropdownMenuItem key={item.href} className="py-3">
+                <Link href={item.href} className="flex items-center w-full">
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="py-3">
