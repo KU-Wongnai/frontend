@@ -9,10 +9,13 @@ import Link from "next/link";
 import { Item } from "@/types/cart";
 import { httpClient } from "@/lib/http-client";
 import { useRouter } from "next/navigation";
+import { useShoppingCartStore } from "@/contexts/cart-store";
 
 const CartDrawer = () => {
   const [open, setOpen] = React.useState(false);
-  const [cart, setCart] = useState<Item[]>([]);
+  // const [cart, setCart] = useState<Item[]>([]);
+  const cart = useShoppingCartStore((state) => state.cart);
+  const setCart = useShoppingCartStore((state) => state.setCart);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,6 +26,7 @@ const CartDrawer = () => {
     };
 
     fetchCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkout = () => {

@@ -6,6 +6,7 @@ import { removeFromCart } from "@/services/cart";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
 import CurrencyFormat from "react-currency-format";
+import { useShoppingCartStore } from "@/contexts/cart-store";
 
 type CartMenuProps = {
   item: Item;
@@ -13,9 +14,14 @@ type CartMenuProps = {
 };
 
 const CartItem = ({ item, editable }: CartMenuProps) => {
+  const removeFromCartStore = useShoppingCartStore(
+    (state) => state.removeFromCart
+  );
   const handleRemoveItem = async () => {
     try {
       await removeFromCart(item.menu.id);
+      removeFromCartStore(item.menu.id);
+
       toast.success("Item removed from cart.");
     } catch (error) {
       toast.error("Unable to remove item from cart.");

@@ -27,6 +27,7 @@ import toast from "react-hot-toast";
 import { addToCart } from "@/services/cart";
 import { Item } from "@/types/cart";
 import CurrencyFormat from "react-currency-format";
+import { useShoppingCartStore } from "@/contexts/cart-store";
 
 type GroupedOption = {
   [key: string]: MenuOption[];
@@ -40,6 +41,7 @@ type MenuDetailProps = {
 const MenuDetail: React.FC<MenuDetailProps> = ({ menu, defaultValues }) => {
   const [quantity, setQuantity] = React.useState(1);
   const [total, setTotal] = React.useState(menu.price);
+  const addToCartStore = useShoppingCartStore((state) => state.addToCart);
 
   const groupedData = menu.menuOptions.reduce(
     (result: GroupedOption, item: MenuOption) => {
@@ -101,7 +103,27 @@ const MenuDetail: React.FC<MenuDetailProps> = ({ menu, defaultValues }) => {
     await addToCart({
       menuId: menu.id,
       quantity,
-      optionIds: Object.values(data),
+      optionIds: Object.values(data).map((d: any) => +d),
+    });
+
+    addToCartStore({
+      menu: {
+        id: menu.id,
+        name: menu.name,
+        price: menu.price,
+        image: menu.image || "",
+      },
+      quantity,
+      options: Object.values(data).map((d: any) => {
+        const option = findOption(+d);
+        return {
+          id: option?.id || 0,
+          name: option?.name || "",
+          price: option?.price || 0,
+          category: option?.category || "",
+          menuId: menu.id,
+        };
+      }),
     });
 
     toast.success("Item added to cart.");
