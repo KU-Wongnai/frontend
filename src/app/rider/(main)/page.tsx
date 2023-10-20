@@ -496,7 +496,7 @@ export default function Rider() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const user = useStore(useAuthStore, (state) => state.user);
+  const { data: user } = useStore(useAuthStore, (state) => state.user);
   const [deliveryOrders, setDeliveryOrders] = React.useState<Delivery[]>([]);
   const [isHaveTable, setIsHaveTable] = React.useState<boolean>(false);
 

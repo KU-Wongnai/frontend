@@ -8,7 +8,7 @@ import CommentDialog from "./comment-dialog";
 import { Review, Comment } from "@/types/reivew";
 
 const CommentList = ({ review }: { review: Review }) => {
-  const me = useStore(useAuthStore, (state) => state.user);
+  const { data: me } = useStore(useAuthStore, (state) => state.user);
 
   return (
     <ul className="space-y-2">

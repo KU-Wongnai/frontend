@@ -5,8 +5,8 @@ import { ThumbsUp, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toggle } from "@/components/ui/toggle";
-import { Input } from "../../../../../../../../components/ui/input";
-import { Button } from "../../../../../../../../components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { createComment, getReviewsByID, likeReview } from "@/services/review";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
@@ -21,7 +21,7 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  const me = useStore(useAuthStore, (state) => state.user);
+  const { data: me } = useStore(useAuthStore, (state) => state.user);
 
   useEffect(() => {
     const fetchReview = async () => {

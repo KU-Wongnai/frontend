@@ -52,7 +52,7 @@ const items = [
 ];
 
 export default function Navbar() {
-  const user = useStore(useAuthStore, (state) => state.user);
+  const { data: user, loading } = useStore(useAuthStore, (state) => state.user);
   const pathname = usePathname();
 
   const paths = pathname.split("/");
@@ -84,7 +84,7 @@ export default function Navbar() {
         ) : null}
 
         {/* Menu */}
-        <div className="order-2 lg:order-3 flex items-center gap-3">
+        <div className="order-2 lg:order-3 lg:w-[200px] h-[50px] flex items-center justify-end gap-3">
           {user ? (
             <>
               {!isRider && !isRestaurant ? <CartDrawer /> : null}
@@ -105,7 +105,7 @@ export default function Navbar() {
               </Button>
               <DropdownNav items={items} />
             </>
-          ) : (
+          ) : !loading ? (
             <>
               <ModeToggle />
               <Link href="/auth">
@@ -114,6 +114,11 @@ export default function Navbar() {
                 </Button>
               </Link>
             </>
+          ) : (
+            <div className="animate-pulse flex gap-2">
+              <div className="w-10 h-10 bg-neutral-200 rounded-full dark:bg-neutral-700"></div>
+              <div className="w-24 h-10 rounded-full bg-neutral-200 dark:bg-neutral-700"></div>
+            </div>
           )}
         </div>
       </div>

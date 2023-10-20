@@ -6,12 +6,14 @@ const useStore = <T, F>(
 ) => {
   const result = store(callback) as F;
   const [data, setData] = useState<F>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setData(result);
+    setLoading(false);
   }, [result]);
 
-  return data;
+  return { data, loading } as const;
 };
 
 export default useStore;
