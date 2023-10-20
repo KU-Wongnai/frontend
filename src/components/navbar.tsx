@@ -12,15 +12,6 @@ import {
   ShoppingCart,
   UtensilsCrossed,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ComboboxDemo } from "./combobox-location";
 import { ModeToggle } from "./ui/button-mode-toggle";
 import { Button } from "./ui/button";
@@ -28,212 +19,91 @@ import SearchInput from "./search-input";
 
 import useStore from "@/contexts/useStore";
 import useAuthStore from "../contexts/auth-store";
-import { getMe, logout } from "@/services/auth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CartDrawer from "./cart/cart-drawer";
+import DropdownNav from "./dropdown-nav";
+
+const items = [
+  // {
+  //   label: "Cart",
+  //   href: "/cart",
+  //   icon: <ShoppingCart className="mr-2 h-4 w-4" />,
+  // },
+  {
+    label: "Chat",
+    href: "/conversations",
+    icon: <MessageCircle className="mr-2 h-4 w-4" />,
+  },
+  {
+    label: "Your restaurant",
+    href: "/me/restaurant/1",
+    icon: <UtensilsCrossed className="mr-2 h-4 w-4" />,
+  },
+  {
+    label: "Rider",
+    href: "/rider",
+    icon: <Bike className="mr-2 h-4 w-4" />,
+  },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: <Settings className="mr-2 h-4 w-4" />,
+  },
+];
 
 export default function Navbar() {
   const user = useStore(useAuthStore, (state) => state.user);
-  const router = useRouter();
+  const pathname = usePathname();
 
-  const handleViewProfileButton = () => {
-    // Change the path when the button is pressed
-    router.push("/me"); // Replace '/new-page' with your desired route
-  };
+  const paths = pathname.split("/");
+
+  const isRider = paths[1] === "rider";
+  const isRestaurant = paths[1] === "me" && paths[2] === "restaurant";
 
   return (
-    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 md:py-4 py-2 border-b sticky top-0 z-50 bg-background">
-      <div className="md:container mx-auto flex flex-col md:flex-row justify-between items-center">
+    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 py-2 border-b sticky top-0 z-50 bg-background">
+      <div className="px-3 md:px-0 lg:container mx-auto flex flex-wrap justify-between items-center gap-2">
         {/* Logo */}
         <Link
           href="/"
-          className="text-3xl font-semibold tracking-tight mb-2 md:mb-0 hidden md:block"
+          className="order-1 md:order-1 text-3xl font-semibold tracking-tight mb-2 md:mb-0"
         >
           <span className="text-green-600">KU</span> Wongnai
         </Link>
 
-        {/* Logo and Avatar for Mobile */}
-        <div className="md:hidden flex justify-between items-center w-full mb-1 px-2">
-          <Link href="/" className="text-3xl font-semibold tracking-tight">
-            <span className="text-green-600">KU</span> Wongnai
-          </Link>
-          <div className="flex gap-1">
-            {user ? (
-              <>
-                <Link href="/notifications">
-                  <Button variant="outline" className="relative rounded-full">
-                    <Bell className="w-5 h-5" />
-                    <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
-                      3
-                    </span>
-                  </Button>
-                </Link>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Avatar>
-                      <AvatarImage
-                        src={user.user_profile?.avatar}
-                        alt={user.name}
-                      />
-                      <AvatarFallback>{user.name[0]}</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Link href="/cart" className="flex items-center w-full">
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        <span>Cart</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        href="/conversations"
-                        className="flex items-center w-full"
-                      >
-                        <MessageCircle className="mr-2 h-4 w-4" />
-                        <span>Chat</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        href="/restaurant"
-                        className="flex items-center w-full"
-                      >
-                        <UtensilsCrossed className="mr-2 h-4 w-4" />
-                        <span>Your restaurant</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link href="/rider" className="flex items-center w-full">
-                        <Bike className="mr-2 h-4 w-4" />
-                        <span>Rider</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        href="/settings"
-                        className="flex items-center w-full"
-                      >
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Settings</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <button
-                        onClick={logout}
-                        className="flex items-center w-full"
-                      >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Logout</span>
-                      </button>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
-            ) : (
-              <Link href="/auth">
-                <Button variant="outline" className="rounded-full">
-                  Sign in / Sign up
-                </Button>
-              </Link>
-            )}
+        {/* Search */}
+        {!isRider && !isRestaurant ? (
+          <div className="w-full lg:w-auto order-3 lg:order-2 flex gap-3 items-center mb-2 md:mb-0">
+            <div className="hidden md:block w-[290px]">
+              <ComboboxDemo />
+            </div>
+            <div className="relative rounded-full border-green-600 border-2 w-full">
+              <SearchInput />
+            </div>
           </div>
-        </div>
+        ) : null}
 
-        {/* Search for Mobile */}
-        <div className="md:hidden w-full px-2">
-          <div className="relative rounded-full border-green-600 border-2 w-full mb-2">
-            <SearchInput />
-          </div>
-        </div>
-
-        {/* Search and Combobox for Desktop */}
-        <div className="hidden md:flex gap-3 items-center mb-2 md:mb-0">
-          <ComboboxDemo />
-          <div className="relative rounded-full border-green-600 border-2 w-full">
-            <SearchInput />
-          </div>
-        </div>
-
-        {/* Icons and Avatar for Desktop */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Menu */}
+        <div className="order-2 lg:order-3 flex items-center gap-3">
           {user ? (
             <>
-              <CartDrawer />
-              <Link href="/notifications">
-                <Button variant="outline" className="relative rounded-full">
-                  <Bell className="w-5 h-5" />
-                  <span className="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+              {!isRider && !isRestaurant ? <CartDrawer /> : null}
+              <Button
+                variant="outline"
+                className="rounded-full w-10 h-10"
+                asChild
+              >
+                <Link
+                  href="/notifications"
+                  className="relative inset-0 rounded-full hidden sm:block"
+                >
+                  <Bell className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5" />
+                  <span className="absolute -top-[6px] -right-[12px] w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
                     3
                   </span>
-                </Button>
-              </Link>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar>
-                    <AvatarImage src={user?.user_profile?.avatar} />
-                    <AvatarFallback>{user.name[0]}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel className="m-5 text-lg">
-                    {user.name}
-                  </DropdownMenuLabel>
-                  <button
-                    onClick={handleViewProfileButton}
-                    className="flex items-center w-full bg-primary justify-center rounded-sm p-1"
-                  >
-                    View Profile
-                  </button>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link
-                      href="/conversations"
-                      className="flex items-center w-full"
-                    >
-                      <MessageCircle className="mr-2 h-4 w-4" />
-                      <span>Chat</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link
-                      href="/restaurants/create"
-                      className="flex items-center w-full"
-                    >
-                      <UtensilsCrossed className="mr-2 h-4 w-4" />
-                      <span>Add restaurant</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/rider" className="flex items-center w-full">
-                      <Bike className="mr-2 h-4 w-4" />
-                      <span>Rider</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/settings" className="flex items-center w-full">
-                      <Settings className="mr-2 h-4 w-4" />
-                      <span>Settings</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <button
-                      onClick={logout}
-                      className="flex items-center w-full"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Logout</span>
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <h4 className="text-xl font-semibold tracking-tight">
-                {user?.name.split(" ")[0]}
-              </h4>
+                </Link>
+              </Button>
+              <DropdownNav items={items} />
             </>
           ) : (
             <>

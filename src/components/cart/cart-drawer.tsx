@@ -37,6 +37,18 @@ const CartDrawer = () => {
   return (
     <React.Fragment>
       <Button
+        variant="outline"
+        className="relative rounded-full w-10 h-10"
+        onClick={() => setOpen(true)}
+      >
+        <ShoppingCart className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5" />
+        {cart.length > 0 && (
+          <span className="absolute -top-[6px] -right-[12px] w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
+            {cart.length}
+          </span>
+        )}
+      </Button>
+      {/* <Button
         onClick={() => setOpen(true)}
         variant="outline"
         className="relative rounded-full"
@@ -47,7 +59,7 @@ const CartDrawer = () => {
             {cart.length}
           </span>
         )}
-      </Button>
+      </Button> */}
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <div className="h-full p-4 w-[400px] sm:w-[478px] text-black dark:text-white bg-white dark:bg-neutral-900">
           <button onClick={() => setOpen(false)}>

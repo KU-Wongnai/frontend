@@ -1,8 +1,8 @@
-import Navbar from "@/app/rider/components/rider-navbar";
 // import Footer from "@/app/rider/components/rider-footer";
 import React from "react";
 import { NavigationMenuDemo } from "./components/navigation-menu";
 import { Separator } from "@/components/ui/separator";
+import Navbar from "@/components/navbar";
 
 export default function UserLayout({
   children,
