@@ -31,7 +31,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Icons } from "@/components/icons";
-import Field from "./field";
+import Field from "../components/field";
 import {
   Card,
   CardDescription,

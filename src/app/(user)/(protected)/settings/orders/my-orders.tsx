@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import OrderList from "./components/order-list";
+import OrderList from "../components/order-list";
 import ordersSample from "@/mock/user-order";
 import {
   Card,
@@ -9,19 +11,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const MyHistory: React.FC = () => {
+const MyOrders: React.FC = () => {
   const filterOrder = ordersSample.filter(
-    (order) => order.status === "COMPLETED" || order.status === "CANCELLED"
+    (order) => order.status !== "COMPLETED" && order.status !== "CANCELLED"
   );
 
   return (
     <div className="w-full max-w-3xl space-y-8">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">History Order</CardTitle>
+          <CardTitle className="text-lg">Your Order</CardTitle>
           <CardDescription>
-            {" "}
-            Your history order {filterOrder.length} Orders
+            Your order in progress {filterOrder.length} Orders
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -32,4 +33,4 @@ const MyHistory: React.FC = () => {
   );
 };
 
-export default MyHistory;
+export default MyOrders;

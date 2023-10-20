@@ -58,7 +58,6 @@ export default function Navbar() {
             <span className="text-green-600">KU</span> Wongnai
           </Link>
           <div className="flex gap-1">
-            <ModeToggle />
             {user ? (
               <>
                 <Link href="/notifications">
@@ -163,11 +162,6 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
-              {/* <Link href="/cart">
-                <Button variant="outline" className="rounded-full">
-                  <ShoppingCart className="w-5 h-5" />
-                </Button>
-              </Link> */}
               <CartDrawer />
               <Link href="/notifications">
                 <Button variant="outline" className="relative rounded-full">
@@ -177,7 +171,6 @@ export default function Navbar() {
                   </span>
                 </Button>
               </Link>
-              <ModeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>

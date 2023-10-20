@@ -31,8 +31,8 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
 
   return (
     <Dialog>
-      <DialogTrigger>
-        <div className="border p-4 rounded-sm shadow bg-card lg:w-[710px]   w-full mx-auto">
+      <DialogTrigger asChild>
+        <div className="border p-4 rounded-sm shadow bg-card w-full mx-auto">
           <div className="flex flex-col md:flex-row justify-start w-full items-center">
             <div className="mb-4 md:mb-0 md:mr-6">
               <Image

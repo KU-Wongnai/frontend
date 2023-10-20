@@ -32,7 +32,6 @@ import useStore from "@/contexts/useStore";
 import useAuthStore from "@/contexts/auth-store";
 
 export default function Navbar() {
-
   const me = useStore(useAuthStore, (state) => state.user);
 
   return (
@@ -52,7 +51,6 @@ export default function Navbar() {
             <span className="text-green-600">KU</span> Wongnai
           </Link>
           <div className="flex gap-1">
-            <ModeToggle />
             <Link href="/notifications">
               <Button variant="outline" className="relative rounded-full">
                 <Bell className="w-5 h-5" />
@@ -78,7 +76,10 @@ export default function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/me/restaurant" className="flex items-center w-full">
+                  <Link
+                    href="/me/restaurant"
+                    className="flex items-center w-full"
+                  >
                     <UtensilsCrossed className="mr-2 h-4 w-4" />
                     <span>Your restaurant</span>
                   </Link>
@@ -122,7 +123,6 @@ export default function Navbar() {
               </span>
             </Button>
           </Link>
-          <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -134,7 +134,10 @@ export default function Navbar() {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="/me/restaurant" className="flex items-center w-full">
+                <Link
+                  href="/me/restaurant"
+                  className="flex items-center w-full"
+                >
                   <UtensilsCrossed className="mr-2 h-4 w-4" />
                   <span>Your restaurant</span>
                 </Link>
@@ -160,7 +163,9 @@ export default function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <h4 className="text-xl font-semibold tracking-tight">{me?.name.split(" ")[0]}</h4>
+          <h4 className="text-xl font-semibold tracking-tight">
+            {me?.name.split(" ")[0]}
+          </h4>
         </div>
       </div>
     </header>
