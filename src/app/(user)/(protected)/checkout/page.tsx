@@ -1,6 +1,6 @@
 import React from "react";
 import CheckoutForm from "./form";
-import Summary from "../../components/summary";
+import Summary from "../../../../components/cart/summary";
 
 const CheckoutPage = () => {
   return (

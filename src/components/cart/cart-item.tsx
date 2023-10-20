@@ -5,16 +5,6 @@ import { calculateMenuTotal } from "@/utils/cart";
 import { removeFromCart } from "@/services/cart";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import CurrencyFormat from "react-currency-format";
 
 type CartMenuProps = {
@@ -27,7 +17,6 @@ const CartItem = ({ item, editable }: CartMenuProps) => {
     try {
       await removeFromCart(item.menu.id);
       toast.success("Item removed from cart.");
-      window.location.reload();
     } catch (error) {
       toast.error("Unable to remove item from cart.");
     }
@@ -74,26 +63,12 @@ const CartItem = ({ item, editable }: CartMenuProps) => {
       </div>
       {editable && (
         <div className="ml-auto text-sm space-x-3">
-          <AlertDialog>
-            <AlertDialogTrigger>
-              <button className="text-destructive hover:underline">
-                <X />
-              </button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Remove {item.menu.name} from your cart?
-                </AlertDialogTitle>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleRemoveItem}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <button
+            className="text-destructive hover:underline"
+            onClick={handleRemoveItem}
+          >
+            <X />
+          </button>
         </div>
       )}
     </div>

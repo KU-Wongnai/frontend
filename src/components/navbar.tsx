@@ -29,7 +29,8 @@ import SearchInput from "./search-input";
 import useStore from "@/contexts/useStore";
 import useAuthStore from "../contexts/auth-store";
 import { getMe, logout } from "@/services/auth";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import CartDrawer from "./cart/cart-drawer";
 
 export default function Navbar() {
   const user = useStore(useAuthStore, (state) => state.user);
@@ -37,7 +38,7 @@ export default function Navbar() {
 
   const handleViewProfileButton = () => {
     // Change the path when the button is pressed
-    router.push('/me'); // Replace '/new-page' with your desired route
+    router.push("/me"); // Replace '/new-page' with your desired route
   };
 
   return (
@@ -162,11 +163,12 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
-              <Link href="/cart">
+              {/* <Link href="/cart">
                 <Button variant="outline" className="rounded-full">
                   <ShoppingCart className="w-5 h-5" />
                 </Button>
-              </Link>
+              </Link> */}
+              <CartDrawer />
               <Link href="/notifications">
                 <Button variant="outline" className="relative rounded-full">
                   <Bell className="w-5 h-5" />
@@ -184,10 +186,13 @@ export default function Navbar() {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel className="m-5 text-lg">{user.name}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="m-5 text-lg">
+                    {user.name}
+                  </DropdownMenuLabel>
                   <button
-                      onClick={handleViewProfileButton}
-                      className="flex items-center w-full bg-primary justify-center rounded-sm p-1">
+                    onClick={handleViewProfileButton}
+                    className="flex items-center w-full bg-primary justify-center rounded-sm p-1"
+                  >
                     View Profile
                   </button>
                   <DropdownMenuSeparator />
@@ -202,8 +207,8 @@ export default function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link
-                        href="/restaurants/create"
-                        className="flex items-center w-full"
+                      href="/restaurants/create"
+                      className="flex items-center w-full"
                     >
                       <UtensilsCrossed className="mr-2 h-4 w-4" />
                       <span>Add restaurant</span>

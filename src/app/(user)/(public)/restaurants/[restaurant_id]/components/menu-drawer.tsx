@@ -24,7 +24,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="z-[80] fixed inset-0 bg-black/40" />
-        <Drawer.Content className="z-[90] bg-white flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
+        <Drawer.Content className="z-[90] text-black dark:text-white bg-white dark:bg-neutral-900 flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
           <MenuDetail menu={menu} />
         </Drawer.Content>
       </Drawer.Portal>
