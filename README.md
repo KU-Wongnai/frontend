@@ -15,6 +15,18 @@ Welcome to the frontend repository of KU Wongnai! Built with Next.js, this app e
 
 ### Prerequisites
 
+Copy `.env.example` to `.env`
+
+```sh
+cp .env.example .env
+```
+
+This key have the same as Notification Service
+```
+NEXT_PUBLIC_PUSHER_KEY=
+NEXT_PUBLIC_PUSHER_CLUSTER=
+```
+
 1. **pnpm**: Our chosen package manager. Install it globally if you haven't:
 
    ```sh
