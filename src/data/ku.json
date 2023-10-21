@@ -1,0 +1,177 @@
+{
+  "faculties": [
+    {
+      "name": "Faculty of Agriculture",
+      "departments": [
+        "Department of Entomology",
+        "Department of Home Economics",
+        "Department of Farm Mechanics",
+        "Department of Soil Science",
+        "Department of Agronomy",
+        "Department of Horticulture",
+        "Department of Plant Pathology",
+        "Department of Agricultural Extension and Communication",
+        "Department of Animal Science"
+      ]
+    },
+    {
+      "name": "Faculty of Business Administration",
+      "departments": [
+        "Department of Finance",
+        "Department of Management",
+        "Department of Operations Management",
+        "Department of Marketing",
+        "Department of Accounting"
+      ]
+    },
+    {
+      "name": "Faculty of Fisheries",
+      "departments": [
+        "Department of Fishery Management",
+        "Department of Fishery Biology",
+        "Department of Fishery Products",
+        "Department of Aquaculture",
+        "Department of Marine Science"
+      ]
+    },
+    {
+      "name": "Faculty of Humanities",
+      "departments": [
+        "Department of Music",
+        "Department of Communication Arts and Information Science",
+        "Department of Foreign Languages",
+        "Department of Literature",
+        "Department of Linguistics",
+        "Department of Thai Language",
+        "Department of Eastern Languages",
+        "Department of Philosophy and Religion",
+        "Department of Tourism and Hospitality Industry"
+      ]
+    },
+    {
+      "name": "Faculty of Forestry",
+      "departments": [
+        "Department of Forest Management",
+        "Department of Forest Biology",
+        "Department of Forest Engineering",
+        "Department of Forest Products",
+        "Department of Silviculture",
+        "Department of Conservation"
+      ]
+    },
+    {
+      "name": "Faculty of Science",
+      "departments": [
+        "Department of Mathematics",
+        "Department of Chemistry",
+        "Department of Microbiology",
+        "Department of Biochemistry",
+        "Department of Botany",
+        "Department of Genetics",
+        "Department of Physics",
+        "Department of Applied Radiation and Isotope",
+        "Department of Computer Science",
+        "Department of Earth Science",
+        "Department of Materials Science",
+        "Department of Statistics",
+        "Department of Zoology"
+      ]
+    },
+    {
+      "name": "Faculty of Engineering",
+      "departments": [
+        "Aerospace Engineering",
+        "Computer Engineering",
+        "Chemical Engineering",
+        "Mechanical Engineering",
+        "Water Resources Engineering",
+        "Electrical Engineering",
+        "Materials Engineering",
+        "Civil Engineering",
+        "Environmental Engineering",
+        "Industrial Engineering"
+      ]
+    },
+    {
+      "name": "Faculty of Education",
+      "departments": [
+        "Department of Education",
+        "Department of Educational Psychology and Guidance",
+        "Department of Educational Technology",
+        "Department of Physical Education",
+        "Department of Vocational Education"
+      ]
+    },
+    {
+      "name": "Faculty of Economics",
+      "departments": [
+        "Department of Economics",
+        "Department of Agricultural and Resource Economics",
+        "Department of Cooperative"
+      ]
+    },
+    {
+      "name": "Faculty of Architecture",
+      "departments": [
+        "Department of Architecture",
+        "Department of Landscape Architecture",
+        "Department of Building Innovation and Technology"
+      ]
+    },
+    {
+      "name": "Faculty of Social Sciences",
+      "departments": [
+        "Department of Psychology",
+        "Department of Law",
+        "Department of History",
+        "Department of Geography",
+        "Department of Political Science and Public Administration",
+        "Department of Sociology and Anthropology",
+        "Graduate Interdisciplinary Program in Social Development",
+        "Special Program in Southeast Asian Studies"
+      ]
+    },
+    {
+      "name": "Faculty of Veterinary Medicine",
+      "departments": [
+        "Department of Anatomy",
+        "Department of Physiology",
+        "Department of Microbiology and Immunology",
+        "Department of Pharmacology",
+        "Department of Pathology",
+        "Department of Parasitology",
+        "Department of Veterinary Public Health (Kamphaeng Saen)",
+        "Department of Companion Animals Clinical Sciences (Kamphaeng Saen)",
+        "Department of Farm Resources and Production Medicine (Kamphaeng Saen)",
+        "Department of Large Animal and Wildlife Clinical Science (Kamphaeng Saen)"
+      ]
+    },
+    {
+      "name": "Faculty of Agro-Industry",
+      "departments": [
+        "Department of Agro-Industrial Technology",
+        "Department of Biotechnology",
+        "Department of Food Science & Technology",
+        "Department of Packaging & Materials Technology",
+        "Department of Product Development",
+        "Department of Textile Science",
+        "Agro-Industrial Innovation and Technology (International Program) (AIIP)"
+      ]
+    },
+    {
+      "name": "Faculty of Veterinary Technology",
+      "departments": [
+        "Department of Veterinary Technology",
+        "Bachelor of Science Program in Animal Nursing (Special Program)",
+        "Bachelor of Science Program in Veterinary Technology (Special Program)"
+      ]
+    },
+    {
+      "name": "Faculty of Environment",
+      "departments": [
+        "Department of Environmental Technology and Management",
+        "Department of Environmental Science"
+      ]
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import React from "react";
 import GeneralRider from "@/assets/rider/undraw_delivery_truck_vt6p.svg";
 import StudentRider from "@/assets/rider/undraw_on_the_way_re_swjt.svg";
 import Link from "next/link";
+import RiderRegisterForm from "./form";
 
 const SelectRegister = () => {
   return (
@@ -39,6 +40,7 @@ const SelectRegister = () => {
           </div>
         </div>
       </Link>
+      <RiderRegisterForm />
     </div>
   );
 };
