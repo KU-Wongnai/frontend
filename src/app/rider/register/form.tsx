@@ -42,6 +42,10 @@ import { hash } from "@/lib/hash";
 import { uploadFile } from "@/services/file-upload";
 import { riderUpdateProfile } from "@/services/rider";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import useAuthStore from "@/contexts/auth-store";
+import { logout } from "@/services/auth";
 
 const RiderRegisterSchema = z
   .object({
@@ -62,17 +66,35 @@ const RiderRegisterSchema = z
     faculty: z.string().nullable(),
     major: z.string().nullable(),
     desire_location: z.string().nullable(),
+    isStudent: z.boolean().optional(),
   })
   .refine((data) => isValidPhoneNumber(data.phone_number), {
     message: "Invalid phone number",
     path: ["phone_number"],
+  })
+  .refine((data) => !data.isStudent || data.student_id, {
+    message: "Student id is required",
+    path: ["student_id"],
+  })
+  .refine((data) => !data.isStudent || data.faculty, {
+    message: "Faculty is required",
+    path: ["faculty"],
+  })
+  .refine((data) => !data.isStudent || data.major, {
+    message: "Departments is required",
+    path: ["major"],
   });
 
 type RiderRegister = z.infer<typeof RiderRegisterSchema>;
 
-const RiderRegisterForm = () => {
+type RiderRegisterFormProps = {
+  isStudent?: boolean;
+};
+
+const RiderRegisterForm = ({ isStudent }: RiderRegisterFormProps) => {
   const [idCardPhoto, setIdCardPhoto] = React.useState<File[]>([]);
   const [bookBankPhoto, setBookBankPhoto] = React.useState<File[]>([]);
+  const user = useAuthStore((state) => state.user);
   const router = useRouter();
 
   const form = useForm({
@@ -91,6 +113,7 @@ const RiderRegisterForm = () => {
       faculty: "",
       major: "",
       desire_location: "",
+      isStudent: isStudent,
     },
   });
 
@@ -168,7 +191,38 @@ const RiderRegisterForm = () => {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-3xl space-y-8 px-3"
+      >
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold">Account</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            The account you used to register as a rider You can change the
+            account that will be used to apply. Once signed up, your Rider
+            account is connected to this account and cannot be changed.
+          </p>
+          <div className="flex justify-between">
+            <div className="flex items-center gap-3">
+              <Avatar>
+                <AvatarImage
+                  src={user?.user_profile?.avatar}
+                  alt={user?.name}
+                ></AvatarImage>
+                <AvatarFallback>{user?.name[0]}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold">{user?.name}</p>
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  {user?.email}
+                </span>
+              </div>
+            </div>
+            <Button variant="link" onClick={logout}>
+              Change account
+            </Button>
+          </div>
+        </section>
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Phone Number</h2>
 
@@ -190,7 +244,7 @@ const RiderRegisterForm = () => {
 
         <section className="space-y-4">
           <div>
-            <h2 className="text-xl font-semibold">Identity Verifiaction</h2>
+            <h2 className="text-xl font-semibold">Identity Verification</h2>
             <p className="text-sm text-gray-600 dark:text-gray-300">
               Provide a ID Card, Driving License, or Passport. So we can
               identify your identity.
@@ -357,148 +411,150 @@ const RiderRegisterForm = () => {
           ></FormField>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Student Information</h2>
+        {isStudent && (
+          <section className="space-y-4">
+            <h2 className="text-xl font-semibold">Student Information</h2>
 
-          {/* For Student */}
-          <FormField
-            name="student_id"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Student ID</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="faculty"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Faculty</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          "justify-between",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value
-                          ? ku.faculties.find(
-                              (faculty) => faculty.name === field.value
-                            )?.name
-                          : "Select your faculty"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[400px] p-0" align="start">
-                    <Command>
-                      <CommandInput placeholder="Search faculty..." />
-                      <CommandEmpty>No faculty found.</CommandEmpty>
-                      <CommandGroup className="max-h-[200px] overflow-auto">
-                        {ku.faculties.map((faculty) => (
-                          <CommandItem
-                            value={faculty.name}
-                            key={faculty.name}
-                            onSelect={() => {
-                              form.setValue("faculty", faculty.name);
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                faculty.name === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                            {faculty.name}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="major"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Department</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          "justify-between",
-                          !field.value && "text-muted-foreground"
-                        )}
-                        disabled={!form.watch("faculty")}
-                      >
-                        {field.value
-                          ? ku.faculties
-                              .find(
-                                (faculty) =>
-                                  faculty.name === form.watch("faculty")
-                              )
-                              ?.departments.find((d) => d === field.value)
-                          : !form.watch("faculty")
-                          ? "Please select faculty first"
-                          : "Select your department"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[400px] p-0" align="start">
-                    <Command>
-                      <CommandInput placeholder="Search department..." />
-                      <CommandEmpty>No departments found.</CommandEmpty>
-                      <CommandGroup className="max-h-[200px] overflow-auto">
-                        {ku.faculties
-                          .find((f) => f.name === form.watch("faculty"))
-                          ?.departments.map((d) => (
+            {/* For Student */}
+            <FormField
+              name="student_id"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Student ID</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="faculty"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Faculty</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? ku.faculties.find(
+                                (faculty) => faculty.name === field.value
+                              )?.name
+                            : "Select your faculty"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[400px] p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder="Search faculty..." />
+                        <CommandEmpty>No faculty found.</CommandEmpty>
+                        <CommandGroup className="max-h-[200px] overflow-auto">
+                          {ku.faculties.map((faculty) => (
                             <CommandItem
-                              value={d}
-                              key={d}
+                              value={faculty.name}
+                              key={faculty.name}
                               onSelect={() => {
-                                form.setValue("major", d);
+                                form.setValue("faculty", faculty.name);
                               }}
                             >
                               <Check
                                 className={cn(
                                   "mr-2 h-4 w-4",
-                                  d === field.value
+                                  faculty.name === field.value
                                     ? "opacity-100"
                                     : "opacity-0"
                                 )}
                               />
-                              {d}
+                              {faculty.name}
                             </CommandItem>
                           ))}
-                      </CommandGroup>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </section>
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="major"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Department</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                          disabled={!form.watch("faculty")}
+                        >
+                          {field.value
+                            ? ku.faculties
+                                .find(
+                                  (faculty) =>
+                                    faculty.name === form.watch("faculty")
+                                )
+                                ?.departments.find((d) => d === field.value)
+                            : !form.watch("faculty")
+                            ? "Please select faculty first"
+                            : "Select your department"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[400px] p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder="Search department..." />
+                        <CommandEmpty>No departments found.</CommandEmpty>
+                        <CommandGroup className="max-h-[200px] overflow-auto">
+                          {ku.faculties
+                            .find((f) => f.name === form.watch("faculty"))
+                            ?.departments.map((d) => (
+                              <CommandItem
+                                value={d}
+                                key={d}
+                                onSelect={() => {
+                                  form.setValue("major", d);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    d === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {d}
+                              </CommandItem>
+                            ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </section>
+        )}
 
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Desire Location</h2>
@@ -521,7 +577,7 @@ const RiderRegisterForm = () => {
             )}
           />
         </section>
-        <Button>Register</Button>
+        <Button className="w-full sm:w-auto">Register</Button>
       </form>
     </Form>
   );

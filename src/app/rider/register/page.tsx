@@ -40,7 +40,6 @@ const SelectRegister = () => {
           </div>
         </div>
       </Link>
-      <RiderRegisterForm />
     </div>
   );
 };
