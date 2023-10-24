@@ -23,8 +23,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { columns } from "@/app/rider/(main)/components/columns";
-import { NavigationMenuDemo } from "./components/navigation-menu";
+import { columns } from "@/app/rider/(protected)/(main)/components/columns";
+import { NavigationMenuDemo } from "../components/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useAuthStore from "@/contexts/auth-store";
@@ -33,7 +33,7 @@ import useStore from "@/contexts/useStore";
 import { useEffect } from "react";
 import { getMyDeliveries } from "@/services/order";
 import { Delivery } from "@/types/order";
-import InProgressDelivery from "./components/in-progress";
+import InProgressDelivery from "../components/in-progress";
 import {
   Popover,
   PopoverContent,

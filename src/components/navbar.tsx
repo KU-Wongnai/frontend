@@ -22,8 +22,9 @@ import useAuthStore from "../contexts/auth-store";
 import { usePathname, useRouter } from "next/navigation";
 import CartDrawer from "./cart/cart-drawer";
 import DropdownNav from "./dropdown-nav";
+import { cn } from "@/lib/utils";
 
-const items = [
+export const items = [
   // {
   //   label: "Cart",
   //   href: "/cart",
@@ -61,7 +62,9 @@ const items = [
   },
 ];
 
-export default function Navbar() {
+interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function Navbar({ className, ...props }: NavbarProps) {
   const { data: user, loading } = useStore(useAuthStore, (state) => state.user);
   const pathname = usePathname();
 
@@ -71,7 +74,13 @@ export default function Navbar() {
   const isRestaurant = paths[1] === "me" && paths[2] === "restaurant";
 
   return (
-    <header className=" backdrop-blur-sm bg-opacity-5 md:px-3 py-3 border-b sticky top-0 z-50 bg-background">
+    <header
+      className={cn(
+        className,
+        "backdrop-blur-sm bg-opacity-5 md:px-3 py-3 border-b sticky top-0 z-50 bg-background"
+      )}
+      {...props}
+    >
       <div className="px-3 md:px-0 lg:container mx-auto flex flex-wrap justify-between items-center gap-2">
         {/* Logo */}
         <Link

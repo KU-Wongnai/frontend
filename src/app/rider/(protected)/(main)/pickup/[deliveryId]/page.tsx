@@ -1,6 +1,6 @@
 "use client";
 
-import Map from "@/app/rider/(main)/components/map";
+import Map from "@/app/rider/(protected)/(main)/components/map";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
