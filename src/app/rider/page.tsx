@@ -1,5 +1,4 @@
 import Footer from "@/components/footer";
-import Navbar, { items } from "@/components/navbar";
 import {
   Accordion,
   AccordionContent,
