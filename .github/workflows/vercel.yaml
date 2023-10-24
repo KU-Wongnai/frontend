@@ -6,6 +6,7 @@ env:
 
 on:
   push:
+  pull_request:
     branches:
       - main
       - TestDeploy
@@ -21,7 +22,9 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_GATEWAY_URL=${{ secrets.NEXT_PUBLIC_GATEWAY_URL }}" >> .env
           echo "NEXT_PUBLIC_OMISE_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_OMISE_PUBLIC_KEY }}" >> .env
-          
+          echo "NEXT_PUBLIC_PUSHER_KEY=${{ secrets.NEXT_PUBLIC_PUSHER_KEY }}" >> .env
+          echo "NEXT_PUBLIC_PUSHER_CLUSTER=${{ secrets.NEXT_PUBLIC_PUSHER_CLUSTER }}" >> .env
+
       - name: Install pnpm
         run: npm install -g pnpm
 
@@ -30,9 +33,9 @@ jobs:
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-        
+
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-        
+
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
