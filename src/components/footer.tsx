@@ -127,7 +127,7 @@ const Footer: React.FC = () => {
             <p>
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="/about"
               >
                 About us
               </a>
@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
             <p>
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="https://discord.com"
               >
                 Community
               </a>
@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
             <p>
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="/help"
               >
                 Help & Support
               </a>
@@ -184,19 +184,19 @@ const Footer: React.FC = () => {
             <div className="space-x-4 text-sm">
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="/terms"
               >
                 Terms
               </a>
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="/privacy"
               >
                 Privacy
               </a>
               <a
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-                href="#"
+                href="/status"
               >
                 Status
               </a>
@@ -220,19 +220,19 @@ const Footer: React.FC = () => {
             <div className="space-x-4">
               <a
                 className="inline-block text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
-                href="#"
+                href="https://facebook.com/"
               >
                 <Facebook className="w-4 h-4" />
               </a>
               <a
                 className="inline-block text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
-                href="#"
+                href="https://instagram.com/"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a
                 className="inline-block text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
-                href="#"
+                href="https://twitter.com/"
               >
                 <Twitter className="w-4 h-4" />
               </a>
