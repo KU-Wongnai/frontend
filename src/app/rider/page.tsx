@@ -67,13 +67,13 @@ const RiderLandingPage = () => {
     <div>
       {/* <Navbar className="static" /> */}
       <nav className="bg-black">
-        <div className="container text-white flex px-3 py-4 justify-between">
+        <div className="container text-white flex px-3 py-4 justify-between dark:border-b">
           <Link href="/" className="text-2xl">
             <span className="text-primary">KU</span> Wongnai
           </Link>
         </div>
       </nav>
-      <nav className="sticky top-0 z-10 bg-white">
+      <nav className="sticky top-0 z-10 bg-white text-black dark:bg-black dark:text-white">
         <div className="container flex px-3 py-4 justify-between">
           <Link href="#" className="text-2xl font-semibold">
             Rider
@@ -136,7 +136,7 @@ const RiderLandingPage = () => {
       </section>
 
       <main className="px-3 md:px-0">
-        <section id="overview" className="bg-white dark:bg-gray-900">
+        <section id="overview" className="bg-white dark:bg-black">
           <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img
               className="w-full"
@@ -306,16 +306,19 @@ const RiderLandingPage = () => {
           </div>
         </section>
 
-        <section className="bg-white dark:bg-gray-900">
+        <section className="mb-12 bg-black text-white">
           <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center">
-              <h2 className="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
+              <h2 className="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold leading-tight">
                 Ready to get started?
               </h2>
-              <p className="mb-6 font-light text-gray-500 dark:text-gray-400">
+              <p className="mb-6 font-light">
                 Start delivering with KU Wongnai today.
               </p>
-              <Button className="text-base md:text-lg py-6" asChild>
+              <Button
+                className="bg-white hover:bg-neutral-300 text-black text-base md:text-lg py-6"
+                asChild
+              >
                 <Link href="/rider/register">Register now</Link>
               </Button>
             </div>
