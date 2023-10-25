@@ -8,6 +8,7 @@ import GoogleMapReact from "google-map-react";
 import DropdownTimeScale from "@/components/dropdown-timeScale";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import categoryData from "@/mock/category";
 import {
   RestaurantForm,
   restaurantSchema,
@@ -367,14 +368,12 @@ export default function CreateRestaurant({}: Props) {
                                   </div>
                                 </FormControl>
                                 <SelectContent>
-                                  <SelectItem value="Noodle">Noodle</SelectItem>
-                                  <SelectItem value="Breakfast">
-                                    Breakfast
-                                  </SelectItem>
-                                  <SelectItem value="Beverage">
-                                    Beverage
-                                  </SelectItem>
-                                  <SelectItem value="Steak">Steak</SelectItem>
+                                  {categoryData.map((category) => (
+                                    <SelectItem
+                                      key={category.value}
+                                      value={category.value}
+                                    >{category.label}</SelectItem>
+                                  ))}
                                 </SelectContent>
                               </Select>
                               <FormMessage />

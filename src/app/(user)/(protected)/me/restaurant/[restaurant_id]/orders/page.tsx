@@ -8,9 +8,8 @@ import OrderCard from "../../components/order-card-dashboard";
 
 
 const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
-  const [statusReceivedDecoration, setStatusReceivedDecoration] = useState("");
-  const [statusProcessingDecoration, setStatusProcessingDecoration] =
-    useState("");
+  const [statusReceivedDecoration, setStatusReceivedDecoration] = useState("bg-green-500 rounded-lg px-4 py-1 text-white");
+  const [statusProcessingDecoration, setStatusProcessingDecoration] = useState("");
   const [statusFinishDecoration, setStatusFinishDecoration] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
 

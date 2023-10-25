@@ -82,26 +82,6 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
               </h3>
             </div>
           </Link>
-          <Link
-            href={`/me/restaurant/${restaurant_id}/menus`}
-            className="relative "
-          >
-            <Image
-              src={MenuManagementImage}
-              width={240}
-              height={60}
-              className="object-cover h-[100px] rounded-2xl shadow-lg"
-              alt="Picture of the author"
-            />
-            <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-4">
-              <h3>
-                Menu
-                <br />
-                Management
-              </h3>
-            </div>
-          </Link>
-          {/* </Link> */}
         </div>
       </header>
     </>

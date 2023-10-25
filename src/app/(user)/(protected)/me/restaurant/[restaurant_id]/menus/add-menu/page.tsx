@@ -29,8 +29,8 @@ const AddMenuPage = (props: Props) => {
     setFile(null); // Clear the selected file
   };
   return (
-    <div className="container py-[40px] px-40 ">
-      <div className="bg-white rounded-[12px] shadow-md py-12 px-14">
+    <div className="container md:px-40px] md:py-[40px] lg:px-40 lg:py-[40px] sm:p-0 ">
+      <div className="lg:bg-white rounded-[12px] md:shadow-md lg:shadow-md py-12 px-14 sm:bg-transparent sm:shadow-none md:bg-white">
         {/* Tag Topic (Menu) */}
         <div className="flex mb-10">
           <TagTitle />
@@ -43,7 +43,7 @@ const AddMenuPage = (props: Props) => {
         </div>
         {/* information */}
         <div className="flex flex-col  justify-center items-center">
-          <div className="grid grid-cols-2 gap-20 px-20">
+          <div className="flex flex-col px-20 space-x-5">
             <div className="flex flex-col">
               <p className="block text-sm font-medium mb-5 text-green-600">
                 Menu Image
@@ -99,7 +99,7 @@ const AddMenuPage = (props: Props) => {
                 )}
               </div>
             </div>
-            <div className="flex flex-col space-y-5">
+            <div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-10 mt-5">
               <div className="">
                 <label
                   htmlFor="input-label-with-helper-text"
@@ -110,7 +110,7 @@ const AddMenuPage = (props: Props) => {
                 <input
                   type="text"
                   id="location"
-                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:outline-none focus:border-green-600 focus:ring-green-600 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="menu name"
                 />
                 <p
@@ -130,7 +130,7 @@ const AddMenuPage = (props: Props) => {
                 <input
                   type="text"
                   id="location"
-                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:outline-none focus:border-green-600 focus:ring-green-600 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="menu category"
                 />
                 <p
@@ -150,7 +150,7 @@ const AddMenuPage = (props: Props) => {
                 <input
                   type="text"
                   id="location"
-                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:outline-none focus:border-green-600 focus:ring-green-600 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="menu price"
                 />
                 <p
@@ -170,7 +170,7 @@ const AddMenuPage = (props: Props) => {
                 <input
                   type="text"
                   id="location"
-                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light focus:outline-none focus:border-green-600 focus:ring-green-600 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="menu description"
                 />
                 <p

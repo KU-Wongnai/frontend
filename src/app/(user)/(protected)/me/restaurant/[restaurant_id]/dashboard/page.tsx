@@ -75,7 +75,7 @@ const RestaurantDashBoard = (props: Props) => {
               })}
             </div>
             <div className="overflow-y-auto max-h-[30rem]">
-              <div className="flex flex-wrap ml-2 mr-1 px-2 ">
+              <div className="flex flex-wrap ml-2 mr-1 px-1 ">
                 {mockFoodData.map((food) => {
                   // console.log(food); // Add this line for debugging
                   return (
