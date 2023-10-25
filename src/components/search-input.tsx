@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
 
@@ -10,10 +10,13 @@ type FormData = {
 
 function SearchInput() {
   const { register, handleSubmit } = useForm<FormData>();
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const onSubmit = (data: FormData) => {
-    router.push(`/search?name=${data.name}`);
+    router.push(
+      `/search?name=${data.name}&location=${searchParams.get("location") || ""}`
+    );
   };
 
   return (
@@ -36,4 +39,3 @@ function SearchInput() {
 }
 
 export default SearchInput;
-

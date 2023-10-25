@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "KU Canteen 1 (Bar Mai)",
     "shortName": "Bar Mai",
     "location": "Chongrak Prichananda Road, near Chulabhorn Walailak Swimming Pool",
@@ -9,6 +10,7 @@
     "popular": true
   },
   {
+    "id": 2,
     "name": "KU Canteen 2 (Bar Mai Kwa)",
     "shortName": "Bar Mai Kwa",
     "location": "Phaitoon Ingkasuwan Road, opposite the KU Golden Jubilee Administration and Information Center Building, near the Faculty of Agro-Industry",
@@ -17,6 +19,7 @@
     "hours": "Monday-Saturday (Closed Sunday and Holidays), Stores 6:00-14:00, KU Canteen 2 Area 6:00-16:00, Personnel Club Room 6:00-22:00"
   },
   {
+    "id": 3,
     "name": "KU Avenue",
     "location": "Chandrasatitya Road, opposite Inseechandrasatitya Field, Ngamwongwan Road Gate 3",
     "description": "A community mall with restaurants, beverages shops, shops that sell fruits and vegetables, a dental clinic, and a bookstore.",
@@ -24,18 +27,21 @@
     "hours": "Daily including Holidays, 6:00-21:00"
   },
   {
+    "id": 4,
     "name": "Faculty of Veterinary Medicine Food Center",
     "location": "Faculty of Veterinary Medicine, near the Faculty of Veterinary Technology",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0001.png",
     "hours": "5:00 - 19:00"
   },
   {
+    "id": 5,
     "name": "Kaew Kaset Restaurant (Department of Home Economics)",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0002.png",
     "location": "Witthayaborikarn Building (Behind KU Book Center)",
     "hours": "8:30 - 14:00"
   },
   {
+    "id": 6,
     "name": "Faculty of Business Administration Food Center (Bar Borihan)",
     "shortName": "Bar Borihan",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0003.png",
@@ -43,6 +49,7 @@
     "hours": "6:30 - 18:30"
   },
   {
+    "id": 7,
     "name": "Faculty of Science Food Center (Bar Wit)",
     "shortName": "Bar Wit",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0004.png",
@@ -51,6 +58,7 @@
     "popular": true
   },
   {
+    "id": 8,
     "name": "Faculty of Engineering Food Center (Bar Witsawa IUP)",
     "shortName": "Bar Wistsawa",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0005.png",
@@ -59,6 +67,7 @@
     "popular": true
   },
   {
+    "id": 9,
     "name": "Faculty of Agriculture Food Center (Bar Kaset)",
     "shortName": "Bar Kaset",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0007.png",
@@ -66,24 +75,28 @@
     "hours": "7:00 - 15:00"
   },
   {
+    "id": 10,
     "name": "Faculty of Fisheries Food Center",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0012.png",
     "location": "Faculty of Fisheries, near the Faculty of Environment",
     "hours": "6:00 - 14:00"
   },
   {
+    "id": 11,
     "name": "Sahaphot Restaurant (Institute of Food Research and Product Development)",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0009.png",
     "location": "Institute of Food Research and Product Development, near the KU Golden Jubilee Building",
     "hours": "7:00 - 14:00"
   },
   {
+    "id": 12,
     "name": "Faculty of Architecture Food Center",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0010.png",
     "location": "Faculty of Architecture",
     "hours": "5:00 - 18:00"
   },
   {
+    "id": 13,
     "name": "Faculty of Forestry Food Center",
     "image": "https://www.ku.ac.th/web-upload/filecenter/food/0011.png",
     "location": "Faculty of Forestry",

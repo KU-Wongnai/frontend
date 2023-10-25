@@ -63,9 +63,7 @@ export function ComboboxDemo() {
           <MapPin className="w-4 h-4" />
           <span className="ml-2 whitespace-nowrap overflow-hidden w-[13ch] text-left">
             {value
-              ? foodCenters.find(
-                  (bar) => bar.name.toLowerCase() === value.toLowerCase()
-                )?.name
+              ? foodCenters.find((bar) => bar.id === +value)?.name
               : "Where to eat?"}
           </span>
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
@@ -82,7 +80,13 @@ export function ComboboxDemo() {
                   className="group block w-full relative overflow-hidden h-[175px] rounded-sm bg-black"
                   key={bar.name}
                   onClick={() => {
-                    router.push(`/search?location=${bar.name}`); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
+                    setOpen(false);
+                    setValue(bar.id.toString());
+                    router.push(
+                      `/search?name=${
+                        searchParams.get("name") || ""
+                      }&location=${bar.id}`
+                    ); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
                   }}
                 >
                   <Image
@@ -104,13 +108,16 @@ export function ComboboxDemo() {
           <CommandGroup className="max-h-[400px] overflow-auto">
             {foodCenters.map((bar) => (
               <CommandItem
-                key={bar.name}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                key={bar.id}
+                value={bar.name}
+                onSelect={() => {
+                  setValue(bar.id.toString());
                   setOpen(false);
-                  if (currentValue !== value) {
-                    router.push(`/search?location=${currentValue}`); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
-                  }
+                  router.push(
+                    `/search?name=${searchParams.get("name") || ""}&location=${
+                      bar.id
+                    }`
+                  ); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
                 }}
               >
                 <Check
