@@ -4,7 +4,7 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getRestaurant } from "@/services/restaurant";
-import { StarIcon } from "lucide-react";
+import { PencilLine, StarIcon, Utensils } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
@@ -99,6 +99,7 @@ function ShowRestaurant({
                 asChild
               >
                 <Link href={`/restaurants/${params.restaurant_id}/review`}>
+                  <PencilLine className="w-5 h-5 mr-3" />
                   Review
                 </Link>
               </Button>
@@ -107,6 +108,7 @@ function ShowRestaurant({
                 asChild
               >
                 <Link href={`/restaurants/${params.restaurant_id}/menus`}>
+                  <Utensils className="w-5 h-5 mr-3" />
                   View menu
                 </Link>
               </Button>
