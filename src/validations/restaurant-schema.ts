@@ -14,3 +14,18 @@ export const restaurantSchema = z.object({
 });
 
 export type RestaurantForm = z.infer<typeof restaurantSchema>;
+
+// ----------- Restaurant Menu --------------------
+
+// Note: 
+
+// TODO: 
+
+export const restaurantMenuSchema = z.object({
+    name: z.string().min(1, "Name should not be empty").max(255, "Name should not be more than 255 characters").nonempty("Name is required."),
+    price: z.number().positive("Price should be positive number"),
+    category: z.string().min(3, "Category should not be empty").max(255, "Category should not be more than 255 characters").nonempty("The price is required."),
+    description:z.string().max(255).nullable().optional()
+});
+
+export type RestaurantMenuForm = z.infer<typeof restaurantMenuSchema>;

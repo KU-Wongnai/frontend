@@ -25,7 +25,13 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
         <div className="flex flex-wrap gap-8 container justify-center">
           {/* <Link href="/restaurant/dashboard"> */}
           <Link
+            // href={{
+            //   pathname: `/me/restaurant/${restaurant_id}/menus`,
+            //   query: { id: restaurant_id},
+            // }}
+
             href={`/me/restaurant/${restaurant_id}/menus`}
+
             className="relative "
           >
             <Image

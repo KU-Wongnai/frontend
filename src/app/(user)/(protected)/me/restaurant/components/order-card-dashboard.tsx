@@ -84,10 +84,11 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
           <DialogDescription>Order details</DialogDescription>
         </DialogHeader>
 
-        <div className="px-2 ">
+        <div className="px-2">
           <h3 className="text-md font-semibold">Order Items</h3>
           <Separator />
           {/* show list of order items */}
+          <div className="overflow-y-auto max-h-[20rem] p-2">
           <div className="flex flex-col space-y-2">
             {order?.orderItems.map((item) => (
               <div key={item.id}>
@@ -133,6 +134,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
                 </div>
               </div>
             ))}
+          </div>
           </div>
           <Separator />
 
