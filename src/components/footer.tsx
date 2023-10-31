@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
                 href="/rider"
               >
-                Rider
+                Become a Rider
               </a>
             </p>
             <p>
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
                 className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
                 href="/restaurants"
               >
-                Restaurant
+                Add Your Restaurant
               </a>
             </p>
           </div>
