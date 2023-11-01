@@ -9,15 +9,13 @@ import { Restaurant } from "@/types/restaurant";
 import foodCenters from "@/data/food-center.json";
 import Image from "next/image";
 import RestaurantCard from "./components/restaurant-card";
+import { useSearchParams } from "next/navigation";
 
-export default function Search({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+export default function Search() {
   const [restaurantData, setRestaurantData] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     (async () => {
@@ -51,12 +49,16 @@ export default function Search({
   const filterRestaurant = restaurantData;
 
   // console.log(restaurantData);
-  const foodCenter = foodCenters.find((f) => f.id === +searchParams.location!);
+  const foodCenter = foodCenters.find(
+    (f) => f.id === +searchParams.get("location")!
+  );
+  // console.log("[location] = ", searchParams.get("location"));
+  // console.log("[foodCenter] = ", foodCenter);
 
   const Title = () =>
-    searchParams.name ? (
+    searchParams.get("name") ? (
       <>
-        <span>&quot;{searchParams.name}&quot;</span>
+        <span>&quot;{searchParams.get("name")}&quot;</span>
         <span className="ml-3 font-normal text-base text-muted-foreground">
           {filterRestaurant.length} Results
         </span>
@@ -108,7 +110,7 @@ export default function Search({
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
           <Title />
         </h2>
-        <div className="flex flex-col items-center justify-center pb-4 m-auto md:items-start md:justify-start md:flex-row">
+        <div className="flex flex-col items-center justify-center pb-4 m-auto lg:items-start lg:justify-start lg:flex-row">
           <SearchSideBar />
           <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filterRestaurant ? (

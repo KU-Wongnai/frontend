@@ -24,7 +24,7 @@ export default function SearchSideBar() {
   ];
 
   return (
-    <div className="flex flex-row w-full md:w-1/5 md:flex-col mr-0 md:mr-5 bg-card border p-3 rounded-md shadow-sm mb-3">
+    <div className="flex flex-row w-full lg:w-1/5 lg:flex-col mr-0 lg:mr-5 bg-card border p-3 rounded-md shadow-sm mb-3">
       <div className="flex flex-col w-full pb-4 border-none md:border-b">
         <h1 className="mb-2 font-bold">Location</h1>
         {foodCenters.map((location) => (
