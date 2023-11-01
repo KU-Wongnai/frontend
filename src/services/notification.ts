@@ -302,3 +302,16 @@ export const getAllNotification = async (id : number) => {
     }
 };
 
+
+export const markAsRead = async (userId : number, notiId : number) => {
+  try {
+    const { data: notifications } = await httpClient.post(
+        `noti/api/notifications/${userId}/mark-as-read/${notiId}`
+    );
+    return notifications;
+  } catch (error) {
+    console.error("Failed to markAsRead notification", error);
+    throw error;
+  }
+}
+

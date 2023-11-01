@@ -3,6 +3,7 @@
 import { getMe } from "@/services/auth";
 import { ThemeProvider } from "@/components/theme-provider";
 import React, { useEffect } from "react";
+import { NotificationProvider } from './(user)/(protected)/notifications/NotificationsContext';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
@@ -12,9 +13,11 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   // Add more providers as needed
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
+    <NotificationProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+    </NotificationProvider>
   );
 };
 

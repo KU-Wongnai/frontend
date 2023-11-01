@@ -4,22 +4,7 @@ export const dynamic = "force-dynamic";
 
 import React from "react";
 import Link from "next/link";
-import { useEffect } from "react";
-import { getAllNotification } from "@/services/notification";
-import useAuthStore from "@/contexts/auth-store";
-
-import echo from "@/lib/echo";
-
-interface Notification {
-  id: number;
-  type: string;
-  notifiable_type: string;
-  notifiable_id: number; // user id that login
-  data: string;
-  read_at: Boolean;
-  created_at: Date;
-  updated_at: Date;
-}
+import { useNotification } from './NotificationsContext';
 
 function ShowNotifications({
   params,
@@ -29,49 +14,14 @@ function ShowNotifications({
     id: string;
   };
 }) {
-  const [notifications, setNotifications] = React.useState<Notification[]>([]);
-  const user = useAuthStore((state) => state.user);
+  const { state, dispatch } = useNotification();
 
-  useEffect(() => {
-    // อันนี้ดึงข้อมูลnotiทั้งหมดจาก user นั้นๆ จาก database มาแสดงได้แล้ว
+  const notishows = state.notificationLastest;
+  console.log('notification page', notishows);
 
-    // console.log("[noti] user", user);
-    const fetchNotification = async () => {
-      // console.log("[noti] trying to fetch");
-      if (user == null) return; // bug
-      const notifications = await getAllNotification(user.id);
-      // const notifications = await getAllNotification(2);
-      // console.log("[noti] done");
-      // console.log(notifications);
-      setNotifications(notifications);
-    };
-    fetchNotification();
-  }, [user]);
-
-  // can receive event message from laravel
-  useEffect(() => {
-    echo
-      .channel(`App.Models.User.${user?.id}`) // subscribe to channel
-      .listen(".notified-to-user", (e: any) => {
-        // listen to event name
-        console.log("[noti] event received");
-        console.log(e); // { message: "something" }
-        setNotifications((prev) => [
-          ...prev,
-          {
-            id: new Date().getTime(),
-            type: "",
-            notifiable_type: "",
-            notifiable_id: user?.id || 0,
-            data: e.message,
-            read_at: false,
-            created_at: new Date(),
-            updated_at: new Date(),
-          },
-        ]);
-      });
-    return () => echo.leaveChannel(`App.Models.User.${user?.id}`);
-  }, []);
+  const handleClear = async () => {
+    dispatch({ type: 'RESET' });
+  }
 
   return (
     <div>
@@ -79,14 +29,20 @@ function ShowNotifications({
         Notifications
       </h2>
       <main className="container mx-auto py-3 px-2 sm:px-4 md:px-6 lg:px-8">
-        {notifications?.map((notification: any) => (
-          <Link
+        {notishows?.map((notification: any) => (
+        <React.Fragment key={notification.id}>
+
+          {/* notification for user role */}
+          {notification.data.type === "User" ? (
+            <Link
             key={notification.id}
-            href="/conversations"
+            // href="/conversations"
+            href="/"
+            onClick={handleClear}
             className="block mb-4 p-4 border rounded shadow hover:bg-background/90 transition ease-in-out duration-150"
           >
-            {/* <h3 className="text-lg font-semibold">{notification.riderName}</h3> */}
-            <p>{notification.data}</p>
+            <h3 className="text-lg font-semibold">{"Related to the User"}</h3>
+            <p className=" my-1">{notification.data.message}</p>
             <span className="text-sm text-gray-500">
               <p>
                 {new Intl.DateTimeFormat("en-GB", {
@@ -96,6 +52,31 @@ function ShowNotifications({
               </p>
             </span>
           </Link>
+          ) : null}
+
+          {/* notification for rider role */}
+          {notification.data.type === "Rider" ? (
+            <Link
+            key={notification.id}
+            href="/rider/dashboard"
+            onClick={handleClear}
+            className="block mb-4 p-4 border rounded shadow hover:bg-background/90 transition ease-in-out duration-150"
+          >
+            <h3 className="text-lg font-semibold">{"Related to the Rider"}</h3>
+            <p className=" my-1">{notification.data.message}</p>
+            <span className="text-sm text-gray-500">
+              <p>
+                {new Intl.DateTimeFormat("en-GB", {
+                  dateStyle: "full",
+                  timeStyle: "long",
+                }).format(new Date(notification.created_at))}
+              </p>
+            </span>
+          </Link>
+          ) : null}
+
+
+          </React.Fragment>
         ))}
       </main>
     </div>

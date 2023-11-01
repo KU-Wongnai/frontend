@@ -23,7 +23,11 @@ import { usePathname, useRouter } from "next/navigation";
 import CartDrawer from "./cart/cart-drawer";
 import DropdownNav from "./dropdown-nav";
 import { cn } from "@/lib/utils";
-
+import { useEffect } from "react";
+import echo from "@/lib/echo";
+import { getAllNotification } from "@/services/notification";
+import { useNotification } from './../app/(user)/(protected)/notifications/NotificationsContext';
+import { markAsRead } from "@/services/notification";
 export const items = [
   // {
   //   label: "Cart",
@@ -73,6 +77,49 @@ export default function Navbar({ className, ...props }: NavbarProps) {
   const isRider = paths[1] === "rider";
   const isRestaurant = paths[1] === "me" && paths[2] === "restaurant";
 
+  const { state, dispatch, notifications, setNewNotification} = useNotification();
+  const handleClear = async () => {
+    console.log('[navbar][handleClear]');
+      for (const noti of state.notificationLastest) {
+      if (!noti.read_at) {
+        if (user?.id !== undefined) {
+          console.log('[navbar][handleClear] markAsRead');
+          await markAsRead(user?.id, noti.id);
+        }
+      }
+    }
+    dispatch({ type: 'RESET' });
+  }
+  const incrementNotificationCount = () => {
+    console.log('[navbar][incrementNotificationCount]');
+    dispatch({ type: 'INCREMENT' });
+  }
+  const notiCount = state.count;
+
+  useEffect(() => {
+    // console.log('This user', user);
+    console.log('[navbar] Notification count changed:', state.count);
+    const fetchNotifications = async () => {
+      console.log('[navbar][useEffect][fetchNotifications] inside', user);
+      if (user == null) return; 
+      const notiInside = await getAllNotification(user.id);
+      setNewNotification(notiInside);
+    };
+    echo
+      .channel(`App.Models.User.${user?.id}`) // subscribe to channel
+      .listen(".notified-to-user", (e: any) => {
+        // listen to event name
+        console.log("[noti navbar] event received");
+        console.log(e); // { message: "something" }
+        incrementNotificationCount();
+        console.log('[noti navbar] after incrementNotificationCount');
+        fetchNotifications();
+      });
+      console.log('[navbar][useEffect] after echo');
+      fetchNotifications();  // have this because when the first time user login, the notification will not show
+    return () => echo.leaveChannel(`App.Models.User.${user?.id}`);
+  }, [state.count, user]);
+
   return (
     <header
       className={cn(
@@ -111,15 +158,18 @@ export default function Navbar({ className, ...props }: NavbarProps) {
                 variant="outline"
                 className="rounded-full w-10 h-10"
                 asChild
+                onClick={handleClear}
               >
                 <Link
                   href="/notifications"
                   className="relative inset-0 rounded-full hidden sm:block"
                 >
                   <Bell className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5" />
+                  { notiCount > 0 && (
                   <span className="absolute -top-[6px] -right-[12px] w-6 h-6 bg-red-500 rounded-full text-white text-xs flex items-center justify-center border-2 border-background">
-                    3
+                    { notiCount }
                   </span>
+                  )}
                 </Link>
               </Button>
               <DropdownNav items={items} />
