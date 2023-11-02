@@ -41,8 +41,9 @@ export const createRestaurant = async (data : RestaurantForm) => {
 export const createRestaurantMenu = async (data : RestaurantMenuForm, id : number) => {
   try {
     const { data: menu } = await httpClient.post(
-        `restaurant/api/${id}/menu`, data
+        `restaurant/api/restaurants/${id}/menu`, data
     );
+    return menu;
   } catch (error) {
     console.error("Failed to create a menu", error);
     throw error;

@@ -40,6 +40,7 @@ const AddMenuPage = (props: Props) => {
       category: "",
       price: 0,
       description: "",
+      image: ""
     },
     resolver: zodResolver(restaurantMenuSchema),
   });
@@ -50,10 +51,12 @@ const AddMenuPage = (props: Props) => {
 
   const { isLoading } = form.formState;
 
+  const [image, setImage] = useState<string>("");
   
   const onSubmit = async (data: RestaurantMenuForm) => {
     console.log("Form submitted", data);
     try {
+      data.image = image!;
       await createRestaurantMenu(data, Number(params.restaurant_id));
       toast.success("Menu created successfully");
       router.push("/");
@@ -74,22 +77,24 @@ const AddMenuPage = (props: Props) => {
       console.error("Menu creation failed", error);
     }
   };
+
   const onFileChange = async (file: File | null) => {
     console.log(file);
     if (file) {
       const file_name_hash = hash(file.name);
-      const file_name = `images/${file_name_hash}`;
-      console.log(file_name);
+      const file_name = `menu/${file_name_hash}`;
+      console.log("file name ->" + file_name);
       const res = await uploadFile(file, file_name);
       console.log(res);
       if (res?.data) {
-        const avatar = res.data.replace(
+        const menuImage = res.data.replace(
           "http://host.docker.internal:8093",
           "http://localhost:8093"
         );
-        toast.success("Add menu success");
+        toast.success("Add menu image success");
+        setImage(menuImage);
+        return menuImage;
       }
-      return;
     }
     console.log("File selected:", file);
   };
@@ -105,8 +110,11 @@ const AddMenuPage = (props: Props) => {
       const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
 
       if (validImageTypes.includes(fileType)) {
+        console.log("valid");
+        console.log(selectedFile);
+        
         setFile(selectedFile); // Set the selected file
-        onFileChange(file);
+        onFileChange(selectedFile);
       } else {
         setMessage("Only images are accepted");
       }
@@ -178,6 +186,7 @@ const AddMenuPage = (props: Props) => {
                             alt="Selected Image"
                             height="250"
                             width="300"
+                            // onChange={onFileChange}
                           />
                           <button
                             onClick={removeImage}
@@ -199,7 +208,7 @@ const AddMenuPage = (props: Props) => {
                           render={({ field }) => (
                             <FormItem className="w-full md:pr-2">
                               <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Description
+                                Name
                               </FormLabel>
                               <FormControl>
                                 <Input
@@ -208,7 +217,7 @@ const AddMenuPage = (props: Props) => {
                                   id="name"
                                   placeholder="Name of new menu"
                                   disabled={isLoading}
-                                  value={field.value || ""}
+                                  value={field.value}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -261,7 +270,7 @@ const AddMenuPage = (props: Props) => {
                           render={({ field }) => (
                             <FormItem className="w-full md:pr-2">
                               <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Description
+                                Price
                               </FormLabel>
                               <FormControl>
                                 <Input
@@ -270,7 +279,8 @@ const AddMenuPage = (props: Props) => {
                                   id="price"
                                   placeholder="Price of new menu"
                                   disabled={isLoading}
-                                  value={field.value || ""}
+                                  value={field.value}
+                                  type="number"
                                 />
                               </FormControl>
                               <FormMessage />
@@ -325,7 +335,7 @@ const AddMenuPage = (props: Props) => {
               </div> */}
                   </div>
                 </div>
-                <button className="bg-green-600 text-white px-10 py-2 font-medium rounded-md mt-10 ">
+                <button type="submit" className="bg-green-600 text-white px-10 py-2 font-medium rounded-md mt-10 ">
                   Add
                 </button>
               </div>
