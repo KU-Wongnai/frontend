@@ -62,3 +62,11 @@ export const getRestaurantMenu = async (id: number) => {
   }
 }
 
+export const deleteRestaurant = async (id: number) => {
+  try {
+    await httpClient.delete(`restaurant/api/restaurants/${id}`);
+  } catch (error) {
+    console.error("Failed to delete restaurant", error);
+    throw error;
+  }
+}

@@ -38,7 +38,7 @@ export const deleteMe = async () => {
 // POST /users/role
 export const addRoleToUser = async (data: any) => {
   try {
-    await httpClient.post(`user/api/users/roles`, data);
+    await httpClient.post(`user/api/users/role`, data);
   } catch (error) {
     console.error("Failed to add role to user", error);
     throw error;
