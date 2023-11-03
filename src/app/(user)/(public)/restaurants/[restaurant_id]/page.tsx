@@ -4,7 +4,7 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getRestaurant } from "@/services/restaurant";
-import { PencilLine, StarIcon, Utensils } from "lucide-react";
+import { Check, PencilLine, StarIcon, Utensils, X } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
@@ -169,10 +169,40 @@ function ShowRestaurant({
         <div className="order-2 col-span-8 md:col-span-4 row-span-3">
           <div className="w-full p-6 flex flex-col gap-6 rounded-lg border bg-card text-card-foreground shadow-sm">
             <div>
+              <h2 className="font-bold">Open days</h2>
+              <ul className="text-gray-600 dark:text-gray-300 text-sm">
+                {restaurant?.openDays.map((day) => (
+                  <li key={day}>
+                    {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
               <h2 className="font-bold">Open Hours</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 {restaurant?.openAt} - {restaurant?.closeAt}
               </p>
+            </div>
+            <div>
+              <ul className="text-sm font-semibold space-y-2">
+                <li className="flex items-center">
+                  {restaurant?.isDelivery ? (
+                    <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  ) : (
+                    <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  )}{" "}
+                  Delivery
+                </li>
+                <li className="flex items-center">
+                  {restaurant?.isWalkIn ? (
+                    <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  ) : (
+                    <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  )}{" "}
+                  Walk In
+                </li>
+              </ul>
             </div>
             {restaurant?.priceRange && (
               <div>
