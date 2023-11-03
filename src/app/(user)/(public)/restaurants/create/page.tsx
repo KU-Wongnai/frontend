@@ -45,8 +45,17 @@ export default function CreateRestaurant({}: Props) {
       description: "",
       location: "",
       categories: [],
-      contactInfo: "",
-      rating: 3,
+      phone: "",
+      email: "",
+      facebook: "",
+      line: "",
+      openAt: undefined,
+      closeAt: undefined,
+      openDays: [],
+      priceRange: "",
+      isDelivery: false,
+      isWalkIn: false,
+      // rating: 3,
     },
     resolver: zodResolver(restaurantSchema),
   });
@@ -100,17 +109,19 @@ export default function CreateRestaurant({}: Props) {
   }>({ isDelivery: false, isWalkIn: false });
 
   const onHandleChangeDeliveryStatus = () => {
-    setServiceType({
-      isDelivery: !serviceType.isDelivery,
-      isWalkIn: serviceType.isWalkIn,
-    });
+    // setServiceType({
+    //   isDelivery: !serviceType.isDelivery,
+    //   isWalkIn: serviceType.isWalkIn,
+    // });
+    form.setValue("isDelivery", !form.getValues("isDelivery"));
   };
 
   const onHandleChangeWalkInStatus = () => {
-    setServiceType({
-      isDelivery: serviceType.isDelivery,
-      isWalkIn: !serviceType.isWalkIn,
-    });
+    // setServiceType({
+    //   isDelivery: serviceType.isDelivery,
+    //   isWalkIn: !serviceType.isWalkIn,
+    // });
+    form.setValue("isWalkIn", !form.getValues("isWalkIn"));
   };
 
   const [Time, setTime] = useState<{
@@ -119,6 +130,7 @@ export default function CreateRestaurant({}: Props) {
   }>({ openTime: "", closeTime: "" });
 
   const onHandleChangeOpenTimeStatus = (selectedTime: string) => {
+    form.setValue("openAt", selectedTime);
     setTime({
       openTime: selectedTime,
       closeTime: Time.closeTime,
@@ -126,6 +138,7 @@ export default function CreateRestaurant({}: Props) {
   };
 
   const onHandleChangeCloseTimeStatus = (selectedTime: string) => {
+    form.setValue("closeAt", selectedTime);
     setTime({
       openTime: Time.openTime,
       closeTime: selectedTime,
@@ -144,7 +157,8 @@ export default function CreateRestaurant({}: Props) {
     const updatedDay = selectedDay.filter(
       (_, index) => index !== indexToDelete
     );
-    setSelectedDay(updatedDay);
+    // setSelectedDay(updatedDay);
+    form.setValue("openDays", updatedDay);
     setOptionCountDay(updatedDay.length);
   };
 
@@ -167,6 +181,13 @@ export default function CreateRestaurant({}: Props) {
     console.log(Time);
   }, [Time]);
 
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) =>
+      console.log(value)
+    );
+    return () => subscription.unsubscribe();
+  }, [form.watch]);
+
   const handleAddCategory = () => {
     setOptionCount(optionCount + 1);
     setSelectedCategories([...selectedCategories, ""]);
@@ -186,9 +207,11 @@ export default function CreateRestaurant({}: Props) {
 
   const handleDayChange = (index: number, selectedDayValue: string) => {
     // Update the selected categories based on the index
-    const updatedDay = [...selectedDay];
+    const updatedDay = [...form.getValues("openDays")];
     updatedDay[index] = selectedDayValue;
-    setSelectedDay(updatedDay);
+    console.log(updatedDay);
+    // setSelectedDay(updatedDay);
+    form.setValue("openDays", updatedDay);
   };
 
   // const handleAddTime = () => {
@@ -355,7 +378,7 @@ export default function CreateRestaurant({}: Props) {
                           render={({ field }) => (
                             <FormItem className="w-full md:pr-2">
                               <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Category
+                                Category *
                               </FormLabel>
                               <MultiSelect
                                 selected={field.value}
@@ -661,9 +684,9 @@ export default function CreateRestaurant({}: Props) {
             {/* block for base information  */}
             <div className="flex justify-center text-sm font-bold container pt-3 md:pt-0 pb-3 md:pb-0">
               {/* sprit 2 side */}
-              <div className="w-full md:w-2/3">
+              <div className="flex w-full">
                 {/* inner white block for input */}
-                <div className="bg-card border w-600 rounded-[12px] md:m-10 pb-16 shadow-md">
+                <div className=" md:w-2/3 bg-card border w-600 rounded-[12px] md:m-10 pb-16 shadow-md">
                   <hr className="w-full rounded-t-[12px] h-4 bg-green-600 border-transparent" />
                   <div>
                     <div className="px-10 py-10 flex items-center mt-6">
@@ -680,18 +703,18 @@ export default function CreateRestaurant({}: Props) {
                     <div className="flex flex-col ml-3 space-y-4">
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
                         <FormField
-                          name="contactInfo"
+                          name="phone"
                           control={form.control}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Phone
+                                Phone *
                               </FormLabel>
                               <FormControl>
                                 <Input
                                   className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
                                   {...field}
-                                  id="contactInfo"
+                                  id="phone"
                                   placeholder="012-345-6789"
                                   disabled={isLoading}
                                 />
@@ -705,116 +728,146 @@ export default function CreateRestaurant({}: Props) {
                         />
                       </div>
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="example@email.com"
+                        <FormField
+                          name="email"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Email
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  type="email"
+                                  id="email"
+                                  placeholder="example@email.com"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant email
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant email
-                        </p>
                       </div>
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Facebook Page
-                        </label>
-                        <input
-                          type="url"
-                          id="facebook"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="https://www.facebook.com/restaurantExample "
+                        <FormField
+                          name="facebook"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Facebook Page
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="facebook"
+                                  placeholder="https://www.facebook.com/restaurantExample"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant facebook page
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant facebook page
-                        </p>
                       </div>
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          LINE@
-                        </label>
-                        <input
-                          type="text"
-                          id="line"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="restaurant LINE ID"
+                        <FormField
+                          name="line"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                LINE@
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="line"
+                                  placeholder="restaurant LINE ID"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant LINE ID
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant LINE ID
-                        </p>
                       </div>
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Instagram
-                        </label>
-                        <input
-                          type="url"
-                          id="instagram"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="https://www.instagram.com/restaurantExample/ "
+                        <FormField
+                          name="instagram"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Instagram
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="instagram"
+                                  placeholder="restaurant Instagram"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant Instagram
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant Instagram
-                        </p>
                       </div>
                       <div className="flex flex-col px-14 md:mr-8 md:ml-8">
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Website
-                        </label>
-                        <input
-                          type="url"
-                          id="website"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="https://www.restaurantExample.com "
+                        <FormField
+                          name="website"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                                Website
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                  {...field}
+                                  id="website"
+                                  placeholder="restaurant Website"
+                                  disabled={isLoading}
+                                />
+                              </FormControl>
+                              <FormDescription className="text-xs font-light text-gray-500 mt-2">
+                                Enter your restaurant website
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant website
-                        </p>
                       </div>
                     </div>
                   </div>
-                  <div></div>
                 </div>
-              </div>
-              <div className="p-4 hidden md:flex flex-col justify-center items-center w-1/3 gap-4">
-                <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center animate-wiggle animate-infinite">
-                  <p className="font-bold text-2xl text-white">3</p>
+                <div className="p-4 hidden md:flex flex-col justify-center items-center w-1/3 gap-4">
+                  <div className=" rounded-full w-[80px] h-[80px] bg-[#9DA9DF] flex items-center justify-center animate-wiggle animate-infinite">
+                    <p className="font-bold text-2xl text-white">3</p>
+                  </div>
+                  <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
+                  <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
                 </div>
-                <div className=" rounded-full w-[40px] h-[40px] bg-[#9DA9DF]"></div>
-                <div className=" rounded-full w-[20px] h-[20px] bg-[#9DA9DF]"></div>
               </div>
             </div>
           </div>
@@ -860,7 +913,7 @@ export default function CreateRestaurant({}: Props) {
                               key={index}
                             >
                               <DropdownDayInWeek
-                                value={selectedDay[index] || ""}
+                                value={form.watch("openDays")[index] || ""}
                                 onChange={(selectedDay) =>
                                   handleDayChange(index, selectedDay)
                                 }
@@ -868,6 +921,7 @@ export default function CreateRestaurant({}: Props) {
                               <button
                                 className="text-sm font-light text-white bg-red-400 px-3 py-1 rounded-sm "
                                 onClick={() => handleDeleteDay(index)}
+                                type="button"
                               >
                                 Delete
                               </button>
@@ -877,6 +931,7 @@ export default function CreateRestaurant({}: Props) {
                         <button
                           className="text-sm font-light text-green-600 underline"
                           onClick={handleAddDay}
+                          type="button"
                         >
                           + Add Additional Day
                         </button>

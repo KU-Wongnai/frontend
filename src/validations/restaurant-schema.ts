@@ -9,8 +9,20 @@ export const restaurantSchema = z.object({
   description: z.string(),
   location: z.string(),
   categories: z.string().array().nonempty("Food category is required."),
-  contactInfo: z.string(),
-  rating: z.number().max(5),
+  isDelivery: z.boolean(),
+  isWalkIn: z.boolean(),
+  //   contactInfo: z.string(),
+  phone: z.string().nonempty("Phone number is required."),
+  email: z.string().email().optional().or(z.literal("")),
+  website: z.string().url().optional().or(z.literal("")),
+  instagram: z.string().url().optional().or(z.literal("")),
+  facebook: z.string().url().optional().or(z.literal("")),
+  line: z.string().optional(),
+  openDays: z.string().array(),
+  openAt: z.string().optional(),
+  closeAt: z.string().optional(),
+  priceRange: z.string().optional(),
+  //   rating: z.number().max(5),
 });
 
 export type RestaurantForm = z.infer<typeof restaurantSchema>;
