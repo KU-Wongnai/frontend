@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import RealTimeClock from "@/components/clock";
 
 import { mockOrderData } from "../../../../../../../mock/order";
-import OrderCard from "@/app/(user)/(protected)/me/restaurant/components/order-card-dashboard";
-import RestaurantMenuCard from "@/app/(user)/(protected)/me/restaurant/components/menu-card-restaurant";
+import OrderCard from "@/app/(user)/(protected)/me/restaurants/components/order-card-dashboard";
+import RestaurantMenuCard from "@/app/(user)/(protected)/me/restaurants/components/menu-card-restaurant";
 import { mockFoodCategoryData } from "@/mock/food-ype";
 import FoodCategoryCard from "../../components/food-category-card";
 import { mockMenuData } from "@/mock/menu-card";

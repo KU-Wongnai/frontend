@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
+import { MultiSelect } from "@/components/ui/multi-select";
 type Props = {};
 
 let marker: any;
@@ -43,7 +44,7 @@ export default function CreateRestaurant({}: Props) {
       name: "",
       description: "",
       location: "",
-      foodType: "",
+      categories: [],
       contactInfo: "",
       rating: 3,
     },
@@ -349,33 +350,19 @@ export default function CreateRestaurant({}: Props) {
 
                       <div className="flex flex-col space-y-4 md:flex-row px-2">
                         <FormField
-                          name="foodType"
+                          name="categories"
                           control={form.control}
                           render={({ field }) => (
                             <FormItem className="w-full md:pr-2">
                               <FormLabel className="block text-sm font-medium mb-2 text-green-600">
                                 Category
                               </FormLabel>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <FormControl>
-                                  <div className="text-sm font-light  dark:text-gray-400">
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select Food Category..." />
-                                    </SelectTrigger>
-                                  </div>
-                                </FormControl>
-                                <SelectContent>
-                                  {categoryData.map((category) => (
-                                    <SelectItem
-                                      key={category.value}
-                                      value={category.value}
-                                    >{category.label}</SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                              <MultiSelect
+                                selected={field.value}
+                                options={categoryData}
+                                {...field}
+                                className="sm:w-[510px]"
+                              />
                               <FormMessage />
                             </FormItem>
                           )}
