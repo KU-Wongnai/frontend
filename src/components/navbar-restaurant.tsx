@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -9,8 +9,6 @@ import DashboardManagementImage from "/src/assets/restaurant/dashboardManagement
 
 import { usePathname } from "next/navigation";
 
-
-
 const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
   const pathName = usePathname();
 
@@ -18,7 +16,6 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
     return null;
   }
 
-  
   return (
     <>
       <header className="px-3 py-8 border-b top-0 bg-background mx-auto w-full text-black">
@@ -30,8 +27,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             //   query: { id: restaurant_id},
             // }}
 
-            href={`/me/restaurant/${restaurant_id}/menus`}
-
+            href={`/me/restaurants/${restaurant_id}/menus`}
             className="relative "
           >
             <Image
@@ -50,7 +46,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             </div>
           </Link>
           <Link
-            href={`/me/restaurant/${restaurant_id}/orders`}
+            href={`/me/restaurants/${restaurant_id}/orders`}
             className="relative "
           >
             <Image
@@ -70,7 +66,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
           </Link>
 
           <Link
-            href={`/me/restaurant/${restaurant_id}/dashboard`}
+            href={`/me/restaurants/${restaurant_id}/dashboard`}
             className="relative "
           >
             <Image

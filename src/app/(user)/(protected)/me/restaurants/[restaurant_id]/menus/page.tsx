@@ -43,7 +43,7 @@ const FoodManagement = (props: Props) => {
             </div>
           </div>
           <Link
-            href={`/me/restaurant/${params.restaurant_id}/menus/add-menu`}
+            href={`/me/restaurants/${params.restaurant_id}/menus/add-menu`}
             className="text-green-600 font-normal rounded-2xl border-green-600 border-2 py-1 px-3"
           >
             <p>+ Add Food</p>
