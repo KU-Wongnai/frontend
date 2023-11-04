@@ -61,6 +61,8 @@ import { Label } from "@/components/ui/label";
 import format from "date-fns/format";
 import { Separator } from "@/components/ui/separator";
 import toast from "react-hot-toast";
+import { formatPhoneNumber } from "react-phone-number-input";
+import banks from "@/data/banks.json";
 
 type RiderListsProps = {
   data: User[];
@@ -71,9 +73,15 @@ function getRole(user: User) {
     return "Admin";
   } else if (user.roles.some((role) => role.name === "rider")) {
     return "Rider";
-  }
-  else
-  return "User";
+  } else return "User";
+}
+
+export function formatId(Id: string) {
+  return `${Id.substring(0, 1)} ${Id.substring(1, 5)} ${Id.substring(
+    5,
+    10
+  )} ${Id.substring(10, 12)} ${Id.substring(12, 13)}`;
+  return Id;
 }
 
 export const columns: ColumnDef<User>[] = [
@@ -160,7 +168,7 @@ export const columns: ColumnDef<User>[] = [
             >
               <button className="flex items-center w-full">
                 <FileText className="mr-2 h-4 w-4" />
-                <span>Veiw Profile</span>
+                <span>View Profile</span>
               </button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -183,26 +191,18 @@ export const columns: ColumnDef<User>[] = [
               </DialogHeader>
 
               <Tabs defaultValue="profile" className="max-w-[400px]">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="profile">User Profile</TabsTrigger>
-                  <TabsTrigger value="student">Student Profile</TabsTrigger>
-                  <TabsTrigger value="food">Food Profile</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="Rider">Rider Profile</TabsTrigger>
+                  <TabsTrigger value="Bank Account">Bank Account</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="profile">
+                <TabsContent value="Rider">
                   <Card>
                     <CardContent className="space-y-2 mt-6">
                       <div className="grid grid-cols-3 gap-2">
                         <div className="text-sm font-bold">ID </div>
                         <div className="text-sm col-span-2">
                           {row.original.id}
-                        </div>
-                      </div>
-                      <Separator /> 
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Role</div>
-                        <div className="text-sm col-span-2">
-                          {getRole(row.original)}
                         </div>
                       </div>
                       <Separator />
@@ -221,58 +221,96 @@ export const columns: ColumnDef<User>[] = [
                       </div>
                       <Separator />
                       <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Phone Number </div>
+                        <div className="text-sm font-bold">
+                          Desire Location
+                        </div>
                         <div className="text-sm col-span-2">
-                          {row.original?.user_profile?.phone_number ?? "-"}
+                          {row.original.rider_profile.desire_location}
                         </div>
                       </div>
                       <Separator />
                       <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Birth Date </div>
+                        <div className="text-sm font-bold">Phone Number</div>
                         <div className="text-sm col-span-2">
-                          {row?.original?.user_profile?.birth_date?.toString() ??
+                          {formatPhoneNumber(
+                            row.original.rider_profile?.phone_number
+                          ) ?? "-"}
+                        </div>
+                      </div>
+                      <Separator />
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="text-sm font-bold">ID Card</div>
+                        <div className="text-sm col-span-2">
+                          {formatId(row.original.rider_profile?.id_card) ?? "-"}
+                        </div>
+                      </div>
+                      <img
+                        src={row.original.rider_profile?.id_card_photo}
+                        className=" w-full h-full mt-3"
+                        alt="id card"
+                      />
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="Bank Account">
+                  <Card>
+                    <CardContent className="space-y-2 mt-4 ">
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="text-sm font-bold">Bank Provider</div>
+                        <div className="text-sm col-span-2 flex flex-row">
+                          <div
+                            className="p-1 rounded-lg mr-3"
+                            style={{
+                              backgroundColor: (banks.th as any)[
+                                row.original?.rider_profile.bank_account_code
+                              ].color,
+                            }}
+                          >
+                            <Image
+                              src={`/banks/th/${row.original?.rider_profile.bank_account_code}.svg`}
+                              alt={
+                                row.original?.rider_profile.bank_account_code
+                              }
+                              width="20"
+                              height="20"
+                            />
+                          </div>
+                          <div className="self-center">
+                            {
+                              (banks.th as any)[
+                                row.original?.rider_profile.bank_account_code
+                              ].nice_name
+                            }
+                          </div>
+                        </div>
+                      </div>
+                      <Separator />
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="text-sm font-bold">Name</div>
+                        <div className="text-sm col-span-2">
+                          {row?.original?.rider_profile?.bank_account_name ??
                             "-"}
                         </div>
                       </div>
                       <Separator />
                       <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Address </div>
-                        <div className="text-sm cs2">
-                          {row?.original?.user_profile?.address ?? "-"}
+                        <div className="text-sm font-bold">Number </div>
+                        <div className="text-sm col-span-2">
+                          {row?.original?.rider_profile?.bank_account_number ??
+                            "-"}
                         </div>
                       </div>
+                      <img
+                        src={row.original.rider_profile?.book_bank_photo}
+                        className=" w-full h-full mt-3"
+                        alt="id card"
+                      />
                     </CardContent>
                   </Card>
                 </TabsContent>
 
-                <TabsContent value="student">
-                  <Card>
-                    <CardContent className="space-y-2 mt-4 ">
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Student ID </div>
-                        <div className="text-sm col-span-2">
-                          {row?.original?.user_profile?.student_id ?? "-"}
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Faculty </div>
-                        <div className="text-sm col-span-2">
-                          {row?.original?.user_profile?.faculty ?? "-"}
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-sm font-bold">Major </div>
-                        <div className="text-sm col-span-2">
-                          {row.original?.user_profile?.major ?? "-"}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="food">
+                {/* <TabsContent value="food">
                   <Card>
                     <CardContent className="space-y-2 mt-4">
                       <div className="grid grid-cols-3 gap-3">
@@ -290,7 +328,7 @@ export const columns: ColumnDef<User>[] = [
                       </div>
                     </CardContent>
                   </Card>
-                </TabsContent>
+                </TabsContent> */}
               </Tabs>
             </DialogContent>
           </Dialog>
@@ -307,13 +345,17 @@ export const columns: ColumnDef<User>[] = [
                   Are you sure you want to delete this account?
                 </DialogDescription>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
-              </div>
+              <div className="grid gap-4 py-4"></div>
               <DialogFooter>
                 <Button variant="outline" onClick={handleCancelDelete}>
                   Cancel
                 </Button>
-                <Button className="bg-red-500 hover:bg-red-500 hover:opacity-80" onClick={handleConfirmDelete}>Confirm Delete</Button>
+                <Button
+                  className="bg-red-500 hover:bg-red-500 hover:opacity-80"
+                  onClick={handleConfirmDelete}
+                >
+                  Confirm Delete
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -418,8 +460,11 @@ export function RiderTable({ data }: RiderListsProps) {
   );
 }
 const isRider = (user: User) => {
-  return !user.roles.some((role) => role.name === "admin") && user.roles.some((role) => role.name === "rider");
-}
+  return (
+    !user.roles.some((role) => role.name === "admin") &&
+    user.roles.some((role) => role.name === "rider")
+  );
+};
 
 const RiderLists: React.FC = () => {
   const [users, setUsers] = React.useState([]);

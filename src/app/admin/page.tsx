@@ -12,8 +12,7 @@ import SimplePieChart from "./components/simple-pie-chart";
 
 const isUser = (user: User) => {
   return (
-    !user.roles.some((role) => role.name === "admin") &&
-    !user.roles.some((role) => role.name === "rider")
+    !user.roles.some((role) => role.name === "admin")
   );
 };
 
@@ -26,7 +25,12 @@ const isRider = (user: User) => {
 
 function getDateCount({ items, name }: { items: any[]; name: string }) {
   const dateArr = items.map((item: any) => {
-    const date = new Date(item.created_at).toDateString();
+    let date: any;
+    if (name === "riders") {
+      date = new Date(item.rider_profile.created_at).toDateString();
+    } else {
+      date = new Date(item.created_at).toDateString();
+    }
     const dateArr: any = date;
     return dateArr;
   });
@@ -93,12 +97,10 @@ export default function AdminDashboard() {
     items: users.filter(isUser),
     name: "users",
   });
-  console.log("userCreateTimes", userCreateTimes);
   const riderCreateTimes = getDateCount({
     items: users.filter(isRider),
     name: "riders",
   });
-  console.log("riderCreateTimes", riderCreateTimes);
   // const restaurantCreateTimes = getDateCount({
   //   items: restaurants,
   //   name: "restaurants",
@@ -132,7 +134,7 @@ export default function AdminDashboard() {
                         href={"/admin/user-management"}
                         className="opacity-40  underline text-sm hover:opacity-90"
                       >
-                        Veiw all
+                        View all
                       </Link>
                     </div>
                   </div>
@@ -160,7 +162,7 @@ export default function AdminDashboard() {
                         href={"/admin/user-management"}
                         className="opacity-40  underline text-sm hover:opacity-90"
                       >
-                        Veiw all
+                        View all
                       </Link>
                     </div>
                   </div>
@@ -187,14 +189,14 @@ export default function AdminDashboard() {
                       href={"/admin/restaurant-management"}
                       className="opacity-40  underline text-sm hover:opacity-90"
                     >
-                      Veiw all
+                      View all
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
             {/* end restaurant */}
-            {/* Rider Request */}
+            {/* Rider Request
             <div className="col-span-12 sm:col-span-6 hover:scale-105 duration-500">
               <div className="p-4 relative rounded-sm shadow-sm border bg-card ">
                 <div className="flex gap-2 items-center ">
@@ -204,8 +206,8 @@ export default function AdminDashboard() {
                 <SimplePieChart data={userCreateTimes} />
               </div>
             </div>
-            {/* end Request */}
-            {/*Rider Request */}
+            end Request
+            Restaurant Request
             <div className="col-span-12 sm:col-span-6 hover:scale-105 duration-500">
               <div className="p-4 relative rounded-sm shadow-sm border bg-card ">
                 <div className="flex gap-2 items-center ">
@@ -215,7 +217,7 @@ export default function AdminDashboard() {
                 <SimplePieChart data={userCreateTimes} />
               </div>
             </div>
-            {/* end Request */}
+            end Request */}
             {/* Restaurant location */}
             <div className="col-span-12 sm:col-span-12 hover:scale-105 duration-500">
               <div className="p-4 relative rounded-sm shadow-sm border bg-card ">

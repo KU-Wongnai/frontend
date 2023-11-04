@@ -63,23 +63,6 @@ import { Separator } from "@/components/ui/separator";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 
-// export type ColumnType = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   image: string;
-//   profile:{
-//       phone: string;
-//       b_date: string;
-//       address: string;
-//       std_id: string;
-//       faculty: string;
-//       major: string;
-//       fav_food: string;
-//       allergy_food: string;
-//     };
-// };
-
 type UserListsProps = {
   data: User[];
 };
@@ -175,7 +158,7 @@ export const columns: ColumnDef<User>[] = [
             >
               <button className="flex items-center w-full">
                 <FileText className="mr-2 h-4 w-4" />
-                <span>Veiw Profile</span>
+                <span>View Profile</span>
               </button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -432,8 +415,7 @@ export function UserTable({ data }: UserListsProps) {
 }
 const isUser = (user: User) => {
   return (
-    !user.roles.some((role) => role.name === "admin") &&
-    !user.roles.some((role) => role.name === "rider")
+    !user.roles.some((role) => role.name === "admin")
   );
 };
 

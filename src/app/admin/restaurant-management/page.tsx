@@ -35,6 +35,7 @@ import {
 import {
   ArrowUpDown,
   FileText,
+  Globe,
   MoreHorizontal,
   StarIcon,
   Trash2,
@@ -71,6 +72,7 @@ import { deleteRestaurant, getRestaurants } from "@/services/restaurant";
 import { Restaurant } from "@/types/restaurant";
 import { Box, Rating } from "@mui/material";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 type RestaurantListsProps = {
   data: Restaurant[];
@@ -171,14 +173,21 @@ export const columns: ColumnDef<Restaurant>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-2">
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
               onClick={() => setIsViewDialogOpen(true)}
               className="py-3"
             >
               <button className="flex items-center w-full">
                 <FileText className="mr-2 h-4 w-4" />
-                <span>Veiw Details</span>
+                <span>View Details</span>
               </button>
+            </DropdownMenuItem> */}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="py-3">
+              <Link href={`/restaurants/${row.original.id}`} className="flex items-center w-full" target="_blank" rel="noopener noreferrer">
+                <FileText className="mr-2 h-4 w-4" />
+                <span>View Details</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
@@ -193,7 +202,7 @@ export const columns: ColumnDef<Restaurant>[] = [
           </DropdownMenuContent>
 
           {/* view profile dialog */}
-          <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
+          {/* <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Restaurant Details</DialogTitle>
@@ -255,7 +264,7 @@ export const columns: ColumnDef<Restaurant>[] = [
                 </TabsContent>
               </Tabs>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
 
           {/* delete dialog */}
           <Dialog
@@ -320,7 +329,7 @@ export function RestaurantTable({ data }: RestaurantListsProps) {
     <div className="w-full">
       <div className="sm:flex justify-between gap-3 items-center pb-4">
         <h2 className="text-2xl font-bold pb-2 sm:py-0">
-          Restaurnt Management
+          Restaurant Management
         </h2>
         <Input
           placeholder="search all columns"

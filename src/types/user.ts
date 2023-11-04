@@ -31,8 +31,12 @@ export type UserRider = {
   user_id: number;
   phone_number: string;
   id_card: string;
+  id_card_photo: string;
   birth_date: Date;
   bank_account_number: string;
+  bank_account_name: string;
+  bank_account_code: string;
+  book_bank_photo: string;
   avatar: string | null;
   student_id: null | string;
   faculty: null | string;

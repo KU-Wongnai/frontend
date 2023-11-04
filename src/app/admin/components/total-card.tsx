@@ -16,7 +16,7 @@ const TotalCard = ({ title, value, icon}: any) => {
             href={"/admin/user-management"}
             className="opacity-40  underline text-sm hover:opacity-90 mt-4"
           >
-            Veiw all
+            View all
           </Link>
         </div>
 
