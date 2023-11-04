@@ -38,6 +38,30 @@ export const createRestaurant = async (data : RestaurantForm) => {
   }
 }
 
+export const acceptRestaurant = async (data : RestaurantForm, id : number) => {
+  try {
+    const { data: restaurant } = await httpClient.put(
+        `restaurant/api/restaurants/${id}/accept`, data
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to accept a restaurant", error);
+    throw error;
+  }
+}
+
+export const declineRestaurant = async (data : RestaurantForm, id : number) => {
+  try {
+    const { data: restaurant } = await httpClient.put(
+        `restaurant/api/restaurants/${id}/decline`, data
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to decline a restaurant", error);
+    throw error;
+  }
+}
+
 export const createRestaurantMenu = async (data : RestaurantMenuForm, id : number) => {
   try {
     const { data: menu } = await httpClient.post(

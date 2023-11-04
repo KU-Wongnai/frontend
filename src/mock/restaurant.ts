@@ -6,7 +6,7 @@ export const mockRestaurants: Restaurant[] = [
     name: "Tasty Sushi",
     description: "Experience the best sushi in town",
     location: "Downtown",
-    foodType: "Japanese",
+    categories: "Japanese",
     contactInfo: "099-876-5432",
     image: null,
     rating: 4.5,

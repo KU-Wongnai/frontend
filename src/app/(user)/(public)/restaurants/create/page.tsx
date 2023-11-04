@@ -145,14 +145,6 @@ export default function CreateRestaurant({}: Props) {
     });
   };
 
-  const handleDeleteCategory = (indexToDelete: number) => {
-    const updatedCategories = selectedCategories.filter(
-      (_, index) => index !== indexToDelete
-    );
-    setSelectedCategories(updatedCategories);
-    setOptionCount(updatedCategories.length);
-  };
-
   const handleDeleteDay = (indexToDelete: number) => {
     const updatedDay = selectedDay.filter(
       (_, index) => index !== indexToDelete
@@ -577,24 +569,6 @@ export default function CreateRestaurant({}: Props) {
                           )}
                         />
 
-                        <label
-                          htmlFor="input-label-with-helper-text"
-                          className="block text-sm font-medium mb-2 text-green-600"
-                        >
-                          Route
-                        </label>
-                        <input
-                          type="text"
-                          id="route"
-                          className="py-3 px-4 block w-full font-light border-gray-300 border-2 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                          placeholder="Specify the route or landmarks to assist in navigating to the restaurant"
-                        />
-                        <p
-                          className="text-xs font-light text-gray-500 mt-2"
-                          id="hs-input-helper-text"
-                        >
-                          Enter your restaurant route
-                        </p>
                         <label
                           htmlFor="lat"
                           className="block text-sm font-medium mb-2 text-green-600"

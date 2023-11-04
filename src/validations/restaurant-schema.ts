@@ -7,11 +7,10 @@ import { z } from "zod";
 export const restaurantSchema = z.object({
   name: z.string().nonempty("Name is required."),
   description: z.string(),
-  location: z.string(),
-  categories: z.string().array().nonempty("Food category is required."),
+  location: z.string().nonempty("Location is required."),
+  categories: z.string().array().nonempty("Food categories are required."),
   isDelivery: z.boolean(),
   isWalkIn: z.boolean(),
-  //   contactInfo: z.string(),
   phone: z.string().nonempty("Phone number is required."),
   email: z.string().email().optional().or(z.literal("")),
   website: z.string().url().optional().or(z.literal("")),
@@ -22,7 +21,6 @@ export const restaurantSchema = z.object({
   openAt: z.string().optional(),
   closeAt: z.string().optional(),
   priceRange: z.string().optional(),
-  //   rating: z.number().max(5),
 });
 
 export type RestaurantForm = z.infer<typeof restaurantSchema>;
