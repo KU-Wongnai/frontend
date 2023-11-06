@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import useAuthStore from "@/contexts/auth-store";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 type DropdownNavProps = {
   items: {
@@ -80,6 +81,17 @@ const DropdownNav: React.FC<DropdownNavProps> = ({ items }) => {
             ))}
           </DropdownMenuGroup>
         ))}
+        <DropdownMenuLabel>Admin</DropdownMenuLabel>
+        {user.roles.some((role) => role.name === "admin") ? (
+          <DropdownMenuItem key="/admin" className="py-3">
+            <Link href="/admin" className="flex items-center w-full">
+              <DashboardIcon className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
+        ) : (
+          <></>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="py-3">
           <button onClick={logout} className="flex items-center w-full">
