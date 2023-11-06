@@ -60,7 +60,6 @@ const AddMenuPage = (props: Props) => {
   const { isLoading } = form.formState;
 
   const [image, setImage] = useState<string>("");
-  const onInvalid = (errors) => console.error(errors)
 
   const onSubmit = async (data: RestaurantMenuForm) => {
     console.log("Form submitted", data);
@@ -148,7 +147,7 @@ const AddMenuPage = (props: Props) => {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="container md:px-40px] md:py-[40px] lg:px-40 lg:py-[40px] sm:p-0 ">
             <div className="lg:bg-white rounded-[12px] md:shadow-md lg:shadow-md py-12 px-14 sm:bg-transparent sm:shadow-none md:bg-white">
               {/* Tag Topic (Menu) */}
