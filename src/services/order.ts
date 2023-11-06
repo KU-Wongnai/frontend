@@ -114,16 +114,24 @@ export const getOrderByRestaurant = async (restaurantId: string) => {
     console.error(error);
     throw error;
   }
-}
+};
 
 export const getOrderByID = async (orderId: string) => {
   try {
-    const { data } = await httpClient.get(
-      `/order/api/order/${orderId}`
-    );
+    const { data } = await httpClient.get(`/order/api/order/${orderId}`);
     return data;
   } catch (error) {
     console.error(error);
     throw error;
   }
-}
+};
+
+export const getMyPocket = async () => {
+  try {
+    const { data } = await httpClient.get(`/order/api/deliveries/me/earning`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

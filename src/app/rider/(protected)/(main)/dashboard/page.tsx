@@ -31,7 +31,7 @@ import useAuthStore from "@/contexts/auth-store";
 import Link from "next/link";
 import useStore from "@/contexts/useStore";
 import { useEffect } from "react";
-import { getMyDeliveries } from "@/services/order";
+import { getMyDeliveries, getMyPocket } from "@/services/order";
 import { Delivery } from "@/types/order";
 import InProgressDelivery from "../components/in-progress";
 import {
@@ -498,6 +498,7 @@ export default function Rider() {
   const [rowSelection, setRowSelection] = React.useState({});
   const { data: user } = useStore(useAuthStore, (state) => state.user);
   const [deliveryOrders, setDeliveryOrders] = React.useState<Delivery[]>([]);
+  const [pocket, setPocket] = React.useState<any>();
   const [isHaveTable, setIsHaveTable] = React.useState<boolean>(false);
 
   const table = useReactTable({
@@ -522,7 +523,12 @@ export default function Rider() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getMyDeliveries();
+      const pocket = await getMyPocket();
+
+      console.log(pocket);
+
       setDeliveryOrders(data);
+      setPocket(pocket);
     };
     fetchData();
   }, []);
@@ -562,7 +568,7 @@ export default function Rider() {
                   </PopoverContent>
                 </Popover>
                 <CurrencyFormat
-                  value={3456789}
+                  value={pocket?.totalIncome}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"฿"}
@@ -587,7 +593,7 @@ export default function Rider() {
                   </PopoverContent>
                 </Popover>
                 <CurrencyFormat
-                  value={69420}
+                  value={pocket?.transferable}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"฿"}
