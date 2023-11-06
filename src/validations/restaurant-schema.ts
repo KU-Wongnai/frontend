@@ -52,7 +52,7 @@ export const restaurantMenuSchema = z.object({
     .nullable()
     .optional()
     .or(z.literal("")),
-  image: z.string(),
+  image: z.string().nullable().optional(),
 });
 
 export type RestaurantMenuForm = z.infer<typeof restaurantMenuSchema>;

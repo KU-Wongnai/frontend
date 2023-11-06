@@ -113,10 +113,49 @@ export const createRestaurantMenu = async (
   }
 };
 
+export const updateRestaurantMenu = async (
+  data: RestaurantMenuForm,
+  id: number,
+  menuId: number
+) => {
+  try {
+    const { data: menu } = await httpClient.put(
+      `restaurant/api/restaurants/${id}/menu/items/${menuId}`,
+      // Sent only non-empty fields
+      Object.keys(data).reduce(
+        (acc, key) =>
+          // @ts-ignore
+          data[key] !== "" && data[key] !== null && data[key] !== undefined
+            ? // @ts-ignore
+              { ...acc, [key]: data[key] }
+            : acc,
+        {}
+      )
+    );
+    console.log("[PUT] Menu", menu);
+    return menu;
+  } catch (error) {
+    console.error("Failed to create a menu", error);
+    throw error;
+  }
+};
+
 export const getRestaurantMenu = async (id: number) => {
   try {
     const { data: menu } = await httpClient.get(
       `restaurant/api/restaurants/${id}/menu`
+    );
+    return menu;
+  } catch (error) {
+    console.error("Failed to get restaurant menu", error);
+    throw error;
+  }
+};
+
+export const getMenu = async (id: number, menuId: number) => {
+  try {
+    const { data: menu } = await httpClient.get(
+      `restaurant/api/restaurants/${id}/menu/items/${menuId}`
     );
     return menu;
   } catch (error) {

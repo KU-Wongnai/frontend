@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 const RestaurantMenuCard: React.FC<any> = ({
   id,
   name,
@@ -10,6 +11,7 @@ const RestaurantMenuCard: React.FC<any> = ({
   menuOptions,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const params = useParams();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -61,7 +63,7 @@ const RestaurantMenuCard: React.FC<any> = ({
               <p className="text-sm font-medium">{name}</p>
             </div>
             <div className="">
-              <p className="text-sm font-medium">35 ฿</p>
+              <p className="text-sm font-medium">{price} ฿</p>
             </div>
           </div>
         </div>
@@ -103,12 +105,13 @@ const RestaurantMenuCard: React.FC<any> = ({
                   >
                     Close
                   </button>
-                  <button
-                    className="btn px-2 py-2 bg-green-600 text-white font-medium text-sm rounded-md"
+                  <a
+                    href={`/merchant/restaurants/${params.restaurant_id}/menus/${id}/edit`}
+                    className="flex items-center justify-center btn px-2 py-2 bg-green-600 text-white font-medium text-sm rounded-md"
                     onClick={closeModal}
                   >
                     Edit
-                  </button>
+                  </a>
                 </form>
               </div>
             </div>
