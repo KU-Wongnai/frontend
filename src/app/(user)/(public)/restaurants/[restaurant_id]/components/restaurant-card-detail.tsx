@@ -72,7 +72,7 @@ const RestaurantCardDetail = ({ id }: { id: number }) => {
             </div>
           </div>
           <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-            {restaurant?.foodType}
+            {restaurant?.categories[0]}
           </div>
           <div className="mt-3 text-gray-600 dark:text-gray-300">
             {restaurant?.description}

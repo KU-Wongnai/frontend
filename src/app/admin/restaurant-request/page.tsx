@@ -56,7 +56,7 @@ type RestaurantRequestListsProps = {
   data: ColumnType[];
 };
 
-export const columns: ColumnDef<ColumnType>[] = [
+const columns: ColumnDef<ColumnType>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -99,7 +99,7 @@ export const columns: ColumnDef<ColumnType>[] = [
   },
 ];
 
-export function RestaurantRequestsTable({ data }: RestaurantRequestListsProps) {
+function RestaurantRequestsTable({ data }: RestaurantRequestListsProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -209,11 +209,7 @@ const RestaurantRequests: React.FC = () => {
       phone: "0812223345",
     },
   ];
-  return (
-    <div>
-      WIP
-    </div>
-  );
+  return <div>WIP</div>;
 };
 
 export default RestaurantRequests;

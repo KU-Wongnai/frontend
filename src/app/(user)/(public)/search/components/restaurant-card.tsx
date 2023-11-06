@@ -39,7 +39,7 @@ const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
         <h2 className="font-bold">
           {restaurant.name}{" "}
           <span className="text-sm font-normal text-muted-foreground">
-            {restaurant.foodType}
+            {restaurant.categories[0]}
           </span>
         </h2>
         <span className="flex items-center justify-center text-sm rounded-full bg-orange-500 w-5 h-5">
