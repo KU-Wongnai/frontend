@@ -55,7 +55,7 @@ const RestaurantCard: React.FC<Props> = ({
         </div>
         <div className="p-4">
           <h2 className="font-bold">{name}</h2>
-          <p className="text-gray-400 text-sm">{categories[0]}</p>
+          <p className="text-gray-400 text-sm">{categories?.[0]}</p>
           <div className="flex items-center gap-3 mt-2">
             {reviewCount === 0 ? (
               <span className="text-gray-400 text-sm my-1">
