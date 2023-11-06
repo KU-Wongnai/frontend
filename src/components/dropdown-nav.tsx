@@ -81,14 +81,17 @@ const DropdownNav: React.FC<DropdownNavProps> = ({ items }) => {
             ))}
           </DropdownMenuGroup>
         ))}
-        <DropdownMenuLabel>Admin</DropdownMenuLabel>
+
         {user.roles.some((role) => role.name === "admin") ? (
-          <DropdownMenuItem key="/admin" className="py-3">
-            <Link href="/admin" className="flex items-center w-full">
-              <DashboardIcon className="mr-2 h-4 w-4" />
-              <span>Dashboard</span>
-            </Link>
-          </DropdownMenuItem>
+          <div>
+            <DropdownMenuLabel>Admin</DropdownMenuLabel>
+            <DropdownMenuItem key="/admin" className="py-3">
+              <Link href="/admin" className="flex items-center w-full">
+                <DashboardIcon className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
+              </Link>
+            </DropdownMenuItem>
+          </div>
         ) : (
           <></>
         )}

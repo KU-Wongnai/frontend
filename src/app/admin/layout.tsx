@@ -6,6 +6,8 @@ import { useState } from "react";
 import AdminSidebar from "./components/admin-sidebar";
 import { Card } from "@mui/material";
 import { usePathname } from "next/navigation";
+import AuthAdminLayout from "./components/layout/auth-admin-layout";
+import AuthLayout from "@/components/layouts/auth-layout";
 
 export default function AdminLayout({
   children,
@@ -15,6 +17,8 @@ export default function AdminLayout({
   const [active, setActive] = useState(1);
   const pathname = usePathname();
   return (
+    <AuthLayout>
+    <AuthAdminLayout>
     <div className="flex flex-col min-h-screen">
       {/* Sticky Navbar */}
       <Navbar />
@@ -37,5 +41,7 @@ export default function AdminLayout({
       {/* Footer always at the bottom */}
       <Footer />
     </div>
+    </AuthAdminLayout>
+    </AuthLayout>
   );
 }
