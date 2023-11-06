@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import RestaurantCard from "@/components/restaurant-card";
+import RestaurantCard from "@/components/my-restaurant-list";
 import Image from "next/image";
 import NoRestaurantBro from "@/assets/undraw/undraw_chef_cu-0-r.svg";
 import { Restaurant } from "@/types/restaurant";
