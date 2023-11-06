@@ -38,10 +38,38 @@ import {
 import { Button } from "@/components/ui/button";
 type Props = {};
 
+const categories = [
+  "Appetizers",
+  "Soups and Salads",
+  "Main Courses",
+  "Pasta Dishes",
+  "Noodles",
+  "Seafood Specialties",
+  "Vegetarian/Vegan Options",
+  "Sandwiches and Burgers",
+  "Pizza",
+  "Sushi Rolls",
+  "Sashimi",
+  "Nigiri Sushi",
+  "Tempura",
+  "Teriyaki",
+  "Ramen",
+  "Udon",
+  "Donburi",
+  "Bento Boxes",
+  "Japanese Appetizers",
+  "Maki Rolls",
+  "Japanese Desserts",
+  "Japanese Beverages",
+  "Sides",
+  "Desserts",
+  "Beverages",
+];
+
 const AddMenuPage = (props: Props) => {
-  const [categories, setCategories] = React.useState([]);
+  // const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = useState<boolean>(true);
-  
+
   const form = useForm<RestaurantMenuForm>({
     defaultValues: {
       name: "",
@@ -87,16 +115,16 @@ const AddMenuPage = (props: Props) => {
     }
   };
 
-  const fetchRestaurantCategories = async () => {
-    const allRestaurantCategories = await getRestaurantCategories(
-      Number(params.restaurant_id)
-    );
-    console.log(allRestaurantCategories);
-    setCategories(allRestaurantCategories);
-  };
-  useEffect(() => {
-    fetchRestaurantCategories();
-  }, []);
+  // const fetchRestaurantCategories = async () => {
+  //   const allRestaurantCategories = await getRestaurantCategories(
+  //     Number(params.restaurant_id)
+  //   );
+  //   console.log(allRestaurantCategories);
+  //   setCategories(allRestaurantCategories);
+  // };
+  // useEffect(() => {
+  //   fetchRestaurantCategories();
+  // }, []);
 
   const onFileChange = async (file: File | null) => {
     console.log(file);
@@ -132,7 +160,7 @@ const AddMenuPage = (props: Props) => {
       if (validImageTypes.includes(fileType)) {
         console.log("valid");
         console.log(selectedFile);
-        
+
         setFile(selectedFile); // Set the selected file
         onFileChange(selectedFile);
       } else {
@@ -265,7 +293,7 @@ const AddMenuPage = (props: Props) => {
                                   </SelectTrigger>
                                 </div>
                               </FormControl>
-                              <SelectContent>
+                              <SelectContent className="overflow-scroll-y h-[400px]">
                                 {categories.map((category, index) => (
                                   <SelectItem key={index} value={category}>
                                     {category}
@@ -351,7 +379,9 @@ const AddMenuPage = (props: Props) => {
               </div> */}
                   </div>
                 </div>
-                <Button className="mt-5" type="submit">Add</Button>
+                <Button className="mt-5" type="submit">
+                  Add
+                </Button>
                 {/* <button type="submit" className="bg-green-600 text-white px-10 py-2 font-medium rounded-md mt-10 ">
                   Add
                 </button> */}

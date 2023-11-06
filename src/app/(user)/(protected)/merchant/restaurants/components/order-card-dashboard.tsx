@@ -20,29 +20,26 @@ import {
 import { Button } from "@/components/ui/button";
 import { mockOrderData } from "@/mock/order";
 import { Separator } from "@/components/ui/separator";
-import { set } from "date-fns";
+import { format, set } from "date-fns";
 
-const OrderCard: React.FC<any> = ({ id, decoration }) => {
-  const [order, setOrder] = useState<Order>(mockOrderData[0]);
+type Props = {
+  order: Order;
+  id?: string;
+  decoration?: string;
+};
+
+const OrderCard: React.FC<Props> = ({ order, id, decoration }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      const order = await getOrderByID(id);
-      setOrder(order);
-    };
-    fetchOrder();
-  }, [id]);
-
   const handlePreparing = () => {
-    console.log("id", id);
-    updateOrderStatus(id, "PREPARING");
+    console.log("id", order.id);
+    updateOrderStatus(order.id, "PREPARING");
     setOpenDialog(false);
     window.location.reload();
   };
 
   const handleCompleted = () => {
-    updateOrderStatus(id, "COMPLETED");
+    updateOrderStatus(order.id, "COMPLETED");
     setOpenDialog(false);
     window.location.reload();
   };
@@ -54,7 +51,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
       <div className="flex flex-col mt-2 ml-6 border-b py-3">
         <div className="flex text-xs text-green-600 font-md py-2">
           <p>Order number :</p>
-          <p>{id}</p>
+          <p>{order.id}</p>
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex justify-between items-center">
@@ -81,13 +78,13 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
             </DialogTrigger>
           </div>
           <p className="text-green-600 text-xs font-light">
-            {order?.createdAt?.toLocaleString()}
+            {format(new Date(order?.createdAt), "PPP")}
           </p>
         </div>
       </div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Order #{id}</DialogTitle>
+          <DialogTitle>Order #{order.id}</DialogTitle>
           <DialogDescription>Order details</DialogDescription>
         </DialogHeader>
 
@@ -109,7 +106,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
                       </div>
                     </div>
                     <p className="text-green-600 text-xs font-light">
-                      ${item.price.toFixed(2)}
+                      {item.price.toFixed(2)} ฿
                     </p>
                   </div>
                   {/* show list of order items option */}
@@ -123,7 +120,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
                             </div>
                           </div>
                           <p className="text-green-600 text-xs font-light">
-                            ${option.price.toFixed(2)}
+                            {option.price.toFixed(2)} ฿
                           </p>
                         </div>
                       </div>
@@ -136,7 +133,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
                       </div>
                     </div>
                     <p className="text-green-600 text-xs font-light">
-                      ${(item.totalPrice * item.quantity).toFixed(2)}
+                      {(item.totalPrice * item.quantity).toFixed(2)} ฿
                     </p>
                   </div>
                 </div>
@@ -147,10 +144,12 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
 
           <div className="text-xs text-gray-400 mt-2">
             <p>
-              <strong>Created At:</strong> {order?.createdAt?.toLocaleString()}
+              <strong>Created At:</strong>{" "}
+              {format(new Date(order?.createdAt), "PPP")}
             </p>
             <p>
-              <strong>Updated At:</strong> {order?.updatedAt?.toLocaleString()}
+              <strong>Updated At:</strong>{" "}
+              {format(new Date(order?.updatedAt), "PPP")}
             </p>
           </div>
         </div>

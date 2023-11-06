@@ -99,7 +99,8 @@ const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
               return (
                 <OrderCard
                   key={order.id}
-                  id={order.id}
+                  // id={order.id}
+                  order={order}
                   decoration="text-sm px-2 py-2"
                 />
               );

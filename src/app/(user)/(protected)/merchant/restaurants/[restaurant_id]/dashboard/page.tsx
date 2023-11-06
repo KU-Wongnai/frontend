@@ -7,12 +7,19 @@ import { Order } from "@/types/order";
 import OrderCard from "@/app/(user)/(protected)/merchant/restaurants/components/order-card-dashboard";
 import RestaurantMenuCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
 import FoodCategoryCard from "../../components/food-category-card";
-import { getRestaurantCategories, getRestaurantMenu } from "@/services/restaurant";
+import {
+  getRestaurantCategories,
+  getRestaurantMenu,
+} from "@/services/restaurant";
 import { Menu } from "@/types/restaurant";
 import { useParams } from "next/navigation";
 type Props = {};
 
-const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) => {
+const RestaurantDashBoard = ({
+  params,
+}: {
+  params: { restaurant_id: string };
+}) => {
   const paramMenu = useParams();
 
   const [currentPage, setCurrentPage] = useState<string>("All");
@@ -21,14 +28,15 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
   const [menus, setMenus] = React.useState<Menu[]>([]);
   const [categories, setCategories] = React.useState<string[]>([]);
 
-
   let filteredFoodData = menus;
 
   const handlePageChange = (page: string) => {
     setCurrentPage(page);
-    filteredFoodData = noFilterMenus.filter((item) => item.category.toLocaleLowerCase() == page.toLocaleLowerCase());
+    filteredFoodData = noFilterMenus.filter(
+      (item) => item.category.toLocaleLowerCase() == page.toLocaleLowerCase()
+    );
     console.log(filteredFoodData);
-    
+
     setMenus(filteredFoodData);
     if (page === "All") {
       setMenus(noFilterMenus);
@@ -40,7 +48,7 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
       Number(paramMenu.restaurant_id)
     );
     console.log(allRestaurantCategories);
-    const newCategories = ["All" , ...allRestaurantCategories];
+    const newCategories = ["All", ...allRestaurantCategories];
     setCategories(newCategories);
   };
   const fetchRestaurantMenus = async () => {
@@ -63,7 +71,7 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
       const orders = await getOrderByRestaurant(params.restaurant_id);
       setOrders(orders);
       setFilterMockOrderData(
-        orders.filter((order: Order) => order.status === "RECEIVED")
+        orders.filter((order: Order) => order.status === "PENDING")
       );
     };
     fetchOrderByRestaurant();
@@ -102,7 +110,7 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
                   (menu) => menu.category === category
                 );
                 let itemTotal = categoryMenus.length;
-                if(category === "All"){
+                if (category === "All") {
                   itemTotal = noFilterMenus.length;
                 }
                 return (
@@ -120,9 +128,7 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
               <div className="flex flex-wrap ml-2 mr-1 px-1 ">
                 {menus.map((menu) => {
                   // console.log(food); // Add this line for debugging
-                  return (
-                    <RestaurantMenuCard key={menu.id} {...menu} />
-                  );
+                  return <RestaurantMenuCard key={menu.id} {...menu} />;
                 })}
               </div>
             </div>
@@ -140,22 +146,23 @@ const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) 
                 <div className="flex flex-col">
                   <p className="font-bold text-xl py-2">Customer Order</p>
                   <p className="font-light text-sm text-gray-500">
-                    restaurant order
+                    New pending order
                   </p>
                 </div>
               </div>
               {/* mockData of Orderlist */}
               <div className="overflow-y-auto max-h-[30rem] mr-2">
                 <div className="flex flex-wrap ml-1 mr-1 px-1 ">
-                {filterMockOrderData.map((order) => {
-              return (
-                <OrderCard
-                  key={order.id}
-                  id={order.id}
-                  decoration="text-sm px-2 py-2"
-                />
-              );
-            })}
+                  {filterMockOrderData.map((order) => {
+                    return (
+                      <OrderCard
+                        key={order.id}
+                        // id={order.id}
+                        order={order}
+                        decoration="text-sm px-2 py-2"
+                      />
+                    );
+                  })}
                 </div>
               </div>
             </div>

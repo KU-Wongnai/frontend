@@ -7,7 +7,7 @@ const RestaurantMenuCard: React.FC<any> = ({
   image,
   price,
   category,
-  menuOptions
+  menuOptions,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,6 +31,10 @@ const RestaurantMenuCard: React.FC<any> = ({
     }
   };
 
+  const menuImage = image
+    ? image
+    : "https://covesurfandturf.com/wp-content/uploads/2021/09/food-placeholder-1.jpg";
+
   return (
     <>
       <button
@@ -42,7 +46,7 @@ const RestaurantMenuCard: React.FC<any> = ({
           {/* <div className="bg-white"> */}
           <Image
             alt="menuImage"
-            src={image} // Update the path to your image
+            src={menuImage} // Update the path to your image
             width={160}
             height={140}
             className="rounded-t-sm h-[140px] object-cover object-center"
@@ -57,7 +61,7 @@ const RestaurantMenuCard: React.FC<any> = ({
               <p className="text-sm font-medium">{name}</p>
             </div>
             <div className="">
-              <p className="text-sm font-medium">35$</p>
+              <p className="text-sm font-medium">35 ฿</p>
             </div>
           </div>
         </div>
@@ -74,7 +78,7 @@ const RestaurantMenuCard: React.FC<any> = ({
               <div className="flex shadow-lg bg-card rounded-md mt-5">
                 <Image
                   alt="salmon"
-                  src={image} // Update the path to your image
+                  src={menuImage} // Update the path to your image
                   width={160}
                   height={140}
                   className="h-[200px] w-[200px] object-cover object-center rounded-l-sm"
@@ -82,7 +86,7 @@ const RestaurantMenuCard: React.FC<any> = ({
                 <div className="flex flex-col justify-center space-y-3 ml-10 ">
                   <h3 className="font-bold text-lg">{name}</h3>
                   <h3 className="font-semibold text-md">{category}</h3>
-                  <h3 className="font-normal text-md">{price} $</h3>
+                  <h3 className="font-normal text-md">{price} ฿</h3>
                 </div>
               </div>
               <div className="flex flex-col mt-5 py-1">
