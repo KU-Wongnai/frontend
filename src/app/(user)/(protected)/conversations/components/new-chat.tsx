@@ -24,7 +24,7 @@ import useAuthStore from "@/contexts/auth-store";
 import { createRoomIfNotExists, sendMessage } from "@/services/chat";
 import { findUserByEmail } from "@/services/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
+import { MessageSquarePlus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -37,9 +37,12 @@ const chatSchema = z.object({
 
 type ChatForm = z.infer<typeof chatSchema>;
 
-const NewChat = () => {
+const NewChat = ({ email }: { email?: string }) => {
   const form = useForm<ChatForm>({
     resolver: zodResolver(chatSchema),
+    defaultValues: {
+      email,
+    },
   });
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -95,7 +98,7 @@ const NewChat = () => {
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button className="ml-auto" onClick={() => setDialogOpen(true)}>
-          <Plus className="w-4 h-4" />
+          <MessageSquarePlus className="w-4 h-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>

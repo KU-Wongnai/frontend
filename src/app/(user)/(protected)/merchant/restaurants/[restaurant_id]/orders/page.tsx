@@ -5,10 +5,12 @@ import { getOrderByRestaurant } from "@/services/order";
 import { Order } from "@/types/order";
 import OrderCard from "../../components/order-card-dashboard";
 
-
 const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
-  const [statusReceivedDecoration, setStatusReceivedDecoration] = useState("bg-green-500 rounded-lg px-4 py-1 text-white");
-  const [statusProcessingDecoration, setStatusProcessingDecoration] = useState("");
+  const [statusReceivedDecoration, setStatusReceivedDecoration] = useState(
+    "bg-green-500 rounded-lg px-4 py-1 text-white"
+  );
+  const [statusProcessingDecoration, setStatusProcessingDecoration] =
+    useState("");
   const [statusFinishDecoration, setStatusFinishDecoration] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
 
@@ -17,14 +19,14 @@ const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
       const orders = await getOrderByRestaurant(params.restaurant_id);
       setOrders(orders);
       setFilterMockOrderData(
-        orders.filter((order: Order) => order.status === "RECEIVED")
+        orders.filter((order: Order) => order.status === "PENDING")
       );
     };
     fetchOrderByRestaurant();
   }, [params.restaurant_id]);
 
   const [filterMockOrderData, setFilterMockOrderData] = useState(
-    orders.filter((order) => order.status === "RECEIVED")
+    orders.filter((order) => order.status === "PENDING")
   );
   const decorationStatus = "bg-green-500 rounded-lg px-4 py-1 text-white";
   const resetAllStatusDecoration = () => {
@@ -34,7 +36,7 @@ const OrderManagement = ({ params }: { params: { restaurant_id: string } }) => {
   };
   const handleIncomingOrder = () => {
     setFilterMockOrderData(
-      orders.filter((order) => order.status === "RECEIVED")
+      orders.filter((order) => order.status === "PENDING")
     );
     resetAllStatusDecoration();
     setStatusReceivedDecoration(decorationStatus);

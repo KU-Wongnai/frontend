@@ -8,14 +8,19 @@ import { getReviewsRestaurant } from "@/services/review";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
 import { Restaurant } from "@/types/restaurant";
 import { Review } from "@/types/reivew";
+import { boolean } from "zod";
 
-const RestaurantCard: React.FC<Restaurant> = ({
+interface Props extends Restaurant {
+  isMerchant?: boolean;
+}
+
+const RestaurantCard: React.FC<Props> = ({
   id,
   name,
   categories,
   image,
   rating,
-
+  isMerchant,
   menus,
 }) => {
   const [review, setReview] = React.useState<Review[]>([]);
@@ -37,7 +42,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
     "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"; // Replace with your default image path
 
   return (
-    <Link href={`/restaurants/${id}`}>
+    <Link href={`${isMerchant ? "/merchant" : ""}/restaurants/${id}`}>
       <div className="rounded-lg overflow-hidden shadow-md w-full border">
         <div className="h-40 relative">
           <Image
