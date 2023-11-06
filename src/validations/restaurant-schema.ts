@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export const restaurantSchema = z.object({
   name: z.string().nonempty("Name is required."),
-  description: z.string().min(6).max(255),
+  description: z.string(),
   location: z.string().nonempty("Location is required."),
   categories: z.string().array().nonempty("Food categories are required."),
   isDelivery: z.boolean(),
@@ -43,7 +43,15 @@ export const restaurantMenuSchema = z.object({
     .min(3, "Category should not be empty")
     .max(255, "Category should not be more than 255 characters")
     .nonempty("The price is required."),
-  description: z.string().max(255).nullable().optional(),
+  description: z
+    .string()
+    // .nonempty("Description is required.")
+    .min(6, "Description should be at least 6 letters")
+    .max(255, "Description should not be more than 255 characters")
+    .max(255)
+    .nullable()
+    .optional()
+    .or(z.literal("")),
   image: z.string(),
 });
 

@@ -96,7 +96,7 @@ const AddMenuPage = (props: Props) => {
       await createRestaurantMenu(data, Number(params.restaurant_id));
       toast.success("Menu created successfully");
       const id = params.restaurant_id;
-      router.push("/");
+      router.push("/merchant/restaurants/" + id + "/menus");
     } catch (error: any) {
       if (error.response.status === 422)
         // Loop over the errors object and set errors return from restaurant-service

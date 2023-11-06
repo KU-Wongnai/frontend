@@ -95,7 +95,16 @@ export const createRestaurantMenu = async (
   try {
     const { data: menu } = await httpClient.post(
       `restaurant/api/restaurants/${id}/menu`,
-      data
+      // Sent only non-empty fields
+      Object.keys(data).reduce(
+        (acc, key) =>
+          // @ts-ignore
+          data[key] !== "" && data[key] !== null && data[key] !== undefined
+            ? // @ts-ignore
+              { ...acc, [key]: data[key] }
+            : acc,
+        {}
+      )
     );
     return menu;
   } catch (error) {
@@ -126,7 +135,7 @@ export const getRestaurantCategories = async (id: number) => {
     console.error("Failed to get restaurant menu", error);
     throw error;
   }
-}
+};
 
 export const deleteRestaurant = async (id: number) => {
   try {
