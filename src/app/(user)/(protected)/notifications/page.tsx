@@ -33,7 +33,7 @@ function ShowNotifications({
         <React.Fragment key={notification.id}>
 
           {/* notification for user role */}
-          {notification.data.type === "User" ? (
+          {notification.data.type === "User" || notification.data.type === "Restaurant" ? (
             <Link
             key={notification.id}
             // href="/conversations"
@@ -41,7 +41,7 @@ function ShowNotifications({
             onClick={handleClear}
             className="block mb-4 p-4 border rounded shadow hover:bg-background/90 transition ease-in-out duration-150"
           >
-            <h3 className="text-lg font-semibold">{"Related to the User"}</h3>
+            <h3 className="text-lg font-semibold">{"Related to the Eat"}</h3>
             <p className=" my-1">{notification.data.message}</p>
             <span className="text-sm text-gray-500">
               <p>
