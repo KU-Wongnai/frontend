@@ -1,5 +1,5 @@
 "use client";
-import RestaurantFoodCard from "@/app/(user)/(protected)/me/restaurants/components/menu-card-restaurant";
+import RestaurantFoodCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
 import TagTitle from "@/components/tag-title";
 import { mockFoodCategoryData } from "@/mock/food-ype";
 import Link from "next/link";

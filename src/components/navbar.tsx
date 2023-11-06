@@ -48,6 +48,11 @@ export const items = [
     label: "Others",
     items: [
       {
+        label: "Manage your restaurant",
+        href: "/merchant/restaurants",
+        icon: <UtensilsCrossed className="mr-2 h-4 w-4" />,
+      },
+      {
         label: "Add your restaurant",
         href: "/restaurants/create",
         icon: <UtensilsCrossed className="mr-2 h-4 w-4" />,

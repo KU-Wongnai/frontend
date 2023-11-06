@@ -26,6 +26,18 @@ export const getRestaurant = async (id: number) => {
   }
 };
 
+export const getMyRestaurants = async () => {
+  try {
+    const { data: restaurants } = await httpClient.get(
+        `restaurant/api/restaurants/userRestaurants`
+    );
+    return restaurants;
+  } catch (error) {
+    console.error("Failed to get user restaurants", error);
+    throw error;
+  }
+};
+
 export const createRestaurant = async (data : RestaurantForm) => {
   try {
     const { data: restaurant } = await httpClient.post(

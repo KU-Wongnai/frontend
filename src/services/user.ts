@@ -25,7 +25,7 @@ export const updateUserProfile = async (data: any) => {
   }
 };
 
-// DELETE /users/me
+// DELETE /users/merchant
 export const deleteMe = async () => {
   try {
     await httpClient.delete("user/api/users/me");

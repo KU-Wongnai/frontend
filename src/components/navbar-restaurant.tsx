@@ -23,7 +23,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
           {/* <Link href="/restaurant/dashboard"> */}
           <Link
             // href={{
-            //   pathname: `/me/restaurant/${restaurant_id}/menus`,
+            //   pathname: `/merchant/restaurant/${restaurant_id}/menus`,
             //   query: { id: restaurant_id},
             // }}
 
