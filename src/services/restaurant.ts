@@ -26,6 +26,18 @@ export const getRestaurant = async (id: number) => {
   }
 };
 
+export const getMyRestaurants = async () => {
+  try {
+    const { data: restaurants } = await httpClient.get(
+        `restaurant/api/restaurants/userRestaurants`
+    );
+    return restaurants;
+  } catch (error) {
+    console.error("Failed to get user restaurants", error);
+    throw error;
+  }
+};
+
 export const createRestaurant = async (data : RestaurantForm) => {
   try {
     const { data: restaurant } = await httpClient.post(
@@ -34,6 +46,30 @@ export const createRestaurant = async (data : RestaurantForm) => {
     return restaurant;
   } catch (error) {
     console.error("Failed to create a restaurant", error);
+    throw error;
+  }
+}
+
+export const acceptRestaurant = async (data : RestaurantForm, id : number) => {
+  try {
+    const { data: restaurant } = await httpClient.put(
+        `restaurant/api/restaurants/${id}/accept`, data
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to accept a restaurant", error);
+    throw error;
+  }
+}
+
+export const declineRestaurant = async (data : RestaurantForm, id : number) => {
+  try {
+    const { data: restaurant } = await httpClient.put(
+        `restaurant/api/restaurants/${id}/decline`, data
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to decline a restaurant", error);
     throw error;
   }
 }
@@ -62,3 +98,11 @@ export const getRestaurantMenu = async (id: number) => {
   }
 }
 
+export const deleteRestaurant = async (id: number) => {
+  try {
+    await httpClient.delete(`restaurant/api/restaurants/${id}`);
+  } catch (error) {
+    console.error("Failed to delete restaurant", error);
+    throw error;
+  }
+}

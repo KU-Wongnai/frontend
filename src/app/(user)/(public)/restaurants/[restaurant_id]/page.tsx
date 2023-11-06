@@ -4,7 +4,7 @@ import React, { use, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getRestaurant } from "@/services/restaurant";
-import { PencilLine, StarIcon, Utensils } from "lucide-react";
+import { Check, PencilLine, StarIcon, Utensils, X } from "lucide-react";
 import { getReviewsRestaurant } from "@/services/review";
 import ReviewList from "./review/components/review/review-list";
 import { calAverageReview, calReviewCount } from "@/lib/review-help";
@@ -18,6 +18,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { convertTime } from "@/utils/time";
+import { FaInstagram, FaFacebook, FaLine, FaGlobe } from "react-icons/fa";
 
 function ShowRestaurant({
   params,
@@ -49,6 +52,19 @@ function ShowRestaurant({
   const average = calAverageReview(review);
 
   const reviewCount = calReviewCount(review);
+
+  const isOpen = () => {
+    const today = new Date();
+    const openAt = convertTime(restaurant?.openAt!);
+    const closeAt = convertTime(restaurant?.closeAt!);
+
+    if (today.getHours() >= openAt.getHours()) {
+      if (today.getHours() <= closeAt.getHours()) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <main>
@@ -85,13 +101,23 @@ function ShowRestaurant({
                 </div>
               </div>
               <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-                {restaurant?.foodType}
+                {restaurant?.categories.map((category) => (
+                  <Badge key={category} className="mr-1">
+                    {category}
+                  </Badge>
+                ))}
               </div>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-gray-600 dark:text-gray-300">
-              <span className="text-primary">Open</span> until 16:00
+              {isOpen() ? (
+                <>
+                  <span className="text-primary">Open</span> until 16:00
+                </>
+              ) : (
+                <span className="text-red-500">Closed</span>
+              )}
             </div>
             <div className="w-full flex gap-3 mt-4">
               <Button
@@ -137,7 +163,7 @@ function ShowRestaurant({
             <div>
               <h2 className="font-bold">Contact</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                {restaurant?.contactInfo}
+                {restaurant?.phone}
               </p>
             </div>
           </div>
@@ -145,17 +171,53 @@ function ShowRestaurant({
         <div className="order-2 col-span-8 md:col-span-4 row-span-3">
           <div className="w-full p-6 flex flex-col gap-6 rounded-lg border bg-card text-card-foreground shadow-sm">
             <div>
+              <h2 className="font-bold">Open days</h2>
+              {restaurant?.openDays && restaurant?.openDays.length > 0 ? (
+                <ul className="text-gray-600 dark:text-gray-300 text-sm">
+                  {restaurant?.openDays.map((day) => (
+                    <li key={day}>
+                      {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div>-</div>
+              )}
+            </div>
+            <div>
               <h2 className="font-bold">Open Hours</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                8:00 AM - 4:00 PM
+                {restaurant?.openAt} - {restaurant?.closeAt}
               </p>
             </div>
             <div>
-              <h2 className="font-bold">Prices</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                20 - 60 THB
-              </p>
+              <ul className="text-sm font-semibold space-y-2">
+                <li className="flex items-center">
+                  {restaurant?.isDelivery ? (
+                    <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  ) : (
+                    <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  )}{" "}
+                  Delivery
+                </li>
+                <li className="flex items-center">
+                  {restaurant?.isWalkIn ? (
+                    <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  ) : (
+                    <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                  )}{" "}
+                  Walk In
+                </li>
+              </ul>
             </div>
+            {restaurant?.priceRange && (
+              <div>
+                <h2 className="font-bold">Prices</h2>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  {restaurant.priceRange}
+                </p>
+              </div>
+            )}
             <div>
               <h2 className="font-bold">Description</h2>
               <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -164,10 +226,45 @@ function ShowRestaurant({
             </div>
             <div className="border-t pt-6">
               <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300">
-                <li>Line</li>
-                <li>Facebook</li>
-                <li>Instagram</li>
-                <li>Tiktok</li>
+                {restaurant?.line && (
+                  <li className="flex items-center gap-2">
+                    <FaLine className="w-5 h-5" />
+                    Line: {restaurant.line}
+                  </li>
+                )}
+                {restaurant?.facebook && (
+                  <li>
+                    <a
+                      href={restaurant.facebook}
+                      className="flex items-center gap-2 hover:text-primary"
+                      target="_blank"
+                    >
+                      <FaFacebook className="w-5 h-5" /> Facebook
+                    </a>
+                  </li>
+                )}
+                {restaurant?.instagram && (
+                  <li>
+                    <a
+                      href={restaurant.instagram}
+                      className="flex items-center gap-2 hover:text-primary"
+                      target="_blank"
+                    >
+                      <FaInstagram className="w-5 h-5" /> Instagram
+                    </a>
+                  </li>
+                )}
+                {restaurant?.website && (
+                  <li>
+                    <a
+                      href={restaurant.website}
+                      className="flex items-center gap-2 hover:text-primary"
+                      target="_blank"
+                    >
+                      <FaGlobe className="w-5 h-5" /> Website
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

@@ -5,21 +5,31 @@ import { z } from "zod";
 // TODO: Add more field in the service and here
 
 export const restaurantSchema = z.object({
-    name: z.string().nonempty("Name is required."),
-    description: z.string(),
-    location: z.string(),
-    foodType: z.string().nonempty("Food type is required."),
-    contactInfo: z.string(),
-    rating: z.number().max(5),
+  name: z.string().nonempty("Name is required."),
+  description: z.string(),
+  location: z.string().nonempty("Location is required."),
+  categories: z.string().array().nonempty("Food categories are required."),
+  isDelivery: z.boolean(),
+  isWalkIn: z.boolean(),
+  phone: z.string().nonempty("Phone number is required."),
+  email: z.string().email().optional().or(z.literal("")),
+  website: z.string().url().optional().or(z.literal("")),
+  instagram: z.string().url().optional().or(z.literal("")),
+  facebook: z.string().url().optional().or(z.literal("")),
+  line: z.string().optional(),
+  openDays: z.string().array(),
+  openAt: z.string().optional(),
+  closeAt: z.string().optional(),
+  priceRange: z.string().optional(),
 });
 
 export type RestaurantForm = z.infer<typeof restaurantSchema>;
 
 // ----------- Restaurant Menu --------------------
 
-// Note: 
+// Note:
 
-// TODO: 
+// TODO:
 
 export const restaurantMenuSchema = z.object({
     name: z.string().min(1, "Name should not be empty").max(255, "Name should not be more than 255 characters").nonempty("Name is required."),

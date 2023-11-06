@@ -1,5 +1,5 @@
 "use client";
-import RestaurantFoodCard from "@/app/(user)/(protected)/me/restaurant/components/menu-card-restaurant";
+import RestaurantFoodCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
 import TagTitle from "@/components/tag-title";
 import { mockFoodCategoryData } from "@/mock/food-ype";
 import Link from "next/link";
@@ -25,9 +25,8 @@ const FoodManagement = (props: Props) => {
       setMockFoodData(mockMenuData);
     }
   };
- 
-  const params = useParams()
-  
+
+  const params = useParams();
 
   return (
     <div className="container py-[40px] px-40 ">
@@ -44,7 +43,7 @@ const FoodManagement = (props: Props) => {
             </div>
           </div>
           <Link
-            href={`/me/restaurant/${params.restaurant_id}/menus/add-menu`}
+            href={`/me/restaurants/${params.restaurant_id}/menus/add-menu`}
             className="text-green-600 font-normal rounded-2xl border-green-600 border-2 py-1 px-3"
           >
             <p>+ Add Food</p>

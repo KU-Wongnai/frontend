@@ -38,26 +38,14 @@ const RestaurantList = () => {
           />
           <h1 className="text-3xl font-bold  mt-4">No restaurant available</h1>
           <p className="text-lg text-gray-400 mt-2">
-            We&apos;re sorry for the inconvenience, let&apos;s be join us and add your
-            restaurant.
+            We&apos;re sorry for the inconvenience, let&apos;s be join us and
+            add your restaurant.
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {restaurants.map((restaurant: Restaurant) => (
-            <RestaurantCard
-              key={restaurant.id}
-              id={restaurant.id}
-              description={restaurant.description}
-              location={restaurant.location}
-              // operatingHours={restaurant.operatingHours}
-              contactInfo={restaurant.contactInfo}
-              image={restaurant.image}
-              name={restaurant.name}
-              foodType={restaurant.foodType}
-              rating={restaurant.rating}
-              menus={restaurant.menus}
-            />
+            <RestaurantCard key={restaurant.id} {...restaurant} />
           ))}
         </div>
       )}

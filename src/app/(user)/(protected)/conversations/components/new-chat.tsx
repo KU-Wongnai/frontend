@@ -70,14 +70,14 @@ const NewChat = () => {
       return;
     }
 
-    // Check if recipient is not me
+    // Check if recipient is not merchant
     if (user.id === me?.id) {
       form.setError("email", { message: "Recipient can't be you" });
       setLoading(false);
       return;
     }
 
-    // Check if recipient is not already in a room with me
+    // Check if recipient is not already in a room with merchant
     const roomId = await createRoomIfNotExists(me!.id, user.id);
 
     // If user provide a message, send it to the room.

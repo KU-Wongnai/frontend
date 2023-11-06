@@ -8,13 +8,21 @@ type OrderListProps = {
 
 const OrderList: React.FC<OrderListProps> = ({ orders }) => {
   return (
-    <div>
-      {orders.map((order) => (
-        <div className="mb-3" key={order.id}>
-          <OrderCard key={order.id} order={order} />
+    <>
+      {orders.length > 0 ? (
+        <div>
+          {orders.map((order) => (
+            <div className="mb-3" key={order.id}>
+              <OrderCard key={order.id} order={order} />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className="text-center text-sm my-12">
+          If you order something it will be put here.
+        </div>
+      )}
+    </>
   );
 };
 

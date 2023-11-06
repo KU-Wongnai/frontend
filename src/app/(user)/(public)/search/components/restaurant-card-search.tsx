@@ -12,7 +12,7 @@ import { Restaurant } from "@/types/restaurant";
 const RestaurantCardDetail: React.FC<Restaurant> = ({
   id,
   name,
-  foodType,
+  categories,
   image,
   description,
   location,
@@ -64,9 +64,14 @@ const RestaurantCardDetail: React.FC<Restaurant> = ({
               <h1 className="scroll-m-20 pb-2 text-xl font-semibold tracking-tight transition-colors">
                 {name}
               </h1>
-              <span className="scroll-m-20 text-lg font-semibold tracking-tight text-gray-500 pb-2">
-                {foodType}
-              </span>
+              {categories.map((category, idx) => (
+                <span
+                  key={idx}
+                  className="scroll-m-20 text-lg font-semibold tracking-tight text-gray-500 pb-2"
+                >
+                  {category}
+                </span>
+              ))}
             </div>
             <div className="flex items-center gap-3 mb-3">
               {reviewCount === 0 ? (

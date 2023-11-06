@@ -16,7 +16,7 @@ export const riderScore = async (id: number, data: any) => {
 export const riderStatus = async (id: number, data: any) => {
   try {
     const { data: status } = await httpClient.put(
-      `user/api/uses/${id}/status`,
+      `user/api/users/${id}/status`,
       data
     );
     return status;

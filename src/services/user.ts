@@ -25,7 +25,7 @@ export const updateUserProfile = async (data: any) => {
   }
 };
 
-// DELETE /users/me
+// DELETE /users/merchant
 export const deleteMe = async () => {
   try {
     await httpClient.delete("user/api/users/me");
@@ -38,7 +38,7 @@ export const deleteMe = async () => {
 // POST /users/role
 export const addRoleToUser = async (data: any) => {
   try {
-    await httpClient.post(`user/api/users/roles`, data);
+    await httpClient.post(`user/api/users/role`, data);
   } catch (error) {
     console.error("Failed to add role to user", error);
     throw error;
