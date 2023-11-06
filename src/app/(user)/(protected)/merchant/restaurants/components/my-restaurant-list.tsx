@@ -12,13 +12,12 @@ import {getMyRestaurants} from "@/services/restaurant";
 const MyRestaurantList = () => {
     const [restaurants, setRestaurants] = React.useState([]);
     const [loading, setLoading] = useState<boolean>(true);
-
+    const fetchRestaurants = async () => {
+        const myRestaurants = await getMyRestaurants();
+        console.log(myRestaurants);
+        setRestaurants(myRestaurants);
+    };
     useEffect(() => {
-        const fetchRestaurants = async () => {
-            const myRestaurants = await getMyRestaurants();
-            console.log(myRestaurants);
-            setRestaurants(myRestaurants);
-        };
         fetchRestaurants();
         setLoading(false);
     }, []);

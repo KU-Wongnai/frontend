@@ -98,6 +98,18 @@ export const getRestaurantMenu = async (id: number) => {
   }
 }
 
+export const getRestaurantCategories = async (id: number) => {
+  try {
+    const { data: category } = await httpClient.get(
+      `restaurant/api/restaurants/${id}/categories`
+    );
+    return category;
+  } catch (error) {
+    console.error("Failed to get restaurant menu", error);
+    throw error;
+  }
+}
+
 export const deleteRestaurant = async (id: number) => {
   try {
     await httpClient.delete(`restaurant/api/restaurants/${id}`);

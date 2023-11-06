@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import MenuManagementImage from "/src/assets/restaurant/menuManagement.jpg";
 import OrderManagementImage from "/src/assets/restaurant/order-management.jpg";
-import DashboardManagementImage from "/src/assets/restaurant/dashboardManagement.png";
+import DashboardManagementImage from "/src/assets/restaurant/restaurantDashboard.png";
 
 import { usePathname } from "next/navigation";
 
@@ -27,7 +27,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             //   query: { id: restaurant_id},
             // }}
 
-            href={`/me/restaurants/${restaurant_id}/menus`}
+            href={`/merchant/restaurants/${restaurant_id}/menus`}
             className="relative "
           >
             <Image
@@ -46,7 +46,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             </div>
           </Link>
           <Link
-            href={`/me/restaurants/${restaurant_id}/orders`}
+            href={`/merchant/restaurants/${restaurant_id}/orders`}
             className="relative "
           >
             <Image
@@ -66,7 +66,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
           </Link>
 
           <Link
-            href={`/me/restaurants/${restaurant_id}/dashboard`}
+            href={`/merchant/restaurants/${restaurant_id}/dashboard`}
             className="relative "
           >
             <Image

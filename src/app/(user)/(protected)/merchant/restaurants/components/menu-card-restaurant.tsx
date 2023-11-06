@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 const RestaurantMenuCard: React.FC<any> = ({
   id,
-  imageUrl,
   name,
-  category,
-  price,
   description,
-  href,
+  image,
+  price,
+  category,
+  menuOptions
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -41,8 +41,8 @@ const RestaurantMenuCard: React.FC<any> = ({
           {/* food image */}
           {/* <div className="bg-white"> */}
           <Image
-            alt="salmon"
-            src={imageUrl} // Update the path to your image
+            alt="menuImage"
+            src={image} // Update the path to your image
             width={160}
             height={140}
             className="rounded-t-sm h-[140px] object-cover object-center"
@@ -74,7 +74,7 @@ const RestaurantMenuCard: React.FC<any> = ({
               <div className="flex shadow-lg bg-card rounded-md mt-5">
                 <Image
                   alt="salmon"
-                  src={imageUrl} // Update the path to your image
+                  src={image} // Update the path to your image
                   width={160}
                   height={140}
                   className="h-[200px] w-[200px] object-cover object-center rounded-l-sm"

@@ -1,32 +1,63 @@
 "use client";
-import RestaurantFoodCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
+import RestaurantMenuCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
 import TagTitle from "@/components/tag-title";
-import { mockFoodCategoryData } from "@/mock/food-ype";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { mockMenuData } from "../../../../../../../mock/menu-card";
+import React, { useEffect, useState } from "react";
 import FoodCategoryCard from "../../components/food-category-card";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import {
+  getRestaurantCategories,
+  getRestaurantMenu,
+} from "@/services/restaurant";
+import { Menu } from "@/types/restaurant";
 type Props = {};
 
 const FoodManagement = (props: Props) => {
-  const [currentPage, setCurrentPage] = useState<string>("All");
-  const [mockFoodData, setMockFoodData] = useState(mockMenuData);
+  const params = useParams();
 
-  let filteredMockFoodData = mockMenuData;
+  const [menus, setMenus] = React.useState<Menu[]>([]);
+  const [noFilterMenus, setNoFilterMenus] = React.useState<Menu[]>([]);
+  const [categories, setCategories] = React.useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const fetchRestaurantCategories = async () => {
+    const allRestaurantCategories = await getRestaurantCategories(
+      Number(params.restaurant_id)
+    );
+    console.log(allRestaurantCategories);
+    const newCategories = ["All", ...allRestaurantCategories];
+    setCategories(newCategories);
+  };
+
+  const fetchRestaurantMenus = async () => {
+    const allRestaurantMenu = await getRestaurantMenu(
+      Number(params.restaurant_id)
+    );
+    console.log(allRestaurantMenu);
+    setNoFilterMenus(allRestaurantMenu);
+    setMenus(allRestaurantMenu);
+  };
+
+  useEffect(() => {
+    fetchRestaurantMenus();
+    fetchRestaurantCategories();
+    setLoading(false);
+  }, []);
+
+  const [currentPage, setCurrentPage] = useState<string>("All");
+  let filteredFoodData = menus;
 
   const handlePageChange = (page: string) => {
     setCurrentPage(page);
-    filteredMockFoodData = mockMenuData.filter(
-      (item) => item.category === page
+    filteredFoodData = noFilterMenus.filter(
+      (item) => item.category.toLocaleLowerCase() == page.toLocaleLowerCase()
     );
-    setMockFoodData(filteredMockFoodData);
+    console.log(filteredFoodData);
+
+    setMenus(filteredFoodData);
     if (page === "All") {
-      setMockFoodData(mockMenuData);
+      setMenus(noFilterMenus);
     }
   };
-
-  const params = useParams();
 
   return (
     <div className="container py-[40px] px-40 ">
@@ -43,7 +74,7 @@ const FoodManagement = (props: Props) => {
             </div>
           </div>
           <Link
-            href={`/me/restaurants/${params.restaurant_id}/menus/add-menu`}
+            href={`/merchant/restaurants/${params.restaurant_id}/menus/add-menu`}
             className="text-green-600 font-normal rounded-2xl border-green-600 border-2 py-1 px-3"
           >
             <p>+ Add Food</p>
@@ -51,15 +82,19 @@ const FoodManagement = (props: Props) => {
         </div>
         {/* for category card bar */}
         <div className="m-8 flex gap-5 overflow-x-auto whitespace-nowrap px-2 py-2 no-scrollbar ">
-          {mockFoodCategoryData.map((category) => {
+          {categories.map((category: any, index) => {
+            const categoryMenus = noFilterMenus.filter(
+              (menu) => menu.category === category
+            );
+            let itemTotal = categoryMenus.length;
+            if(category === "All"){
+              itemTotal = noFilterMenus.length;
+            }
             return (
               <FoodCategoryCard
-                key={category.id}
-                id={category.id}
-                emoji={category.emoji}
-                name={category.name}
-                itemTotal={category.itemTotal}
-                decoration=""
+                key={index}
+                name={category}
+                itemTotal={itemTotal}
                 currentPage={currentPage}
                 onClick={(page: string) => handlePageChange(page)}
               />
@@ -67,22 +102,10 @@ const FoodManagement = (props: Props) => {
           })}
         </div>
         <div className="overflow-y-auto max-h-[30rem]">
-          <div className="flex flex-wrap ml-2 mr-1 px-2 ">
-            {mockFoodData.map((food) => {
-              console.log(food); // Add this line for debugging
-              return (
-                <RestaurantFoodCard
-                  key={food.id}
-                  id={food.id}
-                  imageUrl={food.imageUrl}
-                  name={food.name}
-                  price={food.price}
-                  category={food.category}
-                  description={food.description}
-                  href={`/${food.id}`}
-                />
-              );
-            })}
+          <div className="flex flex-wrap ml-2 mr-1 px-2">
+            {menus.map((menu: Menu) => (
+              <RestaurantMenuCard key={menu.id} {...menu} />
+            ))}
           </div>
         </div>
       </div>

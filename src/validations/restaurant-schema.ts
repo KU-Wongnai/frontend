@@ -36,7 +36,7 @@ export const restaurantMenuSchema = z.object({
     price: z.coerce.number().positive("Price should be positive number"),
     category: z.string().min(3, "Category should not be empty").max(255, "Category should not be more than 255 characters").nonempty("The price is required."),
     description:z.string().max(255).nullable().optional(),
-    image: z.string().nonempty("Menu Image is required.")
+    image: z.string()
 });
 
 export type RestaurantMenuForm = z.infer<typeof restaurantMenuSchema>;

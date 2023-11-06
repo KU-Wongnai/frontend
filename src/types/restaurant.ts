@@ -15,6 +15,8 @@ export type Menu = {
   menuOptions: MenuOption[];
 };
 
+
+
 export type Restaurant = {
   id: number;
   name: string;

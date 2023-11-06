@@ -1,39 +1,77 @@
 "use client";
-import { Avatar, AvatarImage } from "../../../../../../../components/ui/avatar";
 import TagTitle from "@/components/tag-title";
 import React, { useEffect, useState } from "react";
 import RealTimeClock from "@/components/clock";
-
-import { mockOrderData } from "../../../../../../../mock/order";
+import { getOrderByRestaurant } from "@/services/order";
+import { Order } from "@/types/order";
 import OrderCard from "@/app/(user)/(protected)/merchant/restaurants/components/order-card-dashboard";
 import RestaurantMenuCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
-import { mockFoodCategoryData } from "@/mock/food-ype";
 import FoodCategoryCard from "../../components/food-category-card";
-import { mockMenuData } from "@/mock/menu-card";
+import { getRestaurantCategories, getRestaurantMenu } from "@/services/restaurant";
+import { Menu } from "@/types/restaurant";
+import { useParams } from "next/navigation";
 type Props = {};
 
-const RestaurantDashBoard = (props: Props) => {
+const RestaurantDashBoard = ({ params }: { params: { restaurant_id: string } }) => {
+  const paramMenu = useParams();
+
   const [currentPage, setCurrentPage] = useState<string>("All");
-  const [mockFoodData, setMockMenuData] = useState(mockMenuData);
-  const itemsPerPage = 6;
-  const totalItems = 30;
-  let filteredMockFoodData = mockMenuData;
+  const [noFilterMenus, setNoFilterMenus] = React.useState<Menu[]>([]);
+
+  const [menus, setMenus] = React.useState<Menu[]>([]);
+  const [categories, setCategories] = React.useState<string[]>([]);
+
+
+  let filteredFoodData = menus;
 
   const handlePageChange = (page: string) => {
     setCurrentPage(page);
-    filteredMockFoodData = mockMenuData.filter(
-      (item) => item.category === page
-    );
-    setMockMenuData(filteredMockFoodData);
+    filteredFoodData = noFilterMenus.filter((item) => item.category.toLocaleLowerCase() == page.toLocaleLowerCase());
+    console.log(filteredFoodData);
+    
+    setMenus(filteredFoodData);
     if (page === "All") {
-      setMockMenuData(mockMenuData);
+      setMenus(noFilterMenus);
     }
   };
 
+  const fetchRestaurantCategories = async () => {
+    const allRestaurantCategories = await getRestaurantCategories(
+      Number(paramMenu.restaurant_id)
+    );
+    console.log(allRestaurantCategories);
+    const newCategories = ["All" , ...allRestaurantCategories];
+    setCategories(newCategories);
+  };
+  const fetchRestaurantMenus = async () => {
+    const allRestaurantMenu = await getRestaurantMenu(
+      Number(paramMenu.restaurant_id)
+    );
+    console.log(allRestaurantMenu);
+    setNoFilterMenus(allRestaurantMenu);
+    setMenus(allRestaurantMenu);
+  };
   useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage]);
+    fetchRestaurantCategories();
+    fetchRestaurantMenus();
+  }, []);
 
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const fetchOrderByRestaurant = async () => {
+      const orders = await getOrderByRestaurant(params.restaurant_id);
+      setOrders(orders);
+      setFilterMockOrderData(
+        orders.filter((order: Order) => order.status === "RECEIVED")
+      );
+    };
+    fetchOrderByRestaurant();
+  }, [params.restaurant_id]);
+
+  const [filterMockOrderData, setFilterMockOrderData] = useState(
+    orders.filter((order) => order.status === "RECEIVED")
+  );
   return (
     <div className="container py-10 px-28 ">
       <div>
@@ -59,16 +97,20 @@ const RestaurantDashBoard = (props: Props) => {
             </div>
             {/* for category card bar */}
             <div className="m-8 flex gap-5 w-full overflow-x-auto whitespace-nowrap px-10 py-2 no-scrollbar">
-              {mockFoodCategoryData.map((category) => {
+              {categories.map((category: string, index) => {
+                const categoryMenus = noFilterMenus.filter(
+                  (menu) => menu.category === category
+                );
+                let itemTotal = categoryMenus.length;
+                if(category === "All"){
+                  itemTotal = noFilterMenus.length;
+                }
                 return (
                   <FoodCategoryCard
-                    key={category.id}
-                    id={category.id}
-                    emoji={category.emoji}
-                    name={category.name}
-                    itemTotal={category.itemTotal}
-                    decoration=""
+                    key={index}
+                    name={category}
                     currentPage={currentPage}
+                    itemTotal={itemTotal}
                     onClick={(page: string) => handlePageChange(page)}
                   />
                 );
@@ -76,19 +118,10 @@ const RestaurantDashBoard = (props: Props) => {
             </div>
             <div className="overflow-y-auto max-h-[30rem]">
               <div className="flex flex-wrap ml-2 mr-1 px-1 ">
-                {mockFoodData.map((food) => {
+                {menus.map((menu) => {
                   // console.log(food); // Add this line for debugging
                   return (
-                    <RestaurantMenuCard
-                      key={food.id}
-                      id={food.id}
-                      imageUrl={food.imageUrl}
-                      name={food.name}
-                      price={food.price}
-                      description={food.description}
-                      category={food.category}
-                      href={`/${food.id}`}
-                    />
+                    <RestaurantMenuCard key={menu.id} {...menu} />
                   );
                 })}
               </div>
@@ -114,18 +147,15 @@ const RestaurantDashBoard = (props: Props) => {
               {/* mockData of Orderlist */}
               <div className="overflow-y-auto max-h-[30rem] mr-2">
                 <div className="flex flex-wrap ml-1 mr-1 px-1 ">
-                  {mockOrderData.map((order) => {
-                    return (
-                      <OrderCard
-                        key={order.id}
-                        id={order.id}
-                        // customer={order.customer}
-                        // totalItem={order.totalItems}
-                        // orderID={order.orderID}
-                        decoration="text-xs"
-                      />
-                    );
-                  })}
+                {filterMockOrderData.map((order) => {
+              return (
+                <OrderCard
+                  key={order.id}
+                  id={order.id}
+                  decoration="text-sm px-2 py-2"
+                />
+              );
+            })}
                 </div>
               </div>
             </div>

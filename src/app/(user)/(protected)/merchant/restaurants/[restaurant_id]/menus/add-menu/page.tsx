@@ -1,6 +1,6 @@
 "use client";
 import TagTitle from "@/components/tag-title";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,16 +31,24 @@ import {
   RestaurantMenuForm,
   restaurantMenuSchema,
 } from "@/validations/restaurant-schema";
+import {
+  getRestaurantCategories,
+  getRestaurantMenu,
+} from "@/services/restaurant";
+import { Button } from "@/components/ui/button";
 type Props = {};
 
 const AddMenuPage = (props: Props) => {
+  const [categories, setCategories] = React.useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  
   const form = useForm<RestaurantMenuForm>({
     defaultValues: {
       name: "",
       category: "",
       price: 0,
       description: "",
-      image: ""
+      image: "",
     },
     resolver: zodResolver(restaurantMenuSchema),
   });
@@ -52,13 +60,15 @@ const AddMenuPage = (props: Props) => {
   const { isLoading } = form.formState;
 
   const [image, setImage] = useState<string>("");
-  
+  const onInvalid = (errors) => console.error(errors)
+
   const onSubmit = async (data: RestaurantMenuForm) => {
     console.log("Form submitted", data);
     try {
       data.image = image!;
       await createRestaurantMenu(data, Number(params.restaurant_id));
       toast.success("Menu created successfully");
+      const id = params.restaurant_id;
       router.push("/");
     } catch (error: any) {
       if (error.response.status === 422)
@@ -77,6 +87,17 @@ const AddMenuPage = (props: Props) => {
       console.error("Menu creation failed", error);
     }
   };
+
+  const fetchRestaurantCategories = async () => {
+    const allRestaurantCategories = await getRestaurantCategories(
+      Number(params.restaurant_id)
+    );
+    console.log(allRestaurantCategories);
+    setCategories(allRestaurantCategories);
+  };
+  useEffect(() => {
+    fetchRestaurantCategories();
+  }, []);
 
   const onFileChange = async (file: File | null) => {
     console.log(file);
@@ -127,7 +148,7 @@ const AddMenuPage = (props: Props) => {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit, onInvalid)}>
           <div className="container md:px-40px] md:py-[40px] lg:px-40 lg:py-[40px] sm:p-0 ">
             <div className="lg:bg-white rounded-[12px] md:shadow-md lg:shadow-md py-12 px-14 sm:bg-transparent sm:shadow-none md:bg-white">
               {/* Tag Topic (Menu) */}
@@ -179,7 +200,7 @@ const AddMenuPage = (props: Props) => {
                         )}
                       </div>
                       {file && (
-                        <div className="overflow-hidden flex flex-col p-5">
+                        <div className="overflow-hidden flex flex-col p-5 justify-center items-center">
                           <Image
                             // className="h-[250px] w-[300px] rounded-md"
                             src={URL.createObjectURL(file)}
@@ -200,32 +221,31 @@ const AddMenuPage = (props: Props) => {
                     </div>
                   </div>
                   <div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-10 mt-5">
-                
                     <div>
-                    <FormField
-                          name="name"
-                          control={form.control}
-                          render={({ field }) => (
-                            <FormItem className="w-full md:pr-2">
-                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Name
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                  {...field}
-                                  id="name"
-                                  placeholder="Name of new menu"
-                                  disabled={isLoading}
-                                  value={field.value}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                      <FormField
+                        name="name"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem className="w-full md:pr-2">
+                            <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                              Name
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                {...field}
+                                id="name"
+                                placeholder="Name of new menu"
+                                disabled={isLoading}
+                                value={field.value}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
-                    
+
                     <div>
                       <FormField
                         name="category"
@@ -247,12 +267,9 @@ const AddMenuPage = (props: Props) => {
                                 </div>
                               </FormControl>
                               <SelectContent>
-                                {categoryData.map((category) => (
-                                  <SelectItem
-                                    key={category.value}
-                                    value={category.value}
-                                  >
-                                    {category.label}
+                                {categories.map((category, index) => (
+                                  <SelectItem key={index} value={category}>
+                                    {category}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -264,29 +281,29 @@ const AddMenuPage = (props: Props) => {
                     </div>
 
                     <div>
-                    <FormField
-                          name="price"
-                          control={form.control}
-                          render={({ field }) => (
-                            <FormItem className="w-full md:pr-2">
-                              <FormLabel className="block text-sm font-medium mb-2 text-green-600">
-                                Price
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
-                                  {...field}
-                                  id="price"
-                                  placeholder="Price of new menu"
-                                  disabled={isLoading}
-                                  value={field.value}
-                                  type="number"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                      <FormField
+                        name="price"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem className="w-full md:pr-2">
+                            <FormLabel className="block text-sm font-medium mb-2 text-green-600">
+                              Price
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
+                                {...field}
+                                id="price"
+                                placeholder="Price of new menu"
+                                disabled={isLoading}
+                                value={field.value}
+                                type="number"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
                     <div>
                       <FormField
@@ -312,7 +329,7 @@ const AddMenuPage = (props: Props) => {
                         )}
                       />
                     </div>
-                    
+
                     {/* <div>
                 <label
                   htmlFor="input-label-with-helper-text"
@@ -335,15 +352,15 @@ const AddMenuPage = (props: Props) => {
               </div> */}
                   </div>
                 </div>
-                <button type="submit" className="bg-green-600 text-white px-10 py-2 font-medium rounded-md mt-10 ">
+                <Button className="mt-5" type="submit">Add</Button>
+                {/* <button type="submit" className="bg-green-600 text-white px-10 py-2 font-medium rounded-md mt-10 ">
                   Add
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
         </form>
       </Form>
-      
     </>
   );
 };
