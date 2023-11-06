@@ -28,6 +28,8 @@ import { addToCart } from "@/services/cart";
 import { Item } from "@/types/cart";
 import CurrencyFormat from "react-currency-format";
 import { useShoppingCartStore } from "@/contexts/cart-store";
+import useAuthStore from "@/contexts/auth-store";
+import Link from "next/link";
 
 type GroupedOption = {
   [key: string]: MenuOption[];
@@ -42,6 +44,7 @@ const MenuDetail: React.FC<MenuDetailProps> = ({ menu, defaultValues }) => {
   const [quantity, setQuantity] = React.useState(1);
   const [total, setTotal] = React.useState(menu.price);
   const addToCartStore = useShoppingCartStore((state) => state.addToCart);
+  const user = useAuthStore((state) => state.user);
 
   const groupedData = menu.menuOptions.reduce(
     (result: GroupedOption, item: MenuOption) => {
@@ -251,16 +254,22 @@ const MenuDetail: React.FC<MenuDetailProps> = ({ menu, defaultValues }) => {
                 +
               </Button>
             </div>
-            <Button type="submit" className="text-white mt-4">
-              Add to Cart
-              <CurrencyFormat
-                value={total * quantity}
-                displayType={"text"}
-                thousandSeparator={true}
-                prefix={"฿"}
-                className="ml-2"
-              />
-            </Button>
+            {user ? (
+              <Button type="submit" className="text-white mt-4">
+                Add to Cart
+                <CurrencyFormat
+                  value={total * quantity}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"฿"}
+                  className="ml-2"
+                />
+              </Button>
+            ) : (
+              <Button className="bg-black hover:bg-black" asChild>
+                <Link href="/auth">Please Sign In First</Link>
+              </Button>
+            )}
           </div>
         </form>
       </Form>

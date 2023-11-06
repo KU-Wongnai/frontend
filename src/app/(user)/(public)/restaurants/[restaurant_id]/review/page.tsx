@@ -37,6 +37,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
+import AuthLayout from "@/components/layouts/auth-layout";
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",
@@ -140,7 +141,7 @@ function Review({
   };
 
   return (
-    <>
+    <AuthLayout>
       <main className="container mx-auto py-6 space-y-4">
         {/* food card Horizontal */}
         <RestaurantCardDetail id={params.restaurant_id} />
@@ -274,7 +275,7 @@ function Review({
           </CardContent>
         </Card>
       </main>
-    </>
+    </AuthLayout>
   );
 }
 
