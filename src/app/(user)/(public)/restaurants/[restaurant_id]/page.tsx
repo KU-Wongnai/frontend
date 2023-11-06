@@ -156,7 +156,12 @@ function ShowRestaurant({
                   {restaurant?.location}
                 </p>
                 <Button variant="outline" asChild>
-                  <Link href="#">Waypoint</Link>
+                  <Link
+                    href={`http://maps.google.com/?q=${restaurant?.location}`}
+                    target="_blank"
+                  >
+                    Waypoint
+                  </Link>
                 </Button>
               </div>
             </div>
