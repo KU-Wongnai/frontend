@@ -129,7 +129,7 @@ const columns: ColumnDef<User>[] = [
   {
     id: "dropdown",
     cell: ({ row }) => {
-      <RowAction row={row} />;
+      return <RowAction row={row} />;
     },
   },
 ];

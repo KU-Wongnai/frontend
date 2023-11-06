@@ -33,24 +33,23 @@ export default function Search() {
     })();
   }, [searchParams]);
 
-  // const filterRestaurant = restaurantData.filter((restaurant) => {
-  //   return (
-  //     restaurant.name
-  //       .toLowerCase()
-  //       .includes(searchParams.name?.toLowerCase() ?? "") &&
-  //     restaurant.foodType
-  //       .toLowerCase()
-  //       .includes(searchParams.type?.toLowerCase() ?? "") &&
-  //     restaurant.location
-  //       .toLowerCase()
-  //       .includes(searchParams.location?.toLowerCase() ?? "")
-  //   );
-  // });
-  const filterRestaurant = restaurantData;
+  const filterRestaurant = restaurantData.filter((restaurant) => {
+    const name = searchParams.get("name")?.toLowerCase() || ""; // Use an empty string if 'name' is not present
+    const location = searchParams.get("location")?.toLowerCase() || ""; // Use an empty string if 'location' is not present
+    const categories = searchParams.get("categories")?.toLowerCase() || ""; // Use an empty string if 'categories' is not present
+
+    return (
+      restaurant.name.toLowerCase().includes(name) &&
+      restaurant.location.toLowerCase().includes(location) &&
+      restaurant.categories[0].toLowerCase().includes(categories)
+    );
+  });
+
+  // const filterRestaurant = restaurantData;
 
   // console.log(restaurantData);
   const foodCenter = foodCenters.find(
-    (f) => f.id === +searchParams.get("location")!
+    (f) => f.name === searchParams.get("location")!
   );
   // console.log("[location] = ", searchParams.get("location"));
   // console.log("[foodCenter] = ", foodCenter);

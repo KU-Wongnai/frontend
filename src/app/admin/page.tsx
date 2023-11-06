@@ -9,11 +9,10 @@ import TinyLineChart from "./components/tiny-line-chart";
 import { getRestaurants } from "@/services/restaurant";
 import SimpleBarChart from "./components/simple-bar-chart";
 import SimplePieChart from "./components/simple-pie-chart";
+import { Restaurant } from "@/types/restaurant";
 
 const isUser = (user: User) => {
-  return (
-    !user.roles.some((role) => role.name === "admin")
-  );
+  return !user.roles.some((role) => role.name === "admin");
 };
 
 const isRider = (user: User) => {
@@ -23,11 +22,17 @@ const isRider = (user: User) => {
   );
 };
 
+const isVerifiedRestaurant = (restaurant: Restaurant) => {
+  return restaurant.status === "ACCEPTED";
+};
+
 function getDateCount({ items, name }: { items: any[]; name: string }) {
   const dateArr = items.map((item: any) => {
     let date: any;
     if (name === "riders") {
       date = new Date(item.rider_profile.created_at).toDateString();
+    } else if (name === "restaurants") {
+      date = new Date(item.createdAt).toDateString();
     } else {
       date = new Date(item.created_at).toDateString();
     }
@@ -101,11 +106,10 @@ export default function AdminDashboard() {
     items: users.filter(isRider),
     name: "riders",
   });
-  // const restaurantCreateTimes = getDateCount({
-  //   items: restaurants,
-  //   name: "restaurants",
-  // });
-  // console.log("restaurantCreateTimes", restaurantCreateTimes);
+  const restaurantCreateTimes = getDateCount({
+    items: restaurants.filter(isVerifiedRestaurant),
+    name: "restaurants",
+  });
   const restaurantLocations = getLocationCount({
     items: restaurants,
   });
@@ -148,7 +152,7 @@ export default function AdminDashboard() {
             {/* Rider */}
             <div className="col-span-12 lg:col-span-4 hover:scale-105 duration-500">
               <div className="p-4 relative rounded-sm shadow-sm border bg-card ">
-                <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="flex gap-2 items-center ">
                       <Bike className="mb-2" />
@@ -176,21 +180,30 @@ export default function AdminDashboard() {
             {/* Restaurant */}
             <div className="col-span-12 lg:col-span-4 hover:scale-105 duration-500">
               <div className="p-4 relative rounded-sm shadow-sm border bg-card ">
-                <div>
-                  <div className="flex gap-2 items-center ">
-                    <ChefHat className="mb-2" />
-                    <div className="text-md">Total Restaurants</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="flex gap-2 items-center ">
+                      <ChefHat className="mb-2" />
+                      <div className="text-md">Total Restaurants</div>
+                    </div>
+                    <div className=" text-2xl font-medium leading-8 mt-5">
+                      {restaurants.filter(isVerifiedRestaurant).length}
+                    </div>
+                    <div className="mt-5">
+                      <Link
+                        href={"/admin/restaurant-management"}
+                        className="opacity-40  underline text-sm hover:opacity-90"
+                      >
+                        View all
+                      </Link>
+                    </div>
                   </div>
-                  <div className=" text-2xl font-medium leading-8 mt-5">
-                    {restaurants.length}
-                  </div>
-                  <div className="mt-5">
-                    <Link
-                      href={"/admin/restaurant-management"}
-                      className="opacity-40  underline text-sm hover:opacity-90"
-                    >
-                      View all
-                    </Link>
+                  {/* chart */}
+                  <div className="pb-2 lg:pb-2 sm:pb-3 h-[125px] mt-2">
+                    <TinyLineChart
+                      data={restaurantCreateTimes}
+                      x="restaurants"
+                    />
                   </div>
                 </div>
               </div>

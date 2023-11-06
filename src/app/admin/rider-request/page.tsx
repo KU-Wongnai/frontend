@@ -127,6 +127,21 @@ const columns: ColumnDef<User>[] = [
     cell: ({ row }) => <div className="ml-4">{row.original.name}</div>,
   },
   {
+    accessorKey: "phone",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Phone
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{formatPhoneNumber(row.original.rider_profile.phone_number)}</div>,
+  },
+  {
     accessorKey: "created_at",
     header: ({ column }) => {
       return (
@@ -265,7 +280,6 @@ const RiderLists: React.FC = () => {
     fetchUsers();
   }, []);
 
-  const isEmpty = users.length === 0;
   return (
     <div>
       <RiderRequestTable data={users.filter(isRiderRequest)} />

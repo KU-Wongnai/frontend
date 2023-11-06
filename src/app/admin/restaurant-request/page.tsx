@@ -12,27 +12,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  CheckCircle2,
-  ChevronDown,
-  DeleteIcon,
-  MoreHorizontal,
-  Trash2,
-  XCircle,
-} from "lucide-react";
+import { ArrowUpDown, CheckCircle2, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -42,21 +24,34 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Thasadith } from "next/font/google";
-
-export type ColumnType = {
-  id: string;
-  name: string;
-  location: string;
-  openingHours: string;
-  phone: string;
-};
+import { getRestaurants } from "@/services/restaurant";
+import { Restaurant } from "@/types/restaurant";
+import RowAction from "./action";
 
 type RestaurantRequestListsProps = {
-  data: ColumnType[];
+  data: Restaurant[];
 };
 
-const columns: ColumnDef<ColumnType>[] = [
+function formatPhone(Id: string) {
+  return `${Id.substring(0, 3)} ${Id.substring(3, 6)} ${Id.substring(6, 10)}`;
+}
+
+const columns: ColumnDef<Restaurant>[] = [
+  {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div className="ml-4">{row.original?.id}</div>,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -73,29 +68,43 @@ const columns: ColumnDef<ColumnType>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "id",
-    header: () => <div>ID</div>,
-    cell: ({ row }) => <div>{row.getValue("id")}</div>,
-  },
-  {
     accessorKey: "phone",
-    header: () => <div>Phone</div>,
-    cell: ({ row }) => <div>{row.getValue("phone")}</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Phone
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div>{(row.original?.phone) && formatPhone(row.original?.phone)}</div>,
   },
   {
-    id: "select",
-    cell: ({ row }) => (
-      <div className="flex ">
-        <button className="hover:shadow-md hover:bg-gray-200 p-3 rounded-full">
-          <CheckCircle2 className="text-green-600 " />
-          <span className="text-green-600">Accept</span>
-        </button>
-        <button className="hover:shadow-md hover:bg-gray-200 p-3 rounded-full">
-          <XCircle className="text-red-500 " />
-          <span className="text-red-500">Reject</span>
-        </button>
-      </div>
-    ),
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Request Time
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const requestTime = new Date(row.original?.createdAt);
+      return <div>{requestTime.toLocaleString()}</div>;
+    },
+  },
+  {
+    id: "button",
+    cell: ({ row }) => {
+      return <RowAction row={row} />;
+    },
   },
 ];
 
@@ -113,7 +122,7 @@ function RestaurantRequestsTable({ data }: RestaurantRequestListsProps) {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -192,24 +201,26 @@ function RestaurantRequestsTable({ data }: RestaurantRequestListsProps) {
   );
 }
 
-const RestaurantRequests: React.FC = () => {
-  const data: ColumnType[] = [
-    {
-      id: "1",
-      name: "shushi",
-      location: "new Bar",
-      openingHours: "10.00-20.00",
-      phone: "0812345678",
-    },
-    {
-      id: "2",
-      name: "pizza",
-      location: "new Bar",
-      openingHours: "10.00-20.00",
-      phone: "0812223345",
-    },
-  ];
-  return <div>WIP</div>;
+const isRestaurantRequest = (restaurant: Restaurant) => {
+  return restaurant.status === "PENDING";
 };
 
-export default RestaurantRequests;
+const RestaurantRequestsList: React.FC = () => {
+  const [restaurants, setRestaurants] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchRestaurants = async () => {
+      const allRestaurants = await getRestaurants();
+      setRestaurants(allRestaurants);
+    };
+    fetchRestaurants();
+  }, []);
+
+  return (
+    <div>
+      <RestaurantRequestsTable data={restaurants.filter(isRestaurantRequest)} />
+    </div>
+  );
+};
+
+export default RestaurantRequestsList;

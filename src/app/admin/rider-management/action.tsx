@@ -31,7 +31,6 @@ function formatId(Id: string) {
     5,
     10
   )} ${Id.substring(10, 12)} ${Id.substring(12, 13)}`;
-  return Id;
 }
 
 const RowAction = ({ row }: { row: any }) => {
@@ -140,7 +139,7 @@ const RowAction = ({ row }: { row: any }) => {
                   </div>
                   <img
                     src={row.original.rider_profile?.id_card_photo}
-                    className=" w-full h-full mt-3"
+                    className=" max-h-[300px] mt-3"
                     alt="id card"
                   />
                 </CardContent>
@@ -154,7 +153,7 @@ const RowAction = ({ row }: { row: any }) => {
                     <div className="text-sm font-bold">Bank Provider</div>
                     <div className="text-sm col-span-2 flex flex-row">
                       <div
-                        className="p-1 rounded-lg mr-3"
+                        className="p-3 rounded-lg mr-3 h-fit"
                         style={{
                           backgroundColor: (banks.th as any)[
                             row.original?.rider_profile.bank_account_code
@@ -193,7 +192,7 @@ const RowAction = ({ row }: { row: any }) => {
                   </div>
                   <img
                     src={row.original.rider_profile?.book_bank_photo}
-                    className=" w-full h-full mt-3"
+                    className=" max-h-[300px] mt-3"
                     alt="id card"
                   />
                 </CardContent>

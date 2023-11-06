@@ -35,6 +35,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { MultiSelect } from "@/components/ui/multi-select";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import foodCenters from "@/data/food-center.json";
+import { Check, ChevronsUpDown, MapPin } from "lucide-react";
+import { cn } from "@/lib/utils";
 type Props = {};
 
 let marker: any;
@@ -553,13 +568,62 @@ export default function CreateRestaurant({}: Props) {
                                 Location *
                               </FormLabel>
                               <FormControl>
-                                <Input
+                                {/* <Input
                                   className="py-3 px-4 block w-full border-gray-300 border-2 rounded-md text-sm font-light  dark:text-gray-400"
                                   {...field}
                                   id="location"
                                   placeholder="Alley or Road name"
                                   disabled={isLoading}
-                                />
+                                /> */}
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant="outline"
+                                      role="combobox"
+                                      className="w-full"
+                                    >
+                                      <MapPin className="w-4 h-4" />
+                                      <span className="ml-2 text-left">
+                                        {field.value
+                                          ? foodCenters.find(
+                                              (bar) => bar.name === field.value
+                                            )?.name
+                                          : "Select your location"}
+                                      </span>
+                                      <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-[400px] p-0">
+                                    <Command>
+                                      <CommandInput placeholder="Search bar..." />
+                                      <CommandEmpty>No bar found.</CommandEmpty>
+                                      <CommandGroup className="max-h-[400px] overflow-auto">
+                                        {foodCenters.map((bar) => (
+                                          <CommandItem
+                                            key={bar.id}
+                                            value={bar.name}
+                                            onSelect={() => {
+                                              form.setValue(
+                                                "location",
+                                                bar.name
+                                              );
+                                            }}
+                                          >
+                                            <Check
+                                              className={cn(
+                                                "mr-2 h-4 w-4",
+                                                field.value === bar.name
+                                                  ? "opacity-100"
+                                                  : "opacity-0"
+                                              )}
+                                            />
+                                            {bar.name}
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </Command>
+                                  </PopoverContent>
+                                </Popover>
                               </FormControl>
                               <FormDescription className="text-xs font-light text-gray-500 mt-2">
                                 Enter your restaurant location
@@ -569,7 +633,7 @@ export default function CreateRestaurant({}: Props) {
                           )}
                         />
 
-                        <label
+                        {/* <label
                           htmlFor="lat"
                           className="block text-sm font-medium mb-2 text-green-600"
                         >
@@ -625,7 +689,7 @@ export default function CreateRestaurant({}: Props) {
                           onClick={handleMoveMarker}
                         >
                           Sync latitude and longitude to map
-                        </button>
+                        </button> */}
                       </div>
                       <div className="col-span-6 mt-6 md:mt-0">
                         <div className="w-full h-40 md:h-400">
