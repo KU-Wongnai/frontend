@@ -135,3 +135,15 @@ export const getMyPocket = async () => {
     throw error;
   }
 };
+
+export const getMyOrders = async (status: string = "") => {
+  try {
+    const { data } = await httpClient.get(
+      `/order/api/orders/me${status ? "/" + status : ""}`
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
