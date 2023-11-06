@@ -224,7 +224,7 @@ function Review({
                   )}
                 />
                 {/* Image upload section */}
-                <div className="mt-4 flex flex-col items-start justify-start gap-3">
+                {/* <div className="mt-4 flex flex-col items-start justify-start gap-3">
                   <Label
                     className="cursor-pointer px-4 py-2 flex gap-x-1 items-center rounded-sm border"
                     htmlFor="picture"
@@ -257,7 +257,7 @@ function Review({
                       ))}
                     </div>
                   )}
-                </div>
+                </div> */}
                 {/* ปุ่ม Post และ Cancel */}
                 <div className="mt-4 flex justify-end gap-4">
                   <Button

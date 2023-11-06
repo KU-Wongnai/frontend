@@ -42,7 +42,7 @@ const ReviewCard = ({ id, rating }: { id: number; rating: number }) => {
     });
   };
 
-  const isMyReview = me?.id === review?.user.id;
+  const isMyReview = me?.id === review?.user?.id;
 
   const handleToggleCommentInput = () => {
     setShowCommentInput(!showCommentInput);

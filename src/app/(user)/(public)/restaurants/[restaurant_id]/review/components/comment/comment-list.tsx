@@ -11,7 +11,7 @@ const CommentList = ({ review }: { review: Review }) => {
   const { data: me } = useStore(useAuthStore, (state) => state.user);
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 mb-4">
       {review?.comments.map((comment: Comment, index: number) => (
         <li
           key={index}
