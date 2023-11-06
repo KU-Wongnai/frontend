@@ -20,9 +20,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { mockOrderData } from "@/mock/order";
 import { Separator } from "@/components/ui/separator";
+import { set } from "date-fns";
 
 const OrderCard: React.FC<any> = ({ id, decoration }) => {
   const [order, setOrder] = useState<Order>(mockOrderData[0]);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -35,16 +37,20 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
   const handlePreparing = () => {
     console.log("id", id);
     updateOrderStatus(id, "PREPARING");
+    setOpenDialog(false);
+    window.location.reload();
   };
 
   const handleCompleted = () => {
     updateOrderStatus(id, "COMPLETED");
+    setOpenDialog(false);
+    window.location.reload();
   };
 
   // setOrder(mockOrderData[0]);
 
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <div className="flex flex-col mt-2 ml-6 border-b py-3">
         <div className="flex text-xs text-green-600 font-md py-2">
           <p>Order number :</p>
@@ -65,6 +71,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
               </div>
             </div>
             <DialogTrigger
+              onClick={() => setOpenDialog(true)}
               className={
                 "bg-green-600 text-white px-1 py-1  rounded-md text-right" +
                 decoration
@@ -89,52 +96,52 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
           <Separator />
           {/* show list of order items */}
           <div className="overflow-y-auto max-h-[20rem] p-2">
-          <div className="flex flex-col space-y-2">
-            {order?.orderItems.map((item) => (
-              <div key={item.id}>
-                <div className="flex justify-between">
-                  <div className="flex space-x-2 mr-4">
-                    <div className="flex items-center">
-                      <p className="text-sm">{item.menu?.name}</p>
-                      <p className="text-xs font-light ml-2">
-                        ({item.quantity} items)
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-green-600 text-xs font-light">
-                    ${item.price.toFixed(2)}
-                  </p>
-                </div>
-                {/* show list of order items option */}
-                <div className="flex flex-col ">
-                  {item.orderItemOption.map((option) => (
-                    <div key={option.id}>
-                      <div className="flex justify-between">
-                        <div className="flex space-x-2 ml-4">
-                          <div className="flex flex-col">
-                            <p className="text-xs">{option.name}</p>
-                          </div>
-                        </div>
-                        <p className="text-green-600 text-xs font-light">
-                          ${option.price.toFixed(2)}
+            <div className="flex flex-col space-y-2">
+              {order?.orderItems.map((item) => (
+                <div key={item.id}>
+                  <div className="flex justify-between">
+                    <div className="flex space-x-2 mr-4">
+                      <div className="flex items-center">
+                        <p className="text-sm">{item.menu?.name}</p>
+                        <p className="text-xs font-light ml-2">
+                          ({item.quantity} items)
                         </p>
                       </div>
                     </div>
-                  ))}
-                </div>
-                <div className="flex justify-between">
-                  <div className="flex space-x-2">
-                    <div className="flex flex-col">
-                      <p className="text-xs">Total price x {item.quantity}</p>
-                    </div>
+                    <p className="text-green-600 text-xs font-light">
+                      ${item.price.toFixed(2)}
+                    </p>
                   </div>
-                  <p className="text-green-600 text-xs font-light">
-                    ${(item.totalPrice * item.quantity).toFixed(2)}
-                  </p>
+                  {/* show list of order items option */}
+                  <div className="flex flex-col ">
+                    {item.orderItemOption.map((option) => (
+                      <div key={option.id}>
+                        <div className="flex justify-between">
+                          <div className="flex space-x-2 ml-4">
+                            <div className="flex flex-col">
+                              <p className="text-xs">{option.name}</p>
+                            </div>
+                          </div>
+                          <p className="text-green-600 text-xs font-light">
+                            ${option.price.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex space-x-2">
+                      <div className="flex flex-col">
+                        <p className="text-xs">Total price x {item.quantity}</p>
+                      </div>
+                    </div>
+                    <p className="text-green-600 text-xs font-light">
+                      ${(item.totalPrice * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
           </div>
           <Separator />
 
@@ -148,7 +155,7 @@ const OrderCard: React.FC<any> = ({ id, decoration }) => {
           </div>
         </div>
         <DialogFooter>
-          {order?.status === "RECEIVED" ? (
+          {order?.status === "PENDING" ? (
             <Button
               type="submit"
               onClick={handlePreparing}
