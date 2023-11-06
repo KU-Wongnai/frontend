@@ -14,7 +14,7 @@ export const restaurantSchema = z.object({
   phone: z.string().nonempty("Phone number is required."),
   email: z.string().email().optional().or(z.literal("")),
   website: z.string().url().optional().or(z.literal("")),
-  instagram: z.string().url().optional().or(z.literal("")),
+  instagram: z.string().optional().or(z.literal("")),
   facebook: z.string().url().optional().or(z.literal("")),
   line: z.string().optional(),
   openDays: z.string().array(),
