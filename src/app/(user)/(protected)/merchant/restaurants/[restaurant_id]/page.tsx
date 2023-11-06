@@ -1,11 +1,10 @@
-import React from 'react'
+import { redirect } from "next/navigation";
+import React from "react";
 
 type Props = {
   params: any;
-}
+};
 
-export default function Order({params}: Props) {
-  return (
-    <div>restaurant/id</div>
-  )
+export default function Order({ params }: Props) {
+  return redirect(`/merchant/restaurants/${params.restaurant_id}/dashboard`);
 }

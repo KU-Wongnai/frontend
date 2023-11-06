@@ -27,7 +27,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             //   query: { id: restaurant_id},
             // }}
 
-            href={`/me/restaurants/${restaurant_id}/menus`}
+            href={`/merchant/restaurants/${restaurant_id}/menus`}
             className="relative "
           >
             <Image
@@ -46,7 +46,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
             </div>
           </Link>
           <Link
-            href={`/me/restaurants/${restaurant_id}/orders`}
+            href={`/merchant/restaurants/${restaurant_id}/orders`}
             className="relative "
           >
             <Image
@@ -66,7 +66,7 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
           </Link>
 
           <Link
-            href={`/me/restaurants/${restaurant_id}/dashboard`}
+            href={`/merchant/restaurants/${restaurant_id}/dashboard`}
             className="relative "
           >
             <Image
