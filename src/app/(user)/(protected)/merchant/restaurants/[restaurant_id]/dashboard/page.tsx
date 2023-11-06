@@ -8,10 +8,11 @@ import OrderCard from "@/app/(user)/(protected)/merchant/restaurants/components/
 import RestaurantMenuCard from "@/app/(user)/(protected)/merchant/restaurants/components/menu-card-restaurant";
 import FoodCategoryCard from "../../components/food-category-card";
 import {
+  getRestaurant,
   getRestaurantCategories,
   getRestaurantMenu,
 } from "@/services/restaurant";
-import { Menu } from "@/types/restaurant";
+import { Menu, Restaurant } from "@/types/restaurant";
 import { useParams } from "next/navigation";
 type Props = {};
 
@@ -24,7 +25,7 @@ const RestaurantDashBoard = ({
 
   const [currentPage, setCurrentPage] = useState<string>("All");
   const [noFilterMenus, setNoFilterMenus] = React.useState<Menu[]>([]);
-
+  const [restaurant, setRestaurant] = React.useState<Restaurant>();
   const [menus, setMenus] = React.useState<Menu[]>([]);
   const [categories, setCategories] = React.useState<string[]>([]);
 
@@ -59,9 +60,16 @@ const RestaurantDashBoard = ({
     setNoFilterMenus(allRestaurantMenu);
     setMenus(allRestaurantMenu);
   };
+
+  const fetchRestaurant = async () => {
+    const restaurant = await getRestaurant(Number(paramMenu.restaurant_id));
+    setRestaurant(restaurant);
+  };
+
   useEffect(() => {
     fetchRestaurantCategories();
     fetchRestaurantMenus();
+    fetchRestaurant();
   }, []);
 
   const [orders, setOrders] = useState<Order[]>([]);
@@ -83,7 +91,10 @@ const RestaurantDashBoard = ({
   return (
     <div className="container py-10 px-28 ">
       <div>
-        <p className="font-bold text-3xl">Restaurant Dashboard</p>
+        <p className="font-bold text-3xl">
+          Restaurant Dashboard for{" "}
+          <span className="text-primary">{restaurant?.name}</span>
+        </p>
       </div>
       <div className="py-10 ">
         <div className="grid grid-cols-4 gap-5  h-full">
