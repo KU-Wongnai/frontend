@@ -85,7 +85,7 @@ export function ComboboxDemo() {
                     router.push(
                       `/search?name=${
                         searchParams.get("name") || ""
-                      }&location=${bar.id}`
+                      }&location=${bar.name}`
                     ); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
                   }}
                 >
@@ -115,7 +115,7 @@ export function ComboboxDemo() {
                   setOpen(false);
                   router.push(
                     `/search?name=${searchParams.get("name") || ""}&location=${
-                      bar.id
+                      bar.name
                     }`
                   ); // เปลี่ยนเส้นทางโดยเพิ่ม query parameter
                 }}
