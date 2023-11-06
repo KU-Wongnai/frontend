@@ -18,15 +18,11 @@ import toast from "react-hot-toast";
 import { formatPhoneNumber } from "react-phone-number-input";
 import banks from "@/data/banks.json";
 import Image from "next/image";
+import { acceptRestaurant, declineRestaurant } from "@/services/restaurant";
 import { Tooltip } from "@mui/material";
-
-export function formatId(Id: string) {
-  return `${Id.substring(0, 1)} ${Id.substring(1, 5)} ${Id.substring(
-    5,
-    10
-  )} ${Id.substring(10, 12)} ${Id.substring(12, 13)}`;
-  return Id;
-}
+import { Badge } from "@/components/ui/badge";
+import { Restaurant } from "@/types/restaurant";
+import { FaFacebook, FaGlobe, FaInstagram, FaLine } from "react-icons/fa";
 
 const RowAction = ({ row }: { row: any }) => {
   const [isViewDialogOpen, setViewDialogOpen] = useState(false);
@@ -38,7 +34,7 @@ const RowAction = ({ row }: { row: any }) => {
 
   const handleConfirmReject = async () => {
     try {
-      await riderStatus(row.original.id, { status: "rejected" });
+      await declineRestaurant(row.original, row.original.id);
       toast.success("Reject successfully");
       setRejectDialogOpen(false);
     } catch (error) {
@@ -53,11 +49,7 @@ const RowAction = ({ row }: { row: any }) => {
 
   const handleConfirmVerify = async () => {
     try {
-      await addRoleToUser({
-        user_id: row.original.id,
-        role_name: "rider",
-      });
-      await riderStatus(row.original.id, { status: "verified" });
+      await acceptRestaurant(row.original, row.original.id);
       toast.success("Verify successfully");
       setVerifyDialogOpen(false);
     } catch (error) {
@@ -65,6 +57,11 @@ const RowAction = ({ row }: { row: any }) => {
       toast.error("Verify failed");
     }
   };
+  const restaurant: Restaurant = row.original;
+
+  function formatPhone(Id: string) {
+    return `${Id.substring(0, 3)} ${Id.substring(3, 6)} ${Id.substring(6, 10)}`;
+  }
 
   return (
     <div className="gap-3 flex flex-row">
@@ -102,136 +99,132 @@ const RowAction = ({ row }: { row: any }) => {
 
           <Tabs defaultValue="profile" className="max-w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="Rider">Rider Profile</TabsTrigger>
-              <TabsTrigger value="Bank Account">Bank Account</TabsTrigger>
+              <TabsTrigger value="Restaurant">Restaurant</TabsTrigger>
+              <TabsTrigger value="Contact">Contact</TabsTrigger>
               {/* <TabsTrigger value="food">Student</TabsTrigger> */}
             </TabsList>
 
-            <TabsContent value="Rider">
+            <TabsContent value="Restaurant">
               <Card>
                 <CardContent className="space-y-2 mt-6">
                   <div className="grid grid-cols-3 gap-2">
                     <div className="text-sm font-bold">ID </div>
-                    <div className="text-sm col-span-2">{row.original.id}</div>
+                    <div className="text-sm col-span-2">{row.original?.id}</div>
                   </div>
                   <Separator />
                   <div className="grid grid-cols-3 gap-2">
                     <div className="text-sm font-bold">Name </div>
                     <div className="text-sm col-span-2">
-                      {row.original.name}
+                      {row.original?.name}
                     </div>
                   </div>
                   <Separator />
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Email </div>
+                    <div className="text-sm font-bold">Description </div>
                     <div className="text-sm col-span-2">
-                      {row.original.email}
+                      {row.original?.description}
                     </div>
                   </div>
                   <Separator />
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Desire Location </div>
+                    <div className="text-sm font-bold">Location </div>
                     <div className="text-sm col-span-2">
-                      {row.original.rider_profile.desire_location}
+                      {row.original?.location}
                     </div>
                   </div>
                   <Separator />
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Phone Number</div>
-                    <div className="text-sm col-span-2">
-                      {formatPhoneNumber(
-                        row.original.rider_profile?.phone_number
-                      ) ?? "-"}
-                    </div>
+                    <div className="text-sm font-bold">Categories</div>
+                  </div>
+                  <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+                    {restaurant?.categories.map((category) => (
+                      <Badge key={category} className="m-1">
+                        {category}
+                      </Badge>
+                    ))}
                   </div>
                   <Separator />
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">ID Card</div>
-                    <div className="text-sm col-span-2">
-                      {formatId(row.original.rider_profile?.id_card) ?? "-"}
-                    </div>
+                    <div className="text-sm font-bold">Service option</div>
+                    <div className="text-sm col-span-2"></div>
                   </div>
-                  <img
-                    src={row.original.rider_profile?.id_card_photo}
-                    className=" max-h-[300px] mt-3 self-center"
-                    alt="id card"
-                  />
+                  <ul className="text-sm font-semibold space-y-2">
+                    <li className="flex items-center">
+                      {restaurant?.isDelivery ? (
+                        <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                      ) : (
+                        <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                      )}{" "}
+                      Delivery
+                    </li>
+                    <li className="flex items-center">
+                      {restaurant?.isWalkIn ? (
+                        <Check className="bg-green-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                      ) : (
+                        <X className="bg-red-500 rounded-sm stroke-white inline-block mr-1 w-5 h-5" />
+                      )}{" "}
+                      Walk In
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="Bank Account">
+            <TabsContent value="Contact">
               <Card>
                 <CardContent className="space-y-2 mt-4 ">
                   <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Bank Provider</div>
-                    <div className="text-sm col-span-2 flex flex-row ">
-                      <div
-                        className="p-2 rounded-lg mr-3 h-fit"
-                        style={{
-                          backgroundColor: (banks.th as any)[
-                            row.original?.rider_profile.bank_account_code
-                          ].color,
-                        }}
-                      >
-                        <Image
-                          src={`/banks/th/${row.original?.rider_profile.bank_account_code}.svg`}
-                          alt={row.original?.rider_profile.bank_account_code}
-                          width="20"
-                          height="20"
-                        />
-                      </div>
-                      <div className="self-center">
-                        {
-                          (banks.th as any)[
-                            row.original?.rider_profile.bank_account_code
-                          ].nice_name
-                        }
-                      </div>
+                    <div className="text-sm font-bold">Phone</div>
+                    <div className="text-sm col-span-2">
+                      {(row.original?.phone) && formatPhone(row.original?.phone)}
                     </div>
                   </div>
                   <Separator />
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Name</div>
-                    <div className="text-sm col-span-2">
-                      {row?.original?.rider_profile?.bank_account_name ?? "-"}
-                    </div>
-                  </div>
-                  <Separator />
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="text-sm font-bold">Number </div>
-                    <div className="text-sm col-span-2">
-                      {row?.original?.rider_profile?.bank_account_number ?? "-"}
-                    </div>
-                  </div>
-                  <img
-                    src={row.original.rider_profile?.book_bank_photo}
-                    className=" max-h-[300px] mt-3"
-                    alt="id card"
-                  />
+                  <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300 nt-2">
+                    {restaurant?.line && (
+                      <li className="flex items-center gap-2">
+                        <FaLine className="w-5 h-5" />
+                        Line: {restaurant.line}
+                      </li>
+                    )}
+                    {restaurant?.facebook && (
+                      <li>
+                        <a
+                          href={restaurant.facebook}
+                          className="flex items-center gap-2 hover:text-primary"
+                          target="_blank"
+                        > 
+                          <FaFacebook className="w-5 h-5" /> Facebook
+                        </a>
+                        
+                      </li>
+                    )}
+                    {restaurant?.instagram && (
+                      <li>
+                        <a
+                          href={restaurant.instagram}
+                          className="flex items-center gap-2 hover:text-primary"
+                          target="_blank"
+                        >
+                          <FaInstagram className="w-5 h-5" /> Instagram
+                        </a>
+                      </li>
+                    )}
+                    {restaurant?.website && (
+                      <li>
+                        <a
+                          href={restaurant.website}
+                          className="flex items-center gap-2 hover:text-primary"
+                          target="_blank"
+                        >
+                          <FaGlobe className="w-5 h-5" /> Website
+                        </a>
+                      </li>
+                    )}
+                  </ul>
                 </CardContent>
               </Card>
             </TabsContent>
-
-            {/* <TabsContent value="food">
-                  <Card>
-                    <CardContent className="space-y-2 mt-4">
-                      <div className="grid grid-cols-3 gap-3">
-                        <div className="text-sm font-bold ">Favorite Food </div>
-                        <div className="text-sm col-span-2">
-                          {row.original?.user_profile?.favorite_food ?? "-"}
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="grid grid-cols-3 gap-3">
-                        <div className="text-sm font-bold">Allergy Food</div>
-                        <div className="text-sm col-span-2">
-                          {row.original?.user_profile?.allergy_food ?? "-"}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent> */}
           </Tabs>
         </DialogContent>
       </Dialog>

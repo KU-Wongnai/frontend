@@ -79,21 +79,11 @@ type RestaurantListsProps = {
   data: Restaurant[];
 };
 
+function formatPhone(Id: string) {
+  return `${Id.substring(0, 3)} ${Id.substring(3, 6)} ${Id.substring(6, 10)}`;
+}
+
 const columns: ColumnDef<Restaurant>[] = [
-  {
-    id: "image",
-    cell: ({ row }) => {
-      return (
-        <Avatar>
-          <AvatarImage
-            src={row.original?.image ?? ""}
-            alt={row.original.name}
-          />
-          <AvatarFallback>{row.original.name[0]}</AvatarFallback>
-        </Avatar>
-      );
-    },
-  },
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -125,32 +115,43 @@ const columns: ColumnDef<Restaurant>[] = [
     cell: ({ row }) => <div className="ml-4">{row.original.name}</div>,
   },
   {
-    accessorKey: "rating",
-    header: () => <div>Rating</div>,
+    accessorKey: "phone",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Phone
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
-      <Box
-        sx={{
-          width: 200,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {" "}
-        <Box sx={{ mr: 2 }}>{row.original.rating}</Box>
-        <Rating
-          name="read-only"
-          value={row.original.rating}
-          size="small"
-          readOnly
-          emptyIcon={<StarIcon style={{ opacity: 0 }} fontSize="inherit" />}
-        />
-      </Box>
+      <div>{row.original?.phone && formatPhone(row.original?.phone)}</div>
+    ),
+  },
+  {
+    accessorKey: "location",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Location
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div>{row.original?.location}</div>
     ),
   },
   {
     id: "dropdown",
     cell: ({ row }) => {
-      <RowAction row={row} />;
+      return <RowAction row={row} />;
     },
   },
 ];
@@ -252,6 +253,10 @@ function RestaurantTable({ data }: RestaurantListsProps) {
   );
 }
 
+const isVerifiedRestaurant = (restaurant: Restaurant) => {
+  return restaurant.status === "ACCEPTED";
+};
+
 const RestaurantLists: React.FC = () => {
   const [restaurants, setRestaurants] = React.useState([]);
 
@@ -266,7 +271,7 @@ const RestaurantLists: React.FC = () => {
   const isEmpty = restaurants.length === 0;
   return (
     <div>
-      <RestaurantTable data={restaurants} />
+      <RestaurantTable data={restaurants.filter(isVerifiedRestaurant)} />
     </div>
   );
 };

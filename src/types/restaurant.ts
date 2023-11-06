@@ -21,6 +21,7 @@ export type Restaurant = {
   description: string;
   location: string;
   categories: string[];
+  status: string;
   openAt: string;
   closeAt: string;
   isDelivery: boolean;
@@ -36,5 +37,6 @@ export type Restaurant = {
   contactInfo: string;
   image: null | string;
   rating: number;
+  createdAt: string,
   menus: Menu[];
 };
