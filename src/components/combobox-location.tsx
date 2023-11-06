@@ -51,6 +51,10 @@ export function ComboboxDemo() {
   const [value, setValue] = React.useState(searchParams.get("location") ?? "");
   const router = useRouter();
 
+  React.useEffect(() => {
+    setValue(searchParams.get("location") ?? "");
+  }, [searchParams]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -63,7 +67,7 @@ export function ComboboxDemo() {
           <MapPin className="w-4 h-4" />
           <span className="ml-2 whitespace-nowrap overflow-hidden w-[13ch] text-left">
             {value
-              ? foodCenters.find((bar) => bar.id === +value)?.name
+              ? foodCenters.find((bar) => bar.name === value)?.name
               : "Where to eat?"}
           </span>
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
