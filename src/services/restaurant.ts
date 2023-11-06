@@ -1,6 +1,8 @@
 import { httpClient } from "@/lib/http-client";
-import {RestaurantForm, RestaurantMenuForm} from "@/validations/restaurant-schema";
-
+import {
+  RestaurantForm,
+  RestaurantMenuForm,
+} from "@/validations/restaurant-schema";
 
 export const getRestaurants = async () => {
   try {
@@ -29,7 +31,7 @@ export const getRestaurant = async (id: number) => {
 export const getMyRestaurants = async () => {
   try {
     const { data: restaurants } = await httpClient.get(
-        `restaurant/api/restaurants/userRestaurants`
+      `restaurant/api/restaurants/userRestaurants`
     );
     return restaurants;
   } catch (error) {
@@ -38,53 +40,69 @@ export const getMyRestaurants = async () => {
   }
 };
 
-export const createRestaurant = async (data : RestaurantForm) => {
+export const createRestaurant = async (data: RestaurantForm) => {
   try {
     const { data: restaurant } = await httpClient.post(
-        `restaurant/api/restaurants`, data
+      `restaurant/api/restaurants`,
+      // Sent only non-empty fields
+      Object.keys(data).reduce(
+        (acc, key) =>
+          // @ts-ignore
+          data[key] !== "" && data[key] !== null && data[key] !== undefined
+            ? // @ts-ignore
+              { ...acc, [key]: data[key] }
+            : acc,
+        {}
+      )
     );
     return restaurant;
   } catch (error) {
     console.error("Failed to create a restaurant", error);
     throw error;
   }
-}
+};
 
-export const acceptRestaurant = async (data : RestaurantForm, id : number) => {
+export const acceptRestaurant = async (data: RestaurantForm, id: number) => {
   try {
     const { data: restaurant } = await httpClient.put(
-        `restaurant/api/restaurants/${id}/accept`, data
+      `restaurant/api/restaurants/${id}/accept`,
+      data
     );
     return restaurant;
   } catch (error) {
     console.error("Failed to accept a restaurant", error);
     throw error;
   }
-}
+};
 
-export const declineRestaurant = async (data : RestaurantForm, id : number) => {
+export const declineRestaurant = async (data: RestaurantForm, id: number) => {
   try {
     const { data: restaurant } = await httpClient.put(
-        `restaurant/api/restaurants/${id}/decline`, data
+      `restaurant/api/restaurants/${id}/decline`,
+      data
     );
     return restaurant;
   } catch (error) {
     console.error("Failed to decline a restaurant", error);
     throw error;
   }
-}
+};
 
-export const createRestaurantMenu = async (data : RestaurantMenuForm, id : number) => {
+export const createRestaurantMenu = async (
+  data: RestaurantMenuForm,
+  id: number
+) => {
   try {
     const { data: menu } = await httpClient.post(
-        `restaurant/api/restaurants/${id}/menu`, data
+      `restaurant/api/restaurants/${id}/menu`,
+      data
     );
     return menu;
   } catch (error) {
     console.error("Failed to create a menu", error);
     throw error;
   }
-}
+};
 
 export const getRestaurantMenu = async (id: number) => {
   try {
@@ -96,7 +114,7 @@ export const getRestaurantMenu = async (id: number) => {
     console.error("Failed to get restaurant menu", error);
     throw error;
   }
-}
+};
 
 export const deleteRestaurant = async (id: number) => {
   try {
@@ -105,4 +123,4 @@ export const deleteRestaurant = async (id: number) => {
     console.error("Failed to delete restaurant", error);
     throw error;
   }
-}
+};
