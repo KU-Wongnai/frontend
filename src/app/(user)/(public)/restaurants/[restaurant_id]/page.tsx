@@ -102,7 +102,9 @@ function ShowRestaurant({
               </div>
               <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
                 {restaurant?.categories.map((category) => (
-                  <Badge key={category}>{category}</Badge>
+                  <Badge key={category} className="mr-1">
+                    {category}
+                  </Badge>
                 ))}
               </div>
             </CardDescription>
@@ -170,13 +172,17 @@ function ShowRestaurant({
           <div className="w-full p-6 flex flex-col gap-6 rounded-lg border bg-card text-card-foreground shadow-sm">
             <div>
               <h2 className="font-bold">Open days</h2>
-              <ul className="text-gray-600 dark:text-gray-300 text-sm">
-                {restaurant?.openDays.map((day) => (
-                  <li key={day}>
-                    {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
-                  </li>
-                ))}
-              </ul>
+              {restaurant?.openDays && restaurant?.openDays.length > 0 ? (
+                <ul className="text-gray-600 dark:text-gray-300 text-sm">
+                  {restaurant?.openDays.map((day) => (
+                    <li key={day}>
+                      {day.charAt(0).toUpperCase() + day.slice(1).toLowerCase()}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div>-</div>
+              )}
             </div>
             <div>
               <h2 className="font-bold">Open Hours</h2>
