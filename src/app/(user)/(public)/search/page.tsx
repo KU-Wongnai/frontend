@@ -21,7 +21,9 @@ export default function Search() {
     (async () => {
       try {
         const restaurant = await getRestaurants();
-        setRestaurantData(restaurant);
+        setRestaurantData(
+          restaurant.filter((r: any) => r.status === "ACCEPTED")
+        );
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);

@@ -16,7 +16,9 @@ const RestaurantList = () => {
     const fetchRestaurants = async () => {
       const allRestaurants = await getRestaurants();
       console.log(allRestaurants);
-      setRestaurants(allRestaurants);
+      setRestaurants(
+        allRestaurants.filter((r: any) => r.status === "ACCEPTED")
+      );
     };
     fetchRestaurants();
     setLoading(false);
@@ -44,11 +46,11 @@ const RestaurantList = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {
-              (restaurants as any)?.filter((r: any) => r.status === "ACCEPTED").map((restaurant: any) =>
-                        <RestaurantCard key={restaurant.id} {...restaurant} />
-              )
-          }
+          {(restaurants as any)
+            ?.filter((r: any) => r.status === "ACCEPTED")
+            .map((restaurant: any) => (
+              <RestaurantCard key={restaurant.id} {...restaurant} />
+            ))}
         </div>
       )}
     </>
