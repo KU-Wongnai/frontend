@@ -88,6 +88,18 @@ export const declineRestaurant = async (data: RestaurantForm, id: number) => {
   }
 };
 
+export const updateRestaurant = async (data: RestaurantForm, id: number) => {
+  try {
+    const { data: restaurant } = await httpClient.put(
+        `restaurant/api/restaurants/${id}`
+    );
+    return restaurant;
+  } catch (error) {
+    console.error("Failed to get restaurant", error);
+    throw error;
+  }
+};
+
 export const createRestaurantMenu = async (
   data: RestaurantMenuForm,
   id: number

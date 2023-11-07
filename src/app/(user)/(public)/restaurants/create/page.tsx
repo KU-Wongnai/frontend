@@ -82,7 +82,7 @@ export default function CreateRestaurant({}: Props) {
     console.log("Form submitted", data);
     try {
       await createRestaurant(data);
-      toast.success("Restaurant created successfully");
+      toast.success("Restaurant creation request sent");
       router.push("/");
     } catch (error: any) {
       if (error.response.status === 422)

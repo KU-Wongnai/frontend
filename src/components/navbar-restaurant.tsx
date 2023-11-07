@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import MenuManagementImage from "/src/assets/restaurant/menuManagement.jpg";
 import OrderManagementImage from "/src/assets/restaurant/order-management.jpg";
-import DashboardManagementImage from "/src/assets/restaurant/restaurantDashboard.png";
+import DashboardManagementImage from "/src/assets/restaurant/dashboardManagement.png";
+import RestaurantSettingImage from "/src/assets/restaurant/restaurant-setting.png";
 
 import { usePathname } from "next/navigation";
 
@@ -84,6 +85,24 @@ const RestaurantNavbar = ({ restaurant_id }: { restaurant_id: number }) => {
               </h3>
             </div>
           </Link>
+
+          {/*<Link*/}
+          {/*    href={`/merchant/restaurants/${restaurant_id}/settings`}*/}
+          {/*    className="relative "*/}
+          {/*>*/}
+          {/*  <Image*/}
+          {/*      src={RestaurantSettingImage}*/}
+          {/*      width={240}*/}
+          {/*      height={60}*/}
+          {/*      className="object-cover h-[100px] rounded-2xl shadow-lg"*/}
+          {/*      alt="Picture of the author"*/}
+          {/*  />*/}
+          {/*  <div className="absolute top-0 left-0 right-0 bottom-0 py-7 font-bold px-4">*/}
+          {/*    <h3>*/}
+          {/*      Settings*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*</Link>*/}
         </div>
       </header>
     </>
