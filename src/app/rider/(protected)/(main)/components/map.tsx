@@ -93,83 +93,83 @@ const Map = () => {
     },
   ];
 
-  const renderMarkers = (map: any, maps: any) => {
-    const marker = new maps.Marker({
-      position: markerPosition,
-      map,
-      title: "Hello World!",
-      draggable: true,
-    });
+  // const renderMarkers = (map: any, maps: any) => {
+  //   const marker = new maps.Marker({
+  //     position: markerPosition,
+  //     map,
+  //     title: "Hello World!",
+  //     draggable: true,
+  //   });
 
-    const directionsService = new maps.DirectionsService();
-    const directionsRenderer = new maps.DirectionsRenderer({
-      map,
-      // suppressMarkers: true,
-      markerOptions: {
-        // icon: new maps.MarkerImage(
-        //   "https://maps.google.com/mapfiles/kml/shapes/man.png",
-        //   new google.maps.Size(44, 32),
-        //   new google.maps.Point(0, 0),
-        //   new google.maps.Point(22, 32)
-        // ),
-      },
-      polylineOptions: {
-        strokeColor: "green",
-        strokeOpacity: 1,
-      },
-    });
+  //   const directionsService = new maps.DirectionsService();
+  //   const directionsRenderer = new maps.DirectionsRenderer({
+  //     map,
+  //     // suppressMarkers: true,
+  //     markerOptions: {
+  //       // icon: new maps.MarkerImage(
+  //       //   "https://maps.google.com/mapfiles/kml/shapes/man.png",
+  //       //   new google.maps.Size(44, 32),
+  //       //   new google.maps.Point(0, 0),
+  //       //   new google.maps.Point(22, 32)
+  //       // ),
+  //     },
+  //     polylineOptions: {
+  //       strokeColor: "green",
+  //       strokeOpacity: 1,
+  //     },
+  //   });
 
-    const fos = new maps.LatLng(13.846050207417349, 100.57119800562128);
-    const barMai = new maps.LatLng(13.848771272310326, 100.5669733600924);
+  //   const fos = new maps.LatLng(13.846050207417349, 100.57119800562128);
+  //   const barMai = new maps.LatLng(13.848771272310326, 100.5669733600924);
 
-    // const icons = {
-    //   start: new maps.MarkerImage(
-    //     // URL
-    //     "https://maps.google.com/mapfiles/kml/shapes/man.png",
-    //     new google.maps.Size(44, 32)
-    //     // new google.maps.Point(0, 0),
-    //     // new google.maps.Point(22, 32)
-    //   ),
-    //   end: new maps.MarkerImage(
-    //     // URL
-    //     "https://maps.google.com/mapfiles/kml/shapes/police.png",
-    //     new google.maps.Size(44, 32)
-    //     // new google.maps.Point(0, 0),
-    //     // new google.maps.Point(22, 32)
-    //   ),
-    // };
+  //   // const icons = {
+  //   //   start: new maps.MarkerImage(
+  //   //     // URL
+  //   //     "https://maps.google.com/mapfiles/kml/shapes/man.png",
+  //   //     new google.maps.Size(44, 32)
+  //   //     // new google.maps.Point(0, 0),
+  //   //     // new google.maps.Point(22, 32)
+  //   //   ),
+  //   //   end: new maps.MarkerImage(
+  //   //     // URL
+  //   //     "https://maps.google.com/mapfiles/kml/shapes/police.png",
+  //   //     new google.maps.Size(44, 32)
+  //   //     // new google.maps.Point(0, 0),
+  //   //     // new google.maps.Point(22, 32)
+  //   //   ),
+  //   // };
 
-    // new maps.Marker({
-    //   position: fos,
-    //   map,
-    //   title: "Origin",
-    //   // icons: icons.start,
-    // });
+  //   // new maps.Marker({
+  //   //   position: fos,
+  //   //   map,
+  //   //   title: "Origin",
+  //   //   // icons: icons.start,
+  //   // });
 
-    // new maps.Marker({
-    //   position: barMai,
-    //   map,
-    //   title: "Destination",
-    //   // icons: icons.end,
-    // });
+  //   // new maps.Marker({
+  //   //   position: barMai,
+  //   //   map,
+  //   //   title: "Destination",
+  //   //   // icons: icons.end,
+  //   // });
 
-    const request = {
-      origin: fos, // Rider current position
-      destination: barMai, // Target restaurant
-      travelMode: "WALKING",
-    };
+  //   const request = {
+  //     origin: fos, // Rider current position
+  //     destination: barMai, // Target restaurant
+  //     travelMode: "WALKING",
+  //   };
 
-    directionsService.route(request, function (result: any, status: any) {
-      if (status == "OK") {
-        directionsRenderer.setDirections(result);
-      }
-    });
+  //   directionsService.route(request, function (result: any, status: any) {
+  //     if (status == "OK") {
+  //       directionsRenderer.setDirections(result);
+  //     }
+  //   });
 
-    marker.addListener("dragend", () => {
-      const newPosition = marker.getPosition();
-      setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
-    });
-  };
+  //   marker.addListener("dragend", () => {
+  //     const newPosition = marker.getPosition();
+  //     setMarkerPosition({ lat: newPosition.lat(), lng: newPosition.lng() });
+  //   });
+  // };
 
   return (
     <div className="w-full px-2 h-[600px] overflow-hidden rounded-lg mt-1">
@@ -185,7 +185,7 @@ const Map = () => {
         }}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }: { map: any; maps: any }) => {
-          renderMarkers(map, maps);
+          // renderMarkers(map, maps);
           // setGoogleApiLoaded(true);
         }}
       />
